@@ -23,10 +23,17 @@ const Appbar = () => {
           <nav className="flex items-center ml-auto gap-4">
             <ul className="flex gap-5 mr-8">
               <li>
-                <Link href={"/"}>Home</Link>
+                <Link className="text-black hover:text-yellow-700" href={"/"}>
+                  Home
+                </Link>
               </li>
               <li>
-                <Link href={"/shop"}>Shop</Link>
+                <Link
+                  className="text-black hover:text-yellow-700"
+                  href={"/shop"}
+                >
+                  Shop
+                </Link>
               </li>
             </ul>
             <form>
