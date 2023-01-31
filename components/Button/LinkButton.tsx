@@ -10,7 +10,7 @@ interface LinkButtonProps extends BaseProps {
 const LinkButton = ({ url, label }: LinkButtonProps) => {
   return (
     <Link
-      className="bg-yellow-700 text-white text-base rounded-md px-4 py-2"
+      className="rounded-md bg-yellow-700 px-4 py-2 text-base text-white"
       href={url}
     >
       {label}

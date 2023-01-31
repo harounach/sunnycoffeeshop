@@ -12,10 +12,10 @@ interface SocialButtonProps extends BaseProps {
 const SocialButton = ({ url, icon }: SocialButtonProps) => {
   return (
     <Link
-      className="w-12 h-12 bg-white text-yellow-700 hover:bg-yellow-700 hover:text-white flex justify-center items-center rounded-full"
+      className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-yellow-700 hover:bg-yellow-700 hover:text-white"
       href={url}
     >
-      <FontAwesomeIcon className="w-7 h-7" icon={icon} />
+      <FontAwesomeIcon className="h-7 w-7" icon={icon} />
     </Link>
   );
 };

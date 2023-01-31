@@ -16,12 +16,12 @@ const Appbar = () => {
         <div className="flex items-center">
           <Link className="flex items-center gap-4" href={"/"}>
             <Image src={Logo} width={56} height={56} alt={"Logo"} priority />
-            <span className="text-xl text-yellow-700 font-medium">
+            <span className="text-xl font-medium text-yellow-700">
               Sunny Coffee Shop
             </span>
           </Link>
-          <nav className="flex items-center ml-auto gap-4">
-            <ul className="flex gap-5 mr-8">
+          <nav className="ml-auto flex items-center gap-4">
+            <ul className="mr-8 flex gap-5">
               <li>
                 <Link className="text-black hover:text-yellow-700" href={"/"}>
                   Home

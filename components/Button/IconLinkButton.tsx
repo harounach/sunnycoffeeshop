@@ -12,10 +12,10 @@ interface IconLinkButton extends BaseProps {
 const IconLinkButton = ({ url, icon }: IconLinkButton) => {
   return (
     <Link
-      className="w-11 h-11 rounded-full flex justify-center items-center text-yellow-700"
+      className="flex h-11 w-11 items-center justify-center rounded-full text-yellow-700"
       href={url}
     >
-      <FontAwesomeIcon className="w-6 h-6" icon={icon} />
+      <FontAwesomeIcon className="h-6 w-6" icon={icon} />
     </Link>
   );
 };

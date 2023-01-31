@@ -25,7 +25,7 @@ const Footer = ({}: FooterProps) => {
           </Link>
         </div>
         <div>
-          <h3 className="text-yellow-700 mb-4 text-lg">Company</h3>
+          <h3 className="mb-4 text-lg text-yellow-700">Company</h3>
           <ul>
             <li className="mb-2">
               <Link href={"#"}>About</Link>
@@ -42,7 +42,7 @@ const Footer = ({}: FooterProps) => {
           </ul>
         </div>
         <div>
-          <h3 className="text-yellow-700 mb-4 text-lg">Customer</h3>
+          <h3 className="mb-4 text-lg text-yellow-700">Customer</h3>
           <ul>
             <li className="mb-2">
               <Link href={"#"}>Your data</Link>

@@ -9,7 +9,7 @@ interface TextFieldProps extends BaseProps {
 const TextField = ({ placeholder, name }: TextFieldProps) => {
   return (
     <input
-      className="h-10 border-2 border-yellow-700 pl-4 rounded-md"
+      className="h-10 rounded-md border-2 border-yellow-700 pl-4"
       type="text"
       placeholder={placeholder}
       name={name}
