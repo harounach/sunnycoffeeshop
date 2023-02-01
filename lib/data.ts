@@ -119,7 +119,7 @@ export const coffeeAllData: Array<ICoffee> = [
     title: "Flat White",
     descirption: "Flat White",
     price: 3.5,
-    image: "/images/14-falt-white.jpg",
+    image: "/images/14-flat-white.jpg",
   },
 
   // 15
@@ -228,5 +228,34 @@ export const coffeePopularData: Array<ICoffee> = [
     descirption: "Espresso",
     price: 3.5,
     image: "/images/05-espresso.jpg",
+  },
+];
+
+export const coffeeCartData: Array<ICoffee> = [
+  // 03
+  {
+    id: "coffee-03",
+    title: "Cappuccino",
+    descirption: "Cappuccino",
+    price: 3.5,
+    image: "/images/03-cappuccino.jpg",
+  },
+
+  // 05
+  {
+    id: "coffee-05",
+    title: "Espresso",
+    descirption: "Espresso",
+    price: 3.5,
+    image: "/images/05-espresso.jpg",
+  },
+
+  // 08
+  {
+    id: "coffee-08",
+    title: "Red Eye",
+    descirption: "Red Eye",
+    price: 3.5,
+    image: "/images/08-red-eye.jpg",
   },
 ];

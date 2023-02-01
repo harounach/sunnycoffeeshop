@@ -17,6 +17,7 @@ const CoffeeCard = ({ coffeeItem }: CoffeeCardProps) => {
         width={320}
         height={240}
         alt={coffeeItem.title}
+        className="rounded"
       />
       <h3 className="text-center text-xl">{coffeeItem.title}</h3>
       <h4 className="text-center text-lg text-yellow-700">{`$${coffeeItem.price}`}</h4>

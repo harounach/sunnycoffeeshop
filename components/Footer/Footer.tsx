@@ -20,9 +20,13 @@ const Footer = ({}: FooterProps) => {
     <footer className="bg-yellow-200 py-8">
       <div className="container mx-auto grid grid-cols-4">
         <div className="">
-          <Link href={"/"}>
+          <Link className="mb-5 inline-block" href={"/"}>
             <Image src={Logo} width={56} height={56} alt={"Logo"} priority />
           </Link>
+          <address className="flex flex-col gap-4">
+            <div>Tel: (555) 500 555</div>
+            <div>123, street, NYC, NY</div>
+          </address>
         </div>
         <div>
           <h3 className="mb-4 text-lg text-yellow-700">Company</h3>

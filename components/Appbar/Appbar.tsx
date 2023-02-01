@@ -8,8 +8,11 @@ import Logo from "../../public/images/logo.svg";
 import IconLinkButton from "../Button/IconLinkButton";
 import LinkButton from "../Button/LinkButton";
 import TextField from "../Form/TextField";
+import { BaseProps } from "@/types/BaseProps";
 
-const Appbar = () => {
+interface AppbarProps extends BaseProps {}
+
+const Appbar = ({}: AppbarProps) => {
   return (
     <header className="py-4">
       <div className="container mx-auto">

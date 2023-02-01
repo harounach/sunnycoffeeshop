@@ -33,7 +33,13 @@ export default function Home() {
             <LinkButton url="/shop" label="Get Coffee" />
           </div>
           <div className="shrink-0">
-            <Image src={HeroImage} width={600} height={500} alt="Hero Image" />
+            <Image
+              src={HeroImage}
+              width={600}
+              height={500}
+              alt="Hero Image"
+              className="rounded"
+            />
           </div>
         </section>
 
