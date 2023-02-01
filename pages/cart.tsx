@@ -12,7 +12,7 @@ export default function Cart() {
         <p className="mb-14 text-center text-base text-neutral-500">
           Customize your cart before checkout
         </p>
-        <div className="grid grid-cols-5 gap-6">
+        <div className="mb-6 grid grid-cols-5 gap-6">
           {/* Cart items */}
           <div className="col-span-3 flex flex-col gap-4">
             {coffeeCartData.map((cartItem) => {
@@ -38,11 +38,10 @@ export default function Cart() {
               </div>
               <div className="flex justify-between">
                 <h3 className="text-lg text-gray-500">Total</h3>
-                <h3 className="text-lg">$46</h3>
+                <h3 className="text-lg font-semibold">$46</h3>
               </div>
-              {/* TODO: Fix custom classes */}
               <LinkButton
-                url="#"
+                url="/ship"
                 label="Proceed to Checkout"
                 customeClasses="text-center"
               />
