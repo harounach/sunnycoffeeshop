@@ -30,7 +30,7 @@ const CartCard = ({ cartItem }: CartCardProps) => {
       <div className="col-span-3 flex flex-col justify-between">
         <div className="flex justify-between">
           <h3 className="text-xl">{cartItem.title}</h3>
-          <h4 className="text-lg">{cartItem.price}</h4>
+          <h4 className="text-lg">{`$${cartItem.price}`}</h4>
         </div>
         <div className="flex justify-between">
           <div className="flex items-center gap-2">

@@ -30,7 +30,7 @@ const PlaceOrderCard = ({ cartItem }: PlaceOrderCardProps) => {
       <div className="col-span-3 flex items-center justify-between">
         <h3 className="text-xl">{cartItem.title}</h3>
         <h4 className="text-lg">(2)</h4>
-        <h4 className="text-lg">{cartItem.price}</h4>
+        <h4 className="text-lg">{`$${cartItem.price}`}</h4>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import Button from "@/components/Button/Button";
 import IconLinkButton from "@/components/Button/IconLinkButton";
+import LinkButton from "@/components/Button/LinkButton";
 import PlaceOrderCard from "@/components/CartCard/PlaceOrderCard";
 import Layout from "@/components/Layout/Layout";
 import { coffeeCartData } from "@/lib/data";
@@ -82,37 +83,33 @@ export default function PlaceOrder() {
           </div>
           <div className="col-span-5">
             {/* Summary */}
-            <div className="flex flex-col gap-4 border-2 border-gray-200 py-4 px-36">
-              <h2 className="text-center text-xl font-medium">Summary</h2>
-              <div className="flex flex-col gap-4">
-                <div className="flex justify-between">
-                  <span className="text-neutral-500">Items</span>
-                  <span>2</span>
-                </div>
-
-                <div className="flex justify-between">
-                  <span className="text-neutral-500">Subtotal</span>
-                  <span>$36</span>
-                </div>
-
-                <div className="flex justify-between">
-                  <span className="text-neutral-500">Shipping</span>
-                  <span>Free</span>
-                </div>
-
-                <div className="flex justify-between">
-                  <span className="text-neutral-500">Tax</span>
-                  <span>$10</span>
-                </div>
-
-                <div className="flex justify-between">
-                  <span className="text-lg text-neutral-500">Total</span>
-                  <span className="text-lg font-semibold">$46</span>
-                </div>
-                <div className="flex justify-center">
-                  <Button label="Place Order Now" />
-                </div>
+            <div className="flex flex-col items-stretch gap-4 border-2 border-gray-200 px-12 py-4">
+              <h2 className="text-center text-2xl">Summary</h2>
+              <div className="flex justify-between">
+                <h3 className="text-gray-500">Items</h3>
+                <h3>2</h3>
               </div>
+              <div className="flex justify-between">
+                <h3 className="text-gray-500">Subtotal</h3>
+                <h3>$36</h3>
+              </div>
+              <div className="flex justify-between">
+                <h3 className="text-gray-500">Shipping</h3>
+                <h3>Free</h3>
+              </div>
+              <div className="flex justify-between">
+                <h3 className="text-gray-500">Tax</h3>
+                <h3>$10</h3>
+              </div>
+              <div className="flex justify-between">
+                <h3 className="text-lg text-gray-500">Total</h3>
+                <h3 className="text-lg font-semibold">$46</h3>
+              </div>
+              <LinkButton
+                url="#"
+                label="Place Order Now"
+                customeClasses="text-center"
+              />
             </div>
           </div>
         </div>
