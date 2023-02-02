@@ -42,7 +42,12 @@ const Appbar = ({}: AppbarProps) => {
             <form>
               <TextField name="search" placeholder="Search..." />
             </form>
-            <IconLinkButton url="/cart" icon={faCartPlus} />
+            <IconLinkButton
+              variant="primaryIcon"
+              size="normal"
+              url="/cart"
+              icon={faCartPlus}
+            />
             <LinkButton url="/register" label="Sign Up" />
           </nav>
         </div>
