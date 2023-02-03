@@ -1,6 +1,5 @@
 import Image from "next/image";
 
-import LinkButton from "@/components/Button/LinkButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCrown,
@@ -30,7 +29,7 @@ export default function Home() {
               developed using Next.js
             </p>
 
-            <LinkButton url="/shop" label="Get Coffee" />
+            <Button url="/shop" label="Get Coffee" />
           </div>
           <div className="shrink-0">
             <Image
@@ -115,7 +114,7 @@ export default function Home() {
 
           <form className="flex justify-center gap-6">
             <TextField name="newsletter" placeholder="Enter your email" />
-            <Button label="Sign Up" />
+            <Button label="Sign Up" type="submit" />
           </form>
         </section>
       </section>

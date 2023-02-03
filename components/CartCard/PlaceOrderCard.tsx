@@ -1,16 +1,8 @@
 import React from "react";
 
-import {
-  faMinus,
-  faPlus,
-  faHeart,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
-
 import { BaseProps } from "@/types/BaseProps";
 import ICoffee from "@/types/ICoffee";
 import Image from "next/image";
-import IconButton from "../Button/IconButton";
 
 interface PlaceOrderCardProps extends BaseProps {
   cartItem: ICoffee;

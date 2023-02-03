@@ -5,10 +5,10 @@ import Link from "next/link";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 
 import Logo from "../../public/images/logo.svg";
-import IconLinkButton from "../Button/IconLinkButton";
-import LinkButton from "../Button/LinkButton";
 import TextField from "../Form/TextField";
 import { BaseProps } from "@/types/BaseProps";
+import Button from "../Button/Button";
+import IconButton from "../Button/IconButton";
 
 interface AppbarProps extends BaseProps {}
 
@@ -42,13 +42,13 @@ const Appbar = ({}: AppbarProps) => {
             <form>
               <TextField name="search" placeholder="Search..." />
             </form>
-            <IconLinkButton
+            <IconButton
               variant="primaryIcon"
               size="normal"
               url="/cart"
               icon={faCartPlus}
             />
-            <LinkButton url="/register" label="Sign Up" />
+            <Button url="/register" label="Sign Up" />
           </nav>
         </div>
       </div>

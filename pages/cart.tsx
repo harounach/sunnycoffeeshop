@@ -1,4 +1,4 @@
-import LinkButton from "@/components/Button/LinkButton";
+import Button from "@/components/Button/Button";
 import CartCard from "@/components/CartCard/CartCard";
 import Layout from "@/components/Layout/Layout";
 
@@ -40,7 +40,7 @@ export default function Cart() {
                 <h3 className="text-lg text-gray-500">Total</h3>
                 <h3 className="text-lg font-semibold">$46</h3>
               </div>
-              <LinkButton
+              <Button
                 url="/ship"
                 label="Proceed to Checkout"
                 customeClasses="text-center"

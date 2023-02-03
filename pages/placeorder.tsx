@@ -1,11 +1,10 @@
 import Button from "@/components/Button/Button";
-import IconLinkButton from "@/components/Button/IconLinkButton";
-import LinkButton from "@/components/Button/LinkButton";
+import IconButton from "@/components/Button/IconButton";
 import PlaceOrderCard from "@/components/CartCard/PlaceOrderCard";
 import Layout from "@/components/Layout/Layout";
 import { coffeeCartData } from "@/lib/data";
 
-import { faEdit, faPen } from "@fortawesome/free-solid-svg-icons";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 export default function PlaceOrder() {
   return (
@@ -21,7 +20,7 @@ export default function PlaceOrder() {
             <div className="flex flex-col gap-4 border-2 border-gray-200 p-4">
               <div className="flex justify-between">
                 <h2 className="text-xl font-medium">Shipping</h2>
-                <IconLinkButton
+                <IconButton
                   variant="primary"
                   size="normal"
                   url="/ship"
@@ -50,7 +49,7 @@ export default function PlaceOrder() {
             <div className="flex flex-col gap-4 border-2 border-gray-200 p-4">
               <div className="flex justify-between">
                 <h2 className="text-xl font-medium">Payment</h2>
-                <IconLinkButton
+                <IconButton
                   variant="primary"
                   size="normal"
                   url="/payment"
@@ -67,7 +66,7 @@ export default function PlaceOrder() {
             <div className="flex flex-col gap-4 border-2 border-gray-200 p-4">
               <div className="flex justify-between">
                 <h2 className="text-xl font-medium">Items</h2>
-                <IconLinkButton
+                <IconButton
                   variant="primary"
                   size="normal"
                   url="/cart"
@@ -76,7 +75,9 @@ export default function PlaceOrder() {
               </div>
               <div className="flex flex-col gap-4">
                 {coffeeCartData.map((cartItem) => {
-                  return <PlaceOrderCard cartItem={cartItem} />;
+                  return (
+                    <PlaceOrderCard cartItem={cartItem} key={cartItem.id} />
+                  );
                 })}
               </div>
             </div>
@@ -105,7 +106,7 @@ export default function PlaceOrder() {
                 <h3 className="text-lg text-gray-500">Total</h3>
                 <h3 className="text-lg font-semibold">$46</h3>
               </div>
-              <LinkButton
+              <Button
                 url="#"
                 label="Place Order Now"
                 customeClasses="text-center"
