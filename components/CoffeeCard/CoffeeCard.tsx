@@ -11,7 +11,7 @@ interface CoffeeCardProps extends BaseProps {
 
 const CoffeeCard = ({ coffeeItem }: CoffeeCardProps) => {
   return (
-    <Link className="flex flex-col items-center gap-4" href={"#"}>
+    <Link className="flex flex-col items-center gap-4" href={"/product"}>
       <Image
         src={coffeeItem.image}
         width={320}
