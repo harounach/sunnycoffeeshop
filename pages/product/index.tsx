@@ -6,6 +6,9 @@ import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as OutlineHeart } from "@fortawesome/free-regular-svg-icons";
 import Image from "next/image";
 import Rating from "@/components/Rating/Rating";
+import ReviewCard from "@/components/ReviewCard/ReviewCard";
+import Link from "next/link";
+import Button from "@/components/Button/Button";
 
 const firstCoffeeItem = coffeeAllData[0];
 
@@ -17,7 +20,7 @@ export default function Product() {
         <p className="mb-14 text-center text-base text-neutral-500">
           Customize your coffee
         </p>
-        <div className="grid grid-cols-12 gap-6">
+        <div className="mb-6 grid grid-cols-12 gap-6">
           <div className="col-span-6">
             <div className="flex justify-center">
               <Image
@@ -54,6 +57,65 @@ export default function Product() {
                 />
                 <IconButton icon={faCartPlus} size="normal" variant="primary" />
               </div>
+            </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-12 gap-6">
+          <div className="col-span-6">
+            <h2 className="mb-4 text-xl">Reviews:</h2>
+            <div className="flex flex-col gap-2">
+              <ReviewCard
+                name="John Doe"
+                rating={5}
+                date="12 Dec 2022"
+                comment="Lorem ipsum dolor sit amet consectetur. In habitasse in erat
+                  etiam pulvinar est donec."
+              />
+
+              <ReviewCard
+                name="John Doe"
+                rating={5}
+                date="12 Dec 2022"
+                comment="Lorem ipsum dolor sit amet consectetur. In habitasse in erat
+                  etiam pulvinar est donec."
+              />
+            </div>
+          </div>
+          <div className="col-span-6">
+            <h2 className="mb-4 text-xl">Write a Review:</h2>
+            <div className="flex flex-col gap-4 border-2 border-gray-200 p-4">
+              <div className="bg-red-100 p-4">
+                <p>
+                  Please{" "}
+                  <Link className="font-medium" href={"/login"}>
+                    Login
+                  </Link>{" "}
+                  to write a review
+                </p>
+              </div>
+              <div>
+                <h3 className="mb-2 text-lg">Rating</h3>
+                <select name="rating" id="rating">
+                  <option value="1">1. One</option>
+                  <option value="2">2. Two</option>
+                  <option value="3">3. Three</option>
+                  <option value="4">4. Four</option>
+                  <option value="5">5. Five</option>
+                </select>
+              </div>
+              <div>
+                <h3 className="mb-2 text-lg">Comment</h3>
+                <form>
+                  <textarea
+                    className="w-full border-2 border-yellow-700 px-4 py-2"
+                    name="comment"
+                    id="comment"
+                    rows={3}
+                    placeholder="comment"
+                  ></textarea>
+                </form>
+              </div>
+              <Button label="Submit Review" type="submit" />
             </div>
           </div>
         </div>
