@@ -3,15 +3,17 @@ import Link from "next/link";
 import Layout from "@/components/Layout/Layout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faHeart,
   faRightFromBracket,
   faShoppingBasket,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import Button from "@/components/Button/Button";
-import TextField from "@/components/Form/TextField";
 
-export default function Profile() {
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
+
+import { coffeeFavoritesData } from "@/lib/data";
+import FavoriteCard from "@/components/FavoriteCard/FavoriteCard";
+
+export default function Favorite() {
   return (
     <Layout>
       <section className="container mx-auto mt-6">
@@ -27,7 +29,7 @@ export default function Profile() {
               <ul className="inline-flex flex-col gap-4">
                 <li>
                   <Link
-                    className="flex items-center gap-4 text-yellow-700"
+                    className="flex items-center gap-4 text-neutral-600"
                     href={"/account/profile"}
                   >
                     <FontAwesomeIcon className="h-6 w-6" icon={faUser} />{" "}
@@ -48,7 +50,7 @@ export default function Profile() {
                 </li>
                 <li>
                   <Link
-                    className="flex items-center gap-4 text-neutral-600"
+                    className="flex items-center gap-4 text-yellow-700"
                     href={"/account/favorite"}
                   >
                     <FontAwesomeIcon className="h-6 w-6" icon={faHeart} />{" "}
@@ -72,60 +74,20 @@ export default function Profile() {
           </div>
           {/* Main Content */}
           <div className="col-span-9">
-            <h1 className="mb-4 text-center text-2xl">Manage Account</h1>
+            <h1 className="mb-4 text-center text-2xl">Favorites</h1>
             <p className="mb-14 text-center text-base text-neutral-500">
-              Customize and manage your account
+              Check out your favorite coffee
             </p>
 
-            <div className="mb-6 flex justify-center">
-              <form className="inline-flex flex-col gap-4 border-2 border-gray-200 px-20 py-4">
-                <div className="flex flex-col items-start gap-2">
-                  <label htmlFor="username" className="text-base">
-                    Username
-                  </label>
-                  <TextField
-                    name="username"
-                    id="username"
-                    placeholder="Username"
-                  />
-                </div>
-
-                <div className="flex flex-col items-start gap-2">
-                  <label htmlFor="email" className="text-base">
-                    Email
-                  </label>
-                  <TextField name="email" id="email" placeholder="Email" />
-                </div>
-
-                <div className="flex flex-col items-start gap-2">
-                  <label htmlFor="new_password" className="text-base">
-                    New Password
-                  </label>
-                  <TextField
-                    name="new_password"
-                    id="new_password"
-                    placeholder="New Password"
-                  />
-                </div>
-
-                <div className="flex flex-col items-start gap-2">
-                  <label htmlFor="confirm_password" className="text-base">
-                    Confirm password
-                  </label>
-                  <TextField
-                    name="confirm_password"
-                    id="confirm_password"
-                    placeholder="Confirm password"
-                  />
-                </div>
-
-                <Button
-                  variant="primary"
-                  label="Update Profile"
-                  type="submit"
-                />
-                <Button variant="danger" label="Delete Account" type="button" />
-              </form>
+            <div className="mb-6 flex flex-col gap-4 border-2 border-gray-200 p-4">
+              <h2 className="text-center text-xl font-medium">Items</h2>
+              <div className="flex flex-col gap-4">
+                {coffeeFavoritesData.map((coffeeItem) => {
+                  return (
+                    <FavoriteCard coffeeItem={coffeeItem} key={coffeeItem.id} />
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>

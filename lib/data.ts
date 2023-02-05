@@ -259,3 +259,39 @@ export const coffeeCartData: Array<ICoffee> = [
     image: "/images/08-red-eye.jpg",
   },
 ];
+
+export const coffeeFavoritesData: Array<ICoffee> = [
+  // 02
+  {
+    id: "coffee-02",
+    title: "Latte",
+    descirption: "Latte",
+    price: 3.5,
+    image: "/images/02-latte.jpg",
+  },
+
+  // 03
+  {
+    id: "coffee-03",
+    title: "Cappuccino",
+    descirption: "Cappuccino",
+    price: 3.5,
+    image: "/images/03-cappuccino.jpg",
+  },
+  // 04
+  {
+    id: "coffee-04",
+    title: "Americano",
+    descirption: "Americano",
+    price: 3.5,
+    image: "/images/04-americano.jpg",
+  },
+  // 05
+  {
+    id: "coffee-05",
+    title: "Espresso",
+    descirption: "Espresso",
+    price: 3.5,
+    image: "/images/05-espresso.jpg",
+  },
+];

@@ -54,7 +54,7 @@ export default function OrderHistory() {
                 <li>
                   <Link
                     className="flex items-center gap-4 text-neutral-600"
-                    href={"/account/profile"}
+                    href={"/account/favorite"}
                   >
                     <FontAwesomeIcon className="h-6 w-6" icon={faHeart} />{" "}
                     <span className="text-base">Favorites</span>
