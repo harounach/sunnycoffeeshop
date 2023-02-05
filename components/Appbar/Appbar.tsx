@@ -49,6 +49,7 @@ const Appbar = ({}: AppbarProps) => {
               icon={faCartPlus}
             />
             <Button url="/register" label="Sign Up" />
+            <Button url="/account/profile" label="Account" />
           </nav>
         </div>
       </div>
