@@ -28,7 +28,7 @@ export default function Login() {
               <TextField name="password" id="password" placeholder="Password" />
             </div>
 
-            <Button label="Login" type="submit" />
+            <Button variant="primary" label="Login" type="submit" />
             <div className="flex justify-center gap-4">
               <span>Don’t have an account?</span>
               <Link href={"/register"} className="font-medium text-yellow-700">

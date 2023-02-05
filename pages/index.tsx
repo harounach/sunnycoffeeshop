@@ -29,7 +29,7 @@ export default function Home() {
               developed using Next.js
             </p>
 
-            <Button url="/shop" label="Get Coffee" />
+            <Button variant="primary" url="/shop" label="Get Coffee" />
           </div>
           <div className="shrink-0">
             <Image
@@ -114,7 +114,7 @@ export default function Home() {
 
           <form className="flex justify-center gap-6">
             <TextField name="newsletter" placeholder="Enter your email" />
-            <Button label="Sign Up" type="submit" />
+            <Button variant="primary" label="Sign Up" type="submit" />
           </form>
         </section>
       </section>

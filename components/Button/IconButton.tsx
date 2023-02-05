@@ -6,7 +6,13 @@ import { BaseProps } from "@/types/BaseProps";
 import Link from "next/link";
 
 type ButtonTypes = "button" | "submit" | "reset";
-type Variant = "default" | "primary" | "primaryIcon" | "secondary" | "danger";
+type Variant =
+  | "default"
+  | "primary"
+  | "primaryIcon"
+  | "secondary"
+  | "danger"
+  | "white";
 type Size = "normal" | "small";
 
 interface IconButtonProps extends BaseProps {
@@ -33,6 +39,7 @@ const IconButton = ({
     primaryIcon: "bg-transparent text-yellow-700",
     secondary: "bg-gray-200 text-black",
     danger: "bg-red-500 text-white",
+    white: "bg-white text-black",
   };
 
   const sizeClasses = {

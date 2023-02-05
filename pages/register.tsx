@@ -46,7 +46,7 @@ export default function Register() {
               />
             </div>
 
-            <Button label="Create Account" type="submit" />
+            <Button variant="primary" label="Create Account" type="submit" />
             <div className="flex justify-center gap-4">
               <span>Already have an account?</span>
               <Link href={"/login"} className="font-medium text-yellow-700">

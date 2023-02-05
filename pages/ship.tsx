@@ -85,7 +85,7 @@ export default function Ship() {
               <TextField name="country" id="country" placeholder="Country" />
             </div>
 
-            <Button label="Continue to Payment" />
+            <Button variant="primary" label="Continue to Payment" />
           </form>
         </div>
       </section>

@@ -107,6 +107,7 @@ export default function PlaceOrder() {
                 <h3 className="text-lg font-semibold">$46</h3>
               </div>
               <Button
+                variant="primary"
                 url="#"
                 label="Place Order Now"
                 customeClasses="text-center"

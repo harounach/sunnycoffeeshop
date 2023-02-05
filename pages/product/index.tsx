@@ -115,7 +115,7 @@ export default function Product() {
                   ></textarea>
                 </form>
               </div>
-              <Button label="Submit Review" type="submit" />
+              <Button variant="primary" label="Submit Review" type="submit" />
             </div>
           </div>
         </div>

@@ -37,7 +37,7 @@ export default function Profile() {
                 <li>
                   <Link
                     className="flex items-center gap-4 text-neutral-600"
-                    href={"/account/profile"}
+                    href={"/account/history"}
                   >
                     <FontAwesomeIcon
                       className="h-6 w-6"
@@ -119,12 +119,12 @@ export default function Profile() {
                   />
                 </div>
 
-                <Button label="Update Profile" type="submit" />
                 <Button
-                  label="Delete Account"
-                  type="button"
-                  customeClasses="bg-red-500 text-white"
+                  variant="primary"
+                  label="Update Profile"
+                  type="submit"
                 />
+                <Button variant="danger" label="Delete Account" type="button" />
               </form>
             </div>
           </div>

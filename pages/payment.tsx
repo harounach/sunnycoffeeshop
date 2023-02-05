@@ -38,7 +38,7 @@ export default function Payment() {
               </label>
             </div>
 
-            <Button label="Continue to Place Order" />
+            <Button variant="primary" label="Continue to Place Order" />
           </form>
         </div>
       </section>

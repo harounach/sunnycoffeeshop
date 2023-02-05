@@ -41,6 +41,7 @@ export default function Cart() {
                 <h3 className="text-lg font-semibold">$46</h3>
               </div>
               <Button
+                variant="primary"
                 url="/ship"
                 label="Proceed to Checkout"
                 customeClasses="text-center"
