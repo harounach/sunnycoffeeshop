@@ -11,6 +11,7 @@ import {
   faCircleDollarToSlot,
   faBasketShopping,
   faEye,
+  faBagShopping,
 } from "@fortawesome/free-solid-svg-icons";
 import IconButton from "@/components/Button/IconButton";
 
@@ -52,6 +53,7 @@ export default function AdminDashboard() {
                     <span className="text-base">Products</span>
                   </Link>
                 </li>
+
                 <li>
                   <Link
                     className="flex items-center gap-4 text-neutral-600"

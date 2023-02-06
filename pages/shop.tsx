@@ -1,6 +1,6 @@
 import Chip from "@/components/Chip/Chip";
 import ChipGroup from "@/components/Chip/ChipGroup";
-import CoffeeCard from "@/components/CoffeeCard/CoffeeCard";
+import CoffeeCard from "@/components/Card/CoffeeCard";
 import Layout from "@/components/Layout/Layout";
 import { coffeeAllData } from "@/lib/data";
 

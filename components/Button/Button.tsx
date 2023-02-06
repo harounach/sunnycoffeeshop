@@ -33,7 +33,7 @@ const Button = ({
   if (url) {
     return (
       <Link
-        className={`rounded-md bg-yellow-700 px-4 py-2 text-center text-base text-white ${variantClasses[variant]} ${customeClasses}`}
+        className={`rounded-md  px-4 py-2 text-center text-base ${variantClasses[variant]} ${customeClasses}`}
         href={url}
         onClick={onClick}
       >

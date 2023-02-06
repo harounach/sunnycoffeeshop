@@ -9,14 +9,13 @@ import {
   faAnglesRight,
   faBarsProgress,
   faEye,
-  faPlus,
   faRightFromBracket,
   faShoppingBasket,
   faTag,
+  faTrash,
   faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
-import { coffeeAllData } from "@/lib/data";
-import ProductCard from "@/components/ProductCard/ProductCard";
+
 import IconButton from "@/components/Button/IconButton";
 
 export default function AdminOrders() {
@@ -57,6 +56,7 @@ export default function AdminOrders() {
                     <span className="text-base">Products</span>
                   </Link>
                 </li>
+
                 <li>
                   <Link
                     className="flex items-center gap-4 text-yellow-700"
@@ -132,27 +132,8 @@ export default function AdminOrders() {
                           size="normal"
                           url="/order"
                         />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border-2 border-gray-200 px-4">
-                      incjdncjndvjnfdjvnf
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">$46</td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      <div className="flex items-center justify-center">
                         <IconButton
-                          icon={faEye}
+                          icon={faTrash}
                           variant="primaryIcon"
                           size="normal"
                           url="/order"
@@ -178,6 +159,74 @@ export default function AdminOrders() {
                       <div className="flex items-center justify-center">
                         <IconButton
                           icon={faEye}
+                          variant="primaryIcon"
+                          size="normal"
+                          url="/order"
+                        />
+                        <IconButton
+                          icon={faTrash}
+                          variant="primaryIcon"
+                          size="normal"
+                          url="/order"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border-2 border-gray-200 px-4">
+                      incjdncjndvjnfdjvnf
+                    </td>
+                    <td className="border-2 border-gray-200 px-4">
+                      12 Dec 2022
+                    </td>
+                    <td className="border-2 border-gray-200 px-4">$46</td>
+                    <td className="border-2 border-gray-200 px-4">
+                      12 Dec 2022
+                    </td>
+                    <td className="border-2 border-gray-200 px-4">
+                      12 Dec 2022
+                    </td>
+                    <td className="border-2 border-gray-200 px-4">
+                      <div className="flex items-center justify-center">
+                        <IconButton
+                          icon={faEye}
+                          variant="primaryIcon"
+                          size="normal"
+                          url="/order"
+                        />
+                        <IconButton
+                          icon={faTrash}
+                          variant="primaryIcon"
+                          size="normal"
+                          url="/order"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border-2 border-gray-200 px-4">
+                      incjdncjndvjnfdjvnf
+                    </td>
+                    <td className="border-2 border-gray-200 px-4">
+                      12 Dec 2022
+                    </td>
+                    <td className="border-2 border-gray-200 px-4">$46</td>
+                    <td className="border-2 border-gray-200 px-4">
+                      12 Dec 2022
+                    </td>
+                    <td className="border-2 border-gray-200 px-4">
+                      12 Dec 2022
+                    </td>
+                    <td className="border-2 border-gray-200 px-4">
+                      <div className="flex items-center justify-center">
+                        <IconButton
+                          icon={faEye}
+                          variant="primaryIcon"
+                          size="normal"
+                          url="/order"
+                        />
+                        <IconButton
+                          icon={faTrash}
                           variant="primaryIcon"
                           size="normal"
                           url="/order"

@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import Layout from "../components/Layout/Layout";
-import CoffeeCard from "@/components/CoffeeCard/CoffeeCard";
+import CoffeeCard from "@/components/Card/CoffeeCard";
 import TextField from "@/components/Form/TextField";
 import Button from "@/components/Button/Button";
 import HeroImage from "../public/images/coffee-item.jpg";

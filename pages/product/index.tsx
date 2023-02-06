@@ -6,7 +6,7 @@ import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as OutlineHeart } from "@fortawesome/free-regular-svg-icons";
 import Image from "next/image";
 import Rating from "@/components/Rating/Rating";
-import ReviewCard from "@/components/ReviewCard/ReviewCard";
+import ReviewCard from "@/components/Card/ReviewCard";
 import Link from "next/link";
 import Button from "@/components/Button/Button";
 

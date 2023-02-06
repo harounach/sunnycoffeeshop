@@ -1,5 +1,5 @@
 import Button from "@/components/Button/Button";
-import CartCard from "@/components/CartCard/CartCard";
+import CartCard from "@/components/Card/CartCard";
 import Layout from "@/components/Layout/Layout";
 
 import { coffeeCartData } from "@/lib/data";

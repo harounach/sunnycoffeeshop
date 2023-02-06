@@ -3,22 +3,17 @@ import Link from "next/link";
 import Layout from "@/components/Layout/Layout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faAngleLeft,
-  faAngleRight,
-  faAnglesLeft,
-  faAnglesRight,
   faBarsProgress,
   faRightFromBracket,
   faShoppingBasket,
   faTag,
   faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
-import { coffeeAllData } from "@/lib/data";
-import ProductCard from "@/components/Card/ProductCard";
-import IconButton from "@/components/Button/IconButton";
+
+import TextField from "@/components/Form/TextField";
 import Button from "@/components/Button/Button";
 
-export default function AdminProducts() {
+export default function AdminAddProduct() {
   return (
     <Layout>
       <section className="container mx-auto mt-6">
@@ -92,67 +87,62 @@ export default function AdminProducts() {
           </div>
           {/* Main Content */}
           <div className="col-span-9">
-            <h1 className="mb-4 text-center text-2xl">Products</h1>
+            <h1 className="mb-4 text-center text-2xl">Add Product</h1>
             <p className="mb-14 text-center text-base text-neutral-500">
-              View and manage your products
+              Add and customize your product
             </p>
+            <div className="mb-4 flex items-center justify-end">
+              <Button
+                label="All Products"
+                variant="primary"
+                url="/admin/products"
+              />
+            </div>
 
-            {/* Products */}
-            <div className="flex flex-col gap-4 border-2 border-gray-200 p-4">
-              <div className="flex justify-between">
-                <h2 className="text-xl font-medium">Items</h2>
-                <Button
-                  label="Add Product"
-                  variant="primary"
-                  url="/admin/addproduct"
-                  type="button"
-                />
-              </div>
-              <div>
-                <div className="flex  items-center justify-end gap-4">
-                  <form className="flex items-center gap-4">
-                    <label htmlFor="rows_per_page">Rows per page</label>
-                    <select name="rows_per_page" id="rows_per_page">
-                      <option value="5">5</option>
-                      <option value="10">10</option>
-                      <option value="15">15</option>
-                    </select>
-                  </form>
-                  <span>1-10 of 100</span>
-                  <div className="flex items-center gap-2">
-                    <IconButton
-                      icon={faAnglesLeft}
-                      size="normal"
-                      variant="white"
-                    />
-                    <IconButton
-                      icon={faAngleLeft}
-                      size="normal"
-                      variant="white"
-                    />
-                    <IconButton
-                      icon={faAngleRight}
-                      size="normal"
-                      variant="white"
-                    />
-                    <IconButton
-                      icon={faAnglesRight}
-                      size="normal"
-                      variant="white"
-                    />
-                  </div>
+            <div className="mb-6 flex justify-center">
+              <form className="flex flex-col gap-4 border-2 border-gray-200 px-20 py-4">
+                <div className="flex flex-col items-start gap-2">
+                  <label htmlFor="title" className="text-base">
+                    Title
+                  </label>
+                  <TextField name="title" id="title" placeholder="Title" />
                 </div>
-                <div className="flex flex-col gap-4">
-                  {coffeeAllData.map((coffeeItem) => {
-                    return (
-                      <ProductCard
-                        coffeeItem={coffeeItem}
-                        key={coffeeItem.id}
-                      />
-                    );
-                  })}
+
+                <div className="flex flex-col items-start gap-2">
+                  <label htmlFor="description" className="text-base">
+                    Description
+                  </label>
+                  <textarea
+                    className="w-full border-2 border-yellow-700 px-4 py-2"
+                    name="description"
+                    id="description"
+                    rows={3}
+                    placeholder="Description"
+                  ></textarea>
                 </div>
-              </div>
+
+                <div className="flex flex-col items-start gap-2">
+                  <label htmlFor="price" className="text-base">
+                    Price
+                  </label>
+                  <TextField name="price" id="price" placeholder="Price" />
+                </div>
+
+                <div className="flex flex-col items-start gap-2">
+                  <label htmlFor="img" className="text-base">
+                    Image
+                  </label>
+                  <TextField name="img" id="img" placeholder="Image URL" />
+                </div>
+                <div className="flex items-center gap-4">
+                  <Button variant="primary" label="Save" type="submit" />
+                  <Button
+                    variant="default"
+                    label="Cancel"
+                    url="/admin/products"
+                  />
+                </div>
+              </form>
             </div>
           </div>
         </div>

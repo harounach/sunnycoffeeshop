@@ -11,7 +11,7 @@ import {
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 
 import { coffeeFavoritesData } from "@/lib/data";
-import FavoriteCard from "@/components/FavoriteCard/FavoriteCard";
+import FavoriteCard from "@/components/Card/FavoriteCard";
 
 export default function Favorite() {
   return (

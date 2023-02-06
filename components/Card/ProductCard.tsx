@@ -27,7 +27,12 @@ const ProductCard = ({ coffeeItem }: ProductCardProps) => {
         <h4 className="text-lg">{`$${coffeeItem.price}`}</h4>
         <div className="flex items-center gap-4">
           <IconButton icon={faTrash} variant="primaryIcon" size="normal" />
-          <IconButton icon={faPen} variant="primaryIcon" size="normal" />
+          <IconButton
+            icon={faPen}
+            variant="primaryIcon"
+            size="normal"
+            url="/admin/editproduct"
+          />
         </div>
       </div>
     </div>
