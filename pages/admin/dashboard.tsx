@@ -36,7 +36,7 @@ export default function AdminDashboard() {
                     <FontAwesomeIcon
                       className="h-6 w-6"
                       icon={faBarsProgress}
-                    />{" "}
+                    />
                     <span className="text-base">Dashboard</span>
                   </Link>
                 </li>
@@ -48,7 +48,7 @@ export default function AdminDashboard() {
                     <FontAwesomeIcon
                       className="h-6 w-6"
                       icon={faShoppingBasket}
-                    />{" "}
+                    />
                     <span className="text-base">Products</span>
                   </Link>
                 </li>
@@ -78,7 +78,7 @@ export default function AdminDashboard() {
                     <FontAwesomeIcon
                       className="h-6 w-6"
                       icon={faRightFromBracket}
-                    />{" "}
+                    />
                     <span className="text-base">Logout</span>
                   </Link>
                 </li>
@@ -114,7 +114,7 @@ export default function AdminDashboard() {
                 </div>
                 <div className="flex flex-col gap-4">
                   <span>Total Orders</span>
-                  <span className="text-neutral-500">$99000</span>
+                  <span className="text-neutral-500">340</span>
                 </div>
               </div>
               <div className="flex flex-grow gap-4 border-2 border-gray-200 p-4">
@@ -126,7 +126,7 @@ export default function AdminDashboard() {
                 </div>
                 <div className="flex flex-col gap-4">
                   <span>Total Products</span>
-                  <span className="text-neutral-500">$99000</span>
+                  <span className="text-neutral-500">42</span>
                 </div>
               </div>
             </div>
