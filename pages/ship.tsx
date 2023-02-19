@@ -14,25 +14,10 @@ export default function Ship() {
         <div className="flex justify-center">
           <form className="inline-flex flex-col gap-4 border-2 border-gray-200 px-20 py-4">
             <div className="flex flex-col items-start gap-2">
-              <label htmlFor="first_name" className="text-base">
-                First Name
+              <label htmlFor="name" className="text-base">
+                Name
               </label>
-              <TextField
-                name="first_name"
-                id="first_name"
-                placeholder="First Name"
-              />
-            </div>
-
-            <div className="flex flex-col items-start gap-2">
-              <label htmlFor="last_name" className="text-base">
-                Last Name
-              </label>
-              <TextField
-                name="last_name"
-                id="last_name"
-                placeholder="Last Name"
-              />
+              <TextField name="name" id="name" placeholder="Name" />
             </div>
 
             <div className="flex flex-col items-start gap-2">

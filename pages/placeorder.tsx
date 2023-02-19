@@ -74,9 +74,12 @@ export default function PlaceOrder() {
                 />
               </div>
               <div className="flex flex-col gap-4">
-                {coffeeCartData.map((cartItem) => {
+                {coffeeCartData.map((cartProduct) => {
                   return (
-                    <PlaceOrderCard cartItem={cartItem} key={cartItem.id} />
+                    <PlaceOrderCard
+                      cartProduct={cartProduct}
+                      key={cartProduct._id}
+                    />
                   );
                 })}
               </div>

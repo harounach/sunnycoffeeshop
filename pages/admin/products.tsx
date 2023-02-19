@@ -143,11 +143,11 @@ export default function AdminProducts() {
                   </div>
                 </div>
                 <div className="flex flex-col gap-4">
-                  {coffeeAllData.map((coffeeItem) => {
+                  {coffeeAllData.map((product) => {
                     return (
                       <ProductCard
-                        coffeeItem={coffeeItem}
-                        key={coffeeItem.id}
+                        product={product}
+                        key={product._id}
                       />
                     );
                   })}

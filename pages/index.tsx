@@ -8,11 +8,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import Layout from "../components/Layout/Layout";
-import CoffeeCard from "@/components/Card/CoffeeCard";
 import TextField from "@/components/Form/TextField";
 import Button from "@/components/Button/Button";
 import HeroImage from "../public/images/coffee-item.jpg";
 import { coffeePopularData } from "@/lib/data";
+import ShopCard from "@/components/Card/ShopCard";
 
 export default function Home() {
   return (
@@ -49,8 +49,8 @@ export default function Home() {
             List of our best selling coffee
           </p>
           <div className="grid grid-cols-4 justify-items-center gap-6">
-            {coffeePopularData.map((coffeeItem) => {
-              return <CoffeeCard coffeeItem={coffeeItem} key={coffeeItem.id} />;
+            {coffeePopularData.map((product) => {
+              return <ShopCard product={product} key={product._id} />;
             })}
           </div>
         </section>

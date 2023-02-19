@@ -82,10 +82,8 @@ export default function Favorite() {
             <div className="mb-6 flex flex-col gap-4 border-2 border-gray-200 p-4">
               <h2 className="text-center text-xl font-medium">Items</h2>
               <div className="flex flex-col gap-4">
-                {coffeeFavoritesData.map((coffeeItem) => {
-                  return (
-                    <FavoriteCard coffeeItem={coffeeItem} key={coffeeItem.id} />
-                  );
+                {coffeeFavoritesData.map((product) => {
+                  return <FavoriteCard product={product} key={product._id} />;
                 })}
               </div>
             </div>

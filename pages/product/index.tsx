@@ -12,6 +12,8 @@ import Button from "@/components/Button/Button";
 
 const firstCoffeeItem = coffeeAllData[0];
 
+// TODO: Open the current product page
+
 export default function Product() {
   return (
     <Layout>

@@ -16,7 +16,7 @@ export default function Cart() {
           {/* Cart items */}
           <div className="col-span-3 flex flex-col gap-4">
             {coffeeCartData.map((cartItem) => {
-              return <CartCard cartItem={cartItem} key={cartItem.id} />;
+              return <CartCard cartItem={cartItem} key={cartItem._id} />;
             })}
           </div>
 

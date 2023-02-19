@@ -11,7 +11,6 @@ import {
   faCircleDollarToSlot,
   faBasketShopping,
   faEye,
-  faBagShopping,
 } from "@fortawesome/free-solid-svg-icons";
 import IconButton from "@/components/Button/IconButton";
 
