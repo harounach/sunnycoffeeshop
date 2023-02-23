@@ -22,6 +22,7 @@ interface IconButtonProps extends BaseProps {
   size: Size;
   type?: ButtonTypes;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 const IconButton = ({

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Image from "next/image";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,9 +13,10 @@ import TextField from "@/components/Form/TextField";
 import Button from "@/components/Button/Button";
 import HeroImage from "../public/images/coffee-item.jpg";
 import { coffeePopularData } from "@/lib/data";
-import ShopCard from "@/components/Card/ShopCard";
+import HomeCard from "@/components/Card/HomeCard";
 
 export default function Home() {
+  const [newsletterEmail, setNewsletterEmail] = useState("");
   return (
     <Layout>
       <section className="container mx-auto mt-6">
@@ -50,7 +52,7 @@ export default function Home() {
           </p>
           <div className="grid grid-cols-4 justify-items-center gap-6">
             {coffeePopularData.map((product) => {
-              return <ShopCard product={product} key={product._id} />;
+              return <HomeCard product={product} key={product._id} />;
             })}
           </div>
         </section>
@@ -113,7 +115,13 @@ export default function Home() {
           </p>
 
           <form className="flex justify-center gap-6">
-            <TextField name="newsletter" placeholder="Enter your email" />
+            <TextField
+              name="newsletter"
+              placeholder="Enter your email"
+              type="text"
+              value={newsletterEmail}
+              onChange={setNewsletterEmail}
+            />
             <Button variant="primary" label="Sign Up" type="submit" />
           </form>
         </section>

@@ -5,11 +5,11 @@ import Image from "next/image";
 import { BaseProps } from "@/types/BaseProps";
 import Product from "@/types/Product";
 
-interface ShopCardProps extends BaseProps {
+interface HomeCardProps extends BaseProps {
   product: Product;
 }
 
-const ShopCard = ({ product }: ShopCardProps) => {
+const HomeCard = ({ product }: HomeCardProps) => {
 
   return (
     <Link className="flex flex-col items-center gap-4" href={`/products/${product._id}`}>
@@ -26,4 +26,4 @@ const ShopCard = ({ product }: ShopCardProps) => {
   );
 };
 
-export default ShopCard;
+export default HomeCard;

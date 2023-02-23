@@ -1,15 +1,22 @@
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 import Chip from "@/components/Chip/Chip";
 import ChipGroup from "@/components/Chip/ChipGroup";
+import ShopPagination from "@/components/ShopPagination/ShopPagination";
 import Layout from "@/components/Layout/Layout";
-import ProductsApiResult from "@/types/ProductsApiResult";
+import { GetProductsApiResult } from "@/types/ProductsApiResults";
 import ShopCard from "@/components/Card/ShopCard";
+import { getProductsURL } from "@/lib/urlUtils";
 
 interface ShopProps {
-  productsApiResult: ProductsApiResult;
+  productsApiResult: GetProductsApiResult;
 }
 
 export default function Shop({ productsApiResult }: ShopProps) {
+  const router = useRouter();
+
+  const { data, message, pages, page } = productsApiResult;
+
   return (
     <Layout>
       <section className="container mx-auto mt-6">
@@ -42,11 +49,14 @@ export default function Shop({ productsApiResult }: ShopProps) {
             </div>
           </div>
         </section>
-        <section>
+        <section className="mb-8">
           <div className="grid grid-cols-4 gap-x-6 gap-y-8">
-            {productsApiResult.data?.map((product) => {
+            {data.map((product) => {
               return <ShopCard product={product} key={product._id} />;
             })}
+          </div>
+          <div className="mt-6">
+            <ShopPagination page={page} pages={pages} perpage={8} order={-1} />
           </div>
         </section>
       </section>
@@ -54,9 +64,16 @@ export default function Shop({ productsApiResult }: ShopProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const response = await fetch("http://localhost:4000/api/products");
+export const getServerSideProps: GetServerSideProps<{
+  productsApiResult: GetProductsApiResult;
+}> = async (context) => {
+  const { page, perpage, order } = context.query;
+
+  const GET_PRODUCTS_URL = getProductsURL(page, perpage, order);
+
+  const response = await fetch(GET_PRODUCTS_URL);
   const result = await response.json();
+
   return {
     props: {
       productsApiResult: result,

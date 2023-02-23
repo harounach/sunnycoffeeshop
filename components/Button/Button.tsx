@@ -11,6 +11,7 @@ interface ButtonProps extends BaseProps {
   variant: Variant;
   type?: ButtonTypes;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 const Button = ({

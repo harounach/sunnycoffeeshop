@@ -5,10 +5,15 @@ import {
 } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { Status } from "@/types/Status";
+import ShippingInfo from "@/types/ShippingInfo";
+import PaymentInfo from "@/types/PaymentInfo";
 import CartProduct from "@/types/CartProduct";
+import { RootState } from "./store";
 
 type CartInitialState = {
   status: Status;
+  shippingInfo: ShippingInfo;
+  paymentInfo: PaymentInfo;
 };
 
 const cartAdapter = createEntityAdapter<CartProduct>({
@@ -16,6 +21,8 @@ const cartAdapter = createEntityAdapter<CartProduct>({
 });
 const initialState = cartAdapter.getInitialState<CartInitialState>({
   status: "idle",
+  shippingInfo: {},
+  paymentInfo: {},
 });
 
 const cartSlice = createSlice({
@@ -40,12 +47,24 @@ const cartSlice = createSlice({
         product.qty--;
       }
     },
+    saveShippingInfo: (state, action: PayloadAction<ShippingInfo>) => {
+      state.shippingInfo = action.payload;
+    },
+    savePaymentInfo: (state, action: PayloadAction<PaymentInfo>) => {
+      state.paymentInfo = action.payload;
+    },
   },
 });
 
 // Action creators
-export const { cartAdded, cartDeleted, cartQuantityPlus, cartQuantityMinus } =
-  cartSlice.actions;
+export const {
+  cartAdded,
+  cartDeleted,
+  cartQuantityPlus,
+  cartQuantityMinus,
+  saveShippingInfo,
+  savePaymentInfo,
+} = cartSlice.actions;
 
 // Selectors
 export const {
@@ -53,7 +72,10 @@ export const {
   selectById: selectCartProductById,
   selectIds: selectCartProductIds,
   selectTotal: selectTotalCartProducts,
-} = cartAdapter.getSelectors();
+} = cartAdapter.getSelectors<RootState>((state) => state.cart);
+
+export const selectShippingInfo = (state: RootState) => state.cart.shippingInfo;
+export const selectPaymentInfo = (state: RootState) => state.cart.paymentInfo;
 
 // Cart reducer
 export default cartSlice.reducer;

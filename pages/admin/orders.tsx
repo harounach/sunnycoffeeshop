@@ -15,10 +15,20 @@ import {
   faTrash,
   faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
+import { GetOrdersApiResult } from "@/types/OrdersApiResults";
+import { getOrdersURL, getOrderPaginationURL } from "@/lib/urlUtils";
 
 import IconButton from "@/components/Button/IconButton";
+import AdminOrderRow from "@/components/Table/AdminOrderRow";
+import AdminOrderPagination from "@/components/Table/AdminOrderPagination";
 
-export default function AdminOrders() {
+interface AdminOrdersProps {
+  ordersApiResult: GetOrdersApiResult;
+}
+
+export default function AdminOrders({ ordersApiResult }: AdminOrdersProps) {
+  const { data: orders, message, pages, page } = productsApiResult;
+
   return (
     <Layout>
       <section className="container mx-auto mt-6">
@@ -110,164 +120,13 @@ export default function AdminOrders() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td className="border-2 border-gray-200 px-4">
-                      incjdncjndvjnfdjvnf
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">$46</td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      <div className="flex items-center justify-center">
-                        <IconButton
-                          icon={faEye}
-                          variant="primaryIcon"
-                          size="normal"
-                          url="/order"
-                        />
-                        <IconButton
-                          icon={faTrash}
-                          variant="primaryIcon"
-                          size="normal"
-                          url="/order"
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border-2 border-gray-200 px-4">
-                      incjdncjndvjnfdjvnf
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">$46</td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      <div className="flex items-center justify-center">
-                        <IconButton
-                          icon={faEye}
-                          variant="primaryIcon"
-                          size="normal"
-                          url="/order"
-                        />
-                        <IconButton
-                          icon={faTrash}
-                          variant="primaryIcon"
-                          size="normal"
-                          url="/order"
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border-2 border-gray-200 px-4">
-                      incjdncjndvjnfdjvnf
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">$46</td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      <div className="flex items-center justify-center">
-                        <IconButton
-                          icon={faEye}
-                          variant="primaryIcon"
-                          size="normal"
-                          url="/order"
-                        />
-                        <IconButton
-                          icon={faTrash}
-                          variant="primaryIcon"
-                          size="normal"
-                          url="/order"
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border-2 border-gray-200 px-4">
-                      incjdncjndvjnfdjvnf
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">$46</td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      <div className="flex items-center justify-center">
-                        <IconButton
-                          icon={faEye}
-                          variant="primaryIcon"
-                          size="normal"
-                          url="/order"
-                        />
-                        <IconButton
-                          icon={faTrash}
-                          variant="primaryIcon"
-                          size="normal"
-                          url="/order"
-                        />
-                      </div>
-                    </td>
-                  </tr>
+                  {orders.map((order) => {
+                    return <AdminOrderRow order={order} key={order._id} />;
+                  })}
                 </tbody>
               </table>
-              <div className="flex  items-center justify-end gap-4 border-2 border-gray-200 px-6">
-                <form className="flex items-center gap-4">
-                  <label htmlFor="rows_per_page">Rows per page</label>
-                  <select name="rows_per_page" id="rows_per_page">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="15">15</option>
-                  </select>
-                </form>
-                <span>1-10 of 100</span>
-                <div className="flex items-center gap-2">
-                  <IconButton
-                    icon={faAnglesLeft}
-                    size="normal"
-                    variant="white"
-                  />
-                  <IconButton
-                    icon={faAngleLeft}
-                    size="normal"
-                    variant="white"
-                  />
-                  <IconButton
-                    icon={faAngleRight}
-                    size="normal"
-                    variant="white"
-                  />
-                  <IconButton
-                    icon={faAnglesRight}
-                    size="normal"
-                    variant="white"
-                  />
-                </div>
+              <div className="mt-4">
+                <AdminOrderPagination page={page} pages={pages} order={-1} />
               </div>
             </div>
           </div>
@@ -276,3 +135,21 @@ export default function AdminOrders() {
     </Layout>
   );
 }
+
+// Complete this function to get all the orders
+export const getServerSideProps: GetServerSideProps<{
+  ordersApiResult: GetOrdersApiResult;
+}> = async (context) => {
+  const { page, perpage, order } = context.query;
+
+  const GET_ORDERS_URL = getOrdersURL(page, perpage, order);
+
+  const response = await fetch(GET_ORDERS_URL);
+  const result = await response.json();
+
+  return {
+    props: {
+      ordersApiResult: result,
+    },
+  };
+};
