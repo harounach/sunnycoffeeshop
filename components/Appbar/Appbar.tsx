@@ -40,7 +40,13 @@ const Appbar = ({}: AppbarProps) => {
               </li>
             </ul>
             <form>
-              <TextField name="search" placeholder="Search..." />
+              <TextField
+                name="search"
+                placeholder="Search..."
+                type="text"
+                value={""}
+                onChange={() => ""}
+              />
             </form>
             <IconButton
               variant="primaryIcon"
@@ -50,6 +56,7 @@ const Appbar = ({}: AppbarProps) => {
             />
             <Button variant="primary" url="/register" label="Sign Up" />
             <Button variant="primary" url="/account/profile" label="Account" />
+            <Button variant="primary" url="/admin/dashboard" label="Admin" />
           </nav>
         </div>
       </div>

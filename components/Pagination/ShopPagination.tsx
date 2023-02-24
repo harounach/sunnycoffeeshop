@@ -17,7 +17,7 @@ const ShopPagination = ({
 }: ShopPaginationProps) => {
   const paginationButtons = [];
   for (let i = 1; i <= pages; i++) {
-    let url = getPaginationURL(i, perpage, order);
+    let url = getPaginationURL("/shop", i, perpage, order);
     const variant = Number(page) === i ? "primary" : "secondary";
     console.log(variant);
     let btn = (

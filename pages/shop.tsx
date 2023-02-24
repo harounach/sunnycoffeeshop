@@ -2,11 +2,11 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import Chip from "@/components/Chip/Chip";
 import ChipGroup from "@/components/Chip/ChipGroup";
-import ShopPagination from "@/components/ShopPagination/ShopPagination";
+import ShopPagination from "@/components/Pagination/ShopPagination";
 import Layout from "@/components/Layout/Layout";
 import { GetProductsApiResult } from "@/types/ProductsApiResults";
 import ShopCard from "@/components/Card/ShopCard";
-import { getProductsURL } from "@/lib/urlUtils";
+import { getPaginationURL, PRODUCTS_API_URL } from "@/lib/urlUtils";
 
 interface ShopProps {
   productsApiResult: GetProductsApiResult;
@@ -69,7 +69,12 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async (context) => {
   const { page, perpage, order } = context.query;
 
-  const GET_PRODUCTS_URL = getProductsURL(page, perpage, order);
+  const GET_PRODUCTS_URL = getPaginationURL(
+    PRODUCTS_API_URL,
+    Number(page),
+    Number(perpage),
+    Number(order)
+  );
 
   const response = await fetch(GET_PRODUCTS_URL);
   const result = await response.json();

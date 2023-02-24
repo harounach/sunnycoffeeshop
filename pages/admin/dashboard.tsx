@@ -1,91 +1,31 @@
-import Link from "next/link";
-
-import Layout from "@/components/Layout/Layout";
+import AdminLayout from "@/components/Layout/AdminLayout";
+import AdminSidebar from "@/components/Sidebar/AdminSidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBarsProgress,
-  faRightFromBracket,
-  faShoppingBasket,
   faTag,
-  faUserGroup,
   faCircleDollarToSlot,
   faBasketShopping,
-  faEye,
 } from "@fortawesome/free-solid-svg-icons";
-import IconButton from "@/components/Button/IconButton";
+import { GetOrdersApiResult } from "@/types/OrdersApiResults";
+import DashboardOrderRow from "@/components/Table/DashboardOrderRow";
+import { GetServerSideProps } from "next";
+import { getPaginationURL, ORDERS_API_URL } from "@/lib/urlUtils";
 
-export default function AdminDashboard() {
+interface AdminDashboardProps {
+  ordersApiResult: GetOrdersApiResult;
+}
+
+export default function AdminDashboard({
+  ordersApiResult,
+}: AdminDashboardProps) {
+  const { data: orders, message, pages, page } = ordersApiResult;
+
   return (
-    <Layout>
+    <AdminLayout>
       <section className="container mx-auto mt-6">
         <div className="grid grid-cols-12 gap-6">
           {/* Sidebar */}
-          <div className="col-span-3 bg-neutral-100 px-6 py-4">
-            <h2 className="mb-4 text-center text-xl">Admin: John Doe</h2>
-            <p className="mb-14 text-center text-base text-neutral-500">
-              Joined on 12 Dec 2022
-            </p>
-
-            <div className="flex justify-center">
-              <ul className="inline-flex flex-col gap-4">
-                <li>
-                  <Link
-                    className="flex items-center gap-4 text-yellow-700"
-                    href={"/admin/dashboard"}
-                  >
-                    <FontAwesomeIcon
-                      className="h-6 w-6"
-                      icon={faBarsProgress}
-                    />
-                    <span className="text-base">Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="flex items-center gap-4 text-neutral-600"
-                    href={"/admin/products"}
-                  >
-                    <FontAwesomeIcon
-                      className="h-6 w-6"
-                      icon={faShoppingBasket}
-                    />
-                    <span className="text-base">Products</span>
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    className="flex items-center gap-4 text-neutral-600"
-                    href={"/admin/orders"}
-                  >
-                    <FontAwesomeIcon className="h-6 w-6" icon={faTag} />{" "}
-                    <span className="text-base">Orders</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="flex items-center gap-4 text-neutral-600"
-                    href={"/admin/users"}
-                  >
-                    <FontAwesomeIcon className="h-6 w-6" icon={faUserGroup} />{" "}
-                    <span className="text-base">Users</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="flex items-center gap-4 text-neutral-600"
-                    href={"/account/profile"}
-                  >
-                    <FontAwesomeIcon
-                      className="h-6 w-6"
-                      icon={faRightFromBracket}
-                    />
-                    <span className="text-base">Logout</span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <AdminSidebar dashboard />
           {/* Main Content */}
           <div className="col-span-9">
             <h1 className="mb-4 text-center text-2xl">Dashboard</h1>
@@ -148,87 +88,30 @@ export default function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td className="border-2 border-gray-200 px-4">
-                      incjdncjndvjnfdjvnf
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">$46</td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      <div className="flex items-center justify-center">
-                        <IconButton
-                          icon={faEye}
-                          variant="primaryIcon"
-                          size="normal"
-                          url="/order"
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border-2 border-gray-200 px-4">
-                      incjdncjndvjnfdjvnf
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">$46</td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      <div className="flex items-center justify-center">
-                        <IconButton
-                          icon={faEye}
-                          variant="primaryIcon"
-                          size="normal"
-                          url="/order"
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border-2 border-gray-200 px-4">
-                      incjdncjndvjnfdjvnf
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">$46</td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      12 Dec 2022
-                    </td>
-                    <td className="border-2 border-gray-200 px-4">
-                      <div className="flex items-center justify-center">
-                        <IconButton
-                          icon={faEye}
-                          variant="primaryIcon"
-                          size="normal"
-                          url="/order"
-                        />
-                      </div>
-                    </td>
-                  </tr>
+                  {orders.map((order) => {
+                    return <DashboardOrderRow order={order} key={order._id} />;
+                  })}
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </section>
-    </Layout>
+    </AdminLayout>
   );
 }
+
+export const getServerSideProps: GetServerSideProps<
+  AdminDashboardProps
+> = async (context) => {
+  const GET_ORDERS_URL = getPaginationURL(ORDERS_API_URL, 1, 8, -1);
+
+  const response = await fetch(GET_ORDERS_URL);
+  const result = await response.json();
+
+  return {
+    props: {
+      ordersApiResult: result,
+    },
+  };
+};

@@ -1,18 +1,18 @@
 import Button from "@/components/Button/Button";
 import OrderCard from "@/components/Card/OrderCard";
-import Layout from "@/components/Layout/Layout";
+import AdminLayout from "@/components/Layout/AdminLayout";
 import SuccessBox from "@/components/Box/SuccessBox";
 import ErrorBox from "@/components/Box/ErrorBox";
 import { GetSingleOrderApiResult } from "@/types/OrdersApiResults";
 import { GetServerSideProps } from "next";
 import axios from "axios";
+import { ORDERS_API_URL } from "@/lib/urlUtils";
 
 interface OrderProps {
   orderApiResult: GetSingleOrderApiResult;
-  admin?: boolean;
 }
 
-export default function Order({ orderApiResult, admin }: OrderProps) {
+export default function Order({ orderApiResult }: OrderProps) {
   const { data: order, message, error } = orderApiResult;
 
   if (!order) {
@@ -21,8 +21,9 @@ export default function Order({ orderApiResult, admin }: OrderProps) {
 
   const { shipping: shippingInfo, payment: paymentInfo, orderItems } = order;
 
-  const DELIVER_ORDER_API_URL = `http://localhost:4000/api/orders/${order._id}?action=deliver`;
+  const DELIVER_ORDER_API_URL = `${ORDERS_API_URL}/${order._id}/deliver`;
 
+  // TODO: mark order as delivered
   const onOrderDelivered = async () => {
     try {
       const response = await axios({
@@ -39,12 +40,15 @@ export default function Order({ orderApiResult, admin }: OrderProps) {
   };
 
   return (
-    <Layout>
+    <AdminLayout>
       <section className="container mx-auto mt-6 mb-6">
         <h1 className="mb-4 text-center text-2xl">Order</h1>
         <p className="mb-14 text-center text-base text-neutral-500">
           Review your order
         </p>
+        <div className="mb-4 flex items-center justify-end">
+          <Button label="All Orders" variant="primary" url="/admin/orders" />
+        </div>
         <div className="grid grid-cols-12 gap-6">
           <div className="col-span-7 flex flex-col gap-4">
             {/* Order */}
@@ -80,8 +84,11 @@ export default function Order({ orderApiResult, admin }: OrderProps) {
               </div>
               {/* Messages */}
               <div>
-                <SuccessBox message="Delivered at: 12 Dec 2022" />
-                <ErrorBox message="Not Delivered" />
+                {order.isDelivered ? (
+                  <SuccessBox message="Delivered at: 12 Dec 2022" />
+                ) : (
+                  <ErrorBox message="Not Delivered" />
+                )}
               </div>
             </div>
 
@@ -96,8 +103,11 @@ export default function Order({ orderApiResult, admin }: OrderProps) {
               </div>
               {/* Messages */}
               <div>
-                <SuccessBox message="Paid at: 12 Dec 2022" />
-                <ErrorBox message="Not Paid" />
+                {order.isPaid ? (
+                  <SuccessBox message="Paid at: 12 Dec 2022" />
+                ) : (
+                  <ErrorBox message="Not Paid" />
+                )}
               </div>
             </div>
 
@@ -141,30 +151,23 @@ export default function Order({ orderApiResult, admin }: OrderProps) {
               </div>
               <Button
                 variant="primary"
-                url="#"
-                label="Place Order Now"
+                label="Deliver Order"
                 customeClasses="text-center"
+                type="button"
+                onClick={onOrderDelivered}
               />
               <Button
-                variant="primary"
-                url="#"
-                label="Pay"
+                variant="danger"
+                label="Delete Order"
                 customeClasses="text-center"
+                type="button"
+                onClick={onOrderDelivered}
               />
-              {admin && (
-                <Button
-                  variant="primary"
-                  label="Deliver"
-                  customeClasses="text-center"
-                  type="button"
-                  onClick={onOrderDelivered}
-                />
-              )}
             </div>
           </div>
         </div>
       </section>
-    </Layout>
+    </AdminLayout>
   );
 }
 
@@ -173,8 +176,7 @@ export const getServerSideProps: GetServerSideProps<OrderProps> = async (
 ) => {
   const id = context.params?.id as string;
 
-  const ORDER_API_URL = "http://localhost:4000/api/orders";
-  const GET_SINGLE_ORDER_URL = `${ORDER_API_URL}/${id}`;
+  const GET_SINGLE_ORDER_URL = `${ORDERS_API_URL}/${id}`;
   const response = await fetch(GET_SINGLE_ORDER_URL);
   const result = await response.json();
 

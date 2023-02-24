@@ -1,80 +1,30 @@
-export const PRODUCTS_API_URL = "http://localhost:4000/api/products";
-export const ORDERS_API_URL = "http://localhost:4000/api/orders";
+// API Base URLs
+export const BASE_URL = "http://localhost:4000";
+export const PRODUCTS_API_URL = `${BASE_URL}/api/products`;
+export const ORDERS_API_URL = `${BASE_URL}/api/orders`;
+export const USERS_API_URL = `${BASE_URL}/api/users`;
 
-export const getProductsURL = (page, perpage, order) => {
-	const searchParams = new URLSearchParams("");
-
-  if(page) {
-    searchParams.append("page", Number(page));
-  }
-
-  if(perpage) {
-    searchParams.append("perpage", Number(perpage));
-  }
-
-  if(order) {
-    searchParams.append("order", Number(order));
-  }
-
-  const GET_PRODUCTS_URL = `${PRODUCTS_API_URL}?${searchParams.toString()}`;
-
-  return GET_PRODUCTS_URL;
-}
-
-export const getOrdersURL = (page, perpage, order) => {
-  const searchParams = new URLSearchParams("");
-  if(page) {
-    searchParams.append("page", Number(page));
-  }
-
-  if(perpage) {
-    searchParams.append("perpage", Number(perpage));
-  }
-
-  if(order) {
-    searchParams.append("order", Number(order));
-  }
-  const GET_ORDERS_URL = `${ORDERS_API_URL}?${searchParams.toString()}`;
-
-  return GET_ORDERS_URL;  
-} 
-
-export const getPaginationURL = (page, perpage, order) => {
-	const searchParams = new URLSearchParams("");
-
-  if(page) {
-    searchParams.append("page", Number(page));
-  }
-
-  if(perpage) {
-    searchParams.append("perpage", Number(perpage));
-  }
-
-  if(order) {
-    searchParams.append("order", Number(order));
-  }
-
-  const GET_PRODUCTS_URL = `/shop?${searchParams.toString()}`;
-
-  return GET_PRODUCTS_URL;
-}
-
-export const getOrderPaginationURL = (page, perpage, order) => {
+export const getPaginationURL = (
+  baseURL: string,
+  page: number,
+  perpage: number,
+  order: number
+) => {
   const searchParams = new URLSearchParams("");
 
-  if(page) {
-    searchParams.append("page", Number(page));
+  if (page) {
+    searchParams.append("page", String(page));
   }
 
-  if(perpage) {
-    searchParams.append("perpage", Number(perpage));
+  if (perpage) {
+    searchParams.append("perpage", String(perpage));
   }
 
-  if(order) {
-    searchParams.append("order", Number(order));
+  if (order) {
+    searchParams.append("order", String(order));
   }
 
-  const GET_ORDERS_URL = `/admin/orders?${searchParams.toString()}`;
+  const URL = `${baseURL}?${searchParams.toString()}`;
 
-  return GET_ORDERS_URL;
-}
+  return URL;
+};

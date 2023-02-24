@@ -8,17 +8,15 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { getPaginationURL } from "@/lib/urlUtils";
 
-interface AdminOrderPaginationProps {
+interface PaginationProps {
+  baseURL: string;
   page: number;
   pages: number;
   order: number;
+  count: number;
 }
 
-const AdminOrderPagination = ({
-  page,
-  pages,
-  order,
-}: AdminOrderPaginationProps) => {
+const Pagination = ({ page, pages, order }: PaginationProps) => {
   const [perpage, setPerpage] = useState(10);
 
   const baseURL = "/admin/orders";
@@ -73,4 +71,4 @@ const AdminOrderPagination = ({
   );
 };
 
-export default AdminOrderPagination;
+export default Pagination;

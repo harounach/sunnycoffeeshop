@@ -16,4 +16,5 @@ export default interface Order {
   paidAt: string;
   isDelivered: boolean;
   deliveredAt: string;
+  createdAt: string;
 }

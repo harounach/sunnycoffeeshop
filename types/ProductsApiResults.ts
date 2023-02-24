@@ -5,10 +5,16 @@ export interface GetProductsApiResult {
   pages: number;
   page: number;
   data: Array<Product>;
+  count: number;
 }
 
 export interface GetSingleProductApiResult {
   message?: string;
   data?: Product;
+  error?: string;
+}
+
+export interface UpdateProductApiResult {
+  message?: string;
   error?: string;
 }

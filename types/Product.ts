@@ -1,7 +1,7 @@
 export default interface Product {
   _id: string;
   title: string;
-  descirption: string;
+  description: string;
   price: number;
   image: string;
   slug: string;

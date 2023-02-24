@@ -8,20 +8,20 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { getPaginationURL } from "@/lib/urlUtils";
 
-interface AdminOrderPaginationProps {
+interface AdminProductPaginationProps {
   page: number;
   pages: number;
   order: number;
 }
 
-const AdminOrderPagination = ({
+const AdminProductPagination = ({
   page,
   pages,
   order,
-}: AdminOrderPaginationProps) => {
+}: AdminProductPaginationProps) => {
   const [perpage, setPerpage] = useState(10);
 
-  const baseURL = "/admin/orders";
+  const baseURL = "/admin/products";
 
   const firstButtonURL = getPaginationURL(baseURL, 1, perpage, order);
   const lastButtonURL = getPaginationURL(baseURL, pages, perpage, order);
@@ -29,7 +29,7 @@ const AdminOrderPagination = ({
   const previousButtonURL = getPaginationURL(baseURL, page - 1, perpage, order);
 
   return (
-    <div className="flex  items-center justify-end gap-4 border-2 border-gray-200 px-6">
+    <div className="flex  items-center justify-end gap-4">
       <form className="flex items-center gap-4">
         <label htmlFor="rows_per_page">Rows per page</label>
         <select name="rows_per_page" id="rows_per_page">
@@ -73,4 +73,4 @@ const AdminOrderPagination = ({
   );
 };
 
-export default AdminOrderPagination;
+export default AdminProductPagination;

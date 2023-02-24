@@ -5,6 +5,7 @@ export interface GetOrdersApiResult {
   pages: number;
   page: number;
   data: Array<Order>;
+  count: number;
 }
 
 export interface GetSingleOrderApiResult {

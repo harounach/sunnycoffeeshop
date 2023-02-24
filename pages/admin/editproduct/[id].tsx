@@ -1,31 +1,43 @@
-import { useState } from "react";
-import Link from "next/link";
+import React, { useState } from "react";
+import { GetServerSideProps } from "next";
 
 import AdminLayout from "@/components/Layout/AdminLayout";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBarsProgress,
-  faRightFromBracket,
-  faShoppingBasket,
-  faTag,
-  faUserGroup,
-} from "@fortawesome/free-solid-svg-icons";
+import { GetSingleProductApiResult } from "@/types/ProductsApiResults";
 
 import TextField from "@/components/Form/TextField";
 import Button from "@/components/Button/Button";
+import AdminSidebar from "@/components/Sidebar/AdminSidebar";
 import axios from "axios";
+import { PRODUCTS_API_URL } from "@/lib/urlUtils";
 
-export default function AdminAddProduct() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("0");
-  const [image, setImage] = useState("");
-  const [slug, setSlug] = useState("");
+interface AdminEditProductProps {
+  productApiResult: GetSingleProductApiResult;
+}
+
+export default function AdminEditProduct({
+  productApiResult,
+}: AdminEditProductProps) {
+  console.log(productApiResult);
+  const { data: product, error, message } = productApiResult;
+
+  if (!product) {
+    return null;
+  }
+
+  const [title, setTitle] = useState(product.title);
+  const [description, setDescription] = useState(product.description);
+  const [price, setPrice] = useState(String(product.price));
+  const [image, setImage] = useState(product.image);
+  const [slug, setSlug] = useState(product.slug);
 
   const canSubmit =
-    Boolean(title) && Boolean(description) && Boolean(price) && Boolean(image);
+    Boolean(title) &&
+    Boolean(description) &&
+    Boolean(price) &&
+    Boolean(image) &&
+    Boolean(slug);
 
-  const CREATE_PRODUCT_API_URL = "http://localhost:4000/api/products";
+  const UPDATE_PRODUCT_API_URL = `http://localhost:4000/api/products/${product._id}`;
 
   const handleSubmit = async () => {
     if (canSubmit) {
@@ -38,8 +50,8 @@ export default function AdminAddProduct() {
           slug,
         };
         const response = await axios({
-          method: "POST",
-          url: CREATE_PRODUCT_API_URL,
+          method: "PUT",
+          url: UPDATE_PRODUCT_API_URL,
           data,
           validateStatus: () => true,
         });
@@ -57,84 +69,15 @@ export default function AdminAddProduct() {
       <section className="container mx-auto mt-6">
         <div className="grid grid-cols-12 gap-6">
           {/* Sidebar */}
-          <div className="col-span-3 bg-neutral-100 px-6 py-4">
-            <h2 className="mb-4 text-center text-xl">Admin: John Doe</h2>
-            <p className="mb-14 text-center text-base text-neutral-500">
-              Joined on 12 Dec 2022
-            </p>
-
-            <div className="flex justify-center">
-              <ul className="inline-flex flex-col gap-4">
-                <li>
-                  <Link
-                    className="flex items-center gap-4 text-neutral-600"
-                    href={"/admin/dashboard"}
-                  >
-                    <FontAwesomeIcon
-                      className="h-6 w-6"
-                      icon={faBarsProgress}
-                    />
-                    <span className="text-base">Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="flex items-center gap-4 text-yellow-700"
-                    href={"/admin/products"}
-                  >
-                    <FontAwesomeIcon
-                      className="h-6 w-6"
-                      icon={faShoppingBasket}
-                    />{" "}
-                    <span className="text-base">Products</span>
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    className="flex items-center gap-4 text-neutral-600"
-                    href={"/admin/orders"}
-                  >
-                    <FontAwesomeIcon className="h-6 w-6" icon={faTag} />{" "}
-                    <span className="text-base">Orders</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="flex items-center gap-4 text-neutral-600"
-                    href={"/admin/users"}
-                  >
-                    <FontAwesomeIcon className="h-6 w-6" icon={faUserGroup} />{" "}
-                    <span className="text-base">Users</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="flex items-center gap-4 text-neutral-600"
-                    href={"/account/profile"}
-                  >
-                    <FontAwesomeIcon
-                      className="h-6 w-6"
-                      icon={faRightFromBracket}
-                    />
-                    <span className="text-base">Logout</span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <AdminSidebar products />
           {/* Main Content */}
           <div className="col-span-9">
-            <h1 className="mb-4 text-center text-2xl">Add Product</h1>
+            <h1 className="mb-4 text-center text-2xl">Edit Product</h1>
             <p className="mb-14 text-center text-base text-neutral-500">
-              Add and customize your product
+              Edit and customize your product
             </p>
             <div className="mb-4 flex items-center justify-end">
-              <Button
-                label="All Products"
-                variant="primary"
-                url="/admin/products"
-              />
+              <Button label="All Products" variant="primary" type="submit" />
             </div>
 
             <div className="mb-6 flex justify-center">
@@ -168,7 +111,7 @@ export default function AdminAddProduct() {
                     placeholder="Description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                  ></textarea>
+                  />
                 </div>
 
                 <div className="flex flex-col items-start gap-2">
@@ -227,3 +170,19 @@ export default function AdminAddProduct() {
     </AdminLayout>
   );
 }
+
+export const AdminEditProductProps: GetServerSideProps<
+  AdminEditProductProps
+> = async (context) => {
+  const id = context.params?.id as string;
+
+  const GET_SINGLE_PRODUCT_URL = `${PRODUCTS_API_URL}/${id}`;
+  const response = await fetch(GET_SINGLE_PRODUCT_URL);
+  const result = await response.json();
+
+  return {
+    props: {
+      productApiResult: result,
+    },
+  };
+};

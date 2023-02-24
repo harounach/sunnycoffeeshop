@@ -15,6 +15,7 @@ import { cartAdded, cartDeleted } from "@/state/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import CartProduct from "@/types/CartProduct";
 import Review from "@/types/Review";
+import { PRODUCTS_API_URL } from "@/lib/urlUtils";
 
 interface ProductProps {
   productApiResult: GetSingleProductApiResult;
@@ -181,8 +182,6 @@ export const getServerSideProps: GetServerSideProps<ProductProps> = async (
   context
 ) => {
   const id = context.params?.id as string;
-
-  const PRODUCTS_API_URL = "http://localhost:4000/api/products";
   const GET_SINGLE_PRODUCT_URL = `${PRODUCTS_API_URL}/${id}`;
   const response = await fetch(GET_SINGLE_PRODUCT_URL);
   const result = await response.json();
