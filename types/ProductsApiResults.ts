@@ -18,3 +18,11 @@ export interface UpdateProductApiResult {
   message?: string;
   error?: string;
 }
+
+export interface SearchProductsApiResult {
+  message: string;
+  pages: number;
+  page: number;
+  data: Array<Product>;
+  count: number;
+}

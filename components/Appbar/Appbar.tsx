@@ -1,6 +1,7 @@
-import React from "react";
+import React, { SyntheticEvent, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -13,6 +14,14 @@ import IconButton from "../Button/IconButton";
 interface AppbarProps extends BaseProps {}
 
 const Appbar = ({}: AppbarProps) => {
+  const router = useRouter();
+  const [search, setSearch] = useState("");
+
+  const handleSearchSubmit = (e: SyntheticEvent) => {
+    e.preventDefault();
+    router.push({ pathname: "/search", query: { q: search } });
+  };
+
   return (
     <header className="py-4">
       <div className="container mx-auto">
@@ -39,13 +48,13 @@ const Appbar = ({}: AppbarProps) => {
                 </Link>
               </li>
             </ul>
-            <form>
+            <form onSubmit={handleSearchSubmit}>
               <TextField
-                name="search"
+                name="q"
                 placeholder="Search..."
                 type="text"
-                value={""}
-                onChange={() => ""}
+                value={search}
+                onChange={setSearch}
               />
             </form>
             <IconButton
