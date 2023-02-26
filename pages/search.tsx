@@ -11,9 +11,10 @@ import Query from "@/types/Query";
 
 interface SearchProps {
   searchApiResult: SearchProductsApiResult;
+  query?: string;
 }
 
-export default function Search({ searchApiResult }: SearchProps) {
+export default function Search({ searchApiResult, query }: SearchProps) {
   const router = useRouter();
 
   const { data: products, message, pages, page } = searchApiResult;
@@ -21,9 +22,9 @@ export default function Search({ searchApiResult }: SearchProps) {
   return (
     <Layout>
       <section className="container mx-auto mt-6">
-        <h1 className="mb-4 text-center text-2xl">Shop</h1>
+        <h1 className="mb-4 text-center text-2xl">Search</h1>
         <p className="mb-14 text-center text-base text-neutral-500">
-          Shop your favorite taste of coffee
+          Products matched for your search: <strong> {query} </strong>
         </p>
 
         {/* Sort and Filter */}
@@ -96,6 +97,7 @@ export const getServerSideProps: GetServerSideProps<SearchProps> = async (
   return {
     props: {
       searchApiResult: result,
+      query: String(q),
     },
   };
 };
