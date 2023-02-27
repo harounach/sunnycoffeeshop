@@ -2,11 +2,11 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import Chip from "@/components/Chip/Chip";
 import ChipGroup from "@/components/Chip/ChipGroup";
-import ShopPagination from "@/components/Pagination/ShopPagination";
 import Layout from "@/components/Layout/Layout";
 import { GetProductsApiResult } from "@/types/ProductsApiResults";
 import ShopCard from "@/components/Card/ShopCard";
 import { getPaginationURL, PRODUCTS_API_URL } from "@/lib/urlUtils";
+import DottedPagination from "@/components/Pagination/DottedPagination";
 
 interface ShopProps {
   productsApiResult: GetProductsApiResult;
@@ -56,7 +56,10 @@ export default function Shop({ productsApiResult }: ShopProps) {
             })}
           </div>
           <div className="mt-6">
-            <ShopPagination page={page} pages={pages} perpage={8} order={-1} />
+            <DottedPagination
+              baseURL="/shop"
+              query={{ page, pages, perpage: 8, order: -1 }}
+            />
           </div>
         </section>
       </section>
@@ -67,18 +70,17 @@ export default function Shop({ productsApiResult }: ShopProps) {
 export const getServerSideProps: GetServerSideProps<{
   productsApiResult: GetProductsApiResult;
 }> = async (context) => {
-  const { page, perpage, order } = context.query;
+  const { page, perpage, order, q } = context.query;
 
-  const GET_PRODUCTS_URL = getPaginationURL(
-    PRODUCTS_API_URL,
-    Number(page),
-    Number(perpage),
-    Number(order)
-  );
+  const GET_PRODUCTS_URL = getPaginationURL(PRODUCTS_API_URL, {
+    page: page as string,
+    perpage: perpage as string,
+    order: order as string,
+  });
 
+  console.log(`Your search query is: ${q}`);
   const response = await fetch(GET_PRODUCTS_URL);
   const result = await response.json();
-
   return {
     props: {
       productsApiResult: result,

@@ -13,7 +13,10 @@ export const getPaginationURL = (baseURL: string, query: Query) => {
   const queryKeys = Object.keys(query) as Array<keyof Query>;
 
   queryKeys.forEach((param) => {
-    searchParams.append(param, query[param] as string);
+    const value = query[param];
+    if (value != undefined) {
+      searchParams.append(param, value as string);
+    }
   });
 
   const URL = `${baseURL}?${searchParams.toString()}`;

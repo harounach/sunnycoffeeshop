@@ -67,12 +67,11 @@ export const getServerSideProps: GetServerSideProps<
 > = async (context) => {
   const { page, perpage, order } = context.query;
 
-  const GET_PRODUCTS_URL = getPaginationURL(
-    PRODUCTS_API_URL,
-    Number(page),
-    Number(perpage),
-    Number(order)
-  );
+  const GET_PRODUCTS_URL = getPaginationURL(PRODUCTS_API_URL, {
+    page: page as string,
+    perpage: perpage as string,
+    order: order as string,
+  });
 
   const response = await fetch(GET_PRODUCTS_URL);
   const result = await response.json();

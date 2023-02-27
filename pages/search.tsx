@@ -2,21 +2,20 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import Chip from "@/components/Chip/Chip";
 import ChipGroup from "@/components/Chip/ChipGroup";
-import ShopPagination from "@/components/Pagination/ShopPagination";
+import ShopPagination from "@/components/Pagination/DottedPagination";
 import Layout from "@/components/Layout/Layout";
 import { SearchProductsApiResult } from "@/types/ProductsApiResults";
 import ShopCard from "@/components/Card/ShopCard";
 import { getPaginationURL, PRODUCTS_API_URL } from "@/lib/urlUtils";
 import Query from "@/types/Query";
+import DottedPagination from "@/components/Pagination/DottedPagination";
 
 interface SearchProps {
   searchApiResult: SearchProductsApiResult;
-  query?: string;
+  searchQuery?: string;
 }
 
-export default function Search({ searchApiResult, query }: SearchProps) {
-  const router = useRouter();
-
+export default function Search({ searchApiResult, searchQuery }: SearchProps) {
   const { data: products, message, pages, page } = searchApiResult;
 
   return (
@@ -24,7 +23,7 @@ export default function Search({ searchApiResult, query }: SearchProps) {
       <section className="container mx-auto mt-6">
         <h1 className="mb-4 text-center text-2xl">Search</h1>
         <p className="mb-14 text-center text-base text-neutral-500">
-          Products matched for your search: <strong> {query} </strong>
+          Products matched for your search: <strong> {searchQuery} </strong>
         </p>
 
         {/* Sort and Filter */}
@@ -58,7 +57,10 @@ export default function Search({ searchApiResult, query }: SearchProps) {
             })}
           </div>
           <div className="mt-6">
-            <ShopPagination page={page} pages={pages} perpage={8} order={-1} />
+            <DottedPagination
+              baseURL="/search"
+              query={{ page, pages, perpage: 8, order: -1, q: searchQuery }}
+            />
           </div>
         </section>
       </section>
@@ -71,33 +73,22 @@ export const getServerSideProps: GetServerSideProps<SearchProps> = async (
 ) => {
   const { page, perpage, order, q } = context.query;
 
-  const query: Query = {};
-  if (page) {
-    query.page = Number(page);
-  }
+  const SEARCH_PRODUCTS_URL = getPaginationURL(PRODUCTS_API_URL, {
+    page: page as string,
+    perpage: perpage as string,
+    order: order as string,
+    q: q as string,
+  });
 
-  if (perpage) {
-    query.perpage = Number(perpage);
-  }
-
-  if (order) {
-    query.order = Number(order);
-  }
-
-  if (q) {
-    query.q = String(q);
-  }
-
-  const SEARCH_PRODUCTS_URL = getPaginationURL(PRODUCTS_API_URL, query);
-
-  console.log(SEARCH_PRODUCTS_URL);
   const response = await fetch(SEARCH_PRODUCTS_URL);
   const result = await response.json();
+
+  const search = q ? q : "";
 
   return {
     props: {
       searchApiResult: result,
-      query: String(q),
+      searchQuery: search as string,
     },
   };
 };
