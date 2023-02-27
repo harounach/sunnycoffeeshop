@@ -3,17 +3,12 @@ import React from "react";
 import { BaseProps } from "@/types/BaseProps";
 import OrderItem from "@/types/OrderItem";
 import Image from "next/image";
-import { useAppDispatch, useAppSelector } from "@/state/hooks";
-import {
-  selectCartProductById,
-} from "@/state/cartSlice";
 
 interface OrderCardProps extends BaseProps {
   orderItem: OrderItem;
 }
 
 const OrderCard = ({ orderItem }: OrderCardProps) => {
-
   return (
     <div className="grid grid-cols-4 gap-6">
       <div>

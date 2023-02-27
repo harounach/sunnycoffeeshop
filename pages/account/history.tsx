@@ -2,12 +2,7 @@ import Layout from "@/components/Layout/Layout";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import { GetOrdersApiResult } from "@/types/OrdersApiResults";
 import { GetServerSideProps } from "next";
-import {
-  getPaginationURL,
-  ORDERS_API_URL,
-  USERS_API_URL,
-  USER_ID,
-} from "@/lib/urlUtils";
+import { getPaginationURL, USERS_API_URL, USER_ID } from "@/lib/urlUtils";
 import OrderHistoryRow from "@/components/Table/OrderHistoryRow";
 import Pagination from "@/components/Pagination/Pagination";
 
@@ -72,12 +67,11 @@ export const getServerSideProps: GetServerSideProps<OrderHistoryProps> = async (
 
   const GET_USER_ORDERS_API_URL = `${USERS_API_URL}/${USER_ID}/orders`;
 
-  const GET_ORDERS_URL = getPaginationURL(
-    GET_USER_ORDERS_API_URL,
-    Number(page),
-    Number(perpage),
-    Number(order)
-  );
+  const GET_ORDERS_URL = getPaginationURL(GET_USER_ORDERS_API_URL, {
+    page: page as string,
+    perpage: perpage as string,
+    order: order as string,
+  });
 
   const response = await fetch(GET_ORDERS_URL);
   const result = await response.json();

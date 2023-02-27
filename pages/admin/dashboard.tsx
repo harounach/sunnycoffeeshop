@@ -104,7 +104,11 @@ export default function AdminDashboard({
 export const getServerSideProps: GetServerSideProps<
   AdminDashboardProps
 > = async (context) => {
-  const GET_ORDERS_URL = getPaginationURL(ORDERS_API_URL, 1, 8, -1);
+  const GET_ORDERS_URL = getPaginationURL(ORDERS_API_URL, {
+    page: 1,
+    perpage: 8,
+    order: -1,
+  });
 
   const response = await fetch(GET_ORDERS_URL);
   const result = await response.json();

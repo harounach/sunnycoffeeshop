@@ -7,6 +7,7 @@ import { GetSingleOrderApiResult } from "@/types/OrdersApiResults";
 import { GetServerSideProps } from "next";
 import axios from "axios";
 import { ORDERS_API_URL } from "@/lib/urlUtils";
+import { formatFriendyDate } from "@/lib/dateUtils";
 
 interface OrderProps {
   orderApiResult: GetSingleOrderApiResult;
@@ -85,7 +86,7 @@ export default function Order({ orderApiResult }: OrderProps) {
               {/* Messages */}
               <div>
                 {order.isDelivered ? (
-                  <SuccessBox message="Delivered at: 12 Dec 2022" />
+                  <SuccessBox message={`Delivered at: ${order.deliveredAt}`} />
                 ) : (
                   <ErrorBox message="Not Delivered" />
                 )}
@@ -104,7 +105,9 @@ export default function Order({ orderApiResult }: OrderProps) {
               {/* Messages */}
               <div>
                 {order.isPaid ? (
-                  <SuccessBox message="Paid at: 12 Dec 2022" />
+                  <SuccessBox
+                    message={`Paid at: ${formatFriendyDate(order.paidAt)}`}
+                  />
                 ) : (
                   <ErrorBox message="Not Paid" />
                 )}

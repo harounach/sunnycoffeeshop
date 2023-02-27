@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { GetServerSideProps } from "next";
 import IconButton from "@/components/Button/IconButton";
 import Layout from "@/components/Layout/Layout";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";

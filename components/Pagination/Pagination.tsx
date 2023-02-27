@@ -73,6 +73,7 @@ const Pagination = ({
       <div className="flex items-center gap-2">
         {/*First button*/}
         <IconButton
+          title="First Page"
           icon={faAnglesLeft}
           size="normal"
           variant={canShowleftArrow ? "white" : "disabled"}
@@ -81,6 +82,7 @@ const Pagination = ({
         />
         {/*Previous button*/}
         <IconButton
+          title="Previous Page"
           icon={faAngleLeft}
           size="normal"
           variant={canShowleftArrow ? "white" : "disabled"}
@@ -89,6 +91,7 @@ const Pagination = ({
         />
         {/*Next button*/}
         <IconButton
+          title="Next Page"
           icon={faAngleRight}
           size="normal"
           variant={canShowRightArrow ? "white" : "disabled"}
@@ -97,6 +100,7 @@ const Pagination = ({
         />
         {/*Last button*/}
         <IconButton
+          title="Last Page"
           icon={faAnglesRight}
           size="normal"
           variant={canShowRightArrow ? "white" : "disabled"}

@@ -2,17 +2,14 @@ import React from "react";
 
 import { BaseProps } from "@/types/BaseProps";
 import Image from "next/image";
-import { useAppDispatch, useAppSelector } from "@/state/hooks";
-import {
-  selectCartProductById,
-} from "@/state/cartSlice";
+import { useAppSelector } from "@/state/hooks";
+import { selectCartProductById } from "@/state/cartSlice";
 
 interface PlaceOrderCardProps extends BaseProps {
   cartProductId: string;
 }
 
 const PlaceOrderCard = ({ cartProductId }: PlaceOrderCardProps) => {
-
   const cartProduct = useAppSelector((state) =>
     selectCartProductById(state, cartProductId)
   );

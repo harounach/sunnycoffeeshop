@@ -24,7 +24,7 @@ const AdminUserRow = ({ user }: AdminUserRowProps) => {
             icon={faTrash}
             variant="primaryIcon"
             size="normal"
-            url="/order"
+            url="/admin/users"
           />
         </div>
       </td>

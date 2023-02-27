@@ -66,12 +66,11 @@ export const getServerSideProps: GetServerSideProps<AdminUsersProps> = async (
 ) => {
   const { page, perpage, order } = context.query;
 
-  const GET_USERS_URL = getPaginationURL(
-    USERS_API_URL,
-    Number(page),
-    Number(perpage),
-    Number(order)
-  );
+  const GET_USERS_URL = getPaginationURL(USERS_API_URL, {
+    page: page as string,
+    perpage: perpage as string,
+    order: order as string,
+  });
 
   const response = await fetch(GET_USERS_URL);
   const result = await response.json();
