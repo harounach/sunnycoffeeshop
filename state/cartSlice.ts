@@ -64,7 +64,7 @@ const cartSlice = createSlice({
     savePaymentInfo: (state, action: PayloadAction<PaymentInfo>) => {
       state.paymentInfo = action.payload;
     },
-    resetCart: (state, action) => {
+    resetCart: (state, action: PayloadAction<any>) => {
       cartAdapter.removeAll(state);
       state.shippingInfo = initialShippingInfo;
       state.paymentInfo = initialPaymentInfo;

@@ -5,12 +5,15 @@ import Order from "@/types/Order";
 import axios from "axios";
 import { ORDERS_API_URL } from "@/lib/urlUtils";
 import { formatFriendyDate } from "@/lib/dateUtils";
+import { DeleteOrderApiResult } from "@/types/OrdersApiResults";
+import { useRouter } from "next/router";
 
 interface AdminOrderRowProps {
   order: Order;
 }
 
 const AdminOrderRow = ({ order }: AdminOrderRowProps) => {
+  const router = useRouter();
   const paidText = order.isPaid ? formatFriendyDate(order.paidAt) : "Not Paid";
   const deliverText = order.isDelivered
     ? formatFriendyDate(order.deliveredAt)
@@ -19,16 +22,19 @@ const AdminOrderRow = ({ order }: AdminOrderRowProps) => {
   const redtext = (value: boolean) => (!value ? "text-red-500" : "");
 
   // Delete order from database
-  const handleDeleteOrder = async () => {
+  const onOrderDeleted = async () => {
     const DELETE_ORDER_API_URL = `${ORDERS_API_URL}/${order._id}`;
-    const response = await axios({
+    const response = await axios<DeleteOrderApiResult>({
       method: "DELETE",
       url: DELETE_ORDER_API_URL,
       validateStatus: () => true,
     });
 
     const result = response.data;
-    const { error, message } = result;
+    const { error, message, data } = result;
+    if (!error) {
+      router.push("/admin/orders");
+    }
   };
 
   return (
@@ -60,7 +66,7 @@ const AdminOrderRow = ({ order }: AdminOrderRowProps) => {
             icon={faTrash}
             variant="primaryIcon"
             size="normal"
-            onClick={handleDeleteOrder}
+            onClick={onOrderDeleted}
           />
         </div>
       </td>

@@ -65,7 +65,7 @@ export default function PlaceOrder() {
       const { error, message, data: newOrder } = result;
       if (!error) {
         // order created successfully
-        dispatch(resetCart());
+        dispatch(resetCart(""));
         router.replace(`/orders/${newOrder?._id}`);
       }
 

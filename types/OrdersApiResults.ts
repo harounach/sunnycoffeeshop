@@ -19,3 +19,9 @@ export interface CreateOrderApiResult {
   data?: Order;
   error?: string;
 }
+
+export interface DeleteOrderApiResult {
+  message?: string;
+  data?: Order;
+  error?: string;
+}
