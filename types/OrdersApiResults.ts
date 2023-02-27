@@ -13,3 +13,9 @@ export interface GetSingleOrderApiResult {
   data?: Order;
   error?: string;
 }
+
+export interface CreateOrderApiResult {
+  message?: string;
+  data?: Order;
+  error?: string;
+}

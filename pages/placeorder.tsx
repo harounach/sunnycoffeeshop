@@ -8,8 +8,9 @@ import {
   selectCartProducts,
   selectShippingInfo,
   selectPaymentInfo,
+  resetCart,
 } from "@/state/cartSlice";
-import { useAppSelector } from "@/state/hooks";
+import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { calculateSubtotal } from "@/lib/cartUtils";
 
 import { faPen } from "@fortawesome/free-solid-svg-icons";
@@ -17,9 +18,11 @@ import { useState } from "react";
 import { getPaymentMethodText } from "@/lib/textUtils";
 import { USER_ID } from "@/lib/urlUtils";
 import { useRouter } from "next/router";
+import { CreateOrderApiResult } from "@/types/OrdersApiResults";
 
 export default function PlaceOrder() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const [errorMsg, setErrorMsg] = useState("");
   const cartProducts = useAppSelector(selectCartProducts);
   const cartProductIds = useAppSelector(selectCartProductIds);
@@ -51,7 +54,7 @@ export default function PlaceOrder() {
         user,
       };
 
-      const response = await axios({
+      const response = await axios<CreateOrderApiResult>({
         method: "POST",
         url: "http://localhost:4000/api/orders",
         data,
@@ -59,10 +62,11 @@ export default function PlaceOrder() {
       });
 
       const result = response.data;
-      const { error, message } = result;
+      const { error, message, data: newOrder } = result;
       if (!error) {
         // order created successfully
-        router.replace("/account/history");
+        dispatch(resetCart());
+        router.replace(`/orders/${newOrder?._id}`);
       }
 
       console.log(result);

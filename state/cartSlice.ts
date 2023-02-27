@@ -15,20 +15,25 @@ type CartInitialState = {
 const cartAdapter = createEntityAdapter<CartProduct>({
   selectId: (cartProduct) => cartProduct._id,
 });
+
+const initialShippingInfo: ShippingInfo = {
+  name: "",
+  email: "",
+  street: "",
+  city: "",
+  state: "",
+  postalCode: "",
+  country: "",
+};
+
+const initialPaymentInfo: PaymentInfo = {
+  paymentMethod: "paypal",
+};
+
 const initialState = cartAdapter.getInitialState<CartInitialState>({
   status: "idle",
-  shippingInfo: {
-    name: "",
-    email: "",
-    street: "",
-    city: "",
-    state: "",
-    postalCode: "",
-    country: "",
-  },
-  paymentInfo: {
-    paymentMethod: "paypal",
-  },
+  shippingInfo: initialShippingInfo,
+  paymentInfo: initialPaymentInfo,
 });
 
 const cartSlice = createSlice({
@@ -59,6 +64,11 @@ const cartSlice = createSlice({
     savePaymentInfo: (state, action: PayloadAction<PaymentInfo>) => {
       state.paymentInfo = action.payload;
     },
+    resetCart: (state, action) => {
+      cartAdapter.removeAll(state);
+      state.shippingInfo = initialShippingInfo;
+      state.paymentInfo = initialPaymentInfo;
+    },
   },
 });
 
@@ -70,6 +80,7 @@ export const {
   cartQuantityMinus,
   saveShippingInfo,
   savePaymentInfo,
+  resetCart,
 } = cartSlice.actions;
 
 // Selectors
