@@ -2,13 +2,17 @@ import { SyntheticEvent, useState, ChangeEvent } from "react";
 import { useRouter } from "next/router";
 import Button from "@/components/Button/Button";
 import Layout from "@/components/Layout/Layout";
-import { useAppDispatch } from "@/state/hooks";
-import { savePaymentInfo } from "@/state/cartSlice";
+import { useAppDispatch, useAppSelector } from "@/state/hooks";
+import { savePaymentInfo, selectPaymentInfo } from "@/state/cartSlice";
+import { PaymentMethod } from "@/types/PaymentInfo";
 
 export default function Payment() {
+  const paymentInfo = useAppSelector(selectPaymentInfo);
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const [paymentMethod, setPaymentMethod] = useState("paypal");
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(
+    paymentInfo.paymentMethod
+  );
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -16,11 +20,11 @@ export default function Payment() {
       paymentMethod,
     };
     dispatch(savePaymentInfo(paymentInfo));
+    router.push("/placeorder");
   };
 
   const onOptionChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setPaymentMethod(e.target.value);
+    setPaymentMethod(e.target.value as PaymentMethod);
   };
 
   return (
@@ -42,7 +46,7 @@ export default function Payment() {
                 type="radio"
                 name="payment_method"
                 value={"paypal"}
-                checked={paymentMethod === "paypal"}
+                checked={paymentMethod == "paypal"}
                 onChange={onOptionChange}
                 id="paypal"
               />
@@ -57,12 +61,26 @@ export default function Payment() {
                 type="radio"
                 name="payment_method"
                 value={"credit_card"}
-                checked={paymentMethod === "credit_card"}
+                checked={paymentMethod == "credit_card"}
                 onChange={onOptionChange}
                 id="credit_card"
               />
               <label htmlFor="credit_card" className="text-base">
                 Credit Card
+              </label>
+            </div>
+            <div className="flex gap-2">
+              <input
+                className="accent-yellow-700"
+                type="radio"
+                name="payment_method"
+                value={"in_person"}
+                checked={paymentMethod == "in_person"}
+                onChange={onOptionChange}
+                id="in_person"
+              />
+              <label htmlFor="in_person" className="text-base">
+                In Person
               </label>
             </div>
 

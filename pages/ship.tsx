@@ -2,19 +2,22 @@ import { SyntheticEvent, useState } from "react";
 import Button from "@/components/Button/Button";
 import TextField from "@/components/Form/TextField";
 import Layout from "@/components/Layout/Layout";
-import { useAppDispatch } from "@/state/hooks";
-import { saveShippingInfo } from "@/state/cartSlice";
+import { useAppDispatch, useAppSelector } from "@/state/hooks";
+import { saveShippingInfo, selectShippingInfo } from "@/state/cartSlice";
+import { useRouter } from "next/router";
 
 export default function Ship() {
+  const router = useRouter();
+  const shippingInfo = useAppSelector(selectShippingInfo);
   const dispatch = useAppDispatch();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [street, setStreet] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [country, setCountry] = useState("");
+  const [name, setName] = useState(shippingInfo.name);
+  const [email, setEmail] = useState(shippingInfo.email);
+  const [street, setStreet] = useState(shippingInfo.street);
+  const [city, setCity] = useState(shippingInfo.city);
+  const [state, setState] = useState(shippingInfo.state);
+  const [postalCode, setPostalCode] = useState(shippingInfo.postalCode);
+  const [country, setCountry] = useState(shippingInfo.country);
   const [errorMsg, setErrorMsg] = useState("");
 
   const canSubmit =
@@ -26,7 +29,7 @@ export default function Ship() {
     Boolean(postalCode) &&
     Boolean(country);
 
-  const handleSubmit =  (e: SyntheticEvent) => {
+  const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     setErrorMsg("");
     if (canSubmit) {
@@ -37,20 +40,13 @@ export default function Ship() {
         city,
         state,
         postalCode,
-        country
+        country,
       };
 
       // Save shipping info
       dispatch(saveShippingInfo(shippingInfo));
-
-      setName("");
-      setEmail("");
-      setStreet("");
-      setCity("");
-      setState("");
-      setPostalCode("");
-      setCountry("");
-      setErrorMsg("");
+      // Navigate to payment page
+      router.push("/payment");
     } else {
       setErrorMsg("All fields are required");
     }
@@ -65,7 +61,10 @@ export default function Ship() {
         </p>
 
         <div className="flex justify-center">
-          <form className="inline-flex flex-col gap-4 border-2 border-gray-200 px-20 py-4" onSubmit={handleSubmit}>
+          <form
+            className="inline-flex flex-col gap-4 border-2 border-gray-200 px-20 py-4"
+            onSubmit={handleSubmit}
+          >
             <div className="text-red-500">{errorMsg}</div>
             <div className="flex flex-col items-start gap-2">
               <label htmlFor="name" className="text-base">

@@ -13,13 +13,19 @@ import { useAppSelector } from "@/state/hooks";
 import { calculateSubtotal } from "@/lib/cartUtils";
 
 import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import { getPaymentMethodText } from "@/lib/textUtils";
+import { USER_ID } from "@/lib/urlUtils";
+import { useRouter } from "next/router";
 
 export default function PlaceOrder() {
+  const router = useRouter();
+  const [errorMsg, setErrorMsg] = useState("");
   const cartProducts = useAppSelector(selectCartProducts);
   const cartProductIds = useAppSelector(selectCartProductIds);
   const shippingInfo = useAppSelector(selectShippingInfo);
   const paymentInfo = useAppSelector(selectPaymentInfo);
-  const user = "user_id";
+  const user = USER_ID;
 
   const subtotal = calculateSubtotal(cartProducts);
   const shipping = 0;
@@ -36,7 +42,7 @@ export default function PlaceOrder() {
     };
   });
 
-  const handleCreateOrder = async () => {
+  const onOrderPlaced = async () => {
     try {
       const data = {
         shippingInfo,
@@ -54,7 +60,10 @@ export default function PlaceOrder() {
 
       const result = response.data;
       const { error, message } = result;
-      // Email: haroun@hwiren.com
+      if (!error) {
+        // order created successfully
+        router.replace("/account/history");
+      }
 
       console.log(result);
     } catch (err) {
@@ -81,6 +90,7 @@ export default function PlaceOrder() {
                   size="normal"
                   url="/ship"
                   icon={faPen}
+                  title="Edit Shipping Info"
                 />
               </div>
               <div className="flex gap-4">
@@ -112,11 +122,12 @@ export default function PlaceOrder() {
                   size="normal"
                   url="/payment"
                   icon={faPen}
+                  title="Edit Payment Method"
                 />
               </div>
               <div className="flex gap-4">
                 <span className="font-medium">Payment method:</span>
-                <span>{paymentInfo.paymentMethod}</span>
+                <span>{getPaymentMethodText(paymentInfo.paymentMethod)}</span>
               </div>
             </div>
 
@@ -129,6 +140,7 @@ export default function PlaceOrder() {
                   size="normal"
                   url="/cart"
                   icon={faPen}
+                  title="Edit Cart Items"
                 />
               </div>
               <div className="flex flex-col gap-4">
@@ -169,9 +181,9 @@ export default function PlaceOrder() {
               </div>
               <Button
                 variant="primary"
-                url="#"
                 label="Place Order Now"
                 customeClasses="text-center"
+                onClick={onOrderPlaced}
               />
             </div>
           </div>
