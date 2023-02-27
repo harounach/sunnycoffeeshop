@@ -1,5 +1,4 @@
 import CartProduct from "@/types/CartProduct";
-import ICoffee from "@/types/ICoffee";
 import Product from "@/types/Product";
 
 export const coffeeAllData: Array<Product> = [
@@ -7,7 +6,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-01",
     title: "Black Coffee",
-    descirption: "Black Coffee",
+    description: "Black Coffee",
     price: 3.5,
     image: "/images/01-black-coffee.jpg",
     slug: "black-coffee",
@@ -16,7 +15,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-02",
     title: "Latte",
-    descirption: "Latte",
+    description: "Latte",
     price: 3.5,
     image: "/images/02-latte.jpg",
     slug: "latte",
@@ -26,7 +25,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-03",
     title: "Cappuccino",
-    descirption: "Cappuccino",
+    description: "Cappuccino",
     price: 3.5,
     image: "/images/03-cappuccino.jpg",
     slug: "latte",
@@ -35,7 +34,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-04",
     title: "Americano",
-    descirption: "Americano",
+    description: "Americano",
     price: 3.5,
     image: "/images/04-americano.jpg",
     slug: "latte",
@@ -44,7 +43,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-05",
     title: "Espresso",
-    descirption: "Espresso",
+    description: "Espresso",
     price: 3.5,
     image: "/images/05-espresso.jpg",
     slug: "latte",
@@ -53,7 +52,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-06",
     title: "Doppio",
-    descirption: "Doppio",
+    description: "Doppio",
     price: 3.5,
     image: "/images/06-doppio.jpg",
     slug: "latte",
@@ -62,7 +61,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-07",
     title: "Cortado",
-    descirption: "Cortado",
+    description: "Cortado",
     price: 3.5,
     image: "/images/07-cortado.jpg",
     slug: "latte",
@@ -72,7 +71,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-08",
     title: "Red Eye",
-    descirption: "Red Eye",
+    description: "Red Eye",
     price: 3.5,
     image: "/images/08-red-eye.jpg",
     slug: "latte",
@@ -82,7 +81,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-09",
     title: "Galao",
-    descirption: "Galao",
+    description: "Galao",
     price: 3.5,
     image: "/images/09-galao.jpg",
     slug: "latte",
@@ -92,7 +91,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-10",
     title: "Lungo",
-    descirption: "Lungo",
+    description: "Lungo",
     price: 3.5,
     image: "/images/10-lungo.jpg",
     slug: "latte",
@@ -102,7 +101,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-11",
     title: "Macchiato",
-    descirption: "Macchiato",
+    description: "Macchiato",
     price: 3.5,
     image: "/images/11-macchiato.jpg",
     slug: "latte",
@@ -112,7 +111,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-12",
     title: "Mocha",
-    descirption: "Mocha",
+    description: "Mocha",
     price: 3.5,
     image: "/images/12-mocha.jpg",
     slug: "latte",
@@ -122,7 +121,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-13",
     title: "Ristretto",
-    descirption: "Ristretto",
+    description: "Ristretto",
     price: 3.5,
     image: "/images/13-ristretto.jpg",
     slug: "latte",
@@ -132,7 +131,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-14",
     title: "Flat White",
-    descirption: "Flat White",
+    description: "Flat White",
     price: 3.5,
     image: "/images/14-flat-white.jpg",
     slug: "latte",
@@ -142,7 +141,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-15",
     title: "Affogato",
-    descirption: "Affogato",
+    description: "Affogato",
     price: 3.5,
     image: "/images/15-affogato.jpg",
     slug: "latte",
@@ -152,7 +151,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-16",
     title: "Cafe Au Lait",
-    descirption: "Cafe Au Lait",
+    description: "Cafe Au Lait",
     price: 3.5,
     image: "/images/16-cafe-au-lait.jpg",
     slug: "latte",
@@ -162,7 +161,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-17",
     title: "Irish",
-    descirption: "Irish",
+    description: "Irish",
     price: 3.5,
     image: "/images/17-irish.jpg",
     slug: "latte",
@@ -172,7 +171,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-18",
     title: "Iced Espresso",
-    descirption: "Iced Espresso",
+    description: "Iced Espresso",
     price: 3.5,
     image: "/images/18-iced-espresso.jpg",
     slug: "latte",
@@ -182,7 +181,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-19",
     title: "Cold Brew",
-    descirption: "Cold Brew",
+    description: "Cold Brew",
     price: 3.5,
     image: "/images/19-cold-brew.jpg",
     slug: "latte",
@@ -192,7 +191,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-20",
     title: "Iced Latte",
-    descirption: "Iced Latte",
+    description: "Iced Latte",
     price: 3.5,
     image: "/images/20-iced-latte.jpg",
     slug: "latte",
@@ -202,7 +201,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-21",
     title: "Iced Americano",
-    descirption: "Iced Americano",
+    description: "Iced Americano",
     price: 3.5,
     image: "/images/21-iced-americano.jpg",
     slug: "latte",
@@ -212,7 +211,7 @@ export const coffeeAllData: Array<Product> = [
   {
     _id: "coffee-22",
     title: "Iced Mocha",
-    descirption: "Iced Mocha",
+    description: "Iced Mocha",
     price: 3.5,
     image: "/images/22-iced-mocha.jpg",
     slug: "latte",
@@ -224,7 +223,7 @@ export const coffeePopularData: Array<Product> = [
   {
     _id: "coffee-02",
     title: "Latte",
-    descirption: "Latte",
+    description: "Latte",
     price: 3.5,
     image: "/images/02-latte.jpg",
     slug: "latte",
@@ -234,7 +233,7 @@ export const coffeePopularData: Array<Product> = [
   {
     _id: "coffee-03",
     title: "Cappuccino",
-    descirption: "Cappuccino",
+    description: "Cappuccino",
     price: 3.5,
     image: "/images/03-cappuccino.jpg",
     slug: "latte",
@@ -243,7 +242,7 @@ export const coffeePopularData: Array<Product> = [
   {
     _id: "coffee-04",
     title: "Americano",
-    descirption: "Americano",
+    description: "Americano",
     price: 3.5,
     image: "/images/04-americano.jpg",
     slug: "latte",
@@ -252,7 +251,7 @@ export const coffeePopularData: Array<Product> = [
   {
     _id: "coffee-05",
     title: "Espresso",
-    descirption: "Espresso",
+    description: "Espresso",
     price: 3.5,
     image: "/images/05-espresso.jpg",
     slug: "latte",
@@ -264,7 +263,7 @@ export const coffeeCartData: Array<CartProduct> = [
   {
     _id: "coffee-03",
     title: "Cappuccino",
-    descirption: "Cappuccino",
+    description: "Cappuccino",
     price: 3.5,
     image: "/images/03-cappuccino.jpg",
     slug: "latte",
@@ -275,7 +274,7 @@ export const coffeeCartData: Array<CartProduct> = [
   {
     _id: "coffee-05",
     title: "Espresso",
-    descirption: "Espresso",
+    description: "Espresso",
     price: 3.5,
     image: "/images/05-espresso.jpg",
     slug: "latte",
@@ -286,7 +285,7 @@ export const coffeeCartData: Array<CartProduct> = [
   {
     _id: "coffee-08",
     title: "Red Eye",
-    descirption: "Red Eye",
+    description: "Red Eye",
     price: 3.5,
     image: "/images/08-red-eye.jpg",
     slug: "latte",
@@ -299,7 +298,7 @@ export const coffeeFavoritesData: Array<Product> = [
   {
     _id: "coffee-02",
     title: "Latte",
-    descirption: "Latte",
+    description: "Latte",
     price: 3.5,
     image: "/images/02-latte.jpg",
     slug: "latte",
@@ -309,7 +308,7 @@ export const coffeeFavoritesData: Array<Product> = [
   {
     _id: "coffee-03",
     title: "Cappuccino",
-    descirption: "Cappuccino",
+    description: "Cappuccino",
     price: 3.5,
     image: "/images/03-cappuccino.jpg",
     slug: "latte",
@@ -318,7 +317,7 @@ export const coffeeFavoritesData: Array<Product> = [
   {
     _id: "coffee-04",
     title: "Americano",
-    descirption: "Americano",
+    description: "Americano",
     price: 3.5,
     image: "/images/04-americano.jpg",
     slug: "latte",
@@ -327,7 +326,7 @@ export const coffeeFavoritesData: Array<Product> = [
   {
     _id: "coffee-05",
     title: "Espresso",
-    descirption: "Espresso",
+    description: "Espresso",
     price: 3.5,
     image: "/images/05-espresso.jpg",
     slug: "latte",

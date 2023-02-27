@@ -1,8 +1,4 @@
-import {
-  createSlice,
-  createEntityAdapter,
-  createSelector,
-} from "@reduxjs/toolkit";
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { Status } from "@/types/Status";
 import ShippingInfo from "@/types/ShippingInfo";
@@ -21,8 +17,18 @@ const cartAdapter = createEntityAdapter<CartProduct>({
 });
 const initialState = cartAdapter.getInitialState<CartInitialState>({
   status: "idle",
-  shippingInfo: {},
-  paymentInfo: {},
+  shippingInfo: {
+    name: "",
+    email: "",
+    street: "",
+    city: "",
+    state: "",
+    postalCode: "",
+    country: "",
+  },
+  paymentInfo: {
+    paymentMethod: "paypal",
+  },
 });
 
 const cartSlice = createSlice({

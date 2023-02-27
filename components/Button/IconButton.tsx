@@ -25,6 +25,7 @@ interface IconButtonProps extends BaseProps {
   type?: ButtonTypes;
   onClick?: () => void;
   disabled?: boolean;
+  badge?: string;
 }
 
 const IconButton = ({
@@ -36,6 +37,7 @@ const IconButton = ({
   type,
   onClick,
   disabled,
+  badge,
   customeClasses,
 }: IconButtonProps) => {
   const variantClasses = {
@@ -57,12 +59,17 @@ const IconButton = ({
   if (url && !disabled) {
     return (
       <Link
-        className={`flex items-center justify-center rounded-full ${variantClasses[variant]} ${sizeClasses[size]} ${customeClasses}`}
+        className={`relative flex items-center justify-center rounded-full ${variantClasses[variant]} ${sizeClasses[size]} ${customeClasses}`}
         href={url}
         onClick={onClick}
         title={title}
       >
         <FontAwesomeIcon className="h-6 w-6" icon={icon} />
+        {badge && (
+          <span className="absolute top-0 right-0 rounded-full bg-red-500 py-1 px-2 text-xs font-semibold text-white">
+            {badge}
+          </span>
+        )}
       </Link>
     );
   }
@@ -70,13 +77,18 @@ const IconButton = ({
   // otherwise we just return button element
   return (
     <button
-      className={`flex items-center justify-center rounded-full ${variantClasses[variant]} ${sizeClasses[size]} ${customeClasses}`}
+      className={`relative flex items-center justify-center rounded-full ${variantClasses[variant]} ${sizeClasses[size]} ${customeClasses}`}
       type={type}
       onClick={onClick}
       title={title}
       disabled={disabled}
     >
       <FontAwesomeIcon className="h-6 w-6" icon={icon} />
+      {badge && (
+        <span className="absolute top-0 right-0 rounded-full bg-red-500 py-1 px-2 text-xs font-semibold text-white">
+          {badge}
+        </span>
+      )}
     </button>
   );
 };

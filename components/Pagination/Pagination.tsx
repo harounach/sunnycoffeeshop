@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from "react";
+import React, { useState } from "react";
 import IconButton from "@/components/Button/IconButton";
 import {
   faAngleLeft,

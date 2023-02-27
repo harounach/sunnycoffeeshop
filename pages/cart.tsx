@@ -9,7 +9,7 @@ import { useAppSelector } from "@/state/hooks";
 
 export default function Cart() {
   const cartProductsIds = useAppSelector(selectCartProductIds);
-  const cartProducts = useAppSelector(selectCartProducts)
+  const cartProducts = useAppSelector(selectCartProducts);
 
   const subtotal = calculateSubtotal(cartProducts);
   const shipping = 0;

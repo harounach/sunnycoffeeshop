@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
 import IconButton from "@/components/Button/IconButton";
 import Layout from "@/components/Layout/Layout";
-import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCartPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as OutlineHeart } from "@fortawesome/free-regular-svg-icons";
 import Image from "next/image";
 import Rating from "@/components/Rating/Rating";
@@ -11,7 +11,11 @@ import Link from "next/link";
 import Button from "@/components/Button/Button";
 import { GetSingleProductApiResult } from "@/types/ProductsApiResults";
 import axios from "axios";
-import { cartAdded, cartDeleted } from "@/state/cartSlice";
+import {
+  cartAdded,
+  cartDeleted,
+  selectCartProductById,
+} from "@/state/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import CartProduct from "@/types/CartProduct";
 import Review from "@/types/Review";
@@ -36,7 +40,13 @@ export default function Product({ productApiResult }: ProductProps) {
     return null;
   }
 
-  const GET_PRODUCT_REVIEWS_URL = `http://localhost:4000/api/products/${product._id}/reviews`;
+  const cartProduct = useAppSelector((state) =>
+    selectCartProductById(state, product._id)
+  );
+
+  const canAddToCart = !cartProduct ? true : false;
+
+  const GET_PRODUCT_REVIEWS_URL = `${PRODUCTS_API_URL}/${product._id}/reviews`;
 
   // Get reviews for this product
   const getProductReviews = async () => {
@@ -67,6 +77,10 @@ export default function Product({ productApiResult }: ProductProps) {
   const onCartAdded = async () => {
     const cartProduct = { ...product, qty: 1 } as CartProduct;
     dispatch(cartAdded(cartProduct));
+  };
+
+  const onCartDeleted = () => {
+    dispatch(cartDeleted(product._id));
   };
 
   // Add product to favorites
@@ -115,12 +129,22 @@ export default function Product({ productApiResult }: ProductProps) {
                   variant="primary"
                   onClick={onFavoriteAddded}
                 />
-                <IconButton
-                  icon={faCartPlus}
-                  size="normal"
-                  variant="primary"
-                  onClick={onCartAdded}
-                />
+
+                {canAddToCart ? (
+                  <IconButton
+                    icon={faCartPlus}
+                    size="normal"
+                    variant="primary"
+                    onClick={onCartAdded}
+                  />
+                ) : (
+                  <IconButton
+                    icon={faXmark}
+                    size="normal"
+                    variant="danger"
+                    onClick={onCartDeleted}
+                  />
+                )}
               </div>
             </div>
           </div>

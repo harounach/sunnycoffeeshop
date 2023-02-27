@@ -10,12 +10,16 @@ import TextField from "../Form/TextField";
 import { BaseProps } from "@/types/BaseProps";
 import Button from "../Button/Button";
 import IconButton from "../Button/IconButton";
+import { useAppSelector } from "@/state/hooks";
+import { selectTotalCartProducts } from "@/state/cartSlice";
 
 interface AppbarProps extends BaseProps {}
 
 const Appbar = ({}: AppbarProps) => {
   const router = useRouter();
   const [search, setSearch] = useState("");
+  const totalCartProducts = useAppSelector(selectTotalCartProducts);
+  const cartBadge = totalCartProducts > 0 ? `${totalCartProducts}` : "";
 
   const handleSearchSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -62,6 +66,7 @@ const Appbar = ({}: AppbarProps) => {
               size="normal"
               url="/cart"
               icon={faCartPlus}
+              badge={cartBadge}
             />
             <Button variant="primary" url="/register" label="Sign Up" />
             <Button variant="primary" url="/account/profile" label="Account" />
