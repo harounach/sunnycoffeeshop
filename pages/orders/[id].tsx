@@ -6,6 +6,8 @@ import ErrorBox from "@/components/Box/ErrorBox";
 import { GetSingleOrderApiResult } from "@/types/OrdersApiResults";
 import { GetServerSideProps } from "next";
 import axios from "axios";
+import { formatFriendyDate } from "@/lib/dateUtils";
+import { getPaymentMethodText } from "@/lib/textUtils";
 
 interface OrderProps {
   orderApiResult: GetSingleOrderApiResult;
@@ -80,8 +82,15 @@ export default function Order({ orderApiResult, admin }: OrderProps) {
               </div>
               {/* Messages */}
               <div>
-                <SuccessBox message="Delivered at: 12 Dec 2022" />
-                <ErrorBox message="Not Delivered" />
+                {order.isDelivered ? (
+                  <SuccessBox
+                    message={`Delivered at: ${formatFriendyDate(
+                      order.deliveredAt
+                    )}`}
+                  />
+                ) : (
+                  <ErrorBox message="Not Delivered" />
+                )}
               </div>
             </div>
 
@@ -92,12 +101,17 @@ export default function Order({ orderApiResult, admin }: OrderProps) {
               </div>
               <div className="flex gap-4">
                 <span className="font-medium">Payment method:</span>
-                <span>{paymentInfo.paymentMethod}</span>
+                <span>{getPaymentMethodText(paymentInfo.paymentMethod)}</span>
               </div>
               {/* Messages */}
               <div>
-                <SuccessBox message="Paid at: 12 Dec 2022" />
-                <ErrorBox message="Not Paid" />
+                {order.isPaid ? (
+                  <SuccessBox
+                    message={`Paid at: ${formatFriendyDate(order.paidAt)}`}
+                  />
+                ) : (
+                  <ErrorBox message="Not Paid" />
+                )}
               </div>
             </div>
 

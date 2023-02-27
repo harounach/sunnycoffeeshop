@@ -8,6 +8,7 @@ import { GetServerSideProps } from "next";
 import axios from "axios";
 import { ORDERS_API_URL } from "@/lib/urlUtils";
 import { formatFriendyDate } from "@/lib/dateUtils";
+import { getPaymentMethodText } from "@/lib/textUtils";
 
 interface OrderProps {
   orderApiResult: GetSingleOrderApiResult;
@@ -86,7 +87,11 @@ export default function Order({ orderApiResult }: OrderProps) {
               {/* Messages */}
               <div>
                 {order.isDelivered ? (
-                  <SuccessBox message={`Delivered at: ${order.deliveredAt}`} />
+                  <SuccessBox
+                    message={`Delivered at: ${formatFriendyDate(
+                      order.deliveredAt
+                    )}`}
+                  />
                 ) : (
                   <ErrorBox message="Not Delivered" />
                 )}
@@ -100,7 +105,7 @@ export default function Order({ orderApiResult }: OrderProps) {
               </div>
               <div className="flex gap-4">
                 <span className="font-medium">Payment method:</span>
-                <span>{paymentInfo.paymentMethod}</span>
+                <span>{getPaymentMethodText(paymentInfo.paymentMethod)}</span>
               </div>
               {/* Messages */}
               <div>
