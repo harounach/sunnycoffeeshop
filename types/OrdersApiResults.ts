@@ -25,3 +25,13 @@ export interface DeleteOrderApiResult {
   data?: Order;
   error?: string;
 }
+
+export interface PayOrderApiResult {
+  message?: string;
+  error?: string;
+}
+
+export interface DeliverOrderApiResult {
+  message?: string;
+  error?: string;
+}

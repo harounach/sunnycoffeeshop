@@ -3,18 +3,25 @@ import OrderCard from "@/components/Card/OrderCard";
 import AdminLayout from "@/components/Layout/AdminLayout";
 import SuccessBox from "@/components/Box/SuccessBox";
 import ErrorBox from "@/components/Box/ErrorBox";
-import { GetSingleOrderApiResult } from "@/types/OrdersApiResults";
+import {
+  DeleteOrderApiResult,
+  DeliverOrderApiResult,
+  GetSingleOrderApiResult,
+  PayOrderApiResult,
+} from "@/types/OrdersApiResults";
 import { GetServerSideProps } from "next";
 import axios from "axios";
 import { ORDERS_API_URL } from "@/lib/urlUtils";
 import { formatFriendyDate } from "@/lib/dateUtils";
 import { getPaymentMethodText } from "@/lib/textUtils";
+import { useRouter } from "next/router";
 
 interface OrderProps {
   orderApiResult: GetSingleOrderApiResult;
 }
 
 export default function Order({ orderApiResult }: OrderProps) {
+  const router = useRouter();
   const { data: order, message, error } = orderApiResult;
 
   if (!order) {
@@ -23,19 +30,61 @@ export default function Order({ orderApiResult }: OrderProps) {
 
   const { shipping: shippingInfo, payment: paymentInfo, orderItems } = order;
 
-  const DELIVER_ORDER_API_URL = `${ORDERS_API_URL}/${order._id}/deliver`;
-
-  // TODO: mark order as delivered
+  // Mark order as delivered
   const onOrderDelivered = async () => {
+    const DELIVER_ORDER_API_URL = `${ORDERS_API_URL}/${order._id}/deliver`;
     try {
-      const response = await axios({
+      const response = await axios<DeliverOrderApiResult>({
         method: "PATCH",
         url: DELIVER_ORDER_API_URL,
         validateStatus: () => true,
       });
 
       const result = response.data;
-      const { message, error: deliverError } = result;
+      const { message, error } = result;
+      if (!error) {
+        router.push(`/admin/orders/${order._id}`);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // Mark order as paid
+  const onOrderPaid = async () => {
+    const PAY_ORDER_API_URL = `${ORDERS_API_URL}/${order._id}/pay`;
+    try {
+      const response = await axios<PayOrderApiResult>({
+        method: "PATCH",
+        url: PAY_ORDER_API_URL,
+        validateStatus: () => true,
+      });
+
+      const result = response.data;
+      const { error, message } = result;
+      if (!error) {
+        router.push(`/admin/orders/${order._id}`);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // Delete order from database
+  const onOrderDeleted = async () => {
+    const DELETE_ORDER_API_URL = `${ORDERS_API_URL}/${order._id}`;
+    try {
+      const response = await axios<DeleteOrderApiResult>({
+        method: "DELETE",
+        url: DELETE_ORDER_API_URL,
+        validateStatus: () => true,
+      });
+
+      const result = response.data;
+      const { error, message, data } = result;
+      if (!error) {
+        router.push("/admin/orders");
+      }
     } catch (err) {
       console.log(err);
     }
@@ -157,19 +206,31 @@ export default function Order({ orderApiResult }: OrderProps) {
                 <h3 className="text-lg text-gray-500">Total</h3>
                 <h3 className="text-lg font-semibold">{`$${order.totalPrice}`}</h3>
               </div>
-              <Button
-                variant="primary"
-                label="Deliver Order"
-                customeClasses="text-center"
-                type="button"
-                onClick={onOrderDelivered}
-              />
+              {!order.isDelivered && (
+                <Button
+                  variant="primary"
+                  label="Deliver Order"
+                  customeClasses="text-center"
+                  type="button"
+                  onClick={onOrderDelivered}
+                />
+              )}
+              {!order.isPaid && (
+                <Button
+                  variant="primary"
+                  label="Mark As Paid"
+                  customeClasses="text-center"
+                  type="button"
+                  onClick={onOrderPaid}
+                />
+              )}
+
               <Button
                 variant="danger"
                 label="Delete Order"
                 customeClasses="text-center"
                 type="button"
-                onClick={onOrderDelivered}
+                onClick={onOrderDeleted}
               />
             </div>
           </div>
