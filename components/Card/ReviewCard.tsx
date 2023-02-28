@@ -13,7 +13,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
   return (
     <div className="border-2 border-gray-200 p-4">
       <h3 className="text-lg">{review.name}</h3>
-      <Rating value={5} />
+      <Rating value={review.rating} />
       <h4 className="mb-4 text-base text-neutral-500">
         {formatFriendyDate(review.createdAt)}
       </h4>

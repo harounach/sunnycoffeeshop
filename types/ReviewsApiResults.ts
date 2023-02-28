@@ -5,3 +5,9 @@ export interface CreateReviewApiResult {
   data?: Review;
   error?: string;
 }
+
+export interface DeleteReviewApiResult {
+  message?: string;
+  data?: Review;
+  error?: string;
+}

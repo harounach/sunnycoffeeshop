@@ -6,13 +6,18 @@ import AdminSidebar from "@/components/Sidebar/AdminSidebar";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import Rating from "@/components/Rating/Rating";
-import ReviewCard from "@/components/Card/ReviewCard";
 import Button from "@/components/Button/Button";
-import { GetSingleProductApiResult } from "@/types/ProductsApiResults";
+import {
+  GetProductReviewsApiResult,
+  GetSingleProductApiResult,
+} from "@/types/ProductsApiResults";
 import axios from "axios";
 import Review from "@/types/Review";
-import { PRODUCTS_API_URL } from "@/lib/urlUtils";
+import { PRODUCTS_API_URL, REVIEWS_API_URL } from "@/lib/urlUtils";
 import { useRouter } from "next/router";
+import AdminReviewCard from "@/components/Card/AdminReviewCard";
+import AdminLayout from "@/components/Layout/AdminLayout";
+import { DeleteReviewApiResult } from "@/types/ReviewsApiResults";
 
 interface AdminProductProps {
   productApiResult: GetSingleProductApiResult;
@@ -38,16 +43,18 @@ export default function AdminProduct({ productApiResult }: AdminProductProps) {
   // Get reviews for this product
   const getProductReviews = async () => {
     try {
-      const response = await axios({
+      const response = await axios<GetProductReviewsApiResult>({
         method: "GET",
         url: GET_PRODUCT_REVIEWS_URL,
         validateStatus: () => true,
       });
 
       const result = response.data;
-      const { message, data, error: reviewsError } = result;
+      const { message, data: reviews, error: reviewsError } = result;
 
-      setReviews(data);
+      if (reviews) {
+        setReviews(reviews);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -77,8 +84,29 @@ export default function AdminProduct({ productApiResult }: AdminProductProps) {
     }
   };
 
+  // Delete product from database
+  const onReviewDeleted = async (reviewId: string) => {
+    const DELETE_REVIEW_API_URL = `${REVIEWS_API_URL}/${reviewId}`;
+    try {
+      const response = await axios<DeleteReviewApiResult>({
+        method: "DELETE",
+        url: DELETE_REVIEW_API_URL,
+        validateStatus: () => true,
+      });
+
+      const result = response.data;
+      const { error, message, data } = result;
+      if (!error) {
+        // refetch reviews
+        await getProductReviews();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-    <Layout>
+    <AdminLayout>
       <section className="container mx-auto mt-6 mb-6">
         <div className="grid grid-cols-12 gap-6">
           {/* Sidebar */}
@@ -149,7 +177,13 @@ export default function AdminProduct({ productApiResult }: AdminProductProps) {
                 <div className="flex flex-col gap-2">
                   {reviews.length === 0 && <div>No Reviews</div>}
                   {reviews.map((review) => {
-                    return <ReviewCard key={review._id} review={review} />;
+                    return (
+                      <AdminReviewCard
+                        key={review._id}
+                        review={review}
+                        onReviewDeleted={onReviewDeleted}
+                      />
+                    );
                   })}
                 </div>
               </div>
@@ -157,7 +191,7 @@ export default function AdminProduct({ productApiResult }: AdminProductProps) {
           </div>
         </div>
       </section>
-    </Layout>
+    </AdminLayout>
   );
 }
 

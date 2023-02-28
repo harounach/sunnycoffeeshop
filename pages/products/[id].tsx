@@ -31,7 +31,7 @@ interface ProductProps {
 
 export default function Product({ productApiResult }: ProductProps) {
   // Get the user name
-  const name = "Haroun";
+  let name = "Haroun";
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
 
@@ -70,10 +70,8 @@ export default function Product({ productApiResult }: ProductProps) {
       const result = response.data;
       const { message, data: reviews, error: reviewsError } = result;
 
-      if (!reviewsError) {
-        if (reviews) {
-          setReviews(reviews);
-        }
+      if (reviews) {
+        setReviews(reviews);
       }
     } catch (err) {
       console.log(err);
@@ -103,8 +101,15 @@ export default function Product({ productApiResult }: ProductProps) {
           validateStatus: () => true,
         });
         const result = response.data;
-        const { message, error: updateError } = result;
-        console.log(result);
+        const { message, error: reviewError } = result;
+        if (!reviewError) {
+          // Reset review form
+          name = "Haroun";
+          setRating(5);
+          setComment("");
+          // Refetch reviews
+          await getProductReviews();
+        }
       } catch (err) {
         console.log(err);
       }
