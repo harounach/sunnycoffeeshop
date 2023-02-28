@@ -24,7 +24,7 @@ const AdminReviewCard = ({ review, onReviewDeleted }: AdminReviewCardProps) => {
           onClick={() => onReviewDeleted(review._id)}
         />
       </div>
-      <Rating value={5} />
+      <Rating value={review.rating} />
       <h4 className="mb-4 text-base text-neutral-500">
         {formatFriendyDate(review.createdAt)}
       </h4>
