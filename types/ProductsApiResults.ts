@@ -32,4 +32,6 @@ export interface GetProductReviewsApiResult {
   message?: string;
   data?: Array<Review>;
   error?: string;
+  count?: number;
+  rating?: number;
 }

@@ -35,12 +35,15 @@ export default function Product({ productApiResult }: ProductProps) {
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
 
+  // product review rating and count
+  const [reviewCount, setReviewCount] = useState(0);
+  const [productRating, setProductRating] = useState(0);
+
   const { data: product, message, error } = productApiResult;
   const [reviews, setReviews] = useState<Array<Review>>([]);
   const dispatch = useAppDispatch();
 
   const canCreateReview = Boolean(name) && Boolean(rating) && Boolean(comment);
-  const reviewsContent = null;
 
   if (error) {
     return null;
@@ -68,10 +71,18 @@ export default function Product({ productApiResult }: ProductProps) {
       });
 
       const result = response.data;
-      const { message, data: reviews, error: reviewsError } = result;
+      const {
+        message,
+        data: reviews,
+        error: reviewsError,
+        count,
+        rating: averageRating,
+      } = result;
 
       if (reviews) {
         setReviews(reviews);
+        setReviewCount(count as number);
+        setProductRating(averageRating as number);
       }
     } catch (err) {
       console.log(err);
@@ -154,8 +165,8 @@ export default function Product({ productApiResult }: ProductProps) {
                 <h3 className="text-xl font-medium">{`$${product.price}`}</h3>
               </div>
               <div className="flex items-center gap-2">
-                <Rating value={4.5} />
-                <span className="text-neutral-500">(12)</span>
+                <Rating value={productRating} />
+                <span className="text-neutral-500">{`(${reviewCount})`}</span>
               </div>
               <div>
                 <p className="text-base text-neutral-500">

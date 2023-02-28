@@ -180,7 +180,6 @@ export const getServerSideProps: GetServerSideProps<
   AdminEditProductProps
 > = async (context) => {
   const id = context.params?.id as string;
-  console.log("Log somthing");
 
   const GET_SINGLE_PRODUCT_URL = `${PRODUCTS_API_URL}/${id}`;
   const response = await fetch(GET_SINGLE_PRODUCT_URL);
