@@ -15,6 +15,12 @@ export interface GetSingleProductApiResult {
   error?: string;
 }
 
+export interface CreateProductApiResult {
+  message?: string;
+  error?: string;
+  data?: Product;
+}
+
 export interface UpdateProductApiResult {
   message?: string;
   error?: string;

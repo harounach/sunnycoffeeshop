@@ -5,8 +5,12 @@ import TextField from "@/components/Form/TextField";
 import Button from "@/components/Button/Button";
 import axios from "axios";
 import AdminSidebar from "@/components/Sidebar/AdminSidebar";
+import { PRODUCTS_API_URL } from "@/lib/urlUtils";
+import { CreateProductApiResult } from "@/types/ProductsApiResults";
+import { useRouter } from "next/router";
 
 export default function AdminAddProduct() {
+  const router = useRouter();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("0");
@@ -14,9 +18,13 @@ export default function AdminAddProduct() {
   const [slug, setSlug] = useState("");
 
   const canSubmit =
-    Boolean(title) && Boolean(description) && Boolean(price) && Boolean(image);
+    Boolean(title) &&
+    Boolean(description) &&
+    Boolean(price) &&
+    Boolean(image) &&
+    Boolean(slug);
 
-  const CREATE_PRODUCT_API_URL = "http://localhost:4000/api/products";
+  const CREATE_PRODUCT_API_URL = PRODUCTS_API_URL;
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -29,7 +37,7 @@ export default function AdminAddProduct() {
           image,
           slug,
         };
-        const response = await axios({
+        const response = await axios<CreateProductApiResult>({
           method: "POST",
           url: CREATE_PRODUCT_API_URL,
           data,
@@ -37,7 +45,11 @@ export default function AdminAddProduct() {
         });
 
         const result = response.data;
-        const { message, error: updateError } = result;
+        const { message, error: updateError, data: product } = result;
+
+        if (product) {
+          router.replace(`/admin/products/${product._id}`);
+        }
       } catch (err) {
         console.log(err);
       }
