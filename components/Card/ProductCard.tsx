@@ -3,7 +3,7 @@ import React from "react";
 import { BaseProps } from "@/types/BaseProps";
 import Image from "next/image";
 import IconButton from "../Button/IconButton";
-import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Product from "@/types/Product";
 import axios from "axios";
 import { PRODUCTS_API_URL } from "@/lib/urlUtils";
@@ -52,6 +52,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
             variant="primaryIcon"
             size="normal"
             url={`/admin/products/edit/${product._id}`}
+          />
+          <IconButton
+            icon={faEye}
+            variant="primaryIcon"
+            size="normal"
+            url={`/admin/products/${product._id}`}
           />
         </div>
       </div>
