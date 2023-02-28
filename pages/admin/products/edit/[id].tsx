@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import { GetServerSideProps } from "next";
 
 import AdminLayout from "@/components/Layout/AdminLayout";
@@ -9,6 +9,7 @@ import Button from "@/components/Button/Button";
 import AdminSidebar from "@/components/Sidebar/AdminSidebar";
 import axios from "axios";
 import { PRODUCTS_API_URL } from "@/lib/urlUtils";
+import { useRouter } from "next/router";
 
 interface AdminEditProductProps {
   productApiResult: GetSingleProductApiResult;
@@ -17,12 +18,13 @@ interface AdminEditProductProps {
 export default function AdminEditProduct({
   productApiResult,
 }: AdminEditProductProps) {
-  console.log(productApiResult);
   const { data: product, error, message } = productApiResult;
 
   if (!product) {
     return null;
   }
+
+  const router = useRouter();
 
   const [title, setTitle] = useState(product.title);
   const [description, setDescription] = useState(product.description);
@@ -37,9 +39,10 @@ export default function AdminEditProduct({
     Boolean(image) &&
     Boolean(slug);
 
-  const UPDATE_PRODUCT_API_URL = `http://localhost:4000/api/products/${product._id}`;
+  const UPDATE_PRODUCT_API_URL = `${PRODUCTS_API_URL}/${product._id}`;
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: SyntheticEvent) => {
+    e.preventDefault();
     if (canSubmit) {
       try {
         const data = {
@@ -58,6 +61,10 @@ export default function AdminEditProduct({
 
         const result = response.data;
         const { message, error: updateError } = result;
+        if (!updateError) {
+          // Navigate to product detail page
+          router.replace(`/admin/products/${product._id}`);
+        }
       } catch (err) {
         console.log(err);
       }
