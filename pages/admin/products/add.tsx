@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import AdminLayout from "@/components/Layout/AdminLayout";
 
 import TextField from "@/components/Form/TextField";
@@ -18,7 +18,8 @@ export default function AdminAddProduct() {
 
   const CREATE_PRODUCT_API_URL = "http://localhost:4000/api/products";
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: SyntheticEvent) => {
+    e.preventDefault();
     if (canSubmit) {
       try {
         const data = {

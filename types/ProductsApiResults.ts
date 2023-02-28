@@ -1,4 +1,5 @@
 import Product from "./Product";
+import Review from "./Review";
 
 export interface GetProductsApiResult {
   message: string;
@@ -25,4 +26,10 @@ export interface SearchProductsApiResult {
   page: number;
   data: Array<Product>;
   count: number;
+}
+
+export interface GetProductReviewsApiResult {
+  message?: string;
+  data?: Array<Review>;
+  error?: string;
 }

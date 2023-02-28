@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
 import IconButton from "@/components/Button/IconButton";
 import Layout from "@/components/Layout/Layout";
@@ -9,7 +9,10 @@ import Rating from "@/components/Rating/Rating";
 import ReviewCard from "@/components/Card/ReviewCard";
 import Link from "next/link";
 import Button from "@/components/Button/Button";
-import { GetSingleProductApiResult } from "@/types/ProductsApiResults";
+import {
+  GetProductReviewsApiResult,
+  GetSingleProductApiResult,
+} from "@/types/ProductsApiResults";
 import axios from "axios";
 import {
   cartAdded,
@@ -19,17 +22,24 @@ import {
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import CartProduct from "@/types/CartProduct";
 import Review from "@/types/Review";
-import { PRODUCTS_API_URL } from "@/lib/urlUtils";
+import { PRODUCTS_API_URL, REVIEWS_API_URL } from "@/lib/urlUtils";
+import { CreateReviewApiResult } from "@/types/ReviewsApiResults";
 
 interface ProductProps {
   productApiResult: GetSingleProductApiResult;
 }
 
 export default function Product({ productApiResult }: ProductProps) {
+  // Get the user name
+  const name = "Haroun";
+  const [rating, setRating] = useState(5);
+  const [comment, setComment] = useState("");
+
   const { data: product, message, error } = productApiResult;
   const [reviews, setReviews] = useState<Array<Review>>([]);
   const dispatch = useAppDispatch();
 
+  const canCreateReview = Boolean(name) && Boolean(rating) && Boolean(comment);
   const reviewsContent = null;
 
   if (error) {
@@ -51,16 +61,20 @@ export default function Product({ productApiResult }: ProductProps) {
   // Get reviews for this product
   const getProductReviews = async () => {
     try {
-      const response = await axios({
+      const response = await axios<GetProductReviewsApiResult>({
         method: "GET",
         url: GET_PRODUCT_REVIEWS_URL,
         validateStatus: () => true,
       });
 
       const result = response.data;
-      const { message, data, error: reviewsError } = result;
+      const { message, data: reviews, error: reviewsError } = result;
 
-      setReviews(data);
+      if (!reviewsError) {
+        if (reviews) {
+          setReviews(reviews);
+        }
+      }
     } catch (err) {
       console.log(err);
     }
@@ -71,7 +85,31 @@ export default function Product({ productApiResult }: ProductProps) {
   }, []);
 
   // Create new review for this product
-  const handleSubmitReview = async () => {};
+  const handleSubmitReview = async (e: SyntheticEvent) => {
+    e.preventDefault();
+
+    if (canCreateReview) {
+      try {
+        const data = {
+          name,
+          rating,
+          comment,
+          productId: product._id,
+        };
+        const response = await axios<CreateReviewApiResult>({
+          method: "POST",
+          url: REVIEWS_API_URL,
+          data,
+          validateStatus: () => true,
+        });
+        const result = response.data;
+        const { message, error: updateError } = result;
+        console.log(result);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
 
   // Add product to the cart
   const onCartAdded = async () => {
@@ -171,29 +209,41 @@ export default function Product({ productApiResult }: ProductProps) {
                   to write a review
                 </p>
               </div>
-              <div>
-                <h3 className="mb-2 text-lg">Rating</h3>
-                <select name="rating" id="rating">
-                  <option value="1">1. One</option>
-                  <option value="2">2. Two</option>
-                  <option value="3">3. Three</option>
-                  <option value="4">4. Four</option>
-                  <option value="5">5. Five</option>
-                </select>
-              </div>
-              <div>
-                <h3 className="mb-2 text-lg">Comment</h3>
-                <form>
+              <form onSubmit={handleSubmitReview}>
+                <div className="mb-4">
+                  <label htmlFor="rating" className="mb-2 block text-lg">
+                    Rating
+                  </label>
+                  <select
+                    name="rating"
+                    id="rating"
+                    value={rating}
+                    onChange={(e) => setRating(Number(e.target.value))}
+                    defaultValue={5}
+                  >
+                    <option value="1">1. One</option>
+                    <option value="2">2. Two</option>
+                    <option value="3">3. Three</option>
+                    <option value="4">4. Four</option>
+                    <option value="5">5. Five</option>
+                  </select>
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="comment" className="mb-2 block text-lg">
+                    Comment
+                  </label>
                   <textarea
                     className="w-full border-2 border-yellow-700 px-4 py-2"
                     name="comment"
                     id="comment"
                     rows={3}
                     placeholder="comment"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
                   ></textarea>
-                </form>
-              </div>
-              <Button variant="primary" label="Submit Review" type="submit" />
+                </div>
+                <Button variant="primary" label="Submit Review" type="submit" />
+              </form>
             </div>
           </div>
         </div>
