@@ -7,6 +7,7 @@ import Image from "next/image";
 import Rating from "@/components/Rating/Rating";
 import Button from "@/components/Button/Button";
 import {
+  DeleteProductApiResult,
   GetProductReviewsApiResult,
   GetSingleProductApiResult,
 } from "@/types/ProductsApiResults";
@@ -76,7 +77,7 @@ export default function AdminProduct({ productApiResult }: AdminProductProps) {
   const onProductDeleted = async () => {
     const DELETE_PRODUCT_API_URL = `${PRODUCTS_API_URL}/${product._id}`;
     try {
-      const response = await axios({
+      const response = await axios<DeleteProductApiResult>({
         method: "DELETE",
         url: DELETE_PRODUCT_API_URL,
         validateStatus: () => true,

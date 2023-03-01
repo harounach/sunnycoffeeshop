@@ -26,6 +26,12 @@ export interface UpdateProductApiResult {
   error?: string;
 }
 
+export interface DeleteProductApiResult {
+  message?: string;
+  error?: string;
+  data?: Product;
+}
+
 export interface SearchProductsApiResult {
   message: string;
   pages: number;

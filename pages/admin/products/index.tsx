@@ -2,10 +2,15 @@ import { GetServerSideProps } from "next";
 import ProductCard from "@/components/Card/ProductCard";
 import AdminSidebar from "@/components/Sidebar/AdminSidebar";
 import Button from "@/components/Button/Button";
-import { GetProductsApiResult } from "@/types/ProductsApiResults";
+import {
+  DeleteProductApiResult,
+  GetProductsApiResult,
+} from "@/types/ProductsApiResults";
 import { getPaginationURL, PRODUCTS_API_URL } from "@/lib/urlUtils";
 import Pagination from "@/components/Pagination/Pagination";
 import AdminLayout from "@/components/Layout/AdminLayout";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 interface AdminProductsProps {
   productsApiResult: GetProductsApiResult;
@@ -15,6 +20,23 @@ export default function AdminProducts({
   productsApiResult,
 }: AdminProductsProps) {
   const { data: products, message, pages, page, count } = productsApiResult;
+  const router = useRouter();
+
+  // Delete product from database
+  const onProductDeleted = async (productId: string) => {
+    const DELETE_PRODUCT_API_URL = `${PRODUCTS_API_URL}/${productId}`;
+    const response = await axios<DeleteProductApiResult>({
+      method: "DELETE",
+      url: DELETE_PRODUCT_API_URL,
+      validateStatus: () => true,
+    });
+
+    const result = response.data;
+    const { error, message, data: deletedProduct } = result;
+    if (!error) {
+      router.replace("/admin/products");
+    }
+  };
 
   return (
     <AdminLayout>
@@ -50,7 +72,13 @@ export default function AdminProducts({
                 />
                 <div className="flex flex-col gap-4">
                   {products.map((product) => {
-                    return <ProductCard product={product} key={product._id} />;
+                    return (
+                      <ProductCard
+                        product={product}
+                        onProductDeleted={onProductDeleted}
+                        key={product._id}
+                      />
+                    );
                   })}
                 </div>
               </div>

@@ -9,7 +9,14 @@ import {
 import { GetOrdersApiResult } from "@/types/OrdersApiResults";
 import DashboardOrderRow from "@/components/Table/DashboardOrderRow";
 import { GetServerSideProps } from "next";
-import { getPaginationURL, ORDERS_API_URL } from "@/lib/urlUtils";
+import {
+  getPaginationURL,
+  ORDERS_API_URL,
+  SUMMARY_API_URL,
+} from "@/lib/urlUtils";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { GetSummaryApiResult } from "@/types/SummaryApiResults";
 
 interface AdminDashboardProps {
   ordersApiResult: GetOrdersApiResult;
@@ -19,6 +26,35 @@ export default function AdminDashboard({
   ordersApiResult,
 }: AdminDashboardProps) {
   const { data: orders, message, pages, page } = ordersApiResult;
+  const [totalSales, setTotalSales] = useState(0);
+  const [totalOrders, setTotalOrders] = useState(0);
+  const [totalProducts, setTotalProducts] = useState(0);
+
+  // Get summary data
+  const getSummary = async () => {
+    try {
+      const response = await axios<GetSummaryApiResult>({
+        method: "GET",
+        url: SUMMARY_API_URL,
+        validateStatus: () => true,
+      });
+
+      const result = response.data;
+      const { message, data: summary, error: reviewsError } = result;
+
+      if (summary) {
+        setTotalSales(summary.ordersPrice);
+        setTotalOrders(summary.orderCount);
+        setTotalProducts(summary.productCount);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getSummary();
+  }, []);
 
   return (
     <AdminLayout>
@@ -43,7 +79,7 @@ export default function AdminDashboard({
                 </div>
                 <div className="flex flex-col gap-4">
                   <span>Total Sales</span>
-                  <span className="text-neutral-500">$99000</span>
+                  <span className="text-neutral-500">{`$${totalSales}`}</span>
                 </div>
               </div>
               <div className="flex flex-grow gap-4 border-2 border-gray-200 p-4">
@@ -55,7 +91,7 @@ export default function AdminDashboard({
                 </div>
                 <div className="flex flex-col gap-4">
                   <span>Total Orders</span>
-                  <span className="text-neutral-500">340</span>
+                  <span className="text-neutral-500">{totalOrders}</span>
                 </div>
               </div>
               <div className="flex flex-grow gap-4 border-2 border-gray-200 p-4">
@@ -67,7 +103,7 @@ export default function AdminDashboard({
                 </div>
                 <div className="flex flex-col gap-4">
                   <span>Total Products</span>
-                  <span className="text-neutral-500">42</span>
+                  <span className="text-neutral-500">{totalProducts}</span>
                 </div>
               </div>
             </div>

@@ -5,27 +5,13 @@ import Image from "next/image";
 import IconButton from "../Button/IconButton";
 import { faEye, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Product from "@/types/Product";
-import axios from "axios";
-import { PRODUCTS_API_URL } from "@/lib/urlUtils";
 
 interface ProductCardProps extends BaseProps {
   product: Product;
+  onProductDeleted: (productId: string) => void;
 }
 
-const ProductCard = ({ product }: ProductCardProps) => {
-  // Delete product from database
-  const onProductDeleted = async () => {
-    const DELETE_PRODUCT_API_URL = `${PRODUCTS_API_URL}/${product._id}`;
-    const response = await axios({
-      method: "DELETE",
-      url: DELETE_PRODUCT_API_URL,
-      validateStatus: () => true,
-    });
-
-    const result = response.data;
-    const { error, message, data } = result;
-  };
-
+const ProductCard = ({ product, onProductDeleted }: ProductCardProps) => {
   return (
     <div className="grid grid-cols-4 gap-6">
       <div>
@@ -45,7 +31,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             icon={faTrash}
             variant="primaryIcon"
             size="normal"
-            onClick={onProductDeleted}
+            onClick={() => onProductDeleted(product._id)}
           />
           <IconButton
             icon={faPen}
