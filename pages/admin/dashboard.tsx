@@ -17,6 +17,9 @@ import {
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { GetSummaryApiResult } from "@/types/SummaryApiResults";
+import BarChart from "@/components/Chart/BarChart";
+import { SummarySaleEntry } from "@/types/Summary";
+import PieChart from "@/components/Chart/PieChart";
 
 interface AdminDashboardProps {
   ordersApiResult: GetOrdersApiResult;
@@ -29,6 +32,7 @@ export default function AdminDashboard({
   const [totalSales, setTotalSales] = useState(0);
   const [totalOrders, setTotalOrders] = useState(0);
   const [totalProducts, setTotalProducts] = useState(0);
+  const [salesData, setSalesData] = useState<Array<SummarySaleEntry>>([]);
 
   // Get summary data
   const getSummary = async () => {
@@ -46,6 +50,7 @@ export default function AdminDashboard({
         setTotalSales(summary.ordersPrice);
         setTotalOrders(summary.orderCount);
         setTotalProducts(summary.productCount);
+        setSalesData(summary.salesData);
       }
     } catch (err) {
       console.log(err);
@@ -109,6 +114,20 @@ export default function AdminDashboard({
             </div>
 
             {/* Charts */}
+            <div className="mb-6">
+              <h2 className="text-lg font-medium">Analytics</h2>
+
+              <div className=" grid grid-cols-12 gap-6">
+                <div className="col-span-6">
+                  {/* Bar chart */}
+                  {salesData && <BarChart salesData={salesData} />}
+                </div>
+                <div className="col-span-4">
+                  {/* Pie chart */}
+                  <PieChart />
+                </div>
+              </div>
+            </div>
             {/* Latest Orders */}
             <div className="mb-6 flex flex-col justify-center gap-4">
               <h2 className="text-lg font-medium">Latest orders</h2>
