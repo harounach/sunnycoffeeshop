@@ -4,6 +4,8 @@ import Sidebar from "@/components/Sidebar/Sidebar";
 import { GetUsersFavoriteProductsApiResult } from "@/types/UsersApiResults";
 import { GetServerSideProps } from "next";
 import { USERS_API_URL, USER_ID } from "@/lib/urlUtils";
+import { deleteUserFavoriteProduct } from "@/lib/userUtils";
+import { useRouter } from "next/router";
 
 interface FavoriteProps {
   favoriteProductsApiResult: GetUsersFavoriteProductsApiResult;
@@ -11,6 +13,27 @@ interface FavoriteProps {
 
 export default function Favorite({ favoriteProductsApiResult }: FavoriteProps) {
   const { data: products, message, error } = favoriteProductsApiResult;
+
+  const router = useRouter();
+
+  const onFavoriteProductDeleted = async (
+    userId: string,
+    productId: string
+  ) => {
+    try {
+      const { error: deleteFavoriteError } = await deleteUserFavoriteProduct(
+        userId,
+        productId
+      );
+      if (!deleteFavoriteError) {
+        // refresh the page
+        router.replace("/account/favorite");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Layout>
       <section className="container mx-auto mt-6">
@@ -28,7 +51,15 @@ export default function Favorite({ favoriteProductsApiResult }: FavoriteProps) {
               <h2 className="text-center text-xl font-medium">Items</h2>
               <div className="flex flex-col gap-4">
                 {products?.map((product) => {
-                  return <FavoriteCard product={product} key={product._id} />;
+                  return (
+                    <FavoriteCard
+                      product={product}
+                      key={product._id}
+                      onFavoriteProductDeleted={() =>
+                        onFavoriteProductDeleted(USER_ID, product._id)
+                      }
+                    />
+                  );
                 })}
               </div>
             </div>

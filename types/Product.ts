@@ -5,4 +5,5 @@ export default interface Product {
   price: number;
   image: string;
   slug: string;
+  favoritedBy: Array<string>;
 }

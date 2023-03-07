@@ -2,7 +2,11 @@ import { SyntheticEvent, useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
 import IconButton from "@/components/Button/IconButton";
 import Layout from "@/components/Layout/Layout";
-import { faCartPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCartPlus,
+  faHeart,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { faHeart as OutlineHeart } from "@fortawesome/free-regular-svg-icons";
 import Image from "next/image";
 import Rating from "@/components/Rating/Rating";
@@ -22,7 +26,12 @@ import {
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import CartProduct from "@/types/CartProduct";
 import Review from "@/types/Review";
-import { PRODUCTS_API_URL, REVIEWS_API_URL } from "@/lib/urlUtils";
+import { PRODUCTS_API_URL, REVIEWS_API_URL, USER_ID } from "@/lib/urlUtils";
+import {
+  addUserFavoriteProduct,
+  deleteUserFavoriteProduct,
+  isProductInFavorite,
+} from "@/lib/userUtils";
 import { CreateReviewApiResult } from "@/types/ReviewsApiResults";
 
 interface ProductProps {
@@ -52,6 +61,10 @@ export default function Product({ productApiResult }: ProductProps) {
   if (!product) {
     return null;
   }
+
+  const [isFavored, setIsFavored] = useState(
+    isProductInFavorite(USER_ID, product)
+  );
 
   const cartProduct = useAppSelector((state) =>
     selectCartProductById(state, product._id)
@@ -138,7 +151,32 @@ export default function Product({ productApiResult }: ProductProps) {
   };
 
   // Add product to favorites
-  const onFavoriteAddded = async () => {};
+  const onFavoriteAdded = async () => {
+    try {
+      const { error: addFavoriteError } = await addUserFavoriteProduct(
+        USER_ID,
+        product._id
+      );
+      if (!addFavoriteError) {
+        // refresh the page
+        setIsFavored(true);
+      }
+    } catch (err) {}
+  };
+
+  // Delete product from favorite
+  const onFavoriteDeleted = async () => {
+    try {
+      const { error: deleteFavoriteError } = await deleteUserFavoriteProduct(
+        USER_ID,
+        product._id
+      );
+      if (!deleteFavoriteError) {
+        // refresh the page
+        setIsFavored(false);
+      }
+    } catch (err) {}
+  };
 
   return (
     <Layout>
@@ -177,12 +215,21 @@ export default function Product({ productApiResult }: ProductProps) {
                 </p>
               </div>
               <div className="flex justify-end gap-4">
-                <IconButton
-                  icon={OutlineHeart}
-                  size="normal"
-                  variant="primary"
-                  onClick={onFavoriteAddded}
-                />
+                {isFavored ? (
+                  <IconButton
+                    icon={faHeart}
+                    size="normal"
+                    variant="primary"
+                    onClick={onFavoriteDeleted}
+                  />
+                ) : (
+                  <IconButton
+                    icon={OutlineHeart}
+                    size="normal"
+                    variant="primary"
+                    onClick={onFavoriteAdded}
+                  />
+                )}
 
                 {canAddToCart ? (
                   <IconButton

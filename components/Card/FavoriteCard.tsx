@@ -2,33 +2,18 @@ import Image from "next/image";
 import IconButton from "../Button/IconButton";
 import { BaseProps } from "@/types/BaseProps";
 import React from "react";
-import { faCartPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEye } from "@fortawesome/free-solid-svg-icons";
 import Product from "@/types/Product";
-import axios from "axios";
-import { USERS_API_URL, USER_ID } from "@/lib/urlUtils";
 
 interface FavoriteCardProps extends BaseProps {
   product: Product;
+  onFavoriteProductDeleted: () => void;
 }
 
-const FavoriteCard = ({ product }: FavoriteCardProps) => {
-  const onFavoriteProductDeleted = async () => {
-    const API_URL = `${USERS_API_URL}/${USER_ID}/products/${product._id}`;
-    try {
-      const response = await axios({
-        method: "PATCH",
-        url: API_URL,
-        validateStatus: () => true,
-      });
-
-      const result = response.data;
-      console.log(result);
-    } catch (err) {
-      console.log("Error.................");
-      console.log(err);
-    }
-  };
-
+const FavoriteCard = ({
+  product,
+  onFavoriteProductDeleted,
+}: FavoriteCardProps) => {
   return (
     <div className="grid grid-cols-4 gap-6">
       <div>
@@ -49,7 +34,12 @@ const FavoriteCard = ({ product }: FavoriteCardProps) => {
             variant="primaryIcon"
             onClick={onFavoriteProductDeleted}
           />
-          <IconButton icon={faCartPlus} size="normal" variant="primaryIcon" />
+          <IconButton
+            icon={faEye}
+            size="normal"
+            variant="primaryIcon"
+            url={`/products/${product._id}`}
+          />
         </div>
       </div>
     </div>

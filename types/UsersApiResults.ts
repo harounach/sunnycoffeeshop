@@ -14,3 +14,13 @@ export interface GetUsersFavoriteProductsApiResult {
   data?: Array<Product>;
   error?: string;
 }
+
+export interface AddUserFavoriteProductApiResult {
+  message?: string;
+  error?: string;
+}
+
+export interface DeleteUserFavoriteProductApiResult {
+  message?: string;
+  error?: string;
+}
