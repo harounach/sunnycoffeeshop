@@ -3,19 +3,42 @@ import OrderCard from "@/components/Card/OrderCard";
 import Layout from "@/components/Layout/Layout";
 import SuccessBox from "@/components/Box/SuccessBox";
 import ErrorBox from "@/components/Box/ErrorBox";
-import { GetSingleOrderApiResult } from "@/types/OrdersApiResults";
+import {
+  GetSingleOrderApiResult,
+  PayOrderApiResult,
+} from "@/types/OrdersApiResults";
 import { GetServerSideProps } from "next";
 import axios from "axios";
 import { formatFriendyDate } from "@/lib/dateUtils";
 import { getPaymentMethodText } from "@/lib/textUtils";
+import { ORDERS_API_URL } from "@/lib/urlUtils";
+import {
+  payWithStripe,
+  paypalCreateOrder,
+  paypalOnApprove,
+  paypalOnError,
+  paypalOnCancel,
+} from "@/lib/paymentUtils";
+import { saveOrderSession } from "@/lib/orderUtils";
+import { loadStripe } from "@stripe/stripe-js";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { PayPalButtons } from "@paypal/react-paypal-js";
+import { OrderResponseBody } from "@paypal/paypal-js";
+
+// Make sure to call `loadStripe` outside of a component’s render to avoid
+// recreating the `Stripe` object on every render.
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
+);
 
 interface OrderProps {
   orderApiResult: GetSingleOrderApiResult;
-  admin?: boolean;
 }
 
-export default function Order({ orderApiResult, admin }: OrderProps) {
+export default function Order({ orderApiResult }: OrderProps) {
   const { data: order, message, error } = orderApiResult;
+  const router = useRouter();
 
   if (!order) {
     return null;
@@ -23,22 +46,90 @@ export default function Order({ orderApiResult, admin }: OrderProps) {
 
   const { shipping: shippingInfo, payment: paymentInfo, orderItems } = order;
 
-  const DELIVER_ORDER_API_URL = `http://localhost:4000/api/orders/${order._id}?action=deliver`;
+  const showPayPalButton =
+    order.payment.paymentMethod === "paypal" && !order.isPaid;
 
-  const onOrderDelivered = async () => {
+  const showCreditCardButton =
+    order.payment.paymentMethod === "credit_card" && !order.isPaid;
+
+  useEffect(() => {
+    const checkCreditCardPayment = async () => {
+      // Check to see if this is a redirect back from Checkout
+      const query = new URLSearchParams(window.location.search);
+      if (query.get("success") && !order.isPaid && order.payment.sessionId) {
+        console.log("Order placed! You will receive an email confirmation.");
+        console.log("Session Id: " + order.payment.sessionId);
+        // Now mark order as paid
+        await markOrderAsPaid();
+      }
+
+      if (query.get("canceled")) {
+        console.log(
+          "Order canceled -- continue to shop around and checkout when you’re ready."
+        );
+      }
+    };
+
+    checkCreditCardPayment();
+  }, []);
+
+  // Stripe payment
+  const onOrderPaidWithCreditCard = async () => {
     try {
-      const response = await axios({
-        method: "PATCH",
-        url: DELIVER_ORDER_API_URL,
-        validateStatus: () => true,
-      });
+      const {
+        url,
+        sessionId,
+        error: checkoutError,
+      } = await payWithStripe(order);
 
-      const result = response.data;
-      const { message, error: deliverError } = result;
+      if (sessionId) {
+        await saveOrderSession(order, sessionId);
+      }
+
+      if (url) {
+        router.push(url as string);
+      }
     } catch (err) {
       console.log(err);
     }
   };
+
+  // Mark order as paid
+  const markOrderAsPaid = async () => {
+    const PAY_ORDER_API_URL = `${ORDERS_API_URL}/${order._id}/pay`;
+    try {
+      const response = await axios<PayOrderApiResult>({
+        method: "PATCH",
+        url: PAY_ORDER_API_URL,
+        validateStatus: () => true,
+      });
+
+      const result = response.data;
+      const { error, message } = result;
+      if (!error) {
+        router.replace(`/orders/${order._id}`);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // Paypal createOrder listener
+  const createOrderListener = () => {};
+
+  // Paypal onApprove listener
+  const onApproveListener = async (details: OrderResponseBody) => {
+    const payerName = details.payer.name?.given_name;
+    console.log("Transaction completed! " + payerName);
+    // Now mark order as paid
+    await markOrderAsPaid();
+  };
+
+  // Paypal onError listener
+  const onErrorListener = () => {};
+
+  // Paypal onCancel listener
+  const onCancelListener = () => {};
 
   return (
     <Layout>
@@ -153,25 +244,22 @@ export default function Order({ orderApiResult, admin }: OrderProps) {
                 <h3 className="text-lg text-gray-500">Total</h3>
                 <h3 className="text-lg font-semibold">{`$${order.totalPrice}`}</h3>
               </div>
-              <Button
-                variant="primary"
-                url="#"
-                label="Place Order Now"
-                customeClasses="text-center"
-              />
-              <Button
-                variant="primary"
-                url="#"
-                label="Pay"
-                customeClasses="text-center"
-              />
-              {admin && (
+              {showPayPalButton && (
+                <PayPalButtons
+                  // fundingSource={FUNDING.PAYPAL}
+                  createOrder={paypalCreateOrder(order)}
+                  onApprove={paypalOnApprove(onApproveListener)}
+                  onError={paypalOnError(onErrorListener)}
+                  onCancel={paypalOnCancel(onCancelListener)}
+                />
+              )}
+              {showCreditCardButton && (
                 <Button
                   variant="primary"
-                  label="Deliver"
+                  label="Pay with Credit Card"
                   customeClasses="text-center"
                   type="button"
-                  onClick={onOrderDelivered}
+                  onClick={onOrderPaidWithCreditCard}
                 />
               )}
             </div>

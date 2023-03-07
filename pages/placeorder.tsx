@@ -40,7 +40,7 @@ export default function PlaceOrder() {
       title: cartProduct.title,
       qty: cartProduct.qty,
       image: cartProduct.image,
-      price: cartProduct.price * cartProduct.qty,
+      price: cartProduct.price,
       product: cartProduct._id,
     };
   });

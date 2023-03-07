@@ -3,7 +3,7 @@ import FavoriteCard from "@/components/Card/FavoriteCard";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import { GetUsersFavoriteProductsApiResult } from "@/types/UsersApiResults";
 import { GetServerSideProps } from "next";
-import { getPaginationURL, USERS_API_URL, USER_ID } from "@/lib/urlUtils";
+import { USERS_API_URL, USER_ID } from "@/lib/urlUtils";
 
 interface FavoriteProps {
   favoriteProductsApiResult: GetUsersFavoriteProductsApiResult;

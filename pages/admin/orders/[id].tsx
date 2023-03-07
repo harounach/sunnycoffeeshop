@@ -50,7 +50,7 @@ export default function Order({ orderApiResult }: OrderProps) {
     }
   };
 
-  // Mark order as paid
+  // Mark order as paid (for in-person payment)
   const onOrderPaid = async () => {
     const PAY_ORDER_API_URL = `${ORDERS_API_URL}/${order._id}/pay`;
     try {

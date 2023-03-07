@@ -35,3 +35,8 @@ export interface DeliverOrderApiResult {
   message?: string;
   error?: string;
 }
+
+export interface SaveOrderSessionApiResult {
+  message?: string;
+  error?: string;
+}

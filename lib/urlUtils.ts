@@ -7,6 +7,7 @@ export const REVIEWS_API_URL = `${BASE_URL}/api/reviews`;
 export const ORDERS_API_URL = `${BASE_URL}/api/orders`;
 export const USERS_API_URL = `${BASE_URL}/api/users`;
 export const SUMMARY_API_URL = `${BASE_URL}/api/summary`;
+export const PAYMENT_API_URL = `${BASE_URL}/api/payments`;
 export const USER_ID = "63e6cee75a6af69a0549b751";
 
 export const getPaginationURL = (baseURL: string, query: Query) => {

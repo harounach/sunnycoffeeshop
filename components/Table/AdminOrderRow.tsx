@@ -7,6 +7,7 @@ import { ORDERS_API_URL } from "@/lib/urlUtils";
 import { formatFriendyDate } from "@/lib/dateUtils";
 import { DeleteOrderApiResult } from "@/types/OrdersApiResults";
 import { useRouter } from "next/router";
+import { getPaymentMethodText, truncateText } from "@/lib/textUtils";
 
 interface AdminOrderRowProps {
   order: Order;
@@ -39,11 +40,12 @@ const AdminOrderRow = ({ order }: AdminOrderRowProps) => {
 
   return (
     <tr>
-      <td className="border-2 border-gray-200 px-4">{order._id}</td>
+      <td className="border-2 border-gray-200 px-4">{truncateText(order._id)}</td>
       <td className="border-2 border-gray-200 px-4">
         {formatFriendyDate(order.createdAt)}
       </td>
       <td className="border-2 border-gray-200 px-4">{`$${order.totalPrice}`}</td>
+      <td className="border-2 border-gray-200 px-4">{getPaymentMethodText(order.payment.paymentMethod)}</td>
       <td className={`border-2 border-gray-200 px-4 ${redtext(order.isPaid)}`}>
         {paidText}
       </td>

@@ -35,6 +35,7 @@ export default function AdminOrders({ ordersApiResult }: AdminOrdersProps) {
                     <th className="border-2 border-gray-200">ID</th>
                     <th className="border-2 border-gray-200">Date</th>
                     <th className="border-2 border-gray-200">Total</th>
+                    <th className="border-2 border-gray-200">Payment method</th>
                     <th className="border-2 border-gray-200">Paid</th>
                     <th className="border-2 border-gray-200">Delivered</th>
                     <th className="border-2 border-gray-200">Actions</th>

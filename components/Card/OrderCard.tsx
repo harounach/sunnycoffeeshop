@@ -22,7 +22,7 @@ const OrderCard = ({ orderItem }: OrderCardProps) => {
       <div className="col-span-3 flex items-center justify-between">
         <h3 className="text-xl">{orderItem.title}</h3>
         <h4 className="text-lg">({orderItem.qty})</h4>
-        <h4 className="text-lg">{`$${orderItem.price}`}</h4>
+        <h4 className="text-lg">{`$${orderItem.price * orderItem.qty}`}</h4>
       </div>
     </div>
   );
