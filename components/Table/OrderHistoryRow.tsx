@@ -41,7 +41,7 @@ const OrderHistoryRow = ({ order }: OrderHistoryRowProps) => {
             icon={faEye}
             variant="primaryIcon"
             size="normal"
-            url={`/orders/${order._id}`}
+            url={`/account/orders/${order._id}`}
           />
         </div>
       </td>

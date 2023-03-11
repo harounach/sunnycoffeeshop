@@ -9,17 +9,13 @@ import {
 import { GetOrdersApiResult } from "@/types/OrdersApiResults";
 import DashboardOrderRow from "@/components/Table/DashboardOrderRow";
 import { GetServerSideProps } from "next";
-import {
-  getPaginationURL,
-  ORDERS_API_URL,
-  SUMMARY_API_URL,
-} from "@/lib/urlUtils";
+import { getPaginationURL, ORDERS_API_URL } from "@/lib/urlUtils";
+import { getOrders } from "@/lib/orderUtils";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { GetSummaryApiResult } from "@/types/SummaryApiResults";
 import BarChart from "@/components/Chart/BarChart";
 import { SummarySaleEntry } from "@/types/Summary";
 import PieChart from "@/components/Chart/PieChart";
+import { getAdminSummary } from "@/lib/adminUtils";
 
 interface AdminDashboardProps {
   ordersApiResult: GetOrdersApiResult;
@@ -37,14 +33,11 @@ export default function AdminDashboard({
   // Get summary data
   const getSummary = async () => {
     try {
-      const response = await axios<GetSummaryApiResult>({
-        method: "GET",
-        url: SUMMARY_API_URL,
-        validateStatus: () => true,
-      });
-
-      const result = response.data;
-      const { message, data: summary, error: reviewsError } = result;
+      const {
+        message,
+        data: summary,
+        error: reviewsError,
+      } = await getAdminSummary();
 
       if (summary) {
         setTotalSales(summary.ordersPrice);
@@ -165,8 +158,7 @@ export const getServerSideProps: GetServerSideProps<
     order: -1,
   });
 
-  const response = await fetch(GET_ORDERS_URL);
-  const result = await response.json();
+  const result = await getOrders(GET_ORDERS_URL);
 
   return {
     props: {

@@ -1,4 +1,4 @@
-import { SyntheticEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
 import IconButton from "@/components/Button/IconButton";
 import Layout from "@/components/Layout/Layout";
@@ -12,12 +12,7 @@ import Image from "next/image";
 import Rating from "@/components/Rating/Rating";
 import ReviewCard from "@/components/Card/ReviewCard";
 import Link from "next/link";
-import Button from "@/components/Button/Button";
-import {
-  GetProductReviewsApiResult,
-  GetSingleProductApiResult,
-} from "@/types/ProductsApiResults";
-import axios from "axios";
+import { GetSingleProductApiResult } from "@/types/ProductsApiResults";
 import {
   cartAdded,
   cartDeleted,
@@ -26,13 +21,15 @@ import {
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import CartProduct from "@/types/CartProduct";
 import Review from "@/types/Review";
-import { PRODUCTS_API_URL, REVIEWS_API_URL, USER_ID } from "@/lib/urlUtils";
 import {
   addUserFavoriteProduct,
   deleteUserFavoriteProduct,
   isProductInFavorite,
 } from "@/lib/userUtils";
-import { CreateReviewApiResult } from "@/types/ReviewsApiResults";
+import { selectUser } from "@/state/userSlice";
+import ReviewForm from "@/components/Form/ReviewForm";
+import { getSingleProduct } from "@/lib/productUtils";
+import { createReview, getReviews } from "@/lib/reviewUtils";
 
 interface ProductProps {
   productApiResult: GetSingleProductApiResult;
@@ -40,9 +37,7 @@ interface ProductProps {
 
 export default function Product({ productApiResult }: ProductProps) {
   // Get the user name
-  let name = "Haroun";
-  const [rating, setRating] = useState(5);
-  const [comment, setComment] = useState("");
+  const user = useAppSelector(selectUser);
 
   // product review rating and count
   const [reviewCount, setReviewCount] = useState(0);
@@ -51,8 +46,6 @@ export default function Product({ productApiResult }: ProductProps) {
   const { data: product, message, error } = productApiResult;
   const [reviews, setReviews] = useState<Array<Review>>([]);
   const dispatch = useAppDispatch();
-
-  const canCreateReview = Boolean(name) && Boolean(rating) && Boolean(comment);
 
   if (error) {
     return null;
@@ -63,7 +56,7 @@ export default function Product({ productApiResult }: ProductProps) {
   }
 
   const [isFavored, setIsFavored] = useState(
-    isProductInFavorite(USER_ID, product)
+    isProductInFavorite(user._id as string, product)
   );
 
   const cartProduct = useAppSelector((state) =>
@@ -72,25 +65,16 @@ export default function Product({ productApiResult }: ProductProps) {
 
   const canAddToCart = !cartProduct ? true : false;
 
-  const GET_PRODUCT_REVIEWS_URL = `${PRODUCTS_API_URL}/${product._id}/reviews`;
-
   // Get reviews for this product
   const getProductReviews = async () => {
     try {
-      const response = await axios<GetProductReviewsApiResult>({
-        method: "GET",
-        url: GET_PRODUCT_REVIEWS_URL,
-        validateStatus: () => true,
-      });
-
-      const result = response.data;
       const {
         message,
         data: reviews,
         error: reviewsError,
         count,
         rating: averageRating,
-      } = result;
+      } = await getReviews(product._id);
 
       if (reviews) {
         setReviews(reviews);
@@ -107,36 +91,24 @@ export default function Product({ productApiResult }: ProductProps) {
   }, []);
 
   // Create new review for this product
-  const handleSubmitReview = async (e: SyntheticEvent) => {
-    e.preventDefault();
-
-    if (canCreateReview) {
-      try {
-        const data = {
-          name,
-          rating,
-          comment,
-          productId: product._id,
-        };
-        const response = await axios<CreateReviewApiResult>({
-          method: "POST",
-          url: REVIEWS_API_URL,
-          data,
-          validateStatus: () => true,
-        });
-        const result = response.data;
-        const { message, error: reviewError } = result;
-        if (!reviewError) {
-          // Reset review form
-          name = "Haroun";
-          setRating(5);
-          setComment("");
-          // Refetch reviews
-          await getProductReviews();
-        }
-      } catch (err) {
-        console.log(err);
+  const onReviewCreated = async (
+    name: string,
+    rating: number,
+    comment: string
+  ) => {
+    try {
+      const { message, error: reviewError } = await createReview(
+        name,
+        rating,
+        comment,
+        product._id
+      );
+      if (!reviewError) {
+        // Refetch reviews
+        await getProductReviews();
       }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -154,7 +126,7 @@ export default function Product({ productApiResult }: ProductProps) {
   const onFavoriteAdded = async () => {
     try {
       const { error: addFavoriteError } = await addUserFavoriteProduct(
-        USER_ID,
+        user._id as string,
         product._id
       );
       if (!addFavoriteError) {
@@ -168,7 +140,7 @@ export default function Product({ productApiResult }: ProductProps) {
   const onFavoriteDeleted = async () => {
     try {
       const { error: deleteFavoriteError } = await deleteUserFavoriteProduct(
-        USER_ID,
+        user._id as string,
         product._id
       );
       if (!deleteFavoriteError) {
@@ -264,6 +236,7 @@ export default function Product({ productApiResult }: ProductProps) {
             <h2 className="mb-4 text-xl">Write a Review:</h2>
             <div className="flex flex-col gap-4 border-2 border-gray-200 p-4">
               <div className="bg-red-100 p-4">
+                {/* TODO: show the review form when logged in only */}
                 <p>
                   Please{" "}
                   <Link className="font-medium" href={"/login"}>
@@ -272,41 +245,7 @@ export default function Product({ productApiResult }: ProductProps) {
                   to write a review
                 </p>
               </div>
-              <form onSubmit={handleSubmitReview}>
-                <div className="mb-4">
-                  <label htmlFor="rating" className="mb-2 block text-lg">
-                    Rating
-                  </label>
-                  <select
-                    name="rating"
-                    id="rating"
-                    value={rating}
-                    onChange={(e) => setRating(Number(e.target.value))}
-                    defaultValue={5}
-                  >
-                    <option value="1">1. One</option>
-                    <option value="2">2. Two</option>
-                    <option value="3">3. Three</option>
-                    <option value="4">4. Four</option>
-                    <option value="5">5. Five</option>
-                  </select>
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="comment" className="mb-2 block text-lg">
-                    Comment
-                  </label>
-                  <textarea
-                    className="w-full border-2 border-yellow-700 px-4 py-2"
-                    name="comment"
-                    id="comment"
-                    rows={3}
-                    placeholder="comment"
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                  ></textarea>
-                </div>
-                <Button variant="primary" label="Submit Review" type="submit" />
-              </form>
+              <ReviewForm createReview={onReviewCreated} user={user} />
             </div>
           </div>
         </div>
@@ -319,9 +258,7 @@ export const getServerSideProps: GetServerSideProps<ProductProps> = async (
   context
 ) => {
   const id = context.params?.id as string;
-  const GET_SINGLE_PRODUCT_URL = `${PRODUCTS_API_URL}/${id}`;
-  const response = await fetch(GET_SINGLE_PRODUCT_URL);
-  const result = await response.json();
+  const result = await getSingleProduct(id);
 
   return {
     props: {

@@ -1,4 +1,3 @@
-import axios from "axios";
 import Button from "@/components/Button/Button";
 import IconButton from "@/components/Button/IconButton";
 import PlaceOrderCard from "@/components/Card/PlaceOrderCard";
@@ -16,19 +15,19 @@ import { calculateSubtotal } from "@/lib/cartUtils";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { getPaymentMethodText } from "@/lib/textUtils";
-import { USER_ID } from "@/lib/urlUtils";
+import { createOrder } from "@/lib/orderUtils";
 import { useRouter } from "next/router";
-import { CreateOrderApiResult } from "@/types/OrdersApiResults";
+import { selectUser } from "@/state/userSlice";
 
 export default function PlaceOrder() {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
   const [errorMsg, setErrorMsg] = useState("");
   const cartProducts = useAppSelector(selectCartProducts);
   const cartProductIds = useAppSelector(selectCartProductIds);
   const shippingInfo = useAppSelector(selectShippingInfo);
   const paymentInfo = useAppSelector(selectPaymentInfo);
-  const user = USER_ID;
 
   const subtotal = calculateSubtotal(cartProducts);
   const shipping = 0;
@@ -47,26 +46,17 @@ export default function PlaceOrder() {
 
   const onOrderPlaced = async () => {
     try {
-      const data = {
+      const result = await createOrder(
         shippingInfo,
         paymentInfo,
         orderItems,
-        user,
-      };
-
-      const response = await axios<CreateOrderApiResult>({
-        method: "POST",
-        url: "http://localhost:4000/api/orders",
-        data,
-        validateStatus: () => true,
-      });
-
-      const result = response.data;
+        user._id as string
+      );
       const { error, message, data: newOrder } = result;
       if (!error) {
         // order created successfully
+        router.replace(`/account/orders/${newOrder?._id}`);
         dispatch(resetCart(""));
-        router.replace(`/orders/${newOrder?._id}`);
       }
 
       console.log(result);
@@ -92,7 +82,7 @@ export default function PlaceOrder() {
                 <IconButton
                   variant="primary"
                   size="normal"
-                  url="/ship"
+                  url="/account/shipping"
                   icon={faPen}
                   title="Edit Shipping Info"
                 />
@@ -124,7 +114,7 @@ export default function PlaceOrder() {
                 <IconButton
                   variant="primary"
                   size="normal"
-                  url="/payment"
+                  url="/account/payment"
                   icon={faPen}
                   title="Edit Payment Method"
                 />
@@ -142,7 +132,7 @@ export default function PlaceOrder() {
                 <IconButton
                   variant="primary"
                   size="normal"
-                  url="/cart"
+                  url="/account/cart"
                   icon={faPen}
                   title="Edit Cart Items"
                 />

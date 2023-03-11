@@ -1,15 +1,12 @@
 import React, { SyntheticEvent, useState } from "react";
 import { GetServerSideProps } from "next";
-
 import AdminLayout from "@/components/Layout/AdminLayout";
 import { GetSingleProductApiResult } from "@/types/ProductsApiResults";
-
 import TextField from "@/components/Form/TextField";
 import Button from "@/components/Button/Button";
 import AdminSidebar from "@/components/Sidebar/AdminSidebar";
-import axios from "axios";
-import { PRODUCTS_API_URL } from "@/lib/urlUtils";
 import { useRouter } from "next/router";
+import { getSingleProduct, updateProduct } from "@/lib/productUtils";
 
 interface AdminEditProductProps {
   productApiResult: GetSingleProductApiResult;
@@ -39,28 +36,18 @@ export default function AdminEditProduct({
     Boolean(image) &&
     Boolean(slug);
 
-  const UPDATE_PRODUCT_API_URL = `${PRODUCTS_API_URL}/${product._id}`;
-
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     if (canSubmit) {
       try {
-        const data = {
+        const { message, error: updateError } = await updateProduct(
+          product._id,
           title,
           description,
-          price: Number(price),
+          Number(price),
           image,
-          slug,
-        };
-        const response = await axios({
-          method: "PUT",
-          url: UPDATE_PRODUCT_API_URL,
-          data,
-          validateStatus: () => true,
-        });
-
-        const result = response.data;
-        const { message, error: updateError } = result;
+          slug
+        );
         if (!updateError) {
           // Navigate to product detail page
           router.replace(`/admin/products/${product._id}`);
@@ -187,10 +174,7 @@ export const getServerSideProps: GetServerSideProps<
   AdminEditProductProps
 > = async (context) => {
   const id = context.params?.id as string;
-
-  const GET_SINGLE_PRODUCT_URL = `${PRODUCTS_API_URL}/${id}`;
-  const response = await fetch(GET_SINGLE_PRODUCT_URL);
-  const result = await response.json();
+  const result = await getSingleProduct(id);
 
   return {
     props: {

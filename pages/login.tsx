@@ -1,12 +1,18 @@
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useState, useEffect } from "react";
 import Button from "@/components/Button/Button";
 import TextField from "@/components/Form/TextField";
 import Layout from "@/components/Layout/Layout";
 import Link from "next/link";
-import axios from "axios";
+import { loginUser } from "@/lib/userUtils";
+import { saveUser } from "@/state/userSlice";
+import { useAppDispatch } from "@/state/hooks";
+import { useUserStatus } from "@/hooks/authHook";
+import { useRouter } from "next/router";
 
 export default function Login() {
-  // http://localhost:4000/auth/login
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const userStatus = useUserStatus();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,37 +20,50 @@ export default function Login() {
 
   const canSubmit = Boolean(email) && Boolean(password);
 
+  // Prefetch pages after login
+  useEffect(() => {
+    const { nxt } = router.query;
+    if (nxt) {
+      router.prefetch(nxt as string);
+    } else {
+      router.prefetch("/");
+    }
+  }, []);
+
+  useEffect(() => {
+    const { nxt } = router.query;
+    if (userStatus) {
+      console.log("User is Logged in");
+      // Navigate to other pages
+      if (nxt) {
+        router.replace(nxt as string);
+      } else {
+        router.replace("/");
+      }
+    }
+  }, [userStatus]);
+
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     setErrorMsg("");
     if (canSubmit) {
       try {
-        const data = {
-          email,
-          password,
-        };
-        const response = await axios({
-          method: "POST",
-          url: "http://localhost:4000/auth/login",
-          data,
-          validateStatus: () => true,
-        });
+        const { error, message, data } = await loginUser(email, password);
 
-        const result = response.data;
-        const { error, message, accessToken } = result;
-        // Email: haroun@hwiren.com
-
-        console.log(result);
         if (error) {
           setErrorMsg(error);
         }
-      } catch (error) {
-        console.log("Error.................");
-        console.log(error);
-      }
 
-      setEmail("");
-      setPassword("");
+        if (data) {
+          setEmail("");
+          setPassword("");
+          // save user
+          dispatch(saveUser(data));
+        }
+      } catch (err) {
+        console.log("Error.................");
+        console.log(err);
+      }
     }
   };
 

@@ -1,13 +1,11 @@
 import { GetServerSideProps } from "next";
-import { useRouter } from "next/router";
 import Chip from "@/components/Chip/Chip";
 import ChipGroup from "@/components/Chip/ChipGroup";
-import ShopPagination from "@/components/Pagination/DottedPagination";
 import Layout from "@/components/Layout/Layout";
 import { SearchProductsApiResult } from "@/types/ProductsApiResults";
 import ShopCard from "@/components/Card/ShopCard";
 import { getPaginationURL, PRODUCTS_API_URL } from "@/lib/urlUtils";
-import Query from "@/types/Query";
+import { getSearchProducts } from "@/lib/productUtils";
 import DottedPagination from "@/components/Pagination/DottedPagination";
 
 interface SearchProps {
@@ -80,8 +78,7 @@ export const getServerSideProps: GetServerSideProps<SearchProps> = async (
     q: q as string,
   });
 
-  const response = await fetch(SEARCH_PRODUCTS_URL);
-  const result = await response.json();
+  const result = await getSearchProducts(SEARCH_PRODUCTS_URL);
 
   const search = q ? q : "";
 

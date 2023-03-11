@@ -57,12 +57,14 @@ export default function Cart() {
                 <h3 className="text-lg text-gray-500">Total</h3>
                 <h3 className="text-lg font-semibold">{`$${total}`}</h3>
               </div>
-              <Button
-                variant="primary"
-                url="/ship"
-                label="Proceed to Checkout"
-                customeClasses="text-center"
-              />
+              {cartProductsIds.length > 0 && (
+                <Button
+                  variant="primary"
+                  url="/account/shipping"
+                  label="Proceed to Checkout"
+                  customeClasses="text-center"
+                />
+              )}
             </div>
           </div>
         </div>

@@ -2,15 +2,12 @@ import { GetServerSideProps } from "next";
 import ProductCard from "@/components/Card/ProductCard";
 import AdminSidebar from "@/components/Sidebar/AdminSidebar";
 import Button from "@/components/Button/Button";
-import {
-  DeleteProductApiResult,
-  GetProductsApiResult,
-} from "@/types/ProductsApiResults";
+import { GetProductsApiResult } from "@/types/ProductsApiResults";
 import { getPaginationURL, PRODUCTS_API_URL } from "@/lib/urlUtils";
 import Pagination from "@/components/Pagination/Pagination";
 import AdminLayout from "@/components/Layout/AdminLayout";
-import axios from "axios";
 import { useRouter } from "next/router";
+import { deleteProduct, getProducts } from "@/lib/productUtils";
 
 interface AdminProductsProps {
   productsApiResult: GetProductsApiResult;
@@ -24,14 +21,7 @@ export default function AdminProducts({
 
   // Delete product from database
   const onProductDeleted = async (productId: string) => {
-    const DELETE_PRODUCT_API_URL = `${PRODUCTS_API_URL}/${productId}`;
-    const response = await axios<DeleteProductApiResult>({
-      method: "DELETE",
-      url: DELETE_PRODUCT_API_URL,
-      validateStatus: () => true,
-    });
-
-    const result = response.data;
+    const result = await deleteProduct(productId);
     const { error, message, data: deletedProduct } = result;
     if (!error) {
       router.replace("/admin/products");
@@ -101,8 +91,7 @@ export const getServerSideProps: GetServerSideProps<
     order: order as string,
   });
 
-  const response = await fetch(GET_PRODUCTS_URL);
-  const result = await response.json();
+  const result = await getProducts(GET_PRODUCTS_URL);
 
   return {
     props: {

@@ -46,7 +46,7 @@ export default function Ship() {
       // Save shipping info
       dispatch(saveShippingInfo(shippingInfo));
       // Navigate to payment page
-      router.push("/payment");
+      router.push("/account/payment");
     } else {
       setErrorMsg("All fields are required");
     }

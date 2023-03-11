@@ -20,7 +20,7 @@ export default function Payment() {
       paymentMethod,
     };
     dispatch(savePaymentInfo(paymentInfo));
-    router.push("/placeorder");
+    router.push("/account/placeorder");
   };
 
   const onOptionChange = (e: ChangeEvent<HTMLInputElement>) => {

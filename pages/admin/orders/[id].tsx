@@ -3,15 +3,14 @@ import OrderCard from "@/components/Card/OrderCard";
 import AdminLayout from "@/components/Layout/AdminLayout";
 import SuccessBox from "@/components/Box/SuccessBox";
 import ErrorBox from "@/components/Box/ErrorBox";
-import {
-  DeleteOrderApiResult,
-  DeliverOrderApiResult,
-  GetSingleOrderApiResult,
-  PayOrderApiResult,
-} from "@/types/OrdersApiResults";
+import { GetSingleOrderApiResult } from "@/types/OrdersApiResults";
 import { GetServerSideProps } from "next";
-import axios from "axios";
-import { ORDERS_API_URL } from "@/lib/urlUtils";
+import {
+  deleteOrder,
+  deliverOrder,
+  getSingleOrder,
+  payOrder,
+} from "@/lib/orderUtils";
 import { formatFriendyDate } from "@/lib/dateUtils";
 import { getPaymentMethodText } from "@/lib/textUtils";
 import { useRouter } from "next/router";
@@ -32,16 +31,8 @@ export default function Order({ orderApiResult }: OrderProps) {
 
   // Mark order as delivered
   const onOrderDelivered = async () => {
-    const DELIVER_ORDER_API_URL = `${ORDERS_API_URL}/${order._id}/deliver`;
     try {
-      const response = await axios<DeliverOrderApiResult>({
-        method: "PATCH",
-        url: DELIVER_ORDER_API_URL,
-        validateStatus: () => true,
-      });
-
-      const result = response.data;
-      const { message, error } = result;
+      const { message, error } = await deliverOrder(order._id);
       if (!error) {
         router.push(`/admin/orders/${order._id}`);
       }
@@ -52,16 +43,8 @@ export default function Order({ orderApiResult }: OrderProps) {
 
   // Mark order as paid (for in-person payment)
   const onOrderPaid = async () => {
-    const PAY_ORDER_API_URL = `${ORDERS_API_URL}/${order._id}/pay`;
     try {
-      const response = await axios<PayOrderApiResult>({
-        method: "PATCH",
-        url: PAY_ORDER_API_URL,
-        validateStatus: () => true,
-      });
-
-      const result = response.data;
-      const { error, message } = result;
+      const { error, message } = await payOrder(order._id);
       if (!error) {
         router.push(`/admin/orders/${order._id}`);
       }
@@ -72,16 +55,8 @@ export default function Order({ orderApiResult }: OrderProps) {
 
   // Delete order from database
   const onOrderDeleted = async () => {
-    const DELETE_ORDER_API_URL = `${ORDERS_API_URL}/${order._id}`;
     try {
-      const response = await axios<DeleteOrderApiResult>({
-        method: "DELETE",
-        url: DELETE_ORDER_API_URL,
-        validateStatus: () => true,
-      });
-
-      const result = response.data;
-      const { error, message, data } = result;
+      const { error, message, data } = await deleteOrder(order._id);
       if (!error) {
         router.push("/admin/orders");
       }
@@ -245,9 +220,7 @@ export const getServerSideProps: GetServerSideProps<OrderProps> = async (
 ) => {
   const id = context.params?.id as string;
 
-  const GET_SINGLE_ORDER_URL = `${ORDERS_API_URL}/${id}`;
-  const response = await fetch(GET_SINGLE_ORDER_URL);
-  const result = await response.json();
+  const result = await getSingleOrder(id);
 
   return {
     props: {

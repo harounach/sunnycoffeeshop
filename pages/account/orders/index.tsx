@@ -1,31 +1,49 @@
-import React from "react";
-import AdminLayout from "@/components/Layout/AdminLayout";
-import AdminSidebar from "@/components/Sidebar/AdminSidebar";
+import { useEffect } from "react";
+import Layout from "@/components/Layout/Layout";
+import Sidebar from "@/components/Sidebar/Sidebar";
 import { GetOrdersApiResult } from "@/types/OrdersApiResults";
-import { getPaginationURL, ORDERS_API_URL } from "@/lib/urlUtils";
-import { getOrders } from "@/lib/orderUtils";
-import AdminOrderRow from "@/components/Table/AdminOrderRow";
 import { GetServerSideProps } from "next";
+import { getPaginationURL, USERS_API_URL } from "@/lib/urlUtils";
+import { getOrders } from "@/lib/orderUtils";
+import OrderHistoryRow from "@/components/Table/OrderHistoryRow";
 import Pagination from "@/components/Pagination/Pagination";
+import { useUserStatus } from "@/hooks/authHook";
+import { useRouter } from "next/router";
+import { UserInfo } from "@/state/userSlice";
 
-interface AdminOrdersProps {
+interface OrderHistoryProps {
   ordersApiResult: GetOrdersApiResult;
 }
 
-export default function AdminOrders({ ordersApiResult }: AdminOrdersProps) {
-  const { data: orders, message, pages, page, count } = ordersApiResult;
+export default function OrderHistory({ ordersApiResult }: OrderHistoryProps) {
+  const router = useRouter();
+  const userStatus = useUserStatus();
 
+  // Check if user is loggedin
+  useEffect(() => {
+    if (!userStatus) {
+      console.log("User is Logged out");
+      router.replace({
+        pathname: "/login",
+        query: {
+          nxt: router.pathname,
+        },
+      });
+    }
+  }, [userStatus]);
+
+  const { data: orders, message, pages, page, count } = ordersApiResult;
   return (
-    <AdminLayout>
+    <Layout>
       <section className="container mx-auto mt-6">
         <div className="grid grid-cols-12 gap-6">
           {/* Sidebar */}
-          <AdminSidebar orders />
+          <Sidebar history />
           {/* Main Content */}
           <div className="col-span-9">
-            <h1 className="mb-4 text-center text-2xl">Orders</h1>
+            <h1 className="mb-4 text-center text-2xl">Order History</h1>
             <p className="mb-14 text-center text-base text-neutral-500">
-              View and manage orders
+              View your order history
             </p>
 
             <div className="mb-6 flex flex-col justify-center gap-4">
@@ -43,13 +61,13 @@ export default function AdminOrders({ ordersApiResult }: AdminOrdersProps) {
                 </thead>
                 <tbody>
                   {orders.map((order) => {
-                    return <AdminOrderRow order={order} key={order._id} />;
+                    return <OrderHistoryRow order={order} key={order._id} />;
                   })}
                 </tbody>
               </table>
               <div className="mt-4">
                 <Pagination
-                  baseURL="/admin/orders"
+                  baseURL="/account/history"
                   page={page}
                   pages={pages}
                   order={-1}
@@ -60,16 +78,22 @@ export default function AdminOrders({ ordersApiResult }: AdminOrdersProps) {
           </div>
         </div>
       </section>
-    </AdminLayout>
+    </Layout>
   );
 }
 
-export const getServerSideProps: GetServerSideProps<AdminOrdersProps> = async (
+export const getServerSideProps: GetServerSideProps<OrderHistoryProps> = async (
   context
 ) => {
   const { page, perpage, order } = context.query;
 
-  const GET_ORDERS_URL = getPaginationURL(ORDERS_API_URL, {
+  const userInfo = JSON.parse(
+    context.req.cookies.userInfo as string
+  ) as UserInfo;
+
+  const GET_USER_ORDERS_API_URL = `${USERS_API_URL}/${userInfo._id}/orders`;
+
+  const GET_ORDERS_URL = getPaginationURL(GET_USER_ORDERS_API_URL, {
     page: page as string,
     perpage: perpage as string,
     order: order as string,

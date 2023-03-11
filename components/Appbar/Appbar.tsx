@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from "react";
+import React, { SyntheticEvent, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -12,14 +12,26 @@ import Button from "../Button/Button";
 import IconButton from "../Button/IconButton";
 import { useAppSelector } from "@/state/hooks";
 import { selectTotalCartProducts } from "@/state/cartSlice";
+import { useUserStatus } from "@/hooks/authHook";
 
 interface AppbarProps extends BaseProps {}
 
 const Appbar = ({}: AppbarProps) => {
   const router = useRouter();
+  const userStatus = useUserStatus();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const [search, setSearch] = useState("");
   const totalCartProducts = useAppSelector(selectTotalCartProducts);
   const cartBadge = totalCartProducts > 0 ? `${totalCartProducts}` : "";
+
+  useEffect(() => {
+    if (userStatus) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [userStatus])
 
   const handleSearchSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -68,8 +80,16 @@ const Appbar = ({}: AppbarProps) => {
               icon={faCartPlus}
               badge={cartBadge}
             />
-            <Button variant="primary" url="/register" label="Sign Up" />
-            <Button variant="primary" url="/account/profile" label="Account" />
+            {!isLoggedIn ? (
+              <Button variant="primary" url="/login" label="Login" />
+            ) : (
+              <Button
+                variant="primary"
+                url="/account/profile"
+                label="Account"
+              />
+            )}
+
             <Button variant="primary" url="/admin/dashboard" label="Admin" />
           </nav>
         </div>

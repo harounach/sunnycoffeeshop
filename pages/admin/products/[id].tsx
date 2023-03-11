@@ -6,18 +6,13 @@ import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import Rating from "@/components/Rating/Rating";
 import Button from "@/components/Button/Button";
-import {
-  DeleteProductApiResult,
-  GetProductReviewsApiResult,
-  GetSingleProductApiResult,
-} from "@/types/ProductsApiResults";
-import axios from "axios";
+import { GetSingleProductApiResult } from "@/types/ProductsApiResults";
 import Review from "@/types/Review";
-import { PRODUCTS_API_URL, REVIEWS_API_URL } from "@/lib/urlUtils";
 import { useRouter } from "next/router";
 import AdminReviewCard from "@/components/Card/AdminReviewCard";
 import AdminLayout from "@/components/Layout/AdminLayout";
-import { DeleteReviewApiResult } from "@/types/ReviewsApiResults";
+import { deleteProduct, getSingleProduct } from "@/lib/productUtils";
+import { deleteReview, getReviews } from "@/lib/reviewUtils";
 
 interface AdminProductProps {
   productApiResult: GetSingleProductApiResult;
@@ -39,25 +34,16 @@ export default function AdminProduct({ productApiResult }: AdminProductProps) {
     return null;
   }
 
-  const GET_PRODUCT_REVIEWS_URL = `${PRODUCTS_API_URL}/${product._id}/reviews`;
-
   // Get reviews for this product
   const getProductReviews = async () => {
     try {
-      const response = await axios<GetProductReviewsApiResult>({
-        method: "GET",
-        url: GET_PRODUCT_REVIEWS_URL,
-        validateStatus: () => true,
-      });
-
-      const result = response.data;
       const {
         message,
         data: reviews,
         error: reviewsError,
         count,
         rating: averageRating,
-      } = result;
+      } = await getReviews(product._id);
 
       if (reviews) {
         setReviews(reviews);
@@ -75,16 +61,8 @@ export default function AdminProduct({ productApiResult }: AdminProductProps) {
 
   // Delete product from database
   const onProductDeleted = async () => {
-    const DELETE_PRODUCT_API_URL = `${PRODUCTS_API_URL}/${product._id}`;
     try {
-      const response = await axios<DeleteProductApiResult>({
-        method: "DELETE",
-        url: DELETE_PRODUCT_API_URL,
-        validateStatus: () => true,
-      });
-
-      const result = response.data;
-      const { error, message, data } = result;
+      const { error, message, data } = await deleteProduct(product._id);
       if (!error) {
         router.replace("/admin/products");
       }
@@ -95,16 +73,8 @@ export default function AdminProduct({ productApiResult }: AdminProductProps) {
 
   // Delete product from database
   const onReviewDeleted = async (reviewId: string) => {
-    const DELETE_REVIEW_API_URL = `${REVIEWS_API_URL}/${reviewId}`;
     try {
-      const response = await axios<DeleteReviewApiResult>({
-        method: "DELETE",
-        url: DELETE_REVIEW_API_URL,
-        validateStatus: () => true,
-      });
-
-      const result = response.data;
-      const { error, message, data } = result;
+      const { error, message, data } = await deleteReview(reviewId);
       if (!error) {
         // refetch reviews
         await getProductReviews();
@@ -208,9 +178,7 @@ export const getServerSideProps: GetServerSideProps<AdminProductProps> = async (
   context
 ) => {
   const id = context.params?.id as string;
-  const GET_SINGLE_PRODUCT_URL = `${PRODUCTS_API_URL}/${id}`;
-  const response = await fetch(GET_SINGLE_PRODUCT_URL);
-  const result = await response.json();
+  const result = await getSingleProduct(id);
 
   return {
     props: {

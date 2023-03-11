@@ -5,9 +5,10 @@ import {
   faShoppingBasket,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
 import React from "react";
+import IconTextButton from "@/components/Button/IconTextButton";
+import { deleteUser } from "@/state/userSlice";
+import { useAppDispatch } from "@/state/hooks";
 
 interface SidebarProps extends BaseProps {
   profile?: boolean;
@@ -17,7 +18,13 @@ interface SidebarProps extends BaseProps {
 
 const Sidebar = ({ profile, history, favorite }: SidebarProps) => {
   const activeTabColor = (value?: boolean) => {
-    return value ? "text-yellow-700" : "text-neutral-600";
+    return value ? "primary" : "default";
+  };
+
+  const dispatch = useAppDispatch();
+
+  const logOut = () => {
+    dispatch(deleteUser());
   };
 
   return (
@@ -30,40 +37,36 @@ const Sidebar = ({ profile, history, favorite }: SidebarProps) => {
       <div className="flex justify-center">
         <ul className="inline-flex flex-col gap-4">
           <li>
-            <Link
-              className={`flex items-center gap-4 ${activeTabColor(profile)}`}
-              href={"/account/profile"}
-            >
-              <FontAwesomeIcon className="h-6 w-6" icon={faUser} />{" "}
-              <span className="text-base">Profile Settings</span>
-            </Link>
+            <IconTextButton
+              label="Profile Settings"
+              icon={faUser}
+              variant={activeTabColor(profile)}
+              url="/account/profile"
+            />
           </li>
           <li>
-            <Link
-              className={`flex items-center gap-4 ${activeTabColor(history)}`}
-              href={"/account/history"}
-            >
-              <FontAwesomeIcon className="h-6 w-6" icon={faShoppingBasket} />{" "}
-              <span className="text-base">Order history</span>
-            </Link>
+            <IconTextButton
+              label="Order history"
+              icon={faShoppingBasket}
+              variant={activeTabColor(history)}
+              url="/account/orders"
+            />
           </li>
           <li>
-            <Link
-              className={`flex items-center gap-4 ${activeTabColor(favorite)}`}
-              href={"/account/favorite"}
-            >
-              <FontAwesomeIcon className="h-6 w-6" icon={faHeart} />{" "}
-              <span className="text-base">Favorites</span>
-            </Link>
+            <IconTextButton
+              label="Favorites"
+              icon={faHeart}
+              variant={activeTabColor(favorite)}
+              url="/account/favorite"
+            />
           </li>
           <li>
-            <Link
-              className="flex items-center gap-4 text-neutral-600"
-              href={"/account/profile"}
-            >
-              <FontAwesomeIcon className="h-6 w-6" icon={faRightFromBracket} />{" "}
-              <span className="text-base">Logout</span>
-            </Link>
+            <IconTextButton
+              label="Logout"
+              icon={faRightFromBracket}
+              variant="default"
+              onClick={logOut}
+            />
           </li>
         </ul>
       </div>

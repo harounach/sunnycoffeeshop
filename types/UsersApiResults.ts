@@ -24,3 +24,15 @@ export interface DeleteUserFavoriteProductApiResult {
   message?: string;
   error?: string;
 }
+
+export interface LoginUserApiResult {
+  message?: string;
+  error?: string;
+  data?: User;
+}
+
+export interface RegisterUserApiResult {
+  message?: string;
+  error?: string;
+  data?: User;
+}

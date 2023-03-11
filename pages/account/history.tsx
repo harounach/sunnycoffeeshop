@@ -1,16 +1,37 @@
+import { useEffect } from "react";
 import Layout from "@/components/Layout/Layout";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import { GetOrdersApiResult } from "@/types/OrdersApiResults";
 import { GetServerSideProps } from "next";
-import { getPaginationURL, USERS_API_URL, USER_ID } from "@/lib/urlUtils";
+import { getPaginationURL, USERS_API_URL } from "@/lib/urlUtils";
+import { getOrders } from "@/lib/orderUtils";
 import OrderHistoryRow from "@/components/Table/OrderHistoryRow";
 import Pagination from "@/components/Pagination/Pagination";
+import { useUserStatus } from "@/hooks/authHook";
+import { useRouter } from "next/router";
+import { UserInfo } from "@/state/userSlice";
 
 interface OrderHistoryProps {
   ordersApiResult: GetOrdersApiResult;
 }
 
 export default function OrderHistory({ ordersApiResult }: OrderHistoryProps) {
+  const router = useRouter();
+  const userStatus = useUserStatus();
+
+  // Check if user is loggedin
+  useEffect(() => {
+    if (!userStatus) {
+      console.log("User is Logged out");
+      router.replace({
+        pathname: "/login",
+        query: {
+          nxt: router.pathname,
+        },
+      });
+    }
+  }, [userStatus]);
+
   const { data: orders, message, pages, page, count } = ordersApiResult;
   return (
     <Layout>
@@ -65,8 +86,11 @@ export const getServerSideProps: GetServerSideProps<OrderHistoryProps> = async (
   context
 ) => {
   const { page, perpage, order } = context.query;
+  const userInfo = JSON.parse(
+    context.req.cookies.userInfo as string
+  ) as UserInfo;
 
-  const GET_USER_ORDERS_API_URL = `${USERS_API_URL}/${USER_ID}/orders`;
+  const GET_USER_ORDERS_API_URL = `${USERS_API_URL}/${userInfo._id}/orders`;
 
   const GET_ORDERS_URL = getPaginationURL(GET_USER_ORDERS_API_URL, {
     page: page as string,
@@ -74,8 +98,7 @@ export const getServerSideProps: GetServerSideProps<OrderHistoryProps> = async (
     order: order as string,
   });
 
-  const response = await fetch(GET_ORDERS_URL);
-  const result = await response.json();
+  const result = await getOrders(GET_ORDERS_URL);
 
   return {
     props: {

@@ -1,5 +1,5 @@
 export default interface OrderItem {
-  _id: string;
+  _id?: string;
   title: string;
   qty: number;
   image: string;

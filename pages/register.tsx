@@ -3,10 +3,12 @@ import Button from "@/components/Button/Button";
 import TextField from "@/components/Form/TextField";
 import Layout from "@/components/Layout/Layout";
 import Link from "next/link";
-import axios from "axios";
+import { registerUser } from "@/lib/userUtils";
+import { saveUser } from "@/state/userSlice";
+import { useAppDispatch } from "@/state/hooks";
 
 export default function Register() {
-  // http://localhost:4000/auth/register
+  const dispatch = useAppDispatch();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -20,34 +22,27 @@ export default function Register() {
     setErrorMsg("");
     if (canSubmit) {
       try {
-        const data = {
+        const { error, message, data } = await registerUser(
           name,
           email,
-          password,
-        };
-        const response = await axios({
-          method: "POST",
-          url: "http://localhost:4000/auth/register",
-          data,
-          validateStatus: () => true,
-        });
+          password
+        );
 
-        const result = response.data;
-        const { error, message, accessToken } = result;
-        // Email: haroun@hwiren.com
-
-        console.log(result);
         if (error) {
           setErrorMsg(error);
         }
-      } catch (error) {
-        console.log("Error.................");
-        console.log(error);
-      }
 
-      setName("");
-      setEmail("");
-      setPassword("");
+        if (data) {
+          setName("");
+          setEmail("");
+          setPassword("");
+          // save user
+          dispatch(saveUser(data));
+        }
+      } catch (err) {
+        console.log("Error.................");
+        console.log(err);
+      }
     }
   };
 
@@ -111,6 +106,12 @@ export default function Register() {
             <div className="flex justify-center gap-4">
               <span>Already have an account?</span>
               <Link href={"/login"} className="font-medium text-yellow-700">
+                Login
+              </Link>
+              <Link
+                href={"/login?nxt=/shop"}
+                className="font-medium text-yellow-700"
+              >
                 Login
               </Link>
             </div>

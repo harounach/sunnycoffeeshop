@@ -1,10 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Layout from "@/components/Layout/Layout";
 import Button from "@/components/Button/Button";
 import TextField from "@/components/Form/TextField";
 import Sidebar from "@/components/Sidebar/Sidebar";
+import { useUserStatus } from "@/hooks/authHook";
+import { useRouter } from "next/router";
 
 export default function Profile() {
+
+  const router = useRouter();
+  const userStatus = useUserStatus();
+
+  // Check if user is loggedin
+  useEffect(() => {
+    if (!userStatus) {
+      console.log("User is Logged out");
+      router.replace({
+        pathname: "/login",
+        query: {
+          nxt: router.pathname,
+        }
+      })
+    }
+  }, [userStatus]);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [oldPassword, setOldPassword] = useState("");

@@ -1,6 +1,4 @@
 import React from "react";
-import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBarsProgress,
   faRightFromBracket,
@@ -10,6 +8,9 @@ import {
   faGear,
 } from "@fortawesome/free-solid-svg-icons";
 import { BaseProps } from "@/types/BaseProps";
+import IconTextButton from "@/components/Button/IconTextButton";
+import { deleteUser } from "@/state/userSlice";
+import { useAppDispatch } from "@/state/hooks";
 
 interface AdminSidebarProps extends BaseProps {
   dashboard?: boolean;
@@ -27,7 +28,13 @@ const AdminSidebar = ({
   settings,
 }: AdminSidebarProps) => {
   const activeTabColor = (value?: boolean) => {
-    return value ? "text-yellow-700" : "text-neutral-600";
+    return value ? "primary" : "default";
+  };
+
+  const dispatch = useAppDispatch();
+
+  const logOut = () => {
+    dispatch(deleteUser());
   };
 
   return (
@@ -40,59 +47,53 @@ const AdminSidebar = ({
       <div className="flex justify-center">
         <ul className="inline-flex flex-col gap-4">
           <li>
-            <Link
-              className={`flex items-center gap-4 ${activeTabColor(dashboard)}`}
-              href={"/admin/dashboard"}
-            >
-              <FontAwesomeIcon className="h-6 w-6" icon={faBarsProgress} />
-              <span className="text-base">Dashboard</span>
-            </Link>
+            <IconTextButton
+              label="Dashboard"
+              icon={faBarsProgress}
+              variant={activeTabColor(dashboard)}
+              url="/admin/dashboard"
+            />
           </li>
           <li>
-            <Link
-              className={`flex items-center gap-4 ${activeTabColor(products)}`}
-              href={"/admin/products"}
-            >
-              <FontAwesomeIcon className="h-6 w-6" icon={faShoppingBasket} />
-              <span className="text-base">Products</span>
-            </Link>
+            <IconTextButton
+              label="Products"
+              icon={faShoppingBasket}
+              variant={activeTabColor(products)}
+              url="/admin/products"
+            />
           </li>
 
           <li>
-            <Link
-              className={`flex items-center gap-4 ${activeTabColor(orders)}`}
-              href={"/admin/orders"}
-            >
-              <FontAwesomeIcon className="h-6 w-6" icon={faTag} />{" "}
-              <span className="text-base">Orders</span>
-            </Link>
+            <IconTextButton
+              label="Orders"
+              icon={faTag}
+              variant={activeTabColor(orders)}
+              url="/admin/orders"
+            />
           </li>
           <li>
-            <Link
-              className={`flex items-center gap-4 ${activeTabColor(users)}`}
-              href={"/admin/users"}
-            >
-              <FontAwesomeIcon className="h-6 w-6" icon={faUserGroup} />{" "}
-              <span className="text-base">Users</span>
-            </Link>
+            <IconTextButton
+              label="Users"
+              icon={faUserGroup}
+              variant={activeTabColor(users)}
+              url="/admin/users"
+            />
           </li>
           <li>
-            <Link
-              className={`flex items-center gap-4 ${activeTabColor(settings)}`}
-              href={"/admin/dashboard"}
-            >
-              <FontAwesomeIcon className="h-6 w-6" icon={faGear} />
-              <span className="text-base">Settings</span>
-            </Link>
+            <IconTextButton
+              label="Settings"
+              icon={faGear}
+              variant={activeTabColor(settings)}
+              url="/admin/dashboard"
+            />
           </li>
           <li>
-            <Link
-              className="flex items-center gap-4 text-neutral-600"
-              href={"/admin/dashboard"}
-            >
-              <FontAwesomeIcon className="h-6 w-6" icon={faRightFromBracket} />
-              <span className="text-base">Logout</span>
-            </Link>
+            <IconTextButton
+              label="Logout"
+              icon={faRightFromBracket}
+              variant="default"
+              onClick={logOut}
+            />
           </li>
         </ul>
       </div>

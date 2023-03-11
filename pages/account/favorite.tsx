@@ -1,20 +1,42 @@
+import { useEffect } from "react";
 import Layout from "@/components/Layout/Layout";
 import FavoriteCard from "@/components/Card/FavoriteCard";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import { GetUsersFavoriteProductsApiResult } from "@/types/UsersApiResults";
 import { GetServerSideProps } from "next";
-import { USERS_API_URL, USER_ID } from "@/lib/urlUtils";
-import { deleteUserFavoriteProduct } from "@/lib/userUtils";
+import { USERS_API_URL } from "@/lib/urlUtils";
+import {
+  deleteUserFavoriteProduct,
+  getUserFavoriteProducts,
+} from "@/lib/userUtils";
 import { useRouter } from "next/router";
+import { useUserStatus } from "@/hooks/authHook";
+import { selectUser, UserInfo } from "@/state/userSlice";
+import { useAppSelector } from "@/state/hooks";
 
 interface FavoriteProps {
   favoriteProductsApiResult: GetUsersFavoriteProductsApiResult;
 }
 
 export default function Favorite({ favoriteProductsApiResult }: FavoriteProps) {
-  const { data: products, message, error } = favoriteProductsApiResult;
-
   const router = useRouter();
+  const user = useAppSelector(selectUser);
+  const userStatus = useUserStatus();
+
+  // Check if user is loggedin
+  useEffect(() => {
+    if (!userStatus) {
+      console.log("User is Logged out");
+      router.replace({
+        pathname: "/login",
+        query: {
+          nxt: router.pathname,
+        },
+      });
+    }
+  }, [userStatus]);
+
+  const { data: products, message, error } = favoriteProductsApiResult;
 
   const onFavoriteProductDeleted = async (
     userId: string,
@@ -56,7 +78,10 @@ export default function Favorite({ favoriteProductsApiResult }: FavoriteProps) {
                       product={product}
                       key={product._id}
                       onFavoriteProductDeleted={() =>
-                        onFavoriteProductDeleted(USER_ID, product._id)
+                        onFavoriteProductDeleted(
+                          user._id as string,
+                          product._id
+                        )
                       }
                     />
                   );
@@ -74,11 +99,11 @@ export const getServerSideProps: GetServerSideProps<FavoriteProps> = async (
   context
 ) => {
   const { page, perpage, order } = context.query;
-
-  const GET_USER_ORDERS_API_URL = `${USERS_API_URL}/${USER_ID}/products`;
-
-  const response = await fetch(GET_USER_ORDERS_API_URL);
-  const result = await response.json();
+  const userInfo = JSON.parse(
+    context.req.cookies.userInfo as string
+  ) as UserInfo;
+  const GET_USER_ORDERS_API_URL = `${USERS_API_URL}/${userInfo._id}/products`;
+  const result = await getUserFavoriteProducts(GET_USER_ORDERS_API_URL);
 
   return {
     props: {

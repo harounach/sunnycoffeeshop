@@ -1,13 +1,12 @@
 import React from "react";
-
 import AdminLayout from "@/components/Layout/AdminLayout";
-
 import AdminUserRow from "@/components/Table/AdminUserRow";
 import AdminSidebar from "@/components/Sidebar/AdminSidebar";
 import Pagination from "@/components/Pagination/Pagination";
 import { GetUsersApiResult } from "@/types/UsersApiResults";
 import { GetServerSideProps } from "next";
 import { getPaginationURL, USERS_API_URL } from "@/lib/urlUtils";
+import { getUsers } from "@/lib/userUtils";
 
 interface AdminUsersProps {
   usersApiResult: GetUsersApiResult;
@@ -71,9 +70,7 @@ export const getServerSideProps: GetServerSideProps<AdminUsersProps> = async (
     perpage: perpage as string,
     order: order as string,
   });
-
-  const response = await fetch(GET_USERS_URL);
-  const result = await response.json();
+  const result = await getUsers(GET_USERS_URL);
 
   return {
     props: {

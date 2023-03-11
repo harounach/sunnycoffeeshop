@@ -6,6 +6,7 @@ import Layout from "@/components/Layout/Layout";
 import { GetProductsApiResult } from "@/types/ProductsApiResults";
 import ShopCard from "@/components/Card/ShopCard";
 import { getPaginationURL, PRODUCTS_API_URL } from "@/lib/urlUtils";
+import { getProducts } from "@/lib/productUtils";
 import DottedPagination from "@/components/Pagination/DottedPagination";
 
 interface ShopProps {
@@ -67,9 +68,9 @@ export default function Shop({ productsApiResult }: ShopProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps<{
-  productsApiResult: GetProductsApiResult;
-}> = async (context) => {
+export const getServerSideProps: GetServerSideProps<ShopProps> = async (
+  context
+) => {
   const { page, perpage, order, q } = context.query;
 
   const GET_PRODUCTS_URL = getPaginationURL(PRODUCTS_API_URL, {
@@ -78,9 +79,7 @@ export const getServerSideProps: GetServerSideProps<{
     order: order as string,
   });
 
-  console.log(`Your search query is: ${q}`);
-  const response = await fetch(GET_PRODUCTS_URL);
-  const result = await response.json();
+  const result = await getProducts(GET_PRODUCTS_URL);
   return {
     props: {
       productsApiResult: result,

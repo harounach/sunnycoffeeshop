@@ -3,15 +3,10 @@ import OrderCard from "@/components/Card/OrderCard";
 import Layout from "@/components/Layout/Layout";
 import SuccessBox from "@/components/Box/SuccessBox";
 import ErrorBox from "@/components/Box/ErrorBox";
-import {
-  GetSingleOrderApiResult,
-  PayOrderApiResult,
-} from "@/types/OrdersApiResults";
+import { GetSingleOrderApiResult } from "@/types/OrdersApiResults";
 import { GetServerSideProps } from "next";
-import axios from "axios";
 import { formatFriendyDate } from "@/lib/dateUtils";
 import { getPaymentMethodText } from "@/lib/textUtils";
-import { ORDERS_API_URL } from "@/lib/urlUtils";
 import {
   payWithStripe,
   paypalCreateOrder,
@@ -19,7 +14,7 @@ import {
   paypalOnError,
   paypalOnCancel,
 } from "@/lib/paymentUtils";
-import { saveOrderSession } from "@/lib/orderUtils";
+import { saveOrderSession, getSingleOrder, payOrder } from "@/lib/orderUtils";
 import { loadStripe } from "@stripe/stripe-js";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
@@ -96,16 +91,8 @@ export default function Order({ orderApiResult }: OrderProps) {
 
   // Mark order as paid
   const markOrderAsPaid = async () => {
-    const PAY_ORDER_API_URL = `${ORDERS_API_URL}/${order._id}/pay`;
     try {
-      const response = await axios<PayOrderApiResult>({
-        method: "PATCH",
-        url: PAY_ORDER_API_URL,
-        validateStatus: () => true,
-      });
-
-      const result = response.data;
-      const { error, message } = result;
+      const { error, message } = await payOrder(order._id);
       if (!error) {
         router.replace(`/orders/${order._id}`);
       }
@@ -138,6 +125,9 @@ export default function Order({ orderApiResult }: OrderProps) {
         <p className="mb-14 text-center text-base text-neutral-500">
           Review your order
         </p>
+        <div className="mb-4 flex items-center justify-end">
+          <Button label="Your Orders" variant="primary" url="/account/orders" />
+        </div>
         <div className="grid grid-cols-12 gap-6">
           <div className="col-span-7 flex flex-col gap-4">
             {/* Order */}
@@ -275,10 +265,7 @@ export const getServerSideProps: GetServerSideProps<OrderProps> = async (
 ) => {
   const id = context.params?.id as string;
 
-  const ORDER_API_URL = "http://localhost:4000/api/orders";
-  const GET_SINGLE_ORDER_URL = `${ORDER_API_URL}/${id}`;
-  const response = await fetch(GET_SINGLE_ORDER_URL);
-  const result = await response.json();
+  const result = await getSingleOrder(id);
 
   return {
     props: {
