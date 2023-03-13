@@ -7,6 +7,10 @@ import Button from "@/components/Button/Button";
 import AdminSidebar from "@/components/Sidebar/AdminSidebar";
 import { useRouter } from "next/router";
 import { getSingleProduct, updateProduct } from "@/lib/productUtils";
+import { useAuth } from "@/hooks/authHook";
+import { selectUser } from "@/state/userSlice";
+import { useAppSelector } from "@/state/hooks";
+import User from "@/types/User";
 
 interface AdminEditProductProps {
   productApiResult: GetSingleProductApiResult;
@@ -17,11 +21,15 @@ export default function AdminEditProduct({
 }: AdminEditProductProps) {
   const { data: product, error, message } = productApiResult;
 
+  const router = useRouter();
+  const user = useAppSelector(selectUser) as User;
+
+  // Check if user is logged in
+  useAuth();
+
   if (!product) {
     return null;
   }
-
-  const router = useRouter();
 
   const [title, setTitle] = useState(product.title);
   const [description, setDescription] = useState(product.description);
@@ -41,6 +49,7 @@ export default function AdminEditProduct({
     if (canSubmit) {
       try {
         const { message, error: updateError } = await updateProduct(
+          user,
           product._id,
           title,
           description,

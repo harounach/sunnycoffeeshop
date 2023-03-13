@@ -20,6 +20,10 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { OrderResponseBody } from "@paypal/paypal-js";
+import { useAuth } from "@/hooks/authHook";
+import { useAppSelector } from "@/state/hooks";
+import { selectUser } from "@/state/userSlice";
+import User from "@/types/User";
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -32,6 +36,11 @@ interface OrderProps {
 }
 
 export default function Order({ orderApiResult }: OrderProps) {
+  // Check if user is logged in
+  useAuth();
+
+  const user = useAppSelector(selectUser) as User;
+
   const { data: order, message, error } = orderApiResult;
   const router = useRouter();
 
@@ -92,7 +101,7 @@ export default function Order({ orderApiResult }: OrderProps) {
   // Mark order as paid
   const markOrderAsPaid = async () => {
     try {
-      const { error, message } = await payOrder(order._id);
+      const { error, message } = await payOrder(user, order._id);
       if (!error) {
         router.replace(`/orders/${order._id}`);
       }
@@ -264,8 +273,9 @@ export const getServerSideProps: GetServerSideProps<OrderProps> = async (
   context
 ) => {
   const id = context.params?.id as string;
+  const user = JSON.parse(context.req.cookies.userInfo as string) as User;
 
-  const result = await getSingleOrder(id);
+  const result = await getSingleOrder(user, id);
 
   return {
     props: {

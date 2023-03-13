@@ -3,10 +3,15 @@ import AdminLayout from "@/components/Layout/AdminLayout";
 import AdminSidebar from "@/components/Sidebar/AdminSidebar";
 import { GetOrdersApiResult } from "@/types/OrdersApiResults";
 import { getPaginationURL, ORDERS_API_URL } from "@/lib/urlUtils";
-import { getOrders } from "@/lib/orderUtils";
+import { getOrders, deleteOrder } from "@/lib/orderUtils";
 import AdminOrderRow from "@/components/Table/AdminOrderRow";
 import { GetServerSideProps } from "next";
 import Pagination from "@/components/Pagination/Pagination";
+import { useRouter } from "next/router";
+import { useAuth } from "@/hooks/authHook";
+import { selectUser } from "@/state/userSlice";
+import { useAppSelector } from "@/state/hooks";
+import User from "@/types/User";
 
 interface AdminOrdersProps {
   ordersApiResult: GetOrdersApiResult;
@@ -14,6 +19,21 @@ interface AdminOrdersProps {
 
 export default function AdminOrders({ ordersApiResult }: AdminOrdersProps) {
   const { data: orders, message, pages, page, count } = ordersApiResult;
+
+  // Check if user is logged in
+  useAuth();
+
+  const router = useRouter();
+
+  const user = useAppSelector(selectUser) as User;
+
+  // Delete order from database
+  const onOrderDeleted = async (orderId: string) => {
+    const { error, message, data } = await deleteOrder(user, orderId);
+    if (!error) {
+      router.push("/admin/orders");
+    }
+  };
 
   return (
     <AdminLayout>
@@ -42,8 +62,14 @@ export default function AdminOrders({ ordersApiResult }: AdminOrdersProps) {
                   </tr>
                 </thead>
                 <tbody>
-                  {orders.map((order) => {
-                    return <AdminOrderRow order={order} key={order._id} />;
+                  {orders?.map((order) => {
+                    return (
+                      <AdminOrderRow
+                        order={order}
+                        key={order._id}
+                        deleteOrder={() => onOrderDeleted(order._id)}
+                      />
+                    );
                   })}
                 </tbody>
               </table>
@@ -68,6 +94,7 @@ export const getServerSideProps: GetServerSideProps<AdminOrdersProps> = async (
   context
 ) => {
   const { page, perpage, order } = context.query;
+  const user = JSON.parse(context.req.cookies.userInfo as string) as User;
 
   const GET_ORDERS_URL = getPaginationURL(ORDERS_API_URL, {
     page: page as string,
@@ -75,7 +102,7 @@ export const getServerSideProps: GetServerSideProps<AdminOrdersProps> = async (
     order: order as string,
   });
 
-  const result = await getOrders(GET_ORDERS_URL);
+  const result = await getOrders(user, GET_ORDERS_URL);
 
   return {
     props: {

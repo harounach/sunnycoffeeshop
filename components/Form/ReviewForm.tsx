@@ -1,10 +1,10 @@
-import { UserInfo } from "@/state/userSlice";
 import { BaseProps } from "@/types/BaseProps";
+import User from "@/types/User";
 import React, { SyntheticEvent, useState } from "react";
 import Button from "../Button/Button";
 
 interface ReviewFormProps extends BaseProps {
-  user: UserInfo;
+  user: User;
   createReview: (name: string, rating: number, comment: string) => void;
 }
 
@@ -36,7 +36,6 @@ const ReviewForm = ({ user, createReview }: ReviewFormProps) => {
           id="rating"
           value={rating}
           onChange={(e) => setRating(Number(e.target.value))}
-          defaultValue={5}
         >
           <option value="1">1. One</option>
           <option value="2">2. Two</option>

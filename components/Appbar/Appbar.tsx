@@ -31,7 +31,7 @@ const Appbar = ({}: AppbarProps) => {
     } else {
       setIsLoggedIn(false);
     }
-  }, [userStatus])
+  }, [userStatus]);
 
   const handleSearchSubmit = (e: SyntheticEvent) => {
     e.preventDefault();

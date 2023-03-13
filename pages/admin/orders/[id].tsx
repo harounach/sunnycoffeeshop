@@ -14,14 +14,23 @@ import {
 import { formatFriendyDate } from "@/lib/dateUtils";
 import { getPaymentMethodText } from "@/lib/textUtils";
 import { useRouter } from "next/router";
+import { useAuth } from "@/hooks/authHook";
+import { selectUser } from "@/state/userSlice";
+import { useAppSelector } from "@/state/hooks";
+import User from "@/types/User";
 
 interface OrderProps {
   orderApiResult: GetSingleOrderApiResult;
 }
 
 export default function Order({ orderApiResult }: OrderProps) {
-  const router = useRouter();
   const { data: order, message, error } = orderApiResult;
+  const router = useRouter();
+
+  // Check if user is logged in
+  useAuth();
+
+  const user = useAppSelector(selectUser) as User;
 
   if (!order) {
     return null;
@@ -32,7 +41,7 @@ export default function Order({ orderApiResult }: OrderProps) {
   // Mark order as delivered
   const onOrderDelivered = async () => {
     try {
-      const { message, error } = await deliverOrder(order._id);
+      const { message, error } = await deliverOrder(user, order._id);
       if (!error) {
         router.push(`/admin/orders/${order._id}`);
       }
@@ -44,7 +53,7 @@ export default function Order({ orderApiResult }: OrderProps) {
   // Mark order as paid (for in-person payment)
   const onOrderPaid = async () => {
     try {
-      const { error, message } = await payOrder(order._id);
+      const { error, message } = await payOrder(user, order._id);
       if (!error) {
         router.push(`/admin/orders/${order._id}`);
       }
@@ -56,7 +65,7 @@ export default function Order({ orderApiResult }: OrderProps) {
   // Delete order from database
   const onOrderDeleted = async () => {
     try {
-      const { error, message, data } = await deleteOrder(order._id);
+      const { error, message, data } = await deleteOrder(user, order._id);
       if (!error) {
         router.push("/admin/orders");
       }
@@ -219,8 +228,9 @@ export const getServerSideProps: GetServerSideProps<OrderProps> = async (
   context
 ) => {
   const id = context.params?.id as string;
+  const user = JSON.parse(context.req.cookies.userInfo as string) as User;
 
-  const result = await getSingleOrder(id);
+  const result = await getSingleOrder(user, id);
 
   return {
     props: {

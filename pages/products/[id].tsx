@@ -30,6 +30,7 @@ import { selectUser } from "@/state/userSlice";
 import ReviewForm from "@/components/Form/ReviewForm";
 import { getSingleProduct } from "@/lib/productUtils";
 import { createReview, getReviews } from "@/lib/reviewUtils";
+import User from "@/types/User";
 
 interface ProductProps {
   productApiResult: GetSingleProductApiResult;
@@ -37,7 +38,7 @@ interface ProductProps {
 
 export default function Product({ productApiResult }: ProductProps) {
   // Get the user name
-  const user = useAppSelector(selectUser);
+  const user = useAppSelector(selectUser) as User;
 
   // product review rating and count
   const [reviewCount, setReviewCount] = useState(0);
@@ -56,7 +57,7 @@ export default function Product({ productApiResult }: ProductProps) {
   }
 
   const [isFavored, setIsFavored] = useState(
-    isProductInFavorite(user._id as string, product)
+    isProductInFavorite(user?._id as string, product)
   );
 
   const cartProduct = useAppSelector((state) =>
@@ -98,6 +99,7 @@ export default function Product({ productApiResult }: ProductProps) {
   ) => {
     try {
       const { message, error: reviewError } = await createReview(
+        user,
         name,
         rating,
         comment,
@@ -126,7 +128,7 @@ export default function Product({ productApiResult }: ProductProps) {
   const onFavoriteAdded = async () => {
     try {
       const { error: addFavoriteError } = await addUserFavoriteProduct(
-        user._id as string,
+        user,
         product._id
       );
       if (!addFavoriteError) {
@@ -140,7 +142,7 @@ export default function Product({ productApiResult }: ProductProps) {
   const onFavoriteDeleted = async () => {
     try {
       const { error: deleteFavoriteError } = await deleteUserFavoriteProduct(
-        user._id as string,
+        user,
         product._id
       );
       if (!deleteFavoriteError) {
@@ -180,10 +182,7 @@ export default function Product({ productApiResult }: ProductProps) {
               </div>
               <div>
                 <p className="text-base text-neutral-500">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut,
-                  dolore! Reiciendis, consequuntur labore? Doloribus quis sint
-                  ipsam? Cupiditate sit culpa inventore dolorem est, consequatur
-                  tempore ex quos quibusdam, fugiat laboriosam?
+                  {product.description}
                 </p>
               </div>
               <div className="flex justify-end gap-4">
@@ -227,7 +226,7 @@ export default function Product({ productApiResult }: ProductProps) {
             <h2 className="mb-4 text-xl">Reviews:</h2>
             <div className="flex flex-col gap-2">
               {reviews.length === 0 && <div>No Reviews</div>}
-              {reviews.map((review) => {
+              {reviews?.map((review) => {
                 return <ReviewCard key={review._id} review={review} />;
               })}
             </div>

@@ -5,14 +5,22 @@ import Button from "@/components/Button/Button";
 import AdminSidebar from "@/components/Sidebar/AdminSidebar";
 import { useRouter } from "next/router";
 import { createProduct } from "@/lib/productUtils";
+import { useAuth } from "@/hooks/authHook";
+import { selectUser } from "@/state/userSlice";
+import { useAppSelector } from "@/state/hooks";
+import User from "@/types/User";
 
 export default function AdminAddProduct() {
   const router = useRouter();
+  const user = useAppSelector(selectUser) as User;
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("0");
   const [image, setImage] = useState("");
   const [slug, setSlug] = useState("");
+
+  // Check if user is logged in
+  useAuth();
 
   const canSubmit =
     Boolean(title) &&
@@ -29,7 +37,14 @@ export default function AdminAddProduct() {
           message,
           error: updateError,
           data: product,
-        } = await createProduct(title, description, Number(price), image, slug);
+        } = await createProduct(
+          user,
+          title,
+          description,
+          Number(price),
+          image,
+          slug
+        );
 
         if (product) {
           router.replace(`/admin/products/${product._id}`);

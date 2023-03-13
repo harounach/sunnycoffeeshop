@@ -7,6 +7,7 @@ import {
   CreateProductApiResult,
 } from "@/types/ProductsApiResults";
 import { PRODUCTS_API_URL } from "./urlUtils";
+import User from '@/types/User';
 
 export const getProducts = async (url: string) => {
   const response = await axios<GetProductsApiResult>({
@@ -40,6 +41,7 @@ export const getSingleProduct = async (productId: string) => {
 };
 
 export const createProduct = async (
+  user: User,
   title: string,
   description: string,
   price: number,
@@ -57,6 +59,9 @@ export const createProduct = async (
     method: "POST",
     url: PRODUCTS_API_URL,
     data,
+    headers: {
+      Authorization: `Bearer ${user.accessToken}`,
+    },
     validateStatus: () => true,
   });
 
@@ -64,6 +69,7 @@ export const createProduct = async (
 };
 
 export const updateProduct = async (
+  user: User,
   productId: string,
   title: string,
   description: string,
@@ -84,17 +90,23 @@ export const updateProduct = async (
     method: "PUT",
     url: UPDATE_PRODUCT_API_URL,
     data,
+    headers: {
+      Authorization: `Bearer ${user.accessToken}`,
+    },
     validateStatus: () => true,
   });
 
   return response.data;
 };
 
-export const deleteProduct = async (productId: string) => {
+export const deleteProduct = async (user: User, productId: string) => {
   const DELETE_PRODUCT_API_URL = `${PRODUCTS_API_URL}/${productId}`;
   const response = await axios<DeleteProductApiResult>({
     method: "DELETE",
     url: DELETE_PRODUCT_API_URL,
+    headers: {
+      Authorization: `Bearer ${user.accessToken}`,
+    },
     validateStatus: () => true,
   });
 

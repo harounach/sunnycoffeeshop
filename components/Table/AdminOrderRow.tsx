@@ -2,19 +2,15 @@ import React from "react";
 import IconButton from "@/components/Button/IconButton";
 import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Order from "@/types/Order";
-import axios from "axios";
-import { ORDERS_API_URL } from "@/lib/urlUtils";
 import { formatFriendyDate } from "@/lib/dateUtils";
-import { DeleteOrderApiResult } from "@/types/OrdersApiResults";
-import { useRouter } from "next/router";
 import { getPaymentMethodText, truncateText } from "@/lib/textUtils";
 
 interface AdminOrderRowProps {
   order: Order;
+  deleteOrder: () => void;
 }
 
-const AdminOrderRow = ({ order }: AdminOrderRowProps) => {
-  const router = useRouter();
+const AdminOrderRow = ({ order, deleteOrder }: AdminOrderRowProps) => {
   const paidText = order.isPaid ? formatFriendyDate(order.paidAt) : "Not Paid";
   const deliverText = order.isDelivered
     ? formatFriendyDate(order.deliveredAt)
@@ -22,30 +18,18 @@ const AdminOrderRow = ({ order }: AdminOrderRowProps) => {
 
   const redtext = (value: boolean) => (!value ? "text-red-500" : "");
 
-  // Delete order from database
-  const onOrderDeleted = async () => {
-    const DELETE_ORDER_API_URL = `${ORDERS_API_URL}/${order._id}`;
-    const response = await axios<DeleteOrderApiResult>({
-      method: "DELETE",
-      url: DELETE_ORDER_API_URL,
-      validateStatus: () => true,
-    });
-
-    const result = response.data;
-    const { error, message, data } = result;
-    if (!error) {
-      router.push("/admin/orders");
-    }
-  };
-
   return (
     <tr>
-      <td className="border-2 border-gray-200 px-4">{truncateText(order._id)}</td>
+      <td className="border-2 border-gray-200 px-4">
+        {truncateText(order._id)}
+      </td>
       <td className="border-2 border-gray-200 px-4">
         {formatFriendyDate(order.createdAt)}
       </td>
       <td className="border-2 border-gray-200 px-4">{`$${order.totalPrice}`}</td>
-      <td className="border-2 border-gray-200 px-4">{getPaymentMethodText(order.payment.paymentMethod)}</td>
+      <td className="border-2 border-gray-200 px-4">
+        {getPaymentMethodText(order.payment.paymentMethod)}
+      </td>
       <td className={`border-2 border-gray-200 px-4 ${redtext(order.isPaid)}`}>
         {paidText}
       </td>
@@ -68,7 +52,7 @@ const AdminOrderRow = ({ order }: AdminOrderRowProps) => {
             icon={faTrash}
             variant="primaryIcon"
             size="normal"
-            onClick={onOrderDeleted}
+            onClick={deleteOrder}
           />
         </div>
       </td>

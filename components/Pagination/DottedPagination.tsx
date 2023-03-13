@@ -11,8 +11,6 @@ interface DottedPaginationProps {
 const DottedPagination = ({ query, baseURL }: DottedPaginationProps) => {
   const { page, perpage, pages, order, q } = query;
 
-  console.log("Search query is: " + q);
-
   const paginationButtons = [];
   for (let i = 1; i <= Number(pages); i++) {
     const newQuery: Query = {};

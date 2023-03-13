@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Layout from "@/components/Layout/Layout";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import { GetOrdersApiResult } from "@/types/OrdersApiResults";
@@ -7,30 +6,16 @@ import { getPaginationURL, USERS_API_URL } from "@/lib/urlUtils";
 import { getOrders } from "@/lib/orderUtils";
 import OrderHistoryRow from "@/components/Table/OrderHistoryRow";
 import Pagination from "@/components/Pagination/Pagination";
-import { useUserStatus } from "@/hooks/authHook";
-import { useRouter } from "next/router";
-import { UserInfo } from "@/state/userSlice";
+import { useAuth } from "@/hooks/authHook";
+import User from "@/types/User";
 
 interface OrderHistoryProps {
   ordersApiResult: GetOrdersApiResult;
 }
 
 export default function OrderHistory({ ordersApiResult }: OrderHistoryProps) {
-  const router = useRouter();
-  const userStatus = useUserStatus();
-
-  // Check if user is loggedin
-  useEffect(() => {
-    if (!userStatus) {
-      console.log("User is Logged out");
-      router.replace({
-        pathname: "/login",
-        query: {
-          nxt: router.pathname,
-        },
-      });
-    }
-  }, [userStatus]);
+  // Check if user is logged in
+  useAuth();
 
   const { data: orders, message, pages, page, count } = ordersApiResult;
   return (
@@ -60,7 +45,7 @@ export default function OrderHistory({ ordersApiResult }: OrderHistoryProps) {
                   </tr>
                 </thead>
                 <tbody>
-                  {orders.map((order) => {
+                  {orders?.map((order) => {
                     return <OrderHistoryRow order={order} key={order._id} />;
                   })}
                 </tbody>
@@ -86,20 +71,15 @@ export const getServerSideProps: GetServerSideProps<OrderHistoryProps> = async (
   context
 ) => {
   const { page, perpage, order } = context.query;
-
-  const userInfo = JSON.parse(
-    context.req.cookies.userInfo as string
-  ) as UserInfo;
-
-  const GET_USER_ORDERS_API_URL = `${USERS_API_URL}/${userInfo._id}/orders`;
-
+  const user = JSON.parse(context.req.cookies.userInfo as string) as User;
+  const GET_USER_ORDERS_API_URL = `${USERS_API_URL}/${user._id}/orders`;
   const GET_ORDERS_URL = getPaginationURL(GET_USER_ORDERS_API_URL, {
     page: page as string,
     perpage: perpage as string,
     order: order as string,
   });
 
-  const result = await getOrders(GET_ORDERS_URL);
+  const result = await getOrders(user, GET_ORDERS_URL);
 
   return {
     props: {

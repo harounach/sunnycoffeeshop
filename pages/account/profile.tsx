@@ -1,35 +1,95 @@
-import { useState, useEffect } from "react";
+import { useState, SyntheticEvent } from "react";
 import Layout from "@/components/Layout/Layout";
 import Button from "@/components/Button/Button";
 import TextField from "@/components/Form/TextField";
 import Sidebar from "@/components/Sidebar/Sidebar";
-import { useUserStatus } from "@/hooks/authHook";
-import { useRouter } from "next/router";
+import { useAuth } from "@/hooks/authHook";
+import { useAppSelector, useAppDispatch } from "@/state/hooks";
+import { selectUser } from "@/state/userSlice";
+import { saveUser } from "@/state/userSlice";
+import {
+  updateUserName,
+  updateUserEmail,
+  updateUserPassword,
+} from "@/lib/userUtils";
+import User from "@/types/User";
 
 export default function Profile() {
+  const user = useAppSelector(selectUser) as User;
+  const dispatch = useAppDispatch();
 
-  const router = useRouter();
-  const userStatus = useUserStatus();
+  // Check if user is logged in
+  useAuth();
 
-  // Check if user is loggedin
-  useEffect(() => {
-    if (!userStatus) {
-      console.log("User is Logged out");
-      router.replace({
-        pathname: "/login",
-        query: {
-          nxt: router.pathname,
-        }
-      })
-    }
-  }, [userStatus]);
-
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState(user?.name);
+  const [email, setEmail] = useState(user?.email);
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
-  const handleSubmit = async () => {};
+  const handleSubmitName = async (e: SyntheticEvent) => {
+    e.preventDefault();
+
+    if (name) {
+      try {
+        const { message, error, data } = await updateUserName(user, name);
+        console.log(message);
+        console.log(error);
+        if (data) {
+          // save user
+          dispatch(saveUser(data));
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  const handleSubmitEmail = async (e: SyntheticEvent) => {
+    e.preventDefault();
+
+    if (email) {
+      try {
+        const { message, error, data } = await updateUserEmail(user, email);
+        console.log(message);
+        console.log(error);
+        if (data) {
+          // save user
+          dispatch(saveUser(data));
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  const handleSubmitPassword = async (e: SyntheticEvent) => {
+    e.preventDefault();
+    setPasswordError("");
+
+    if (oldPassword && newPassword) {
+      try {
+        const { message, error, data } = await updateUserPassword(
+          user,
+          oldPassword,
+          newPassword
+        );
+        console.log(message);
+        console.log(error);
+        if (error) {
+          setPasswordError(error);
+        }
+        if (data) {
+          // save user
+          dispatch(saveUser(data));
+          setOldPassword("");
+          setNewPassword("");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
 
   return (
     <Layout>
@@ -44,39 +104,47 @@ export default function Profile() {
               Customize and manage your account
             </p>
 
-            <div className="mb-6 flex justify-center">
+            <div className="mb-6 flex flex-col items-center gap-6">
               <form
-                className="inline-flex flex-col gap-4 border-2 border-gray-200 px-20 py-4"
-                onSubmit={handleSubmit}
+                className="flex flex-col items-start gap-2"
+                onSubmit={handleSubmitName}
               >
-                <div className="flex flex-col items-start gap-2">
-                  <label htmlFor="name" className="text-base">
-                    Name
-                  </label>
-                  <TextField
-                    name="name"
-                    id="name"
-                    placeholder="Name"
-                    type="text"
-                    value={name}
-                    onChange={setName}
-                  />
-                </div>
+                <label htmlFor="name" className="text-base">
+                  Name
+                </label>
+                <TextField
+                  name="name"
+                  id="name"
+                  placeholder="Name"
+                  type="text"
+                  value={name}
+                  onChange={setName}
+                />
+                <Button variant="primary" label="Change Name" type="submit" />
+              </form>
 
-                <div className="flex flex-col items-start gap-2">
-                  <label htmlFor="email" className="text-base">
-                    Email
-                  </label>
-                  <TextField
-                    name="email"
-                    id="email"
-                    placeholder="Email"
-                    type="text"
-                    value={email}
-                    onChange={setEmail}
-                  />
-                </div>
+              <form
+                className="flex flex-col items-start gap-2"
+                onSubmit={handleSubmitEmail}
+              >
+                <label htmlFor="email" className="text-base">
+                  Email
+                </label>
+                <TextField
+                  name="email"
+                  id="email"
+                  placeholder="Email"
+                  type="text"
+                  value={email}
+                  onChange={setEmail}
+                />
+                <Button variant="primary" label="Change Email" type="submit" />
+              </form>
 
+              <form
+                className="flex flex-col items-start gap-2"
+                onSubmit={handleSubmitPassword}
+              >
                 <div className="flex flex-col items-start gap-2">
                   <label htmlFor="old_password" className="text-base">
                     Old password
@@ -85,7 +153,7 @@ export default function Profile() {
                     name="old_password"
                     id="old_password"
                     placeholder="Old password"
-                    type="text"
+                    type="password"
                     value={oldPassword}
                     onChange={setOldPassword}
                   />
@@ -99,19 +167,21 @@ export default function Profile() {
                     name="new_password"
                     id="new_password"
                     placeholder="New Password"
-                    type="text"
+                    type="password"
                     value={newPassword}
                     onChange={setNewPassword}
                   />
                 </div>
-
+                <p className="text-red-500">{passwordError}</p>
                 <Button
                   variant="primary"
-                  label="Update Profile"
+                  label="Change Password"
                   type="submit"
                 />
-                <Button variant="danger" label="Delete Account" type="button" />
               </form>
+              <div>
+                <Button variant="danger" label="Delete Account" type="button" />
+              </div>
             </div>
           </div>
         </div>

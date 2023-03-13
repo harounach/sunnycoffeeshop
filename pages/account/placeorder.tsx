@@ -18,11 +18,16 @@ import { getPaymentMethodText } from "@/lib/textUtils";
 import { createOrder } from "@/lib/orderUtils";
 import { useRouter } from "next/router";
 import { selectUser } from "@/state/userSlice";
+import { useAuth } from "@/hooks/authHook";
+import User from "@/types/User";
 
 export default function PlaceOrder() {
+  // Check if user is logged in
+  useAuth();
+
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const user = useAppSelector(selectUser);
+  const user = useAppSelector(selectUser) as User;
   const [errorMsg, setErrorMsg] = useState("");
   const cartProducts = useAppSelector(selectCartProducts);
   const cartProductIds = useAppSelector(selectCartProductIds);
@@ -47,10 +52,10 @@ export default function PlaceOrder() {
   const onOrderPlaced = async () => {
     try {
       const result = await createOrder(
+        user,
         shippingInfo,
         paymentInfo,
-        orderItems,
-        user._id as string
+        orderItems
       );
       const { error, message, data: newOrder } = result;
       if (!error) {

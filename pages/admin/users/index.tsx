@@ -1,4 +1,3 @@
-import React from "react";
 import AdminLayout from "@/components/Layout/AdminLayout";
 import AdminUserRow from "@/components/Table/AdminUserRow";
 import AdminSidebar from "@/components/Sidebar/AdminSidebar";
@@ -7,6 +6,8 @@ import { GetUsersApiResult } from "@/types/UsersApiResults";
 import { GetServerSideProps } from "next";
 import { getPaginationURL, USERS_API_URL } from "@/lib/urlUtils";
 import { getUsers } from "@/lib/userUtils";
+import { useAuth } from "@/hooks/authHook";
+import User from "@/types/User";
 
 interface AdminUsersProps {
   usersApiResult: GetUsersApiResult;
@@ -14,6 +15,9 @@ interface AdminUsersProps {
 
 export default function AdminUsers({ usersApiResult }: AdminUsersProps) {
   const { data: users, message, page, pages, count } = usersApiResult;
+
+  // Check if user is logged in
+  useAuth();
 
   return (
     <AdminLayout>
@@ -40,7 +44,7 @@ export default function AdminUsers({ usersApiResult }: AdminUsersProps) {
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map((user) => {
+                  {users?.map((user) => {
                     return <AdminUserRow user={user} key={user._id} />;
                   })}
                 </tbody>
@@ -64,13 +68,14 @@ export const getServerSideProps: GetServerSideProps<AdminUsersProps> = async (
   context
 ) => {
   const { page, perpage, order } = context.query;
+  const user = JSON.parse(context.req.cookies.userInfo as string) as User;
 
   const GET_USERS_URL = getPaginationURL(USERS_API_URL, {
     page: page as string,
     perpage: perpage as string,
     order: order as string,
   });
-  const result = await getUsers(GET_USERS_URL);
+  const result = await getUsers(user, GET_USERS_URL);
 
   return {
     props: {

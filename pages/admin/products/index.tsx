@@ -8,6 +8,10 @@ import Pagination from "@/components/Pagination/Pagination";
 import AdminLayout from "@/components/Layout/AdminLayout";
 import { useRouter } from "next/router";
 import { deleteProduct, getProducts } from "@/lib/productUtils";
+import { useAuth } from "@/hooks/authHook";
+import { selectUser } from "@/state/userSlice";
+import { useAppSelector } from "@/state/hooks";
+import User from "@/types/User";
 
 interface AdminProductsProps {
   productsApiResult: GetProductsApiResult;
@@ -18,10 +22,14 @@ export default function AdminProducts({
 }: AdminProductsProps) {
   const { data: products, message, pages, page, count } = productsApiResult;
   const router = useRouter();
+  const user = useAppSelector(selectUser) as User;
+
+  // Check if user is logged in
+  useAuth();
 
   // Delete product from database
   const onProductDeleted = async (productId: string) => {
-    const result = await deleteProduct(productId);
+    const result = await deleteProduct(user, productId);
     const { error, message, data: deletedProduct } = result;
     if (!error) {
       router.replace("/admin/products");
@@ -61,7 +69,7 @@ export default function AdminProducts({
                   count={count}
                 />
                 <div className="flex flex-col gap-4">
-                  {products.map((product) => {
+                  {products?.map((product) => {
                     return (
                       <ProductCard
                         product={product}

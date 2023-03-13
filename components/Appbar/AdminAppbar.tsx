@@ -17,7 +17,6 @@ const AdminAppbar = ({}: AdminAppbarProps) => {
             <span className="text-xl font-medium text-yellow-700">Admin</span>
           </Link>
           <nav className="ml-auto flex items-center gap-4">
-            <Button variant="primary" url="/register" label="Sign Up" />
             <Button variant="primary" url="/account/profile" label="Account" />
           </nav>
         </div>

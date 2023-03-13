@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Layout from "@/components/Layout/Layout";
 import FavoriteCard from "@/components/Card/FavoriteCard";
 import Sidebar from "@/components/Sidebar/Sidebar";
@@ -10,9 +9,10 @@ import {
   getUserFavoriteProducts,
 } from "@/lib/userUtils";
 import { useRouter } from "next/router";
-import { useUserStatus } from "@/hooks/authHook";
-import { selectUser, UserInfo } from "@/state/userSlice";
+import { useAuth } from "@/hooks/authHook";
+import { selectUser } from "@/state/userSlice";
 import { useAppSelector } from "@/state/hooks";
+import User from "@/types/User";
 
 interface FavoriteProps {
   favoriteProductsApiResult: GetUsersFavoriteProductsApiResult;
@@ -20,31 +20,17 @@ interface FavoriteProps {
 
 export default function Favorite({ favoriteProductsApiResult }: FavoriteProps) {
   const router = useRouter();
-  const user = useAppSelector(selectUser);
-  const userStatus = useUserStatus();
+  const user = useAppSelector(selectUser) as User;
 
-  // Check if user is loggedin
-  useEffect(() => {
-    if (!userStatus) {
-      console.log("User is Logged out");
-      router.replace({
-        pathname: "/login",
-        query: {
-          nxt: router.pathname,
-        },
-      });
-    }
-  }, [userStatus]);
+  // Check if user is logged in
+  useAuth();
 
   const { data: products, message, error } = favoriteProductsApiResult;
 
-  const onFavoriteProductDeleted = async (
-    userId: string,
-    productId: string
-  ) => {
+  const onFavoriteProductDeleted = async (user: User, productId: string) => {
     try {
       const { error: deleteFavoriteError } = await deleteUserFavoriteProduct(
-        userId,
+        user,
         productId
       );
       if (!deleteFavoriteError) {
@@ -78,10 +64,7 @@ export default function Favorite({ favoriteProductsApiResult }: FavoriteProps) {
                       product={product}
                       key={product._id}
                       onFavoriteProductDeleted={() =>
-                        onFavoriteProductDeleted(
-                          user._id as string,
-                          product._id
-                        )
+                        onFavoriteProductDeleted(user, product._id)
                       }
                     />
                   );
@@ -99,11 +82,9 @@ export const getServerSideProps: GetServerSideProps<FavoriteProps> = async (
   context
 ) => {
   const { page, perpage, order } = context.query;
-  const userInfo = JSON.parse(
-    context.req.cookies.userInfo as string
-  ) as UserInfo;
-  const GET_USER_ORDERS_API_URL = `${USERS_API_URL}/${userInfo._id}/products`;
-  const result = await getUserFavoriteProducts(GET_USER_ORDERS_API_URL);
+  const user = JSON.parse(context.req.cookies.userInfo as string) as User;
+  const GET_USER_ORDERS_API_URL = `${USERS_API_URL}/${user._id}/products`;
+  const result = await getUserFavoriteProducts(user, GET_USER_ORDERS_API_URL);
 
   return {
     props: {

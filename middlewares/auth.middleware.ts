@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export const accountMiddleware = (req: NextRequest) => {
+export const authMiddleware = (req: NextRequest) => {
 	const res = NextResponse.next();
 	if (!req.cookies.get("userInfo")) {
     const url = req.nextUrl.clone();

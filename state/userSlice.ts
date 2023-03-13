@@ -2,23 +2,16 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 import { Status } from "@/types/Status";
 import { RootState } from "./store";
-
-export type UserInfo = {
-  _id?: string;
-  name?: string;
-  email?: string;
-  createdAt?: string;
-  accessToken?: string;
-};
+import User from "@/types/User";
 
 type UserInitialState = {
   status: Status;
-  user: UserInfo;
+  user?: User;
 };
 
 const initialState: UserInitialState = {
   status: "idle",
-  user: {},
+  user: undefined,
 };
 
 export const loadUser = createAsyncThunk("user/loadUser", async () => {
@@ -29,10 +22,10 @@ export const loadUser = createAsyncThunk("user/loadUser", async () => {
 
 export const saveUser = createAsyncThunk(
   "user/saveUser",
-  async (userData: UserInfo) => {
+  async (user: User) => {
     // save user in cookies
-    Cookies.set("userInfo", JSON.stringify(userData));
-    return userData;
+    Cookies.set("userInfo", JSON.stringify(user));
+    return user;
   }
 );
 
@@ -54,7 +47,7 @@ const userSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
-        state.user = {};
+        state.user = undefined;
       });
   },
 });

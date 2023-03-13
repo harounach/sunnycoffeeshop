@@ -36,3 +36,9 @@ export interface RegisterUserApiResult {
   error?: string;
   data?: User;
 }
+
+export interface UpdateUserApiResult {
+  message?: string;
+  error?: string;
+  data?: User;
+}

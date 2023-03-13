@@ -5,6 +5,7 @@ import {
 } from "@/types/ReviewsApiResults";
 import axios from "axios";
 import { PRODUCTS_API_URL, REVIEWS_API_URL } from "./urlUtils";
+import User from '@/types/User';
 
 export const getReviews = async (productId: string) => {
   const GET_PRODUCT_REVIEWS_URL = `${PRODUCTS_API_URL}/${productId}/reviews`;
@@ -18,6 +19,7 @@ export const getReviews = async (productId: string) => {
 };
 
 export const createReview = async (
+  user: User,
   name: string,
   rating: number,
   comment: string,
@@ -34,16 +36,22 @@ export const createReview = async (
     method: "POST",
     url: REVIEWS_API_URL,
     data,
+    headers: {
+      Authorization: `Bearer ${user.accessToken}`,
+    },
     validateStatus: () => true,
   });
   return response.data;
 };
 
-export const deleteReview = async (reviewId: string) => {
+export const deleteReview = async (user: User, reviewId: string) => {
   const DELETE_REVIEW_API_URL = `${REVIEWS_API_URL}/${reviewId}`;
   const response = await axios<DeleteReviewApiResult>({
     method: "DELETE",
     url: DELETE_REVIEW_API_URL,
+    headers: {
+      Authorization: `Bearer ${user.accessToken}`,
+    },
     validateStatus: () => true,
   });
 

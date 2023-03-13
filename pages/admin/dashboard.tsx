@@ -16,6 +16,10 @@ import BarChart from "@/components/Chart/BarChart";
 import { SummarySaleEntry } from "@/types/Summary";
 import PieChart from "@/components/Chart/PieChart";
 import { getAdminSummary } from "@/lib/adminUtils";
+import { useAuth } from "@/hooks/authHook";
+import { selectUser } from "@/state/userSlice";
+import { useAppSelector } from "@/state/hooks";
+import User from "@/types/User";
 
 interface AdminDashboardProps {
   ordersApiResult: GetOrdersApiResult;
@@ -30,6 +34,11 @@ export default function AdminDashboard({
   const [totalProducts, setTotalProducts] = useState(0);
   const [salesData, setSalesData] = useState<Array<SummarySaleEntry>>([]);
 
+  // Check if user is logged in
+  useAuth();
+
+  const user = useAppSelector(selectUser) as User;
+
   // Get summary data
   const getSummary = async () => {
     try {
@@ -37,7 +46,7 @@ export default function AdminDashboard({
         message,
         data: summary,
         error: reviewsError,
-      } = await getAdminSummary();
+      } = await getAdminSummary(user);
 
       if (summary) {
         setTotalSales(summary.ordersPrice);
@@ -136,7 +145,7 @@ export default function AdminDashboard({
                   </tr>
                 </thead>
                 <tbody>
-                  {orders.map((order) => {
+                  {orders?.map((order) => {
                     return <DashboardOrderRow order={order} key={order._id} />;
                   })}
                 </tbody>
@@ -152,13 +161,15 @@ export default function AdminDashboard({
 export const getServerSideProps: GetServerSideProps<
   AdminDashboardProps
 > = async (context) => {
+  const user = JSON.parse(context.req.cookies.userInfo as string) as User;
+
   const GET_ORDERS_URL = getPaginationURL(ORDERS_API_URL, {
     page: 1,
     perpage: 8,
     order: -1,
   });
 
-  const result = await getOrders(GET_ORDERS_URL);
+  const result = await getOrders(user, GET_ORDERS_URL);
 
   return {
     props: {

@@ -13,6 +13,10 @@ import AdminReviewCard from "@/components/Card/AdminReviewCard";
 import AdminLayout from "@/components/Layout/AdminLayout";
 import { deleteProduct, getSingleProduct } from "@/lib/productUtils";
 import { deleteReview, getReviews } from "@/lib/reviewUtils";
+import { useAuth } from "@/hooks/authHook";
+import { selectUser } from "@/state/userSlice";
+import { useAppSelector } from "@/state/hooks";
+import User from "@/types/User";
 
 interface AdminProductProps {
   productApiResult: GetSingleProductApiResult;
@@ -25,6 +29,10 @@ export default function AdminProduct({ productApiResult }: AdminProductProps) {
   const [reviewCount, setReviewCount] = useState(0);
   const [productRating, setProductRating] = useState(0);
   const router = useRouter();
+  const user = useAppSelector(selectUser) as User;
+
+  // Check if user is logged in
+  useAuth();
 
   if (error) {
     return null;
@@ -62,7 +70,7 @@ export default function AdminProduct({ productApiResult }: AdminProductProps) {
   // Delete product from database
   const onProductDeleted = async () => {
     try {
-      const { error, message, data } = await deleteProduct(product._id);
+      const { error, message, data } = await deleteProduct(user, product._id);
       if (!error) {
         router.replace("/admin/products");
       }
@@ -74,7 +82,7 @@ export default function AdminProduct({ productApiResult }: AdminProductProps) {
   // Delete product from database
   const onReviewDeleted = async (reviewId: string) => {
     try {
-      const { error, message, data } = await deleteReview(reviewId);
+      const { error, message, data } = await deleteReview(user, reviewId);
       if (!error) {
         // refetch reviews
         await getProductReviews();
@@ -126,11 +134,7 @@ export default function AdminProduct({ productApiResult }: AdminProductProps) {
                   </div>
                   <div>
                     <p className="text-base text-neutral-500">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Ut, dolore! Reiciendis, consequuntur labore? Doloribus
-                      quis sint ipsam? Cupiditate sit culpa inventore dolorem
-                      est, consequatur tempore ex quos quibusdam, fugiat
-                      laboriosam?
+                      {product.description}
                     </p>
                   </div>
                   <div className="flex justify-end gap-4">
@@ -155,7 +159,7 @@ export default function AdminProduct({ productApiResult }: AdminProductProps) {
                 <h2 className="mb-4 text-xl">Reviews:</h2>
                 <div className="flex flex-col gap-2">
                   {reviews.length === 0 && <div>No Reviews</div>}
-                  {reviews.map((review) => {
+                  {reviews?.map((review) => {
                     return (
                       <AdminReviewCard
                         key={review._id}

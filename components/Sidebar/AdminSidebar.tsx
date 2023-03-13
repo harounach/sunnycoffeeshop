@@ -84,7 +84,7 @@ const AdminSidebar = ({
               label="Settings"
               icon={faGear}
               variant={activeTabColor(settings)}
-              url="/admin/dashboard"
+              url="/admin/settings"
             />
           </li>
           <li>
