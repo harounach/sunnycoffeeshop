@@ -13,7 +13,7 @@ const ReviewForm = ({ user, createReview }: ReviewFormProps) => {
   const [comment, setComment] = useState("");
 
   const canCreateReview =
-    Boolean(user.name) && Boolean(rating) && Boolean(comment);
+    Boolean(user?.name) && Boolean(rating) && Boolean(comment);
 
   const handleSubmitReview = async (e: SyntheticEvent) => {
     e.preventDefault();

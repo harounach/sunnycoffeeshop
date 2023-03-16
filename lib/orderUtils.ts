@@ -7,13 +7,14 @@ import {
   DeliverOrderApiResult,
   PayOrderApiResult,
   DeleteOrderApiResult,
+  GetUserOrdersApiResult,
 } from "@/types/OrdersApiResults";
 import axios from "axios";
-import { ORDERS_API_URL } from "./urlUtils";
+import { ORDERS_API_URL, USERS_API_URL } from "./urlUtils";
 import ShippingInfo from "@/types/ShippingInfo";
 import PaymentInfo from "@/types/PaymentInfo";
 import OrderItem from "@/types/OrderItem";
-import User from '@/types/User'
+import User from "@/types/User";
 
 export const saveOrderSession = async (order: Order, sessionId: string) => {
   const SAVE_ORDER_SESSION_API_URL = `${ORDERS_API_URL}/${order._id}/session`;
@@ -44,6 +45,19 @@ export const getOrders = async (user: User, url: string) => {
   return response.data;
 };
 
+export const getUserOrders = async (user: User, url: string) => {
+  const response = await axios<GetUserOrdersApiResult>({
+    method: "GET",
+    url,
+    headers: {
+      Authorization: `Bearer ${user.accessToken}`,
+    },
+    validateStatus: () => true,
+  });
+
+  return response.data;
+};
+
 export const getSingleOrder = async (user: User, id: string) => {
   const GET_SINGLE_ORDER_URL = `${ORDERS_API_URL}/${id}`;
 
@@ -63,7 +77,7 @@ export const createOrder = async (
   user: User,
   shippingInfo: ShippingInfo,
   paymentInfo: PaymentInfo,
-  orderItems: Array<OrderItem>,
+  orderItems: Array<OrderItem>
 ) => {
   const data = {
     shippingInfo,

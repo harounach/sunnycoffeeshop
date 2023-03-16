@@ -6,11 +6,7 @@ import {
   faCircleDollarToSlot,
   faBasketShopping,
 } from "@fortawesome/free-solid-svg-icons";
-import { GetOrdersApiResult } from "@/types/OrdersApiResults";
 import DashboardOrderRow from "@/components/Table/DashboardOrderRow";
-import { GetServerSideProps } from "next";
-import { getPaginationURL, ORDERS_API_URL } from "@/lib/urlUtils";
-import { getOrders } from "@/lib/orderUtils";
 import { useEffect, useState } from "react";
 import BarChart from "@/components/Chart/BarChart";
 import { SummarySaleEntry } from "@/types/Summary";
@@ -20,15 +16,9 @@ import { useAuth } from "@/hooks/authHook";
 import { selectUser } from "@/state/userSlice";
 import { useAppSelector } from "@/state/hooks";
 import User from "@/types/User";
+import { useOrders } from "@/hooks/orderHook";
 
-interface AdminDashboardProps {
-  ordersApiResult: GetOrdersApiResult;
-}
-
-export default function AdminDashboard({
-  ordersApiResult,
-}: AdminDashboardProps) {
-  const { data: orders, message, pages, page } = ordersApiResult;
+export default function AdminDashboard() {
   const [totalSales, setTotalSales] = useState(0);
   const [totalOrders, setTotalOrders] = useState(0);
   const [totalProducts, setTotalProducts] = useState(0);
@@ -62,6 +52,8 @@ export default function AdminDashboard({
   useEffect(() => {
     getSummary();
   }, []);
+
+  const { result, loading } = useOrders(8);
 
   return (
     <AdminLayout>
@@ -131,49 +123,36 @@ export default function AdminDashboard({
               </div>
             </div>
             {/* Latest Orders */}
-            <div className="mb-6 flex flex-col justify-center gap-4">
-              <h2 className="text-lg font-medium">Latest orders</h2>
-              <table className="border-collapse border-2 border-gray-200">
-                <thead>
-                  <tr className="border-2 border-gray-200">
-                    <th className="border-2 border-gray-200">ID</th>
-                    <th className="border-2 border-gray-200">Date</th>
-                    <th className="border-2 border-gray-200">Total</th>
-                    <th className="border-2 border-gray-200">Paid</th>
-                    <th className="border-2 border-gray-200">Delivered</th>
-                    <th className="border-2 border-gray-200">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {orders?.map((order) => {
-                    return <DashboardOrderRow order={order} key={order._id} />;
-                  })}
-                </tbody>
-              </table>
-            </div>
+
+            {loading ? (
+              <div>Loading</div>
+            ) : (
+              <div className="mb-6 flex flex-col justify-center gap-4">
+                <h2 className="text-lg font-medium">Latest orders</h2>
+                <table className="border-collapse border-2 border-gray-200">
+                  <thead>
+                    <tr className="border-2 border-gray-200">
+                      <th className="border-2 border-gray-200">ID</th>
+                      <th className="border-2 border-gray-200">Date</th>
+                      <th className="border-2 border-gray-200">Total</th>
+                      <th className="border-2 border-gray-200">Paid</th>
+                      <th className="border-2 border-gray-200">Delivered</th>
+                      <th className="border-2 border-gray-200">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {result?.data?.map((order) => {
+                      return (
+                        <DashboardOrderRow order={order} key={order._id} />
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         </div>
       </section>
     </AdminLayout>
   );
 }
-
-export const getServerSideProps: GetServerSideProps<
-  AdminDashboardProps
-> = async (context) => {
-  const user = JSON.parse(context.req.cookies.userInfo as string) as User;
-
-  const GET_ORDERS_URL = getPaginationURL(ORDERS_API_URL, {
-    page: 1,
-    perpage: 8,
-    order: -1,
-  });
-
-  const result = await getOrders(user, GET_ORDERS_URL);
-
-  return {
-    props: {
-      ordersApiResult: result,
-    },
-  };
-};

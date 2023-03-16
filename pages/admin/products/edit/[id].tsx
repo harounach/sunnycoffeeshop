@@ -1,41 +1,39 @@
-import React, { SyntheticEvent, useState } from "react";
-import { GetServerSideProps } from "next";
+import React, { SyntheticEvent, useEffect, useState } from "react";
 import AdminLayout from "@/components/Layout/AdminLayout";
-import { GetSingleProductApiResult } from "@/types/ProductsApiResults";
 import TextField from "@/components/Form/TextField";
 import Button from "@/components/Button/Button";
 import AdminSidebar from "@/components/Sidebar/AdminSidebar";
 import { useRouter } from "next/router";
-import { getSingleProduct, updateProduct } from "@/lib/productUtils";
+import { updateProduct } from "@/lib/productUtils";
 import { useAuth } from "@/hooks/authHook";
 import { selectUser } from "@/state/userSlice";
 import { useAppSelector } from "@/state/hooks";
 import User from "@/types/User";
+import { useSingleProduct } from "@/hooks/productHook";
 
-interface AdminEditProductProps {
-  productApiResult: GetSingleProductApiResult;
-}
-
-export default function AdminEditProduct({
-  productApiResult,
-}: AdminEditProductProps) {
-  const { data: product, error, message } = productApiResult;
-
+export default function AdminEditProduct() {
   const router = useRouter();
   const user = useAppSelector(selectUser) as User;
 
   // Check if user is logged in
   useAuth();
 
-  if (!product) {
-    return null;
-  }
+  // Call products api
+  const { result, loading } = useSingleProduct();
 
-  const [title, setTitle] = useState(product.title);
-  const [description, setDescription] = useState(product.description);
-  const [price, setPrice] = useState(String(product.price));
-  const [image, setImage] = useState(product.image);
-  const [slug, setSlug] = useState(product.slug);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [image, setImage] = useState("");
+  const [slug, setSlug] = useState("");
+
+  useEffect(() => {
+    setTitle(result?.data?.title as string);
+    setDescription(result?.data?.description as string);
+    setPrice(String(result?.data?.price));
+    setImage(result?.data?.image as string);
+    setSlug(result?.data?.slug as string);
+  }, []);
 
   const canSubmit =
     Boolean(title) &&
@@ -50,7 +48,7 @@ export default function AdminEditProduct({
       try {
         const { message, error: updateError } = await updateProduct(
           user,
-          product._id,
+          result?.data?._id as string,
           title,
           description,
           Number(price),
@@ -59,7 +57,7 @@ export default function AdminEditProduct({
         );
         if (!updateError) {
           // Navigate to product detail page
-          router.replace(`/admin/products/${product._id}`);
+          router.replace(`/admin/products/${result?.data?._id as string}`);
         }
       } catch (err) {
         console.log(err);
@@ -178,16 +176,3 @@ export default function AdminEditProduct({
     </AdminLayout>
   );
 }
-
-export const getServerSideProps: GetServerSideProps<
-  AdminEditProductProps
-> = async (context) => {
-  const id = context.params?.id as string;
-  const result = await getSingleProduct(id);
-
-  return {
-    props: {
-      productApiResult: result,
-    },
-  };
-};

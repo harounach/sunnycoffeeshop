@@ -1,36 +1,33 @@
-import { GetServerSideProps } from "next";
 import ProductCard from "@/components/Card/ProductCard";
 import AdminSidebar from "@/components/Sidebar/AdminSidebar";
 import Button from "@/components/Button/Button";
-import { GetProductsApiResult } from "@/types/ProductsApiResults";
-import { getPaginationURL, PRODUCTS_API_URL } from "@/lib/urlUtils";
 import Pagination from "@/components/Pagination/Pagination";
 import AdminLayout from "@/components/Layout/AdminLayout";
 import { useRouter } from "next/router";
-import { deleteProduct, getProducts } from "@/lib/productUtils";
+import { deleteProduct } from "@/lib/productUtils";
 import { useAuth } from "@/hooks/authHook";
+import { useProducts } from "@/hooks/productHook";
 import { selectUser } from "@/state/userSlice";
 import { useAppSelector } from "@/state/hooks";
 import User from "@/types/User";
 
-interface AdminProductsProps {
-  productsApiResult: GetProductsApiResult;
-}
-
-export default function AdminProducts({
-  productsApiResult,
-}: AdminProductsProps) {
-  const { data: products, message, pages, page, count } = productsApiResult;
+export default function AdminProducts() {
   const router = useRouter();
   const user = useAppSelector(selectUser) as User;
 
   // Check if user is logged in
   useAuth();
 
+  // Call products api
+  const { result, loading } = useProducts();
+
   // Delete product from database
   const onProductDeleted = async (productId: string) => {
-    const result = await deleteProduct(user, productId);
-    const { error, message, data: deletedProduct } = result;
+    const {
+      error,
+      message,
+      data: deletedProduct,
+    } = await deleteProduct(user, productId);
     if (!error) {
       router.replace("/admin/products");
     }
@@ -61,24 +58,30 @@ export default function AdminProducts({
                 />
               </div>
               <div>
-                <Pagination
-                  baseURL="/admin/products"
-                  page={page}
-                  pages={pages}
-                  order={-1}
-                  count={count}
-                />
-                <div className="flex flex-col gap-4">
-                  {products?.map((product) => {
-                    return (
-                      <ProductCard
-                        product={product}
-                        onProductDeleted={onProductDeleted}
-                        key={product._id}
-                      />
-                    );
-                  })}
-                </div>
+                {loading ? (
+                  <div>Loading</div>
+                ) : (
+                  <div>
+                    <Pagination
+                      baseURL="/admin/products"
+                      page={result?.page as number}
+                      pages={result?.pages as number}
+                      order={-1}
+                      count={result?.count as number}
+                    />
+                    <div className="flex flex-col gap-4">
+                      {result?.data?.map((product) => {
+                        return (
+                          <ProductCard
+                            product={product}
+                            onProductDeleted={onProductDeleted}
+                            key={product._id}
+                          />
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -87,23 +90,3 @@ export default function AdminProducts({
     </AdminLayout>
   );
 }
-
-export const getServerSideProps: GetServerSideProps<
-  AdminProductsProps
-> = async (context) => {
-  const { page, perpage, order } = context.query;
-
-  const GET_PRODUCTS_URL = getPaginationURL(PRODUCTS_API_URL, {
-    page: page as string,
-    perpage: perpage as string,
-    order: order as string,
-  });
-
-  const result = await getProducts(GET_PRODUCTS_URL);
-
-  return {
-    props: {
-      productsApiResult: result,
-    },
-  };
-};

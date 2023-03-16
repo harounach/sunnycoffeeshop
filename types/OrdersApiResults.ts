@@ -8,6 +8,14 @@ export interface GetOrdersApiResult {
   count: number;
 }
 
+export interface GetUserOrdersApiResult {
+  message: string;
+  pages: number;
+  page: number;
+  data: Array<Order>;
+  count: number;
+}
+
 export interface GetSingleOrderApiResult {
   message?: string;
   data?: Order;

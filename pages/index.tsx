@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Image from "next/image";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCrown,
@@ -31,7 +30,7 @@ export default function Home() {
               developed using Next.js
             </p>
 
-            <Button variant="primary" url="/shop" label="Get Coffee" />
+            <Button variant="primary" url="/products" label="Get Coffee" />
           </div>
           <div className="shrink-0">
             <Image

@@ -31,6 +31,8 @@ import ReviewForm from "@/components/Form/ReviewForm";
 import { getSingleProduct } from "@/lib/productUtils";
 import { createReview, getReviews } from "@/lib/reviewUtils";
 import User from "@/types/User";
+import { useAuthStatus } from "@/hooks/authHook";
+import { useRouter } from "next/router";
 
 interface ProductProps {
   productApiResult: GetSingleProductApiResult;
@@ -39,6 +41,9 @@ interface ProductProps {
 export default function Product({ productApiResult }: ProductProps) {
   // Get the user name
   const user = useAppSelector(selectUser) as User;
+  const isLoggedIn = useAuthStatus();
+  const router = useRouter();
+  const pagePath = `/products/${router.query.id}`;
 
   // product review rating and count
   const [reviewCount, setReviewCount] = useState(0);
@@ -186,7 +191,7 @@ export default function Product({ productApiResult }: ProductProps) {
                 </p>
               </div>
               <div className="flex justify-end gap-4">
-                {isFavored ? (
+                {isLoggedIn ? isFavored ? (
                   <IconButton
                     icon={faHeart}
                     size="normal"
@@ -200,7 +205,10 @@ export default function Product({ productApiResult }: ProductProps) {
                     variant="primary"
                     onClick={onFavoriteAdded}
                   />
-                )}
+
+                )
+                : null
+              }
 
                 {canAddToCart ? (
                   <IconButton
@@ -234,17 +242,20 @@ export default function Product({ productApiResult }: ProductProps) {
           <div className="col-span-6">
             <h2 className="mb-4 text-xl">Write a Review:</h2>
             <div className="flex flex-col gap-4 border-2 border-gray-200 p-4">
-              <div className="bg-red-100 p-4">
-                {/* TODO: show the review form when logged in only */}
-                <p>
-                  Please{" "}
-                  <Link className="font-medium" href={"/login"}>
-                    Login
-                  </Link>{" "}
-                  to write a review
-                </p>
-              </div>
-              <ReviewForm createReview={onReviewCreated} user={user} />
+              {!isLoggedIn ? (
+                <div className="bg-red-100 p-4">
+                  {/* TODO: show the review form when logged in only */}
+                  <p>
+                    Please{" "}
+                    <Link className="font-medium" href={`/login?nxt=${pagePath}`}>
+                      Login
+                    </Link>{" "}
+                    to write a review
+                  </p>
+                </div>
+              ) : (
+                <ReviewForm createReview={onReviewCreated} user={user} />
+              )}
             </div>
           </div>
         </div>

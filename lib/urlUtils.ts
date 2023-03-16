@@ -1,14 +1,13 @@
 import Query from "@/types/Query";
 
 // API Base URLs
-export const BASE_URL = "http://localhost:4000";
-export const PRODUCTS_API_URL = `${BASE_URL}/api/products`;
-export const REVIEWS_API_URL = `${BASE_URL}/api/reviews`;
-export const ORDERS_API_URL = `${BASE_URL}/api/orders`;
-export const USERS_API_URL = `${BASE_URL}/api/users`;
-export const SUMMARY_API_URL = `${BASE_URL}/api/summary`;
-export const PAYMENT_API_URL = `${BASE_URL}/api/payments`;
-export const USER_ID = "63e6cee75a6af69a0549b751";
+export const BACKEND_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL as string;
+export const PRODUCTS_API_URL = `${BACKEND_BASE_URL}/api/products`;
+export const REVIEWS_API_URL = `${BACKEND_BASE_URL}/api/reviews`;
+export const ORDERS_API_URL = `${BACKEND_BASE_URL}/api/orders`;
+export const USERS_API_URL = `${BACKEND_BASE_URL}/api/users`;
+export const SUMMARY_API_URL = `${BACKEND_BASE_URL}/api/summary`;
+export const PAYMENT_API_URL = `${BACKEND_BASE_URL}/api/payments`;
 
 export const getPaginationURL = (baseURL: string, query: Query) => {
   const searchParams = new URLSearchParams("");

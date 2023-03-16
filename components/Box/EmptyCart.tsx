@@ -9,7 +9,7 @@ interface EmptyCartProps extends BaseProps {
 const EmptyCart = ({}: EmptyCartProps) => {
 	return (
 		<div>
-		  <p className="text-center text-xl">Cart is empty, <Link className="text-yellow-700" href="/shop">Start shopping now!</Link></p>		
+		  <p className="text-center text-xl">Cart is empty, <Link className="text-yellow-700" href="/products">Start shopping now!</Link></p>		
 		</div>
 	)
 }

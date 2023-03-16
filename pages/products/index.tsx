@@ -58,7 +58,7 @@ export default function Shop({ productsApiResult }: ShopProps) {
           </div>
           <div className="mt-6">
             <DottedPagination
-              baseURL="/shop"
+              baseURL="/products"
               query={{ page, pages, perpage: 8, order: -1 }}
             />
           </div>

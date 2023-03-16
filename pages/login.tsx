@@ -6,13 +6,13 @@ import Link from "next/link";
 import { loginUser } from "@/lib/userUtils";
 import { saveUser } from "@/state/userSlice";
 import { useAppDispatch } from "@/state/hooks";
-import { useUserStatus } from "@/hooks/authHook";
+import { useAuthStatus } from "@/hooks/authHook";
 import { useRouter } from "next/router";
 
 export default function Login() {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const userStatus = useUserStatus();
+  const isLoggedIn = useAuthStatus();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +32,7 @@ export default function Login() {
 
   useEffect(() => {
     const { nxt } = router.query;
-    if (userStatus) {
+    if (isLoggedIn) {
       console.log("User is Logged in");
       // Navigate to other pages
       if (nxt) {
@@ -41,7 +41,7 @@ export default function Login() {
         router.replace("/");
       }
     }
-  }, [userStatus]);
+  }, [isLoggedIn]);
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();

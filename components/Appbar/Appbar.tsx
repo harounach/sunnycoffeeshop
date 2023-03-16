@@ -12,26 +12,17 @@ import Button from "../Button/Button";
 import IconButton from "../Button/IconButton";
 import { useAppSelector } from "@/state/hooks";
 import { selectTotalCartProducts } from "@/state/cartSlice";
-import { useUserStatus } from "@/hooks/authHook";
+import { useAuthStatus } from "@/hooks/authHook";
 
 interface AppbarProps extends BaseProps {}
 
 const Appbar = ({}: AppbarProps) => {
   const router = useRouter();
-  const userStatus = useUserStatus();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isLoggedIn = useAuthStatus();
 
   const [search, setSearch] = useState("");
   const totalCartProducts = useAppSelector(selectTotalCartProducts);
   const cartBadge = totalCartProducts > 0 ? `${totalCartProducts}` : "";
-
-  useEffect(() => {
-    if (userStatus) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, [userStatus]);
 
   const handleSearchSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -58,7 +49,7 @@ const Appbar = ({}: AppbarProps) => {
               <li>
                 <Link
                   className="text-black hover:text-yellow-700"
-                  href={"/shop"}
+                  href={"/products"}
                 >
                   Shop
                 </Link>
