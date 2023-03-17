@@ -1,7 +1,7 @@
 import Order from "@/types/Order";
 import { CreateStripeCheckoutSessionApiResult } from "@/types/PaymentsApiResults";
 import axios from "axios";
-import { PAYMENT_API_URL } from "./urlUtils";
+import { PAYMENT_API_URL, FRONTEND_BASE_URL } from "./urlUtils";
 import {
   CreateOrderActions,
   CreateOrderData,
@@ -12,10 +12,11 @@ import {
   OrderResponseBody,
   PurchaseUnit,
 } from "@paypal/paypal-js";
+import User from "@/types/User";
 
-export const payWithStripe = async (order: Order) => {
+export const payWithStripe = async (user: User, order: Order) => {
   const PAY_WITH_STRIPE_API_URL = `${PAYMENT_API_URL}/stripe`;
-  const REDIRECT_URL = `http://localhost:3000/orders/${order._id}`;
+  const REDIRECT_URL = `${FRONTEND_BASE_URL}/account/orders/${order._id}`;
   const data = {
     orderId: order._id,
     redirectUrl: REDIRECT_URL,
@@ -25,6 +26,9 @@ export const payWithStripe = async (order: Order) => {
     method: "POST",
     url: PAY_WITH_STRIPE_API_URL,
     data,
+    headers: {
+      Authorization: `Bearer ${user.accessToken}`,
+    },
     validateStatus: () => true,
   });
 

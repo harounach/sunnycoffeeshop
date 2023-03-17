@@ -25,6 +25,7 @@ import User from "@/types/User";
 import { useSingleOrder } from "@/hooks/orderHook";
 import { PaymentMethod } from "@/types/PaymentInfo";
 import Order from "@/types/Order";
+import { GetSingleOrderApiResult } from "@/types/OrdersApiResults";
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -33,6 +34,10 @@ const stripePromise = loadStripe(
 );
 
 export default function SingleOrder() {
+  // const [orderResult, setOrderResult] =
+  //   useState<GetSingleOrderApiResult | null>(null);
+  // const [loader, setLoader] = useState(true);
+
   // Check if user is logged in
   useAuth();
 
@@ -54,6 +59,7 @@ export default function SingleOrder() {
     const checkCreditCardPayment = async () => {
       // Check to see if this is a redirect back from Checkout
       const query = new URLSearchParams(window.location.search);
+      console.log("Is paid with credit card: " + result?.data?.isPaid);
       if (
         query.get("success") &&
         !result?.data?.isPaid &&
@@ -73,7 +79,7 @@ export default function SingleOrder() {
     };
 
     checkCreditCardPayment();
-  }, []);
+  }, [result]);
 
   // Stripe payment
   const onOrderPaidWithCreditCard = async (order: Order) => {
@@ -82,10 +88,12 @@ export default function SingleOrder() {
         url,
         sessionId,
         error: checkoutError,
-      } = await payWithStripe(order);
+      } = await payWithStripe(user, order);
+
+      console.log("Order session: " + sessionId);
 
       if (sessionId) {
-        await saveOrderSession(order, sessionId);
+        await saveOrderSession(user, order, sessionId);
       }
 
       if (url) {
@@ -101,7 +109,7 @@ export default function SingleOrder() {
     try {
       const { error, message } = await payOrder(user, order._id);
       if (!error) {
-        router.replace(`/orders/${order._id}`);
+        router.replace(`/account/orders/${order._id}`);
       }
     } catch (err) {
       console.log(err);

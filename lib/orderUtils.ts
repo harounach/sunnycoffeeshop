@@ -16,7 +16,7 @@ import PaymentInfo from "@/types/PaymentInfo";
 import OrderItem from "@/types/OrderItem";
 import User from "@/types/User";
 
-export const saveOrderSession = async (order: Order, sessionId: string) => {
+export const saveOrderSession = async (user: User, order: Order, sessionId: string) => {
   const SAVE_ORDER_SESSION_API_URL = `${ORDERS_API_URL}/${order._id}/session`;
   const data = {
     sessionId,
@@ -26,6 +26,9 @@ export const saveOrderSession = async (order: Order, sessionId: string) => {
     method: "PATCH",
     url: SAVE_ORDER_SESSION_API_URL,
     data,
+    headers: {
+      Authorization: `Bearer ${user.accessToken}`,
+    },
     validateStatus: () => true,
   });
 
