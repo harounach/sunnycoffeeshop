@@ -293,7 +293,6 @@ function ProductContent({ product }: ProductContentProps) {
           <div className="flex flex-col gap-4 border-2 border-gray-200 p-4">
             {!isLoggedIn ? (
               <div className="bg-red-100 p-4">
-                {/* TODO: show the review form when logged in only */}
                 <p>
                   Please{" "}
                   <Link className="font-medium" href={`/login?nxt=${pagePath}`}>
