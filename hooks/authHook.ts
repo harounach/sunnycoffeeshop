@@ -18,12 +18,11 @@ export const useAuthStatus = () => {
   return isLoggedIn;
 };
 
-export const useAuth = () => {
+export const useAuthNavigate = () => {
   const router = useRouter();
-  const user = useAppSelector(selectUser);
-  const status = user && user.name ? true : false;
+  const status = useAuthStatus();
 
-  // Check if user is loggedin
+  // Check if user is logged in
   useEffect(() => {
     if (!status) {
       console.log("User is Logged out");
@@ -34,5 +33,5 @@ export const useAuth = () => {
         },
       });
     }
-  }, [status]);
+  }, [status, router]);
 };

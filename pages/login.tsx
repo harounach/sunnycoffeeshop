@@ -28,7 +28,7 @@ export default function Login() {
     } else {
       router.prefetch("/");
     }
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     const { nxt } = router.query;
@@ -41,7 +41,7 @@ export default function Login() {
         router.replace("/");
       }
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, router]);
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();

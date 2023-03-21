@@ -11,7 +11,7 @@ import AdminReviewCard from "@/components/Card/AdminReviewCard";
 import AdminLayout from "@/components/Layout/AdminLayout";
 import { deleteProduct } from "@/lib/productUtils";
 import { deleteReview, getReviews } from "@/lib/reviewUtils";
-import { useAuth } from "@/hooks/authHook";
+import { useAuthNavigate } from "@/hooks/authHook";
 import { selectUser } from "@/state/userSlice";
 import { useAppSelector } from "@/state/hooks";
 import User from "@/types/User";
@@ -25,7 +25,7 @@ export default function AdminProduct() {
   const router = useRouter();
 
   // Check if user is logged in
-  useAuth();
+  useAuthNavigate();
 
   // Get logged in user
   const user = useAppSelector(selectUser) as User;
@@ -55,8 +55,28 @@ export default function AdminProduct() {
   };
 
   useEffect(() => {
-    getProductReviews();
-  }, []);
+    // Get reviews for this product
+    const fetchReviews = async () => {
+      try {
+        const {
+          message,
+          data: reviews,
+          error: reviewsError,
+          count,
+          rating: averageRating,
+        } = await getReviews(result?.data?._id as string);
+
+        if (reviews) {
+          setReviews(reviews);
+          setReviewCount(count as number);
+          setProductRating(averageRating as number);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchReviews();
+  }, [result]);
 
   // Delete product from database
   const onProductDeleted = async () => {

@@ -18,12 +18,12 @@ import { getPaymentMethodText } from "@/lib/textUtils";
 import { createOrder } from "@/lib/orderUtils";
 import { useRouter } from "next/router";
 import { selectUser } from "@/state/userSlice";
-import { useAuth } from "@/hooks/authHook";
+import { useAuthNavigate } from "@/hooks/authHook";
 import User from "@/types/User";
 
 export default function PlaceOrder() {
   // Check if user is logged in
-  useAuth();
+  useAuthNavigate();
 
   const router = useRouter();
   const dispatch = useAppDispatch();

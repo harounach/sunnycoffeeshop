@@ -7,7 +7,7 @@ import { deleteOrder, deliverOrder, payOrder } from "@/lib/orderUtils";
 import { formatFriendyDate } from "@/lib/dateUtils";
 import { getPaymentMethodText } from "@/lib/textUtils";
 import { useRouter } from "next/router";
-import { useAuth } from "@/hooks/authHook";
+import { useAuthNavigate } from "@/hooks/authHook";
 import { selectUser } from "@/state/userSlice";
 import { useAppSelector } from "@/state/hooks";
 import User from "@/types/User";
@@ -18,7 +18,7 @@ export default function Order() {
   const router = useRouter();
 
   // Check if user is logged in
-  useAuth();
+  useAuthNavigate();
 
   // Get logged in user
   const user = useAppSelector(selectUser) as User;

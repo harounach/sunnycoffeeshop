@@ -5,11 +5,11 @@ import Layout from "@/components/Layout/Layout";
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { savePaymentInfo, selectPaymentInfo } from "@/state/cartSlice";
 import { PaymentMethod } from "@/types/PaymentInfo";
-import { useAuth } from "@/hooks/authHook";
+import { useAuthNavigate } from "@/hooks/authHook";
 
 export default function Payment() {
   // Check if user is logged in
-  useAuth();
+  useAuthNavigate();
 
   const paymentInfo = useAppSelector(selectPaymentInfo);
   const dispatch = useAppDispatch();

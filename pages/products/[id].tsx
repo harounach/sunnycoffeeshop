@@ -33,12 +33,46 @@ import { createReview, getReviews } from "@/lib/reviewUtils";
 import User from "@/types/User";
 import { useAuthStatus } from "@/hooks/authHook";
 import { useRouter } from "next/router";
+import Product from "@/types/Product";
 
 interface ProductProps {
   productApiResult: GetSingleProductApiResult;
 }
 
-export default function Product({ productApiResult }: ProductProps) {
+export default function SingleProduct({ productApiResult }: ProductProps) {
+  const { data: product, message, error } = productApiResult;
+
+  return (
+    <Layout>
+      <section className="container mx-auto mt-6 mb-6">
+        {error ? (
+          <div>Product Not found</div>
+        ) : (
+          <ProductContent product={product as Product} />
+        )}
+      </section>
+    </Layout>
+  );
+}
+
+export const getServerSideProps: GetServerSideProps<ProductProps> = async (
+  context
+) => {
+  const id = context.params?.id as string;
+  const result = await getSingleProduct(id);
+
+  return {
+    props: {
+      productApiResult: result,
+    },
+  };
+};
+
+interface ProductContentProps {
+  product: Product;
+}
+
+function ProductContent({ product }: ProductContentProps) {
   // Get the user name
   const user = useAppSelector(selectUser) as User;
   const isLoggedIn = useAuthStatus();
@@ -49,27 +83,48 @@ export default function Product({ productApiResult }: ProductProps) {
   const [reviewCount, setReviewCount] = useState(0);
   const [productRating, setProductRating] = useState(0);
 
-  const { data: product, message, error } = productApiResult;
   const [reviews, setReviews] = useState<Array<Review>>([]);
   const dispatch = useAppDispatch();
 
-  if (error) {
-    return null;
-  }
-
-  if (!product) {
-    return null;
-  }
-
-  const [isFavored, setIsFavored] = useState(
-    isProductInFavorite(user?._id as string, product)
-  );
+  const [isFavored, setIsFavored] = useState(false);
 
   const cartProduct = useAppSelector((state) =>
     selectCartProductById(state, product._id)
   );
 
   const canAddToCart = !cartProduct ? true : false;
+
+  // Check if product is favored by user
+  useEffect(() => {
+    if (user) {
+      const favored = isProductInFavorite(user._id as string, product);
+      setIsFavored(favored);
+    }
+  }, [user, product]);
+
+  // Fetch reviews
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const {
+          message,
+          data: reviews,
+          error: reviewsError,
+          count,
+          rating: averageRating,
+        } = await getReviews(product._id);
+
+        if (reviews) {
+          setReviews(reviews);
+          setReviewCount(count as number);
+          setProductRating(averageRating as number);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchReviews();
+  }, [product]);
 
   // Get reviews for this product
   const getProductReviews = async () => {
@@ -91,10 +146,6 @@ export default function Product({ productApiResult }: ProductProps) {
       console.log(err);
     }
   };
-
-  useEffect(() => {
-    getProductReviews();
-  }, []);
 
   // Create new review for this product
   const onReviewCreated = async (
@@ -158,40 +209,40 @@ export default function Product({ productApiResult }: ProductProps) {
   };
 
   return (
-    <Layout>
-      <section className="container mx-auto mt-6 mb-6">
-        <h1 className="mb-4 text-center text-2xl">{product.title}</h1>
-        <p className="mb-14 text-center text-base text-neutral-500">
-          Customize your coffee
-        </p>
-        <div className="mb-6 grid grid-cols-12 gap-6">
-          <div className="col-span-6">
-            <div className="flex justify-center">
-              <Image
-                src={product.image}
-                width={300}
-                height={200}
-                alt={product.title}
-              />
-            </div>
+    <>
+      <h1 className="mb-4 text-center text-2xl">{product.title}</h1>
+      <p className="mb-14 text-center text-base text-neutral-500">
+        Customize your coffee
+      </p>
+      <div className="mb-6 grid grid-cols-12 gap-6">
+        <div className="col-span-6">
+          <div className="flex justify-center">
+            <Image
+              src={product.image}
+              width={300}
+              height={200}
+              alt={product.title}
+            />
           </div>
-          <div className="col-span-6">
-            <div className="flex flex-col gap-4 pr-48">
-              <div className="flex justify-between">
-                <h2 className="text-xl font-medium">{product.title}</h2>
-                <h3 className="text-xl font-medium">{`$${product.price}`}</h3>
-              </div>
-              <div className="flex items-center gap-2">
-                <Rating value={productRating} />
-                <span className="text-neutral-500">{`(${reviewCount})`}</span>
-              </div>
-              <div>
-                <p className="text-base text-neutral-500">
-                  {product.description}
-                </p>
-              </div>
-              <div className="flex justify-end gap-4">
-                {isLoggedIn ? isFavored ? (
+        </div>
+        <div className="col-span-6">
+          <div className="flex flex-col gap-4 pr-48">
+            <div className="flex justify-between">
+              <h2 className="text-xl font-medium">{product.title}</h2>
+              <h3 className="text-xl font-medium">{`$${product.price}`}</h3>
+            </div>
+            <div className="flex items-center gap-2">
+              <Rating value={productRating} />
+              <span className="text-neutral-500">{`(${reviewCount})`}</span>
+            </div>
+            <div>
+              <p className="text-base text-neutral-500">
+                {product.description}
+              </p>
+            </div>
+            <div className="flex justify-end gap-4">
+              {isLoggedIn ? (
+                isFavored ? (
                   <IconButton
                     icon={faHeart}
                     size="normal"
@@ -205,74 +256,58 @@ export default function Product({ productApiResult }: ProductProps) {
                     variant="primary"
                     onClick={onFavoriteAdded}
                   />
-
                 )
-                : null
-              }
+              ) : null}
 
-                {canAddToCart ? (
-                  <IconButton
-                    icon={faCartPlus}
-                    size="normal"
-                    variant="primary"
-                    onClick={onCartAdded}
-                  />
-                ) : (
-                  <IconButton
-                    icon={faXmark}
-                    size="normal"
-                    variant="danger"
-                    onClick={onCartDeleted}
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="grid grid-cols-12 gap-6">
-          <div className="col-span-6">
-            <h2 className="mb-4 text-xl">Reviews:</h2>
-            <div className="flex flex-col gap-2">
-              {reviews.length === 0 && <div>No Reviews</div>}
-              {reviews?.map((review) => {
-                return <ReviewCard key={review._id} review={review} />;
-              })}
-            </div>
-          </div>
-          <div className="col-span-6">
-            <h2 className="mb-4 text-xl">Write a Review:</h2>
-            <div className="flex flex-col gap-4 border-2 border-gray-200 p-4">
-              {!isLoggedIn ? (
-                <div className="bg-red-100 p-4">
-                  {/* TODO: show the review form when logged in only */}
-                  <p>
-                    Please{" "}
-                    <Link className="font-medium" href={`/login?nxt=${pagePath}`}>
-                      Login
-                    </Link>{" "}
-                    to write a review
-                  </p>
-                </div>
+              {canAddToCart ? (
+                <IconButton
+                  icon={faCartPlus}
+                  size="normal"
+                  variant="primary"
+                  onClick={onCartAdded}
+                />
               ) : (
-                <ReviewForm createReview={onReviewCreated} user={user} />
+                <IconButton
+                  icon={faXmark}
+                  size="normal"
+                  variant="danger"
+                  onClick={onCartDeleted}
+                />
               )}
             </div>
           </div>
         </div>
-      </section>
-    </Layout>
+      </div>
+      <div className="grid grid-cols-12 gap-6">
+        <div className="col-span-6">
+          <h2 className="mb-4 text-xl">Reviews:</h2>
+          <div className="flex flex-col gap-2">
+            {reviews.length === 0 && <div>No Reviews</div>}
+            {reviews?.map((review) => {
+              return <ReviewCard key={review._id} review={review} />;
+            })}
+          </div>
+        </div>
+        <div className="col-span-6">
+          <h2 className="mb-4 text-xl">Write a Review:</h2>
+          <div className="flex flex-col gap-4 border-2 border-gray-200 p-4">
+            {!isLoggedIn ? (
+              <div className="bg-red-100 p-4">
+                {/* TODO: show the review form when logged in only */}
+                <p>
+                  Please{" "}
+                  <Link className="font-medium" href={`/login?nxt=${pagePath}`}>
+                    Login
+                  </Link>{" "}
+                  to write a review
+                </p>
+              </div>
+            ) : (
+              <ReviewForm createReview={onReviewCreated} user={user} />
+            )}
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps<ProductProps> = async (
-  context
-) => {
-  const id = context.params?.id as string;
-  const result = await getSingleProduct(id);
-
-  return {
-    props: {
-      productApiResult: result,
-    },
-  };
-};

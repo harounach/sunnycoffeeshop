@@ -3,7 +3,7 @@ import FavoriteCard from "@/components/Card/FavoriteCard";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import { deleteUserFavoriteProduct } from "@/lib/userUtils";
 import { useRouter } from "next/router";
-import { useAuth } from "@/hooks/authHook";
+import { useAuthNavigate } from "@/hooks/authHook";
 import { selectUser } from "@/state/userSlice";
 import { useAppSelector } from "@/state/hooks";
 import User from "@/types/User";
@@ -14,7 +14,7 @@ export default function Favorite() {
   const user = useAppSelector(selectUser) as User;
 
   // Check if user is logged in
-  useAuth();
+  useAuthNavigate();
 
   // Call favorite products api
   const { result, loading } = useFavoriteProducts();

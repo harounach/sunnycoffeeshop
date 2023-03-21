@@ -18,14 +18,12 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { OrderResponseBody } from "@paypal/paypal-js";
-import { useAuth } from "@/hooks/authHook";
+import { useAuthNavigate } from "@/hooks/authHook";
 import { useAppSelector } from "@/state/hooks";
 import { selectUser } from "@/state/userSlice";
 import User from "@/types/User";
 import { useSingleOrder } from "@/hooks/orderHook";
-import { PaymentMethod } from "@/types/PaymentInfo";
 import Order from "@/types/Order";
-import { GetSingleOrderApiResult } from "@/types/OrdersApiResults";
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -34,52 +32,16 @@ const stripePromise = loadStripe(
 );
 
 export default function SingleOrder() {
-  // const [orderResult, setOrderResult] =
-  //   useState<GetSingleOrderApiResult | null>(null);
-  // const [loader, setLoader] = useState(true);
-
   // Check if user is logged in
-  useAuth();
+  useAuthNavigate();
 
+  // Get the logged in user
   const user = useAppSelector(selectUser) as User;
 
   const router = useRouter();
 
   // Call orders api
   const { result, loading } = useSingleOrder();
-
-  const showPayPalButton =
-    result?.data?.payment.paymentMethod === "paypal" && !result?.data?.isPaid;
-
-  const showCreditCardButton =
-    result?.data?.payment.paymentMethod === "credit_card" &&
-    !result?.data?.isPaid;
-
-  useEffect(() => {
-    const checkCreditCardPayment = async () => {
-      // Check to see if this is a redirect back from Checkout
-      const query = new URLSearchParams(window.location.search);
-      console.log("Is paid with credit card: " + result?.data?.isPaid);
-      if (
-        query.get("success") &&
-        !result?.data?.isPaid &&
-        result?.data?.payment.sessionId
-      ) {
-        console.log("Order placed! You will receive an email confirmation.");
-        console.log("Session Id: " + result?.data?.payment.sessionId);
-        // Now mark order as paid
-        await markOrderAsPaid(result?.data as Order);
-      }
-
-      if (query.get("canceled")) {
-        console.log(
-          "Order canceled -- continue to shop around and checkout when you’re ready."
-        );
-      }
-    };
-
-    checkCreditCardPayment();
-  }, [result]);
 
   // Stripe payment
   const onOrderPaidWithCreditCard = async (order: Order) => {
@@ -104,27 +66,27 @@ export default function SingleOrder() {
     }
   };
 
-  // Mark order as paid
-  const markOrderAsPaid = async (order: Order) => {
-    try {
-      const { error, message } = await payOrder(user, order._id);
-      if (!error) {
-        router.replace(`/account/orders/${order._id}`);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   // Paypal createOrder listener
   const createOrderListener = () => {};
 
   // Paypal onApprove listener
   const onApproveListener = async (details: OrderResponseBody) => {
+    const markOrderAsPaid = async (order: Order) => {
+      try {
+        const { error, message } = await payOrder(user, order._id);
+        if (!error) {
+          router.replace(`/account/orders/${order._id}`);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    const order = result?.data as Order;
     const payerName = details.payer.name?.given_name;
     console.log("Transaction completed! " + payerName);
     // Now mark order as paid
-    await markOrderAsPaid(result?.data as Order);
+    await markOrderAsPaid(order);
   };
 
   // Paypal onError listener
@@ -132,6 +94,45 @@ export default function SingleOrder() {
 
   // Paypal onCancel listener
   const onCancelListener = () => {};
+
+  useEffect(() => {
+    const markOrderAsPaid = async (order: Order) => {
+      try {
+        const { error, message } = await payOrder(user, order._id);
+        if (!error) {
+          router.replace(`/account/orders/${order._id}`);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    const checkCreditCardPayment = async () => {
+      // Check to see if this is a redirect back from Checkout
+      const query = new URLSearchParams(window.location.search);
+      console.log("Is paid with credit card: " + result?.data?.isPaid);
+      if (
+        query.get("success") &&
+        !result?.data?.isPaid &&
+        result?.data?.payment.sessionId
+      ) {
+        console.log("Order placed! You will receive an email confirmation.");
+        console.log("Session Id: " + result?.data?.payment.sessionId);
+        // Now mark order as paid
+
+        const order = result.data;
+        await markOrderAsPaid(order);
+      }
+
+      if (query.get("canceled")) {
+        console.log(
+          "Order canceled -- continue to shop around and checkout when you’re ready."
+        );
+      }
+    };
+
+    checkCreditCardPayment();
+  }, [result, router, user]);
 
   return (
     <Layout>
@@ -146,143 +147,169 @@ export default function SingleOrder() {
         {loading ? (
           <div>Loading</div>
         ) : (
-          <div className="grid grid-cols-12 gap-6">
-            <div className="col-span-7 flex flex-col gap-4">
-              {/* Order */}
-              <div className="flex flex-col gap-4 border-2 border-gray-200 p-4">
-                <div className="flex">
-                  <h2 className="text-xl font-medium">Order</h2>
-                </div>
-                <div className="flex gap-4">
-                  <span className="font-medium">ID:</span>
-                  <span>{result?.data?._id}</span>
-                </div>
-              </div>
-              {/* Shipping info */}
-              <div className="flex flex-col gap-4 border-2 border-gray-200 p-4">
-                <div className="flex">
-                  <h2 className="text-xl font-medium">Shipping</h2>
-                </div>
-                <div className="flex gap-4">
-                  <span className="font-medium">Name:</span>
-                  <span>{result?.data?.shipping.name}</span>
-                </div>
-                <div className="flex gap-4">
-                  <span className="font-medium">Email:</span>
-                  <span>{result?.data?.shipping.email}</span>
-                </div>
-                <div className="flex gap-4">
-                  <span className="font-medium">Address:</span>
-
-                  <div className="flex flex-col gap-2">
-                    <span>{`${result?.data?.shipping.postalCode} ${result?.data?.shipping.street}`}</span>
-                    <span>{`${result?.data?.shipping.city}, ${result?.data?.shipping.state}, ${result?.data?.shipping.country}`}</span>
-                  </div>
-                </div>
-                {/* Messages */}
-                <div>
-                  {result?.data?.isDelivered ? (
-                    <SuccessBox
-                      message={`Delivered at: ${formatFriendyDate(
-                        result?.data?.deliveredAt
-                      )}`}
-                    />
-                  ) : (
-                    <ErrorBox message="Not Delivered" />
-                  )}
-                </div>
-              </div>
-
-              {/* Payment method */}
-              <div className="flex flex-col gap-4 border-2 border-gray-200 p-4">
-                <div className="flex">
-                  <h2 className="text-xl font-medium">Payment</h2>
-                </div>
-                <div className="flex gap-4">
-                  <span className="font-medium">Payment method:</span>
-                  <span>
-                    {getPaymentMethodText(
-                      result?.data?.payment.paymentMethod as PaymentMethod
-                    )}
-                  </span>
-                </div>
-                {/* Messages */}
-                <div>
-                  {result?.data?.isPaid ? (
-                    <SuccessBox
-                      message={`Paid at: ${formatFriendyDate(
-                        result?.data?.paidAt
-                      )}`}
-                    />
-                  ) : (
-                    <ErrorBox message="Not Paid" />
-                  )}
-                </div>
-              </div>
-
-              {/* Items */}
-              <div className="flex flex-col gap-4 border-2 border-gray-200 p-4">
-                <div className="flex">
-                  <h2 className="text-xl font-medium">Items</h2>
-                </div>
-                <div className="flex flex-col gap-4">
-                  {result?.data?.orderItems.map((orderItem) => {
-                    return (
-                      <OrderCard orderItem={orderItem} key={orderItem._id} />
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-            <div className="col-span-5">
-              {/* Summary */}
-              <div className="flex flex-col items-stretch gap-4 border-2 border-gray-200 px-12 py-4">
-                <h2 className="text-center text-2xl">Summary</h2>
-                <div className="flex justify-between">
-                  <h3 className="text-gray-500">Items</h3>
-                  <h3>{result?.data?.orderItems.length}</h3>
-                </div>
-                <div className="flex justify-between">
-                  <h3 className="text-gray-500">Subtotal</h3>
-                  <h3>{`$${result?.data?.itemsPrice}`}</h3>
-                </div>
-                <div className="flex justify-between">
-                  <h3 className="text-gray-500">Shipping</h3>
-                  <h3>Free</h3>
-                </div>
-                <div className="flex justify-between">
-                  <h3 className="text-gray-500">Tax</h3>
-                  <h3>{`$${result?.data?.taxPrice}`}</h3>
-                </div>
-                <div className="flex justify-between">
-                  <h3 className="text-lg text-gray-500">Total</h3>
-                  <h3 className="text-lg font-semibold">{`$${result?.data?.totalPrice}`}</h3>
-                </div>
-                {showPayPalButton && (
-                  <PayPalButtons
-                    // fundingSource={FUNDING.PAYPAL}
-                    createOrder={paypalCreateOrder(result?.data as Order)}
-                    onApprove={paypalOnApprove(onApproveListener)}
-                    onError={paypalOnError(onErrorListener)}
-                    onCancel={paypalOnCancel(onCancelListener)}
-                  />
-                )}
-                {showCreditCardButton && (
-                  <Button
-                    variant="primary"
-                    label="Pay with Credit Card"
-                    customeClasses="text-center"
-                    type="button"
-                    onClick={() =>
-                      onOrderPaidWithCreditCard(result?.data as Order)
-                    }
-                  />
-                )}
-              </div>
-            </div>
-          </div>
+          <SingleOrderContent
+            order={result?.data as Order}
+            createOrderListener={createOrderListener}
+            onApproveListener={onApproveListener}
+            onErrorListener={onErrorListener}
+            onCancelListener={onCancelListener}
+            onOrderPaidWithCreditCard={onOrderPaidWithCreditCard}
+          />
         )}
       </section>
     </Layout>
+  );
+}
+
+interface SingleOrderContentProps {
+  order: Order;
+  createOrderListener: () => void;
+  onApproveListener: (details: OrderResponseBody) => void;
+  onErrorListener: () => void;
+  onCancelListener: () => void;
+  onOrderPaidWithCreditCard: (order: Order) => void;
+}
+
+function SingleOrderContent({
+  order,
+  createOrderListener,
+  onApproveListener,
+  onErrorListener,
+  onCancelListener,
+  onOrderPaidWithCreditCard,
+}: SingleOrderContentProps) {
+  const { shipping: shippingInfo, payment: paymentInfo, orderItems } = order;
+  const showPayPalButton =
+    paymentInfo.paymentMethod === "paypal" && order.isPaid;
+
+  const showCreditCardButton =
+    paymentInfo.paymentMethod === "credit_card" && order.isPaid;
+
+  return (
+    <div className="grid grid-cols-12 gap-6">
+      <div className="col-span-7 flex flex-col gap-4">
+        {/* Order */}
+        <div className="flex flex-col gap-4 border-2 border-gray-200 p-4">
+          <div className="flex">
+            <h2 className="text-xl font-medium">Order</h2>
+          </div>
+          <div className="flex gap-4">
+            <span className="font-medium">ID:</span>
+            <span>{order._id}</span>
+          </div>
+        </div>
+        {/* Shipping info */}
+        <div className="flex flex-col gap-4 border-2 border-gray-200 p-4">
+          <div className="flex">
+            <h2 className="text-xl font-medium">Shipping</h2>
+          </div>
+          <div className="flex gap-4">
+            <span className="font-medium">Name:</span>
+            <span>{shippingInfo.name}</span>
+          </div>
+          <div className="flex gap-4">
+            <span className="font-medium">Email:</span>
+            <span>{shippingInfo.email}</span>
+          </div>
+          <div className="flex gap-4">
+            <span className="font-medium">Address:</span>
+
+            <div className="flex flex-col gap-2">
+              <span>{`${shippingInfo.postalCode} ${shippingInfo.street}`}</span>
+              <span>{`${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.country}`}</span>
+            </div>
+          </div>
+          {/* Messages */}
+          <div>
+            {order.isDelivered ? (
+              <SuccessBox
+                message={`Delivered at: ${formatFriendyDate(
+                  order.deliveredAt
+                )}`}
+              />
+            ) : (
+              <ErrorBox message="Not Delivered" />
+            )}
+          </div>
+        </div>
+
+        {/* Payment method */}
+        <div className="flex flex-col gap-4 border-2 border-gray-200 p-4">
+          <div className="flex">
+            <h2 className="text-xl font-medium">Payment</h2>
+          </div>
+          <div className="flex gap-4">
+            <span className="font-medium">Payment method:</span>
+            <span>{getPaymentMethodText(paymentInfo.paymentMethod)}</span>
+          </div>
+          {/* Messages */}
+          <div>
+            {order.isPaid ? (
+              <SuccessBox
+                message={`Paid at: ${formatFriendyDate(order.paidAt)}`}
+              />
+            ) : (
+              <ErrorBox message="Not Paid" />
+            )}
+          </div>
+        </div>
+
+        {/* Items */}
+        <div className="flex flex-col gap-4 border-2 border-gray-200 p-4">
+          <div className="flex">
+            <h2 className="text-xl font-medium">Items</h2>
+          </div>
+          <div className="flex flex-col gap-4">
+            {orderItems.map((orderItem) => {
+              return <OrderCard orderItem={orderItem} key={orderItem._id} />;
+            })}
+          </div>
+        </div>
+      </div>
+      <div className="col-span-5">
+        {/* Summary */}
+        <div className="flex flex-col items-stretch gap-4 border-2 border-gray-200 px-12 py-4">
+          <h2 className="text-center text-2xl">Summary</h2>
+          <div className="flex justify-between">
+            <h3 className="text-gray-500">Items</h3>
+            <h3>{orderItems.length}</h3>
+          </div>
+          <div className="flex justify-between">
+            <h3 className="text-gray-500">Subtotal</h3>
+            <h3>{`$${order.itemsPrice}`}</h3>
+          </div>
+          <div className="flex justify-between">
+            <h3 className="text-gray-500">Shipping</h3>
+            <h3>Free</h3>
+          </div>
+          <div className="flex justify-between">
+            <h3 className="text-gray-500">Tax</h3>
+            <h3>{`$${order.taxPrice}`}</h3>
+          </div>
+          <div className="flex justify-between">
+            <h3 className="text-lg text-gray-500">Total</h3>
+            <h3 className="text-lg font-semibold">{`$${order.totalPrice}`}</h3>
+          </div>
+          {showPayPalButton && (
+            <PayPalButtons
+              // fundingSource={FUNDING.PAYPAL}
+              createOrder={paypalCreateOrder(order)}
+              onApprove={paypalOnApprove(onApproveListener)}
+              onError={paypalOnError(onErrorListener)}
+              onCancel={paypalOnCancel(onCancelListener)}
+            />
+          )}
+          {showCreditCardButton && (
+            <Button
+              variant="primary"
+              label="Pay with Credit Card"
+              customeClasses="text-center"
+              type="button"
+              onClick={() => onOrderPaidWithCreditCard(order)}
+            />
+          )}
+        </div>
+      </div>
+    </div>
   );
 }

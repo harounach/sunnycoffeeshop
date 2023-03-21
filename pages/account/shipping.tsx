@@ -5,12 +5,11 @@ import Layout from "@/components/Layout/Layout";
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
 import { saveShippingInfo, selectShippingInfo } from "@/state/cartSlice";
 import { useRouter } from "next/router";
-import { useAuth } from "@/hooks/authHook";
+import { useAuthNavigate } from "@/hooks/authHook";
 
 export default function Ship() {
-
   // Check if user is logged in
-  useAuth();
+  useAuthNavigate();
 
   const router = useRouter();
   const shippingInfo = useAppSelector(selectShippingInfo);

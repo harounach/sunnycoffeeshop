@@ -5,7 +5,7 @@ import Pagination from "@/components/Pagination/Pagination";
 import AdminLayout from "@/components/Layout/AdminLayout";
 import { useRouter } from "next/router";
 import { deleteProduct } from "@/lib/productUtils";
-import { useAuth } from "@/hooks/authHook";
+import { useAuthNavigate } from "@/hooks/authHook";
 import { useProducts } from "@/hooks/productHook";
 import { selectUser } from "@/state/userSlice";
 import { useAppSelector } from "@/state/hooks";
@@ -16,7 +16,7 @@ export default function AdminProducts() {
   const user = useAppSelector(selectUser) as User;
 
   // Check if user is logged in
-  useAuth();
+  useAuthNavigate();
 
   // Call products api
   const { result, loading } = useProducts();

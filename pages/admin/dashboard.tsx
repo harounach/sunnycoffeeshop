@@ -12,7 +12,7 @@ import BarChart from "@/components/Chart/BarChart";
 import { SummarySaleEntry } from "@/types/Summary";
 import PieChart from "@/components/Chart/PieChart";
 import { getAdminSummary } from "@/lib/adminUtils";
-import { useAuth } from "@/hooks/authHook";
+import { useAuthNavigate } from "@/hooks/authHook";
 import { selectUser } from "@/state/userSlice";
 import { useAppSelector } from "@/state/hooks";
 import User from "@/types/User";
@@ -25,33 +25,33 @@ export default function AdminDashboard() {
   const [salesData, setSalesData] = useState<Array<SummarySaleEntry>>([]);
 
   // Check if user is logged in
-  useAuth();
+  useAuthNavigate();
 
   const user = useAppSelector(selectUser) as User;
 
-  // Get summary data
-  const getSummary = async () => {
-    try {
-      const {
-        message,
-        data: summary,
-        error: reviewsError,
-      } = await getAdminSummary(user);
-
-      if (summary) {
-        setTotalSales(summary.ordersPrice);
-        setTotalOrders(summary.orderCount);
-        setTotalProducts(summary.productCount);
-        setSalesData(summary.salesData);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
+    // Get summary data
+    const getSummary = async () => {
+      try {
+        const {
+          message,
+          data: summary,
+          error: reviewsError,
+        } = await getAdminSummary(user);
+
+        if (summary) {
+          setTotalSales(summary.ordersPrice);
+          setTotalOrders(summary.orderCount);
+          setTotalProducts(summary.productCount);
+          setSalesData(summary.salesData);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     getSummary();
-  }, []);
+  }, [user]);
 
   const { result, loading } = useOrders(8);
 

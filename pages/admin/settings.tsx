@@ -6,7 +6,7 @@ import TextField from "@/components/Form/TextField";
 import { useAppSelector, useAppDispatch } from "@/state/hooks";
 import { selectUser } from "@/state/userSlice";
 import { saveUser } from "@/state/userSlice";
-import { useAuth } from "@/hooks/authHook";
+import { useAuthNavigate } from "@/hooks/authHook";
 import {
   updateUserName,
   updateUserEmail,
@@ -19,7 +19,7 @@ export default function AdminSettings() {
   const dispatch = useAppDispatch();
 
   // Check if user is logged in
-  useAuth();
+  useAuthNavigate();
 
   const [name, setName] = useState(user?.name);
   const [email, setEmail] = useState(user?.email);

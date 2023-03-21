@@ -2,12 +2,12 @@ import Layout from "@/components/Layout/Layout";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import OrderHistoryRow from "@/components/Table/OrderHistoryRow";
 import Pagination from "@/components/Pagination/Pagination";
-import { useAuth } from "@/hooks/authHook";
+import { useAuthNavigate } from "@/hooks/authHook";
 import { useUserOrders } from "@/hooks/orderHook";
 
 export default function OrderHistory() {
   // Check if user is logged in
-  useAuth();
+  useAuthNavigate();
 
   // Call orders api
   const { result, loading } = useUserOrders();

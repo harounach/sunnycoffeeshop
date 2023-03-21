@@ -2,12 +2,12 @@ import AdminLayout from "@/components/Layout/AdminLayout";
 import AdminUserRow from "@/components/Table/AdminUserRow";
 import AdminSidebar from "@/components/Sidebar/AdminSidebar";
 import Pagination from "@/components/Pagination/Pagination";
-import { useAuth } from "@/hooks/authHook";
+import { useAuthNavigate } from "@/hooks/authHook";
 import { useUsers } from "@/hooks/userHook";
 
 export default function AdminUsers() {
   // Check if user is logged in
-  useAuth();
+  useAuthNavigate();
 
   // Call orders api
   const { result, loading } = useUsers();

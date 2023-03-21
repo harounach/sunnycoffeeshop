@@ -5,7 +5,7 @@ import { deleteOrder } from "@/lib/orderUtils";
 import AdminOrderRow from "@/components/Table/AdminOrderRow";
 import Pagination from "@/components/Pagination/Pagination";
 import { useRouter } from "next/router";
-import { useAuth } from "@/hooks/authHook";
+import { useAuthNavigate } from "@/hooks/authHook";
 import { selectUser } from "@/state/userSlice";
 import { useAppSelector } from "@/state/hooks";
 import User from "@/types/User";
@@ -13,7 +13,7 @@ import { useOrders } from "@/hooks/orderHook";
 
 export default function AdminOrders() {
   // Check if user is logged in
-  useAuth();
+  useAuthNavigate();
 
   // Call orders api
   const { result, loading } = useOrders();

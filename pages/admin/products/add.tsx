@@ -5,7 +5,7 @@ import Button from "@/components/Button/Button";
 import AdminSidebar from "@/components/Sidebar/AdminSidebar";
 import { useRouter } from "next/router";
 import { createProduct } from "@/lib/productUtils";
-import { useAuth } from "@/hooks/authHook";
+import { useAuthNavigate } from "@/hooks/authHook";
 import { selectUser } from "@/state/userSlice";
 import { useAppSelector } from "@/state/hooks";
 import User from "@/types/User";
@@ -20,7 +20,7 @@ export default function AdminAddProduct() {
   const [slug, setSlug] = useState("");
 
   // Check if user is logged in
-  useAuth();
+  useAuthNavigate();
 
   const canSubmit =
     Boolean(title) &&

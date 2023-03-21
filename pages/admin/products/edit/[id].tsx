@@ -1,22 +1,23 @@
-import React, { SyntheticEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import AdminLayout from "@/components/Layout/AdminLayout";
 import TextField from "@/components/Form/TextField";
 import Button from "@/components/Button/Button";
 import AdminSidebar from "@/components/Sidebar/AdminSidebar";
 import { useRouter } from "next/router";
 import { updateProduct } from "@/lib/productUtils";
-import { useAuth } from "@/hooks/authHook";
+import { useAuthNavigate } from "@/hooks/authHook";
 import { selectUser } from "@/state/userSlice";
 import { useAppSelector } from "@/state/hooks";
 import User from "@/types/User";
 import { useSingleProduct } from "@/hooks/productHook";
+import Product from "@/types/Product";
 
 export default function AdminEditProduct() {
   const router = useRouter();
   const user = useAppSelector(selectUser) as User;
 
   // Check if user is logged in
-  useAuth();
+  useAuthNavigate();
 
   // Call products api
   const { result, loading } = useSingleProduct();
@@ -28,12 +29,15 @@ export default function AdminEditProduct() {
   const [slug, setSlug] = useState("");
 
   useEffect(() => {
-    setTitle(result?.data?.title as string);
-    setDescription(result?.data?.description as string);
-    setPrice(String(result?.data?.price));
-    setImage(result?.data?.image as string);
-    setSlug(result?.data?.slug as string);
-  }, []);
+    if (result) {
+      const product = result.data as Product;
+      setTitle(product.title);
+      setDescription(product.description);
+      setPrice(String(product.price));
+      setImage(product.image);
+      setSlug(product.slug);
+    }
+  }, [result]);
 
   const canSubmit =
     Boolean(title) &&
@@ -42,7 +46,7 @@ export default function AdminEditProduct() {
     Boolean(image) &&
     Boolean(slug);
 
-  const handleSubmit = async (e: SyntheticEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (canSubmit) {
       try {
