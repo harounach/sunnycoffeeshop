@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 export const useAuthStatus = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const user = useAppSelector(selectUser);
-  const status = user && user.name ? true : false;
+  const status = user && user.accessToken ? true : false;
   useEffect(() => {
     if (status) {
       setIsLoggedIn(true);

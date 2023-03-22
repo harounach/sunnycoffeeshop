@@ -10,28 +10,14 @@ import { useProducts } from "@/hooks/productHook";
 import { selectUser } from "@/state/userSlice";
 import { useAppSelector } from "@/state/hooks";
 import User from "@/types/User";
+import { GetProductsApiResult } from "@/types/ProductsApiResults";
 
 export default function AdminProducts() {
-  const router = useRouter();
-  const user = useAppSelector(selectUser) as User;
-
   // Check if user is logged in
   useAuthNavigate();
 
   // Call products api
   const { result, loading } = useProducts();
-
-  // Delete product from database
-  const onProductDeleted = async (productId: string) => {
-    const {
-      error,
-      message,
-      data: deletedProduct,
-    } = await deleteProduct(user, productId);
-    if (!error) {
-      router.replace("/admin/products");
-    }
-  };
 
   return (
     <AdminLayout>
@@ -61,26 +47,9 @@ export default function AdminProducts() {
                 {loading ? (
                   <div>Loading</div>
                 ) : (
-                  <div>
-                    <Pagination
-                      baseURL="/admin/products"
-                      page={result?.page as number}
-                      pages={result?.pages as number}
-                      order={-1}
-                      count={result?.count as number}
-                    />
-                    <div className="flex flex-col gap-4">
-                      {result?.data?.map((product) => {
-                        return (
-                          <ProductCard
-                            product={product}
-                            onProductDeleted={onProductDeleted}
-                            key={product._id}
-                          />
-                        );
-                      })}
-                    </div>
-                  </div>
+                  <AdminProductsContent
+                    productsApiResult={result as GetProductsApiResult}
+                  />
                 )}
               </div>
             </div>
@@ -88,5 +57,53 @@ export default function AdminProducts() {
         </div>
       </section>
     </AdminLayout>
+  );
+}
+
+interface AdminProductsContentProps {
+  productsApiResult: GetProductsApiResult;
+}
+
+function AdminProductsContent({
+  productsApiResult,
+}: AdminProductsContentProps) {
+  const { page, pages, count, data: products } = productsApiResult;
+
+  const router = useRouter();
+  const user = useAppSelector(selectUser) as User;
+
+  // Delete product from database
+  const onProductDeleted = async (productId: string) => {
+    const {
+      error,
+      message,
+      data: deletedProduct,
+    } = await deleteProduct(user, productId);
+    if (!error) {
+      router.replace("/admin/products");
+    }
+  };
+
+  return (
+    <div>
+      <Pagination
+        baseURL="/admin/products"
+        page={page as number}
+        pages={pages as number}
+        order={-1}
+        count={count as number}
+      />
+      <div className="flex flex-col gap-4">
+        {products.map((product) => {
+          return (
+            <ProductCard
+              product={product}
+              onProductDeleted={onProductDeleted}
+              key={product._id}
+            />
+          );
+        })}
+      </div>
+    </div>
   );
 }

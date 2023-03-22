@@ -35,16 +35,48 @@ export default function SingleOrder() {
   // Check if user is logged in
   useAuthNavigate();
 
+  // Call orders api
+  const { result, loading } = useSingleOrder();
+
+  return (
+    <Layout>
+      <section className="container mx-auto mt-6 mb-6">
+        <h1 className="mb-4 text-center text-2xl">Order</h1>
+        <p className="mb-14 text-center text-base text-neutral-500">
+          Review your order
+        </p>
+        <div className="mb-4 flex items-center justify-end">
+          <Button label="Your Orders" variant="primary" url="/account/orders" />
+        </div>
+        {loading ? (
+          <div>Loading</div>
+        ) : (
+          <SingleOrderContent order={result?.data as Order} />
+        )}
+      </section>
+    </Layout>
+  );
+}
+
+interface SingleOrderContentProps {
+  order: Order;
+}
+
+function SingleOrderContent({ order }: SingleOrderContentProps) {
+  const { shipping: shippingInfo, payment: paymentInfo, orderItems } = order;
   // Get the logged in user
   const user = useAppSelector(selectUser) as User;
 
   const router = useRouter();
 
-  // Call orders api
-  const { result, loading } = useSingleOrder();
+  const showPayPalButton =
+    paymentInfo.paymentMethod === "paypal" && order.isPaid;
+
+  const showCreditCardButton =
+    paymentInfo.paymentMethod === "credit_card" && order.isPaid;
 
   // Stripe payment
-  const onOrderPaidWithCreditCard = async (order: Order) => {
+  const onOrderPaidWithCreditCard = async () => {
     try {
       const {
         url,
@@ -71,7 +103,7 @@ export default function SingleOrder() {
 
   // Paypal onApprove listener
   const onApproveListener = async (details: OrderResponseBody) => {
-    const markOrderAsPaid = async (order: Order) => {
+    const markOrderAsPaid = async () => {
       try {
         const { error, message } = await payOrder(user, order._id);
         if (!error) {
@@ -82,11 +114,10 @@ export default function SingleOrder() {
       }
     };
 
-    const order = result?.data as Order;
     const payerName = details.payer.name?.given_name;
     console.log("Transaction completed! " + payerName);
     // Now mark order as paid
-    await markOrderAsPaid(order);
+    await markOrderAsPaid();
   };
 
   // Paypal onError listener
@@ -96,7 +127,7 @@ export default function SingleOrder() {
   const onCancelListener = () => {};
 
   useEffect(() => {
-    const markOrderAsPaid = async (order: Order) => {
+    const markOrderAsPaid = async () => {
       try {
         const { error, message } = await payOrder(user, order._id);
         if (!error) {
@@ -110,18 +141,13 @@ export default function SingleOrder() {
     const checkCreditCardPayment = async () => {
       // Check to see if this is a redirect back from Checkout
       const query = new URLSearchParams(window.location.search);
-      console.log("Is paid with credit card: " + result?.data?.isPaid);
-      if (
-        query.get("success") &&
-        !result?.data?.isPaid &&
-        result?.data?.payment.sessionId
-      ) {
+      console.log("Is paid with credit card: " + order.isPaid);
+      if (query.get("success") && !order.isPaid && order.payment.sessionId) {
         console.log("Order placed! You will receive an email confirmation.");
-        console.log("Session Id: " + result?.data?.payment.sessionId);
+        console.log("Session Id: " + order.payment.sessionId);
         // Now mark order as paid
 
-        const order = result.data;
-        await markOrderAsPaid(order);
+        await markOrderAsPaid();
       }
 
       if (query.get("canceled")) {
@@ -132,58 +158,7 @@ export default function SingleOrder() {
     };
 
     checkCreditCardPayment();
-  }, [result, router, user]);
-
-  return (
-    <Layout>
-      <section className="container mx-auto mt-6 mb-6">
-        <h1 className="mb-4 text-center text-2xl">Order</h1>
-        <p className="mb-14 text-center text-base text-neutral-500">
-          Review your order
-        </p>
-        <div className="mb-4 flex items-center justify-end">
-          <Button label="Your Orders" variant="primary" url="/account/orders" />
-        </div>
-        {loading ? (
-          <div>Loading</div>
-        ) : (
-          <SingleOrderContent
-            order={result?.data as Order}
-            createOrderListener={createOrderListener}
-            onApproveListener={onApproveListener}
-            onErrorListener={onErrorListener}
-            onCancelListener={onCancelListener}
-            onOrderPaidWithCreditCard={onOrderPaidWithCreditCard}
-          />
-        )}
-      </section>
-    </Layout>
-  );
-}
-
-interface SingleOrderContentProps {
-  order: Order;
-  createOrderListener: () => void;
-  onApproveListener: (details: OrderResponseBody) => void;
-  onErrorListener: () => void;
-  onCancelListener: () => void;
-  onOrderPaidWithCreditCard: (order: Order) => void;
-}
-
-function SingleOrderContent({
-  order,
-  createOrderListener,
-  onApproveListener,
-  onErrorListener,
-  onCancelListener,
-  onOrderPaidWithCreditCard,
-}: SingleOrderContentProps) {
-  const { shipping: shippingInfo, payment: paymentInfo, orderItems } = order;
-  const showPayPalButton =
-    paymentInfo.paymentMethod === "paypal" && order.isPaid;
-
-  const showCreditCardButton =
-    paymentInfo.paymentMethod === "credit_card" && order.isPaid;
+  }, [order, router, user]);
 
   return (
     <div className="grid grid-cols-12 gap-6">
@@ -305,7 +280,7 @@ function SingleOrderContent({
               label="Pay with Credit Card"
               customeClasses="text-center"
               type="button"
-              onClick={() => onOrderPaidWithCreditCard(order)}
+              onClick={onOrderPaidWithCreditCard}
             />
           )}
         </div>

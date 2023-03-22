@@ -13,21 +13,21 @@ export const useUsers = () => {
   const [loading, setLoading] = useState(true);
   const user = useAppSelector(selectUser) as User;
 
-  const getUsersResult = async () => {
-    const { page, perpage, order } = router.query;
-    const GET_USERS_URL = getPaginationURL(USERS_API_URL, {
-      page: page as string,
-      perpage: perpage as string,
-      order: order as string,
-    });
-    const usersResult = await getUsers(user, GET_USERS_URL);
-    setResult(usersResult);
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const getUsersResult = async () => {
+      const { page, perpage, order } = router.query;
+      const GET_USERS_URL = getPaginationURL(USERS_API_URL, {
+        page: page as string,
+        perpage: perpage as string,
+        order: order as string,
+      });
+      const usersResult = await getUsers(user, GET_USERS_URL);
+      setResult(usersResult);
+      setLoading(false);
+    };
+
     getUsersResult();
-  }, [router.query]);
+  }, [router.query, user]);
 
   return { result, loading };
 };

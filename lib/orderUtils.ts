@@ -10,13 +10,17 @@ import {
   GetUserOrdersApiResult,
 } from "@/types/OrdersApiResults";
 import axios from "axios";
-import { ORDERS_API_URL, USERS_API_URL } from "./urlUtils";
+import { ORDERS_API_URL } from "./urlUtils";
 import ShippingInfo from "@/types/ShippingInfo";
 import PaymentInfo from "@/types/PaymentInfo";
 import OrderItem from "@/types/OrderItem";
 import User from "@/types/User";
 
-export const saveOrderSession = async (user: User, order: Order, sessionId: string) => {
+export const saveOrderSession = async (
+  user: User,
+  order: Order,
+  sessionId: string
+) => {
   const SAVE_ORDER_SESSION_API_URL = `${ORDERS_API_URL}/${order._id}/session`;
   const data = {
     sessionId,

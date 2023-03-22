@@ -10,6 +10,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/01-black-coffee.jpg",
     slug: "black-coffee",
+    favoritedBy: [],
   },
   // 02
   {
@@ -19,6 +20,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/02-latte.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
 
   // 03
@@ -29,6 +31,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/03-cappuccino.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
   // 04
   {
@@ -38,6 +41,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/04-americano.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
   // 05
   {
@@ -47,6 +51,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/05-espresso.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
   // 06
   {
@@ -56,6 +61,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/06-doppio.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
   // 07
   {
@@ -65,6 +71,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/07-cortado.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
 
   // 08
@@ -75,6 +82,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/08-red-eye.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
 
   // 09
@@ -85,6 +93,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/09-galao.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
 
   // 10
@@ -95,6 +104,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/10-lungo.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
 
   // 11
@@ -105,6 +115,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/11-macchiato.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
 
   // 12
@@ -115,6 +126,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/12-mocha.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
 
   // 13
@@ -125,6 +137,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/13-ristretto.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
 
   // 14
@@ -135,6 +148,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/14-flat-white.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
 
   // 15
@@ -145,6 +159,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/15-affogato.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
 
   // 16
@@ -155,6 +170,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/16-cafe-au-lait.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
 
   // 17
@@ -165,6 +181,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/17-irish.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
 
   // 18
@@ -175,6 +192,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/18-iced-espresso.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
 
   // 19
@@ -185,6 +203,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/19-cold-brew.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
 
   // 20
@@ -195,6 +214,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/20-iced-latte.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
 
   // 21
@@ -205,6 +225,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/21-iced-americano.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
 
   // 22
@@ -215,6 +236,7 @@ export const coffeeAllData: Array<Product> = [
     price: 3.5,
     image: "/images/22-iced-mocha.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
 ];
 
@@ -227,6 +249,7 @@ export const coffeePopularData: Array<Product> = [
     price: 3.5,
     image: "/images/02-latte.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
 
   // 03
@@ -237,6 +260,7 @@ export const coffeePopularData: Array<Product> = [
     price: 3.5,
     image: "/images/03-cappuccino.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
   // 04
   {
@@ -246,6 +270,7 @@ export const coffeePopularData: Array<Product> = [
     price: 3.5,
     image: "/images/04-americano.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
   // 05
   {
@@ -255,6 +280,7 @@ export const coffeePopularData: Array<Product> = [
     price: 3.5,
     image: "/images/05-espresso.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
 ];
 
@@ -267,6 +293,7 @@ export const coffeeCartData: Array<CartProduct> = [
     price: 3.5,
     image: "/images/03-cappuccino.jpg",
     slug: "latte",
+    favoritedBy: [],
     qty: 1,
   },
 
@@ -278,6 +305,7 @@ export const coffeeCartData: Array<CartProduct> = [
     price: 3.5,
     image: "/images/05-espresso.jpg",
     slug: "latte",
+    favoritedBy: [],
     qty: 1,
   },
 
@@ -289,6 +317,7 @@ export const coffeeCartData: Array<CartProduct> = [
     price: 3.5,
     image: "/images/08-red-eye.jpg",
     slug: "latte",
+    favoritedBy: [],
     qty: 1,
   },
 ];
@@ -302,6 +331,7 @@ export const coffeeFavoritesData: Array<Product> = [
     price: 3.5,
     image: "/images/02-latte.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
 
   // 03
@@ -312,6 +342,7 @@ export const coffeeFavoritesData: Array<Product> = [
     price: 3.5,
     image: "/images/03-cappuccino.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
   // 04
   {
@@ -321,6 +352,7 @@ export const coffeeFavoritesData: Array<Product> = [
     price: 3.5,
     image: "/images/04-americano.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
   // 05
   {
@@ -330,5 +362,6 @@ export const coffeeFavoritesData: Array<Product> = [
     price: 3.5,
     image: "/images/05-espresso.jpg",
     slug: "latte",
+    favoritedBy: [],
   },
 ];

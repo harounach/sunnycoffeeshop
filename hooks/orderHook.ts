@@ -21,22 +21,22 @@ export const useOrders = (limit?: number) => {
   const [loading, setLoading] = useState(true);
   const user = useAppSelector(selectUser) as User;
 
-  const getOrdersResult = async () => {
-    const { page, perpage, order } = router.query;
-    const orderLimit = limit ? limit : perpage;
-    const GET_ORDERS_URL = getPaginationURL(ORDERS_API_URL, {
-      page: page as string,
-      perpage: orderLimit as string,
-      order: order as string,
-    });
-    const ordersResult = await getOrders(user, GET_ORDERS_URL);
-    setResult(ordersResult);
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const getOrdersResult = async () => {
+      const { page, perpage, order } = router.query;
+      const orderLimit = limit ? limit : perpage;
+      const GET_ORDERS_URL = getPaginationURL(ORDERS_API_URL, {
+        page: page as string,
+        perpage: orderLimit as string,
+        order: order as string,
+      });
+      const ordersResult = await getOrders(user, GET_ORDERS_URL);
+      setResult(ordersResult);
+      setLoading(false);
+    };
+
     getOrdersResult();
-  }, [router.query]);
+  }, [router.query, user, limit]);
 
   return { result, loading };
 };
@@ -47,22 +47,22 @@ export const useUserOrders = () => {
   const [loading, setLoading] = useState(true);
   const user = useAppSelector(selectUser) as User;
 
-  const getUserOrdersResult = async () => {
-    const { page, perpage, order } = router.query;
-    const GET_USER_ORDERS_API_URL = `${USERS_API_URL}/${user._id}/orders`;
-    const GET_USER_ORDERS_URL = getPaginationURL(GET_USER_ORDERS_API_URL, {
-      page: page as string,
-      perpage: perpage as string,
-      order: order as string,
-    });
-    const userordersResult = await getUserOrders(user, GET_USER_ORDERS_URL);
-    setResult(userordersResult);
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const getUserOrdersResult = async () => {
+      const { page, perpage, order } = router.query;
+      const GET_USER_ORDERS_API_URL = `${USERS_API_URL}/${user._id}/orders`;
+      const GET_USER_ORDERS_URL = getPaginationURL(GET_USER_ORDERS_API_URL, {
+        page: page as string,
+        perpage: perpage as string,
+        order: order as string,
+      });
+      const userordersResult = await getUserOrders(user, GET_USER_ORDERS_URL);
+      setResult(userordersResult);
+      setLoading(false);
+    };
+
     getUserOrdersResult();
-  }, [router.query]);
+  }, [router.query, user]);
 
   return { result, loading };
 };
@@ -73,18 +73,18 @@ export const useSingleOrder = () => {
   const [loading, setLoading] = useState(true);
   const user = useAppSelector(selectUser) as User;
 
-  const getSingleOrderResult = async () => {
-    const { id } = router.query;
-    if (id) {
-      const orderResult = await getSingleOrder(user, id as string);
-      setResult(orderResult);
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const getSingleOrderResult = async () => {
+      const { id } = router.query;
+      if (id) {
+        const orderResult = await getSingleOrder(user, id as string);
+        setResult(orderResult);
+        setLoading(false);
+      }
+    };
+
     getSingleOrderResult();
-  }, [router.query]);
+  }, [router.query, user]);
 
   return { result, loading };
 };

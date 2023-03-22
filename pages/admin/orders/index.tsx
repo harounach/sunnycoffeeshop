@@ -10,6 +10,7 @@ import { selectUser } from "@/state/userSlice";
 import { useAppSelector } from "@/state/hooks";
 import User from "@/types/User";
 import { useOrders } from "@/hooks/orderHook";
+import { GetOrdersApiResult } from "@/types/OrdersApiResults";
 
 export default function AdminOrders() {
   // Check if user is logged in
@@ -17,18 +18,6 @@ export default function AdminOrders() {
 
   // Call orders api
   const { result, loading } = useOrders();
-
-  const router = useRouter();
-
-  const user = useAppSelector(selectUser) as User;
-
-  // Delete order from database
-  const onOrderDeleted = async (orderId: string) => {
-    const { error, message, data } = await deleteOrder(user, orderId);
-    if (!error) {
-      router.push("/admin/orders");
-    }
-  };
 
   return (
     <AdminLayout>
@@ -46,47 +35,71 @@ export default function AdminOrders() {
             {loading ? (
               <div>Loading</div>
             ) : (
-              <div className="mb-6 flex flex-col justify-center gap-4">
-                <table className="border-collapse border-2 border-gray-200">
-                  <thead>
-                    <tr className="border-2 border-gray-200">
-                      <th className="border-2 border-gray-200">ID</th>
-                      <th className="border-2 border-gray-200">Date</th>
-                      <th className="border-2 border-gray-200">Total</th>
-                      <th className="border-2 border-gray-200">
-                        Payment method
-                      </th>
-                      <th className="border-2 border-gray-200">Paid</th>
-                      <th className="border-2 border-gray-200">Delivered</th>
-                      <th className="border-2 border-gray-200">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {result?.data?.map((order) => {
-                      return (
-                        <AdminOrderRow
-                          order={order}
-                          key={order._id}
-                          deleteOrder={() => onOrderDeleted(order._id)}
-                        />
-                      );
-                    })}
-                  </tbody>
-                </table>
-                <div className="mt-4">
-                  <Pagination
-                    baseURL="/admin/orders"
-                    page={result?.page as number}
-                    pages={result?.pages as number}
-                    order={-1}
-                    count={result?.count as number}
-                  />
-                </div>
-              </div>
+              <AdminOrdersContent
+                ordersApiResult={result as GetOrdersApiResult}
+              />
             )}
           </div>
         </div>
       </section>
     </AdminLayout>
+  );
+}
+
+interface AdminOrdersContentProps {
+  ordersApiResult: GetOrdersApiResult;
+}
+
+function AdminOrdersContent({ ordersApiResult }: AdminOrdersContentProps) {
+  const { page, pages, count, data: orders } = ordersApiResult;
+
+  const router = useRouter();
+
+  const user = useAppSelector(selectUser) as User;
+
+  // Delete order from database
+  const onOrderDeleted = async (orderId: string) => {
+    const { error, message, data } = await deleteOrder(user, orderId);
+    if (!error) {
+      router.push("/admin/orders");
+    }
+  };
+
+  return (
+    <div className="mb-6 flex flex-col justify-center gap-4">
+      <table className="border-collapse border-2 border-gray-200">
+        <thead>
+          <tr className="border-2 border-gray-200">
+            <th className="border-2 border-gray-200">ID</th>
+            <th className="border-2 border-gray-200">Date</th>
+            <th className="border-2 border-gray-200">Total</th>
+            <th className="border-2 border-gray-200">Payment method</th>
+            <th className="border-2 border-gray-200">Paid</th>
+            <th className="border-2 border-gray-200">Delivered</th>
+            <th className="border-2 border-gray-200">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((order) => {
+            return (
+              <AdminOrderRow
+                order={order}
+                key={order._id}
+                deleteOrder={() => onOrderDeleted(order._id)}
+              />
+            );
+          })}
+        </tbody>
+      </table>
+      <div className="mt-4">
+        <Pagination
+          baseURL="/admin/orders"
+          page={page as number}
+          pages={pages as number}
+          order={-1}
+          count={count as number}
+        />
+      </div>
+    </div>
   );
 }
