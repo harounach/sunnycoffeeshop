@@ -1,31 +1,22 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useAppSelector } from "@/state/hooks";
 import { selectUser } from "@/state/userSlice";
 import { useRouter } from "next/router";
 
 export const useAuthStatus = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const user = useAppSelector(selectUser);
-  const status = user && user.accessToken ? true : false;
-  useEffect(() => {
-    if (status) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, [status]);
-
-  return isLoggedIn;
+  return user && user.name ? true : false;
 };
 
 export const useAuthNavigate = () => {
   const router = useRouter();
-  const status = useAuthStatus();
+  const isLoggedIn = useAuthStatus();
 
   // Check if user is logged in
   useEffect(() => {
-    if (!status) {
+    if (isLoggedIn === false) {
       console.log("User is Logged out");
+
       router.replace({
         pathname: "/login",
         query: {
@@ -33,5 +24,5 @@ export const useAuthNavigate = () => {
         },
       });
     }
-  }, [status, router]);
+  }, [isLoggedIn, router]);
 };

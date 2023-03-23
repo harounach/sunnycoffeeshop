@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState, useEffect } from "react";
+import React, { FormEvent, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -19,12 +19,17 @@ interface AppbarProps extends BaseProps {}
 const Appbar = ({}: AppbarProps) => {
   const router = useRouter();
   const isLoggedIn = useAuthStatus();
+  const [status, setStatus] = useState(false);
 
   const [search, setSearch] = useState("");
   const totalCartProducts = useAppSelector(selectTotalCartProducts);
   const cartBadge = totalCartProducts > 0 ? `${totalCartProducts}` : "";
 
-  const handleSearchSubmit = (e: SyntheticEvent) => {
+  useEffect(() => {
+    setStatus(isLoggedIn);
+  }, [isLoggedIn])
+
+  const handleSearchSubmit = (e: FormEvent) => {
     e.preventDefault();
     router.push({ pathname: "/search", query: { q: search } });
   };
@@ -71,7 +76,7 @@ const Appbar = ({}: AppbarProps) => {
               icon={faCartPlus}
               badge={cartBadge}
             />
-            {!isLoggedIn ? (
+            {!status ? (
               <Button variant="primary" url="/login" label="Login" />
             ) : (
               <Button

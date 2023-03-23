@@ -78,8 +78,8 @@ export const useSingleOrder = () => {
       const { id } = router.query;
       if (id) {
         const orderResult = await getSingleOrder(user, id as string);
-        setResult(orderResult);
         setLoading(false);
+        setResult(orderResult);
       }
     };
 

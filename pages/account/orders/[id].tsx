@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Button from "@/components/Button/Button";
 import OrderCard from "@/components/Card/OrderCard";
 import Layout from "@/components/Layout/Layout";
@@ -48,11 +49,14 @@ export default function SingleOrder() {
         <div className="mb-4 flex items-center justify-end">
           <Button label="Your Orders" variant="primary" url="/account/orders" />
         </div>
-        {loading ? (
+        <div>
+          {loading ? (
           <div>Loading</div>
         ) : (
-          <SingleOrderContent order={result?.data as Order} />
+          <SingleOrderContent order={result?.data as Order} key={result?.data?._id as string} />
         )}
+        </div>
+        
       </section>
     </Layout>
   );
@@ -68,12 +72,13 @@ function SingleOrderContent({ order }: SingleOrderContentProps) {
   const user = useAppSelector(selectUser) as User;
 
   const router = useRouter();
+  const [origin, setOrigin] = useState("");
 
   const showPayPalButton =
-    paymentInfo.paymentMethod === "paypal" && order.isPaid;
+    paymentInfo.paymentMethod === "paypal" && !order.isPaid;
 
   const showCreditCardButton =
-    paymentInfo.paymentMethod === "credit_card" && order.isPaid;
+    paymentInfo.paymentMethod === "credit_card" && !order.isPaid;
 
   // Stripe payment
   const onOrderPaidWithCreditCard = async () => {
@@ -82,9 +87,7 @@ function SingleOrderContent({ order }: SingleOrderContentProps) {
         url,
         sessionId,
         error: checkoutError,
-      } = await payWithStripe(user, order);
-
-      console.log("Order session: " + sessionId);
+      } = await payWithStripe(user, order, origin);
 
       if (sessionId) {
         await saveOrderSession(user, order, sessionId);
@@ -141,12 +144,8 @@ function SingleOrderContent({ order }: SingleOrderContentProps) {
     const checkCreditCardPayment = async () => {
       // Check to see if this is a redirect back from Checkout
       const query = new URLSearchParams(window.location.search);
-      console.log("Is paid with credit card: " + order.isPaid);
       if (query.get("success") && !order.isPaid && order.payment.sessionId) {
-        console.log("Order placed! You will receive an email confirmation.");
-        console.log("Session Id: " + order.payment.sessionId);
         // Now mark order as paid
-
         await markOrderAsPaid();
       }
 
@@ -159,6 +158,10 @@ function SingleOrderContent({ order }: SingleOrderContentProps) {
 
     checkCreditCardPayment();
   }, [order, router, user]);
+
+  useEffect(() => {
+    setOrigin(window.location.origin);    
+  }, [])
 
   return (
     <div className="grid grid-cols-12 gap-6">

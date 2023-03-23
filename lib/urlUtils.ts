@@ -2,7 +2,6 @@ import Query from "@/types/Query";
 
 // API Base URLs
 export const BACKEND_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL as string;
-export const FRONTEND_BASE_URL = process.env.NEXT_PUBLIC_FRONTEND_URL as string;
 export const PRODUCTS_API_URL = `${BACKEND_BASE_URL}/api/products`;
 export const REVIEWS_API_URL = `${BACKEND_BASE_URL}/api/reviews`;
 export const ORDERS_API_URL = `${BACKEND_BASE_URL}/api/orders`;
