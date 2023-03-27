@@ -5,6 +5,7 @@ import {
   GetSingleProductApiResult,
   DeleteProductApiResult,
   CreateProductApiResult,
+  GetFeaturedProductsApiResult
 } from "@/types/ProductsApiResults";
 import { PRODUCTS_API_URL } from "./urlUtils";
 import User from '@/types/User';
@@ -18,6 +19,17 @@ export const getProducts = async (url: string) => {
 
   return response.data;
 };
+
+export const getFeaturedProducts = async () => {
+  const GET_FEATURED_PRODUCTS_API_URL = `${PRODUCTS_API_URL}/featured`;
+  const response = await axios<GetFeaturedProductsApiResult>({
+    method: "GET",
+    url: GET_FEATURED_PRODUCTS_API_URL,
+    validateStatus: () => true,
+  });
+
+  return response.data;
+}
 
 export const getSearchProducts = async (url: string) => {
   const response = await axios<SearchProductsApiResult>({

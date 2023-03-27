@@ -13,9 +13,13 @@ import Button from "@/components/Button/Button";
 import HeroImage from "../public/images/coffee-item.jpg";
 import { coffeePopularData } from "@/lib/data";
 import HomeCard from "@/components/Card/HomeCard";
+import Loader from "@/components/Loader/Loader";
+import { useFeaturedProducts } from "@/hooks/productHook";
 
 export default function Home() {
   const [newsletterEmail, setNewsletterEmail] = useState("");
+  // Call products api
+  const { result, loading } = useFeaturedProducts();
   return (
     <Layout>
       <section className="container mx-auto">
@@ -49,10 +53,16 @@ export default function Home() {
           <p className="mb-14 text-center text-base text-neutral-500">
             List of our best selling coffee
           </p>
-          <div className="grid grid-cols-1 justify-items-center gap-6 md:grid-cols-4">
-            {coffeePopularData.map((product) => {
-              return <HomeCard product={product} key={product._id} />;
-            })}
+          <div>
+            {loading ? (
+              <Loader size={"md"} />
+            ) : (
+              <div className="grid grid-cols-1 justify-items-center gap-6 md:grid-cols-4">
+                {result?.data?.map((product) => {
+                  return <HomeCard product={product} key={product._id} />;
+                })}
+              </div>
+            )}
           </div>
         </section>
 

@@ -5,11 +5,12 @@ import {
   PRODUCTS_API_URL,
   USERS_API_URL,
 } from "@/lib/urlUtils";
-import { getProducts, getSingleProduct } from "@/lib/productUtils";
+import { getProducts, getSingleProduct, getFeaturedProducts } from "@/lib/productUtils";
 import { getUserFavoriteProducts } from "@/lib/userUtils";
 import {
   GetProductsApiResult,
   GetSingleProductApiResult,
+  GetFeaturedProductsApiResult
 } from "@/types/ProductsApiResults";
 import { GetUsersFavoriteProductsApiResult } from "@/types/UsersApiResults";
 import { selectUser } from "@/state/userSlice";
@@ -39,6 +40,25 @@ export const useProducts = () => {
 
   return { result, loading };
 };
+
+export const useFeaturedProducts = () => {
+  const router = useRouter();
+  const [result, setResult] = useState<GetFeaturedProductsApiResult | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const getFeaturedProductsResult = async () => {
+      const featuredProductsResult = await getFeaturedProducts();
+      setResult(featuredProductsResult);
+      setLoading(false);
+    };
+
+    getFeaturedProductsResult();
+  }, [router.query]);
+
+  return { result, loading };
+};
+
 
 export const useFavoriteProducts = () => {
   const router = useRouter();

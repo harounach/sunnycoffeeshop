@@ -9,6 +9,11 @@ export interface GetProductsApiResult {
   count: number;
 }
 
+export interface GetFeaturedProductsApiResult {
+  message: string;
+  data: Array<Product>;
+}
+
 export interface GetSingleProductApiResult {
   message?: string;
   data?: Product;
