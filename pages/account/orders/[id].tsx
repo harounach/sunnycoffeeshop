@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from "react";
 import Button from "@/components/Button/Button";
 import OrderCard from "@/components/Card/OrderCard";
 import Layout from "@/components/Layout/Layout";
@@ -41,7 +41,7 @@ export default function SingleOrder() {
 
   return (
     <Layout>
-      <section className="container mx-auto mt-6 mb-6">
+      <section className="container mx-auto">
         <h1 className="mb-4 text-center text-2xl">Order</h1>
         <p className="mb-14 text-center text-base text-neutral-500">
           Review your order
@@ -51,12 +51,14 @@ export default function SingleOrder() {
         </div>
         <div>
           {loading ? (
-          <div>Loading</div>
-        ) : (
-          <SingleOrderContent order={result?.data as Order} key={result?.data?._id as string} />
-        )}
+            <div>Loading</div>
+          ) : (
+            <SingleOrderContent
+              order={result?.data as Order}
+              key={result?.data?._id as string}
+            />
+          )}
         </div>
-        
       </section>
     </Layout>
   );
@@ -160,12 +162,12 @@ function SingleOrderContent({ order }: SingleOrderContentProps) {
   }, [order, router, user]);
 
   useEffect(() => {
-    setOrigin(window.location.origin);    
-  }, [])
+    setOrigin(window.location.origin);
+  }, []);
 
   return (
     <div className="grid grid-cols-12 gap-6">
-      <div className="col-span-7 flex flex-col gap-4">
+      <div className="col-span-12 flex flex-col gap-4 md:col-span-7">
         {/* Order */}
         <div className="flex flex-col gap-4 border-2 border-gray-200 p-4">
           <div className="flex">
@@ -244,7 +246,7 @@ function SingleOrderContent({ order }: SingleOrderContentProps) {
           </div>
         </div>
       </div>
-      <div className="col-span-5">
+      <div className="col-span-12 md:col-span-5">
         {/* Summary */}
         <div className="flex flex-col items-stretch gap-4 border-2 border-gray-200 px-12 py-4">
           <h2 className="text-center text-2xl">Summary</h2>

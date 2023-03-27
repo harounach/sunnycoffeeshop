@@ -18,14 +18,14 @@ export default function Search({ searchApiResult, searchQuery }: SearchProps) {
 
   return (
     <Layout>
-      <section className="container mx-auto mt-6">
+      <section className="container mx-auto">
         <h1 className="mb-4 text-center text-2xl">Search</h1>
         <p className="mb-14 text-center text-base text-neutral-500">
           Products matched for your search: <strong> {searchQuery} </strong>
         </p>
 
         {/* Sort and Filter */}
-        <section className="mb-6 flex justify-between">
+        <section className="mb-6 flex flex-col justify-between gap-4 md:flex-row">
           <div>
             <h3 className="mb-4 text-lg">Sort by</h3>
             <div>
@@ -49,7 +49,7 @@ export default function Search({ searchApiResult, searchQuery }: SearchProps) {
           </div>
         </section>
         <section className="mb-8">
-          <div className="grid grid-cols-4 gap-x-6 gap-y-8">
+          <div className="grid grid-cols-1 gap-x-6 gap-y-8 md:grid-cols-4">
             {products.map((product) => {
               return <ShopCard product={product} key={product._id} />;
             })}

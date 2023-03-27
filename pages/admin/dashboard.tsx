@@ -57,18 +57,18 @@ export default function AdminDashboard() {
 
   return (
     <AdminLayout>
-      <section className="container mx-auto mt-6">
+      <section className="container mx-auto">
         <div className="grid grid-cols-12 gap-6">
           {/* Sidebar */}
           <AdminSidebar dashboard />
           {/* Main Content */}
-          <div className="col-span-9">
+          <div className="col-span-12 md:col-span-9">
             <h1 className="mb-4 text-center text-2xl">Dashboard</h1>
             <p className="mb-14 text-center text-base text-neutral-500">
               View a summary of orders and analytics
             </p>
 
-            <div className="mb-6 flex justify-between gap-4">
+            <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row">
               <div className="flex flex-grow gap-4 border-2 border-gray-200 p-4">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-200">
                   <FontAwesomeIcon
@@ -112,11 +112,11 @@ export default function AdminDashboard() {
               <h2 className="text-lg font-medium">Analytics</h2>
 
               <div className=" grid grid-cols-12 gap-6">
-                <div className="col-span-6">
+                <div className="col-span-12 md:col-span-6">
                   {/* Bar chart */}
                   {salesData && <BarChart salesData={salesData} />}
                 </div>
-                <div className="col-span-4">
+                <div className="col-span-12 md:col-span-4">
                   {/* Pie chart */}
                   <PieChart />
                 </div>
@@ -129,25 +129,27 @@ export default function AdminDashboard() {
             ) : (
               <div className="mb-6 flex flex-col justify-center gap-4">
                 <h2 className="text-lg font-medium">Latest orders</h2>
-                <table className="border-collapse border-2 border-gray-200">
-                  <thead>
-                    <tr className="border-2 border-gray-200">
-                      <th className="border-2 border-gray-200">ID</th>
-                      <th className="border-2 border-gray-200">Date</th>
-                      <th className="border-2 border-gray-200">Total</th>
-                      <th className="border-2 border-gray-200">Paid</th>
-                      <th className="border-2 border-gray-200">Delivered</th>
-                      <th className="border-2 border-gray-200">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {result?.data?.map((order) => {
-                      return (
-                        <DashboardOrderRow order={order} key={order._id} />
-                      );
-                    })}
-                  </tbody>
-                </table>
+                <div className="overflow-x-auto">
+                  <table className="border-collapse border-2 border-gray-200">
+                    <thead>
+                      <tr className="border-2 border-gray-200">
+                        <th className="border-2 border-gray-200">ID</th>
+                        <th className="border-2 border-gray-200">Date</th>
+                        <th className="border-2 border-gray-200">Total</th>
+                        <th className="border-2 border-gray-200">Paid</th>
+                        <th className="border-2 border-gray-200">Delivered</th>
+                        <th className="border-2 border-gray-200">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {result?.data?.map((order) => {
+                        return (
+                          <DashboardOrderRow order={order} key={order._id} />
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             )}
           </div>

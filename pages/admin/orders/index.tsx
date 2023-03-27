@@ -21,12 +21,12 @@ export default function AdminOrders() {
 
   return (
     <AdminLayout>
-      <section className="container mx-auto mt-6">
+      <section className="container mx-auto">
         <div className="grid grid-cols-12 gap-6">
           {/* Sidebar */}
           <AdminSidebar orders />
           {/* Main Content */}
-          <div className="col-span-9">
+          <div className="col-span-12 md:col-span-9">
             <h1 className="mb-4 text-center text-2xl">Orders</h1>
             <p className="mb-14 text-center text-base text-neutral-500">
               View and manage orders
@@ -67,30 +67,32 @@ function AdminOrdersContent({ ordersApiResult }: AdminOrdersContentProps) {
 
   return (
     <div className="mb-6 flex flex-col justify-center gap-4">
-      <table className="border-collapse border-2 border-gray-200">
-        <thead>
-          <tr className="border-2 border-gray-200">
-            <th className="border-2 border-gray-200">ID</th>
-            <th className="border-2 border-gray-200">Date</th>
-            <th className="border-2 border-gray-200">Total</th>
-            <th className="border-2 border-gray-200">Payment method</th>
-            <th className="border-2 border-gray-200">Paid</th>
-            <th className="border-2 border-gray-200">Delivered</th>
-            <th className="border-2 border-gray-200">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.map((order) => {
-            return (
-              <AdminOrderRow
-                order={order}
-                key={order._id}
-                deleteOrder={() => onOrderDeleted(order._id)}
-              />
-            );
-          })}
-        </tbody>
-      </table>
+      <div className="overflow-x-auto">
+        <table className="border-collapse border-2 border-gray-200">
+          <thead>
+            <tr className="border-2 border-gray-200">
+              <th className="border-2 border-gray-200">ID</th>
+              <th className="border-2 border-gray-200">Date</th>
+              <th className="border-2 border-gray-200">Total</th>
+              <th className="border-2 border-gray-200">Payment method</th>
+              <th className="border-2 border-gray-200">Paid</th>
+              <th className="border-2 border-gray-200">Delivered</th>
+              <th className="border-2 border-gray-200">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order) => {
+              return (
+                <AdminOrderRow
+                  order={order}
+                  key={order._id}
+                  deleteOrder={() => onOrderDeleted(order._id)}
+                />
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
       <div className="mt-4">
         <Pagination
           baseURL="/admin/orders"

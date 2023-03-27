@@ -3,7 +3,7 @@ import Layout from "@/components/Layout/Layout";
 export default function About() {
   return (
     <Layout>
-      <section className="container mx-auto mt-6">
+      <section className="container mx-auto">
         <h1 className="mb-4 text-center text-2xl">About</h1>
         <p className="mb-14 text-center text-base text-neutral-500">
           Check out our story

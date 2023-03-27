@@ -17,7 +17,7 @@ const Layout = ({ children }: LayoutProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Appbar />
-      <main>{children}</main>
+      <main className="mt-20 mb-6 md:mt-8">{children}</main>
       <Footer />
     </div>
   );

@@ -44,7 +44,7 @@ export default function SingleProduct({ productApiResult }: ProductProps) {
 
   return (
     <Layout>
-      <section className="container mx-auto mt-6 mb-6">
+      <section className="container mx-auto">
         {error ? (
           <div>Product Not found</div>
         ) : (
@@ -215,7 +215,7 @@ function ProductContent({ product }: ProductContentProps) {
         Customize your coffee
       </p>
       <div className="mb-6 grid grid-cols-12 gap-6">
-        <div className="col-span-6">
+        <div className="col-span-12 md:col-span-6">
           <div className="flex justify-center">
             <Image
               src={product.image}
@@ -225,8 +225,8 @@ function ProductContent({ product }: ProductContentProps) {
             />
           </div>
         </div>
-        <div className="col-span-6">
-          <div className="flex flex-col gap-4 pr-48">
+        <div className="col-span-12 md:col-span-6">
+          <div className="flex flex-col gap-4 pr-0 md:pr-48">
             <div className="flex justify-between">
               <h2 className="text-xl font-medium">{product.title}</h2>
               <h3 className="text-xl font-medium">{`$${product.price}`}</h3>
@@ -279,16 +279,7 @@ function ProductContent({ product }: ProductContentProps) {
         </div>
       </div>
       <div className="grid grid-cols-12 gap-6">
-        <div className="col-span-6">
-          <h2 className="mb-4 text-xl">Reviews:</h2>
-          <div className="flex flex-col gap-2">
-            {reviews.length === 0 && <div>No Reviews</div>}
-            {reviews?.map((review) => {
-              return <ReviewCard key={review._id} review={review} />;
-            })}
-          </div>
-        </div>
-        <div className="col-span-6">
+        <div className="col-span-12 md:col-span-6">
           <h2 className="mb-4 text-xl">Write a Review:</h2>
           <div className="flex flex-col gap-4 border-2 border-gray-200 p-4">
             {!isLoggedIn ? (
@@ -304,6 +295,15 @@ function ProductContent({ product }: ProductContentProps) {
             ) : (
               <ReviewForm createReview={onReviewCreated} user={user} />
             )}
+          </div>
+        </div>
+        <div className="col-span-12 md:col-span-6">
+          <h2 className="mb-4 text-xl">Reviews:</h2>
+          <div className="flex flex-col gap-2">
+            {reviews.length === 0 && <div>No Reviews</div>}
+            {reviews?.map((review) => {
+              return <ReviewCard key={review._id} review={review} />;
+            })}
           </div>
         </div>
       </div>

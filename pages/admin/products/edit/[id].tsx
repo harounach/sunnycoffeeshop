@@ -76,7 +76,7 @@ export default function AdminEditProduct() {
           {/* Sidebar */}
           <AdminSidebar products />
           {/* Main Content */}
-          <div className="col-span-9">
+          <div className="col-span-12 md:col-span-9">
             <h1 className="mb-4 text-center text-2xl">Edit Product</h1>
             <p className="mb-14 text-center text-base text-neutral-500">
               Edit and customize your product

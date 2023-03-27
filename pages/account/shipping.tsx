@@ -58,7 +58,7 @@ export default function Ship() {
 
   return (
     <Layout>
-      <section className="container mx-auto mt-6 mb-6">
+      <section className="container mx-auto">
         <h1 className="mb-4 text-center text-2xl">Shipping</h1>
         <p className="mb-14 text-center text-base text-neutral-500">
           Specify your shipping info to receive your coffee

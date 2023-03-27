@@ -17,7 +17,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <AdminAppbar />
-      <main>{children}</main>
+      <main className="mt-20 mb-6 md:mt-8">{children}</main>
       <Footer />
     </div>
   );

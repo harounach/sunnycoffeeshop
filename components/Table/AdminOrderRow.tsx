@@ -3,7 +3,7 @@ import IconButton from "@/components/Button/IconButton";
 import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Order from "@/types/Order";
 import { formatFriendyDate } from "@/lib/dateUtils";
-import { getPaymentMethodText, truncateText } from "@/lib/textUtils";
+import { getPaymentMethodText } from "@/lib/textUtils";
 
 interface AdminOrderRowProps {
   order: Order;
@@ -20,9 +20,7 @@ const AdminOrderRow = ({ order, deleteOrder }: AdminOrderRowProps) => {
 
   return (
     <tr>
-      <td className="border-2 border-gray-200 px-4">
-        {truncateText(order._id)}
-      </td>
+      <td className="border-2 border-gray-200 px-4">{order._id}</td>
       <td className="border-2 border-gray-200 px-4">
         {formatFriendyDate(order.createdAt)}
       </td>

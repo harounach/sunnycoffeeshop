@@ -1,5 +1,4 @@
 import { GetServerSideProps } from "next";
-import { useRouter } from "next/router";
 import Chip from "@/components/Chip/Chip";
 import ChipGroup from "@/components/Chip/ChipGroup";
 import Layout from "@/components/Layout/Layout";
@@ -14,20 +13,18 @@ interface ShopProps {
 }
 
 export default function Shop({ productsApiResult }: ShopProps) {
-  const router = useRouter();
-
   const { data, message, pages, page } = productsApiResult;
 
   return (
     <Layout>
-      <section className="container mx-auto mt-6">
+      <section className="container mx-auto">
         <h1 className="mb-4 text-center text-2xl">Shop</h1>
         <p className="mb-14 text-center text-base text-neutral-500">
           Shop your favorite taste of coffee
         </p>
 
         {/* Sort and Filter */}
-        <section className="mb-6 flex justify-between">
+        <section className="mb-6 flex flex-col justify-between gap-4 md:flex-row">
           <div>
             <h3 className="mb-4 text-lg">Sort by</h3>
             <div>
@@ -51,7 +48,7 @@ export default function Shop({ productsApiResult }: ShopProps) {
           </div>
         </section>
         <section className="mb-8">
-          <div className="grid grid-cols-4 gap-x-6 gap-y-8">
+          <div className="grid grid-cols-1 gap-x-6 gap-y-8 md:grid-cols-4">
             {data.map((product) => {
               return <ShopCard product={product} key={product._id} />;
             })}

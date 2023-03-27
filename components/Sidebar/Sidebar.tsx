@@ -8,7 +8,10 @@ import {
 import React from "react";
 import IconTextButton from "@/components/Button/IconTextButton";
 import { deleteUser } from "@/state/userSlice";
-import { useAppDispatch } from "@/state/hooks";
+import { useAppDispatch, useAppSelector } from "@/state/hooks";
+import { selectUser } from "@/state/userSlice";
+import User from "@/types/User";
+import { formatFriendyDate } from "@/lib/dateUtils";
 
 interface SidebarProps extends BaseProps {
   profile?: boolean;
@@ -22,16 +25,17 @@ const Sidebar = ({ profile, history, favorite }: SidebarProps) => {
   };
 
   const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser) as User;
 
   const logOut = () => {
     dispatch(deleteUser());
   };
 
   return (
-    <div className="col-span-3 bg-neutral-100 px-6 py-4">
-      <h2 className="mb-4 text-center text-xl">John Doe</h2>
+    <div className="col-span-12 bg-neutral-100 px-6 py-4 md:col-span-3">
+      <h2 className="mb-4 text-center text-xl">{user?.name}</h2>
       <p className="mb-14 text-center text-base text-neutral-500">
-        Joined on 12 Dec 2022
+        Joined on {user ? formatFriendyDate(user?.createdAt as string) : ""}
       </p>
 
       <div className="flex justify-center">

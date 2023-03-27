@@ -34,7 +34,7 @@ const Button = ({
   if (url) {
     return (
       <Link
-        className={`rounded-md  px-4 py-2 text-center text-base ${variantClasses[variant]} ${customeClasses}`}
+        className={`inline-block rounded-md px-4 py-2 text-center text-base ${variantClasses[variant]} ${customeClasses}`}
         href={url}
         onClick={onClick}
       >
@@ -46,7 +46,7 @@ const Button = ({
   // otherwise we just return button element
   return (
     <button
-      className={`rounded-md px-4 py-2 text-center text-base ${variantClasses[variant]} ${customeClasses}`}
+      className={`inline-block rounded-md px-4 py-2 text-center text-base ${variantClasses[variant]} ${customeClasses}`}
       type={type}
       onClick={onClick}
     >

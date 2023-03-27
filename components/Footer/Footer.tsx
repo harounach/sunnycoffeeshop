@@ -18,7 +18,7 @@ interface FooterProps extends BaseProps {}
 const Footer = ({}: FooterProps) => {
   return (
     <footer className="bg-yellow-200 py-8">
-      <div className="container mx-auto grid grid-cols-4">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-4">
         <div className="">
           <Link className="mb-5 inline-block" href={"/"}>
             <Image src={Logo} width={56} height={56} alt={"Logo"} priority />

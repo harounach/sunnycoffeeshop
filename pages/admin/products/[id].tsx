@@ -27,12 +27,12 @@ export default function AdminSingleProduct() {
 
   return (
     <AdminLayout>
-      <section className="container mx-auto mt-6 mb-6">
+      <section className="container mx-auto">
         <div className="grid grid-cols-12 gap-6">
           {/* Sidebar */}
           <AdminSidebar products />
           {/* Main Content */}
-          <div className="col-span-9">
+          <div className="col-span-12 md:col-span-9">
             <h1 className="mb-4 text-center text-2xl">{result?.data?.title}</h1>
             <p className="mb-14 text-center text-base text-neutral-500">
               Customize your coffee
@@ -146,7 +146,7 @@ function AdminSingleProductContent({
   return (
     <div>
       <div className="mb-6 grid grid-cols-12 gap-6">
-        <div className="col-span-6">
+        <div className="col-span-12 md:col-span-6">
           <div className="flex justify-center">
             <Image
               src={product.image as string}
@@ -156,8 +156,8 @@ function AdminSingleProductContent({
             />
           </div>
         </div>
-        <div className="col-span-6">
-          <div className="flex flex-col gap-4 pr-48">
+        <div className="col-span-12 md:col-span-6">
+          <div className="flex flex-col gap-4 pr-0 md:pr-48">
             <div className="flex justify-between">
               <h2 className="text-xl font-medium">{product.title}</h2>
               <h3 className="text-xl font-medium">{`$${product.price}`}</h3>
@@ -189,7 +189,7 @@ function AdminSingleProductContent({
         </div>
       </div>
       <div className="grid grid-cols-12 gap-6">
-        <div className="col-span-8">
+        <div className="col-span-12 md:col-span-8">
           <h2 className="mb-4 text-xl">Reviews:</h2>
           <div className="flex flex-col gap-2">
             {reviews.length === 0 && <div>No Reviews</div>}

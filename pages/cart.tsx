@@ -18,14 +18,14 @@ export default function Cart() {
 
   return (
     <Layout>
-      <section className="container mx-auto mt-6">
+      <section className="container mx-auto">
         <h1 className="mb-4 text-center text-2xl">Cart items</h1>
         <p className="mb-14 text-center text-base text-neutral-500">
           Customize your cart before checkout
         </p>
         <div className="mb-6 grid grid-cols-5 gap-6">
           {/* Cart items */}
-          <div className="col-span-3 flex flex-col gap-4">
+          <div className="col-span-5 flex flex-col gap-4 md:col-span-3">
             {cartProductsIds.length === 0 && <EmptyCart />}
             {cartProductsIds.map((cartProductId) => {
               return (
@@ -38,7 +38,7 @@ export default function Cart() {
           </div>
 
           {/* Cart summary */}
-          <div className="col-span-2">
+          <div className="col-span-5 md:col-span-2">
             <div className="flex flex-col items-stretch gap-4 border-2 border-gray-200 px-12 py-4">
               <h2 className="text-center text-2xl">Summary</h2>
               <div className="flex justify-between">

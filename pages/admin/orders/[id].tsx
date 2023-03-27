@@ -23,7 +23,7 @@ export default function OrderSingle() {
 
   return (
     <AdminLayout>
-      <section className="container mx-auto mt-6 mb-6">
+      <section className="container mx-auto">
         <h1 className="mb-4 text-center text-2xl">Order</h1>
         <p className="mb-14 text-center text-base text-neutral-500">
           Review your order
@@ -95,7 +95,7 @@ function OrderSingleContent({ order }: OrderSingleContentProps) {
 
   return (
     <div className="grid grid-cols-12 gap-6">
-      <div className="col-span-7 flex flex-col gap-4">
+      <div className="col-span-12 flex flex-col gap-4 md:col-span-7">
         {/* Order */}
         <div className="flex flex-col gap-4 border-2 border-gray-200 p-4">
           <div className="flex">
@@ -174,7 +174,7 @@ function OrderSingleContent({ order }: OrderSingleContentProps) {
           </div>
         </div>
       </div>
-      <div className="col-span-5">
+      <div className="col-span-12 md:col-span-5">
         {/* Summary */}
         <div className="flex flex-col items-stretch gap-4 border-2 border-gray-200 px-12 py-4">
           <h2 className="text-center text-2xl">Summary</h2>

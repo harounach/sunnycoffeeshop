@@ -18,11 +18,11 @@ export default function Home() {
   const [newsletterEmail, setNewsletterEmail] = useState("");
   return (
     <Layout>
-      <section className="container mx-auto mt-6">
+      <section className="container mx-auto">
         {/* Hero section */}
-        <section className="mb-28 flex justify-between">
-          <div className="flex flex-col items-start gap-9">
-            <h1 className="text-5xl text-black">
+        <section className="mb-28 flex flex-col justify-between md:flex-row">
+          <div className="md:order-0 order-1 flex flex-col items-center gap-9 md:items-start">
+            <h1 className="mt-6 text-5xl text-black md:mt-0">
               This Headline is for the Sunny Coffee shop Project
             </h1>
             <p className="text-base text-neutral-500">
@@ -32,7 +32,7 @@ export default function Home() {
 
             <Button variant="primary" url="/products" label="Get Coffee" />
           </div>
-          <div className="shrink-0">
+          <div className="order-0 shrink-0 md:order-1">
             <Image
               src={HeroImage}
               width={600}
@@ -49,7 +49,7 @@ export default function Home() {
           <p className="mb-14 text-center text-base text-neutral-500">
             List of our best selling coffee
           </p>
-          <div className="grid grid-cols-4 justify-items-center gap-6">
+          <div className="grid grid-cols-1 justify-items-center gap-6 md:grid-cols-4">
             {coffeePopularData.map((product) => {
               return <HomeCard product={product} key={product._id} />;
             })}
@@ -63,14 +63,14 @@ export default function Home() {
             Check out our coffee benefits
           </p>
 
-          <div className="grid grid-cols-3 justify-center gap-6">
+          <div className="grid grid-cols-1 justify-center gap-6 md:grid-cols-3">
             {/* 01 */}
             <div className="flex flex-col items-center gap-5">
               <div className="flex h-36 w-36 items-center justify-center rounded-full bg-yellow-200">
                 <FontAwesomeIcon className="h-24 w-24" icon={faCrown} />
               </div>
               <h3 className="text-2xl">New York Family Owned</h3>
-              <p className="text-base text-neutral-500">
+              <p className="text-center text-base text-neutral-500">
                 Our family has taken pride in sourcing, roasting, and brewing
                 the highest-quality coffee for over 12 years in New York City.
               </p>
@@ -85,7 +85,7 @@ export default function Home() {
                 />
               </div>
               <h3 className="text-2xl">Ethically Sourced</h3>
-              <p className="text-base text-neutral-500">
+              <p className="text-center text-base text-neutral-500">
                 Our specialty coffee beans are traceable back to their farm or
                 cooperative. Our coffee is USDA Organic, Fair Trade & Direct
                 Trade.
@@ -98,7 +98,7 @@ export default function Home() {
                 <FontAwesomeIcon className="h-24 w-24" icon={faMedal} />
               </div>
               <h3 className="text-2xl">Rare & Exceptional Coffees</h3>
-              <p className="text-base text-neutral-500">
+              <p className="text-center text-base text-neutral-500">
                 We source exceptional coffees like the Gesha variety from
                 award-winning farms. We offer delicious decaf options.
               </p>

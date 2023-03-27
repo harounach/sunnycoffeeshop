@@ -10,7 +10,10 @@ import {
 import { BaseProps } from "@/types/BaseProps";
 import IconTextButton from "@/components/Button/IconTextButton";
 import { deleteUser } from "@/state/userSlice";
-import { useAppDispatch } from "@/state/hooks";
+import { useAppDispatch, useAppSelector } from "@/state/hooks";
+import { selectUser } from "@/state/userSlice";
+import User from "@/types/User";
+import { formatFriendyDate } from "@/lib/dateUtils";
 
 interface AdminSidebarProps extends BaseProps {
   dashboard?: boolean;
@@ -32,16 +35,17 @@ const AdminSidebar = ({
   };
 
   const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser) as User;
 
   const logOut = () => {
     dispatch(deleteUser());
   };
 
   return (
-    <div className="col-span-3 bg-neutral-100 px-6 py-4">
-      <h2 className="mb-4 text-center text-xl">Admin: John Doe</h2>
+    <div className="col-span-3 hidden bg-neutral-100 px-6 py-4 md:block">
+      <h2 className="mb-4 text-center text-xl">Admin: {user?.name}</h2>
       <p className="mb-14 text-center text-base text-neutral-500">
-        Joined on 12 Dec 2022
+        Joined on {user ? formatFriendyDate(user?.createdAt as string) : ""}
       </p>
 
       <div className="flex justify-center">

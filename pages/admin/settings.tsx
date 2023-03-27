@@ -93,12 +93,12 @@ export default function AdminSettings() {
 
   return (
     <AdminLayout>
-      <section className="container mx-auto mt-6">
+      <section className="container mx-auto">
         <div className="grid grid-cols-12 gap-6">
           {/* Sidebar */}
           <AdminSidebar settings />
           {/* Main Content */}
-          <div className="col-span-9">
+          <div className="col-span-12 md:col-span-9">
             <h1 className="mb-4 text-center text-2xl">Manage Account</h1>
             <p className="mb-14 text-center text-base text-neutral-500">
               Customize and manage your account
