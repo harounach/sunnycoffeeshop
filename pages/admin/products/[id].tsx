@@ -17,6 +17,7 @@ import { useAppSelector } from "@/state/hooks";
 import User from "@/types/User";
 import { useSingleProduct } from "@/hooks/productHook";
 import Product from "@/types/Product";
+import Loader from "@/components/Loader/Loader";
 
 export default function AdminSingleProduct() {
   // Check if user is logged in
@@ -46,7 +47,7 @@ export default function AdminSingleProduct() {
             </div>
 
             {loading ? (
-              <div> Loading</div>
+              <Loader size={"md"} />
             ) : (
               <AdminSingleProductContent product={result?.data as Product} />
             )}

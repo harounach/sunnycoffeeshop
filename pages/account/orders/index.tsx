@@ -5,6 +5,7 @@ import Pagination from "@/components/Pagination/Pagination";
 import { useAuthNavigate } from "@/hooks/authHook";
 import { useUserOrders } from "@/hooks/orderHook";
 import { GetUserOrdersApiResult } from "@/types/OrdersApiResults";
+import Loader from "@/components/Loader/Loader";
 
 export default function OrderHistory() {
   // Check if user is logged in
@@ -27,7 +28,7 @@ export default function OrderHistory() {
             </p>
 
             {loading ? (
-              <div>Loading</div>
+              <Loader size={"md"} />
             ) : (
               <OrderHistoryContent
                 ordersApiResult={result as GetUserOrdersApiResult}

@@ -8,6 +8,7 @@ import { selectUser } from "@/state/userSlice";
 import { useAppSelector } from "@/state/hooks";
 import User from "@/types/User";
 import { useFavoriteProducts } from "@/hooks/productHook";
+import Loader from "@/components/Loader/Loader";
 
 export default function Favorite() {
   const router = useRouter();
@@ -48,7 +49,7 @@ export default function Favorite() {
             </p>
 
             {loading ? (
-              <div>Loading</div>
+              <Loader size={"md"} />
             ) : (
               <div className="mb-6 flex flex-col gap-4 border-2 border-gray-200 p-4">
                 <h2 className="text-center text-xl font-medium">Items</h2>

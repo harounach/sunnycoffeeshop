@@ -13,6 +13,7 @@ import { useAppSelector } from "@/state/hooks";
 import User from "@/types/User";
 import { useSingleOrder } from "@/hooks/orderHook";
 import Order from "@/types/Order";
+import Loader from "@/components/Loader/Loader";
 
 export default function OrderSingle() {
   // Check if user is logged in
@@ -33,7 +34,7 @@ export default function OrderSingle() {
         </div>
 
         {loading ? (
-          <div>Loading</div>
+          <Loader size={"md"} />
         ) : (
           <OrderSingleContent order={result?.data as Order} />
         )}

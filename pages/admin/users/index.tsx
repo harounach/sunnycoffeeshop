@@ -4,6 +4,7 @@ import AdminSidebar from "@/components/Sidebar/AdminSidebar";
 import Pagination from "@/components/Pagination/Pagination";
 import { useAuthNavigate } from "@/hooks/authHook";
 import { useUsers } from "@/hooks/userHook";
+import Loader from "@/components/Loader/Loader";
 
 export default function AdminUsers() {
   // Check if user is logged in
@@ -25,7 +26,7 @@ export default function AdminUsers() {
               View and manage users
             </p>
             {loading ? (
-              <div>Loading</div>
+              <Loader size={"md"} />
             ) : (
               <div className="mb-6 flex flex-col justify-center gap-4">
                 <div className="overflow-x-auto">

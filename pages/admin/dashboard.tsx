@@ -17,6 +17,7 @@ import { selectUser } from "@/state/userSlice";
 import { useAppSelector } from "@/state/hooks";
 import User from "@/types/User";
 import { useOrders } from "@/hooks/orderHook";
+import Loader from "@/components/Loader/Loader";
 
 export default function AdminDashboard() {
   const [totalSales, setTotalSales] = useState(0);
@@ -125,7 +126,7 @@ export default function AdminDashboard() {
             {/* Latest Orders */}
 
             {loading ? (
-              <div>Loading</div>
+              <Loader size={"md"} />
             ) : (
               <div className="mb-6 flex flex-col justify-center gap-4">
                 <h2 className="text-lg font-medium">Latest orders</h2>

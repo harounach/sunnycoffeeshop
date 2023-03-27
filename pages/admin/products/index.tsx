@@ -11,6 +11,7 @@ import { selectUser } from "@/state/userSlice";
 import { useAppSelector } from "@/state/hooks";
 import User from "@/types/User";
 import { GetProductsApiResult } from "@/types/ProductsApiResults";
+import Loader from "@/components/Loader/Loader";
 
 export default function AdminProducts() {
   // Check if user is logged in
@@ -45,7 +46,7 @@ export default function AdminProducts() {
               </div>
               <div>
                 {loading ? (
-                  <div>Loading</div>
+                  <Loader size={"md"} />
                 ) : (
                   <AdminProductsContent
                     productsApiResult={result as GetProductsApiResult}

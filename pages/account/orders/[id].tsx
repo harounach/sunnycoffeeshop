@@ -25,6 +25,7 @@ import { selectUser } from "@/state/userSlice";
 import User from "@/types/User";
 import { useSingleOrder } from "@/hooks/orderHook";
 import Order from "@/types/Order";
+import Loader from "@/components/Loader/Loader";
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -51,7 +52,7 @@ export default function SingleOrder() {
         </div>
         <div>
           {loading ? (
-            <div>Loading</div>
+            <Loader size={"md"} />
           ) : (
             <SingleOrderContent
               order={result?.data as Order}

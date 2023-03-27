@@ -11,6 +11,7 @@ import { useAppSelector } from "@/state/hooks";
 import User from "@/types/User";
 import { useOrders } from "@/hooks/orderHook";
 import { GetOrdersApiResult } from "@/types/OrdersApiResults";
+import Loader from "@/components/Loader/Loader";
 
 export default function AdminOrders() {
   // Check if user is logged in
@@ -33,7 +34,7 @@ export default function AdminOrders() {
             </p>
 
             {loading ? (
-              <div>Loading</div>
+              <Loader size={"md"} />
             ) : (
               <AdminOrdersContent
                 ordersApiResult={result as GetOrdersApiResult}
