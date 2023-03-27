@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useState, useEffect } from "react";
 import Button from "@/components/Button/Button";
 import TextField from "@/components/Form/TextField";
 import Layout from "@/components/Layout/Layout";
@@ -6,9 +6,13 @@ import Link from "next/link";
 import { registerUser } from "@/lib/userUtils";
 import { saveUser } from "@/state/userSlice";
 import { useAppDispatch } from "@/state/hooks";
+import { useAuthStatus } from "@/hooks/authHook";
+import { useRouter } from "next/router";
 
 export default function Register() {
+  const router = useRouter();
   const dispatch = useAppDispatch();
+  const isLoggedIn = useAuthStatus();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -16,6 +20,30 @@ export default function Register() {
   const [errorMsg, setErrorMsg] = useState("");
 
   const canSubmit = Boolean(name) && Boolean(email) && Boolean(password);
+
+  // Prefetch pages
+  useEffect(() => {
+    const { nxt } = router.query;
+    if (nxt) {
+      router.prefetch(nxt as string);
+    } else {
+      router.prefetch("/");
+    }
+  }, [router]);
+
+  // redirect user after registering
+  useEffect(() => {
+    const { nxt } = router.query;
+    if (isLoggedIn) {
+      console.log("User is Logged in");
+      // Navigate to other pages
+      if (nxt) {
+        router.replace(nxt as string);
+      } else {
+        router.replace("/");
+      }
+    }
+  }, [isLoggedIn, router]);
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -106,12 +134,6 @@ export default function Register() {
             <div className="flex justify-center gap-4">
               <span>Already have an account?</span>
               <Link href={"/login"} className="font-medium text-yellow-700">
-                Login
-              </Link>
-              <Link
-                href={"/login?nxt=/shop"}
-                className="font-medium text-yellow-700"
-              >
                 Login
               </Link>
             </div>
