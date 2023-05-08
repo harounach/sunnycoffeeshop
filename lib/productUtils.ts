@@ -21,7 +21,7 @@ export const getProducts = async (url: string) => {
 };
 
 export const getFeaturedProducts = async () => {
-  const GET_FEATURED_PRODUCTS_API_URL = `${PRODUCTS_API_URL}/featured`;
+  const GET_FEATURED_PRODUCTS_API_URL = `${PRODUCTS_API_URL}/all/featured`;
   const response = await axios<GetFeaturedProductsApiResult>({
     method: "GET",
     url: GET_FEATURED_PRODUCTS_API_URL,
