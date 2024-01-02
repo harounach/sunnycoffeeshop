@@ -1,0 +1,60 @@
+@use "../abstracts/variables" as *;
+
+// =============== < Base > =======================================================
+
+
+$light-body-bg: $bg;
+$dark-body-bg: $bg;
+
+// text
+$light-high-text-color: rba(0, 0, 0, 87%);
+$dark-high-text-color: rba(0, 0, 0, 87%);
+$medium-text-color: rba(0, 0, 0, 70%);
+$muted-text-color: rba(0, 0, 0, 60%);
+
+// =============== < Button > ======================================================
+
+
+// text color
+$light-default-btn-text-color: $black;
+$dark-default-btn-text-color: $white;
+$light-primary-btn-text-color: $white;
+$dark-primary-btn-text-color: $white;
+
+// background
+$light-default-btn-bg-color: transparent;
+$dark-default-btn-bg-color: transparent;
+$light-primary-btn-bg-color: transparent;
+$dark-primary-btn-bg-color: transparent;
+
+// border color
+$light-default-btn-border-color: transparent;
+$dark-default-btn-border-color: transparent;
+$light-primary-btn-border-color: $primary-4;
+$dark-primary-btn-border-color: $primary-4;
+
+//----- < light theme map > ------------------------
+$light-theme-colors: (
+  // body
+  "theme-body-bg": $light-body-bg,
+  // button
+  "theme-default-btn-text-color": $light-default-btn-text-color,
+  "theme-primary-btn-text-color": $light-primary-btn-text-color,
+  "theme-default-btn-bg-color": $light-default-btn-bg-color,
+  "theme-primary-btn-bg-color": $light-primary-btn-bg-color,
+  "theme-default-btn-border-color": $light-default-btn-border-color,
+  "theme-primary-btn-border-color": $light-primary-btn-border-color
+);
+
+//----- < dark theme map > ------------------------
+$dark-theme-colors: (
+  // body
+  "theme-body-bg": $dark-body-bg,
+  // button
+  "theme-default-btn-text-color": $dark-default-btn-text-color,
+  "theme-primary-btn-text-color": $dark-primary-btn-text-color,
+  "theme-default-btn-bg-color": $dark-default-btn-bg-color,
+  "theme-primary-btn-bg-color": $dark-primary-btn-bg-color,
+  "theme-default-btn-border-color": $dark-default-btn-border-color,
+  "theme-primary-btn-border-color": $dark-primary-btn-border-color
+);

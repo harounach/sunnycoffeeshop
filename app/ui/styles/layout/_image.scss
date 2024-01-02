@@ -1,0 +1,55 @@
+@use "sass:map";
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+.responsive {
+  max-width: 100%;
+  height: auto;
+}
+
+.rounded {
+  border-radius: 50%;
+}
+
+.fill {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@each $ratio in map.keys(vars.$aspect-ratios) {
+  .aspect-#{$ratio} {
+    aspect-ratio: map.get(vars.$aspect-ratios, $ratio);
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+@each $breakpoint in map.keys(vars.$breakpoints) {
+  @include mixins.breakpoint($breakpoint) {
+    .#{$breakpoint}\:responsive {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .#{$breakpoint}\:rounded {
+      border-radius: 50%;
+    }
+
+    .#{$breakpoint}\:fill {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    @each $ratio in map.keys(vars.$aspect-ratios) {
+      .#{$breakpoint}\:aspect-#{$ratio} {
+        aspect-ratio: map.get(vars.$aspect-ratios, $ratio);
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+  }
+}

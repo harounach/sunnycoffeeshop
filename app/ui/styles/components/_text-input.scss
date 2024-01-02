@@ -1,0 +1,36 @@
+@use "../abstracts/variables" as vars;
+
+// text-input
+.text-input {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-2;
+}
+
+// text-input__label
+.text-input__label.label {
+}
+
+// text-input__input
+.text-input__input {
+  width: 100%;
+  height: 40px;
+  padding: 0 1rem;
+  background-color: transparent;
+  color: vars.$primary-100;
+  border: vars.$border-sm solid vars.$primary-100;
+  border-radius: vars.$radius-xs;
+  outline: none;
+
+  &::placeholder {
+    color: rgba(vars.$primary-50, 0.5);
+  }
+
+  &:hover {
+    border-color: vars.$primary-200;
+  }
+
+  &:focus {
+    border-color: vars.$primary-500;
+  }
+}

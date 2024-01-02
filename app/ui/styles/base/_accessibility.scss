@@ -1,0 +1,10 @@
+// skip
+.skip {
+  position: absolute;
+  top: 1rem;
+  left: -9999px;
+
+  &:focus {
+    left: 2rem;
+  }
+}

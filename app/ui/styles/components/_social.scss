@@ -1,0 +1,59 @@
+@use "../abstracts/variables" as vars;
+
+// social
+.social {
+  display: flex;
+  gap: vars.$space-2;
+  list-style-type: none;
+
+  // social--wide
+  &--wide {
+    gap: vars.$space-4;
+  }
+}
+
+.social__link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: vars.$radius-pill;
+  background-color: vars.$white;
+  position: relative;
+  text-decoration: none;
+  color: vars.$primary-950;
+
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: vars.$primary-100;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  &:hover::after,
+  &:focus::after {
+    opacity: 1;
+  }
+
+  i {
+    font-size: vars.$font-size-4;
+    position: relative;
+    z-index: 2;
+  }
+
+  &--sm {
+    width: 26px;
+    height: 26px;
+
+    i {
+      font-size: vars.$font-size-0;
+    }
+  }
+}

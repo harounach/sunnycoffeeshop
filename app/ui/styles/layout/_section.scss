@@ -1,0 +1,74 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+.section {
+  padding-top: vars.$space-12;
+  padding-bottom: vars.$space-12;
+
+  @include mixins.breakpoint(md) {
+    padding-top: vars.$space-14;
+    padding-bottom: vars.$space-14;
+  }
+
+  // section--top
+  &--top {
+    padding-top: vars.$space-12;
+    padding-bottom: 0;
+
+    @include mixins.breakpoint(md) {
+      padding-top: vars.$space-14;
+    }
+  }
+
+  // section--bottom
+  &--bottom {
+    padding-top: 0;
+    padding-bottom: vars.$space-12;
+    @include mixins.breakpoint(md) {
+      padding-bottom: vars.$space-14;
+    }
+  }
+
+  // section--none
+  &--none {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  // section--mini
+  &--mini {
+    padding-top: vars.$space-10;
+    padding-bottom: vars.$space-10;
+
+    @include mixins.breakpoint(md) {
+      padding-top: vars.$space-11;
+      padding-bottom: vars.$space-11;
+    }
+  }
+
+  // section--full-bg
+  &--full-bg {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      background-color: rgba(0, 0, 0, 0.85);
+    }
+  }
+
+  // Note: add this when using section--full-bg
+  // section__inner
+  &__inner {
+    position: relative;
+    z-index: 1;
+  }
+}

@@ -1,0 +1,21 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// pagination-btn
+.pagination-btn {
+  display: inline-flex;
+  padding: vars.$space-2 vars.$space-3;
+  @include mixins.buttonText();
+  text-decoration: none;
+  color: vars.$white;
+  background-color: transparent;
+  border: vars.$border-sm solid vars.$primary-500;
+  border-radius: vars.$radius-xs;
+  // hover
+  &:hover,
+  &--active,
+  &--jump {
+    color: vars.$black;
+    background-color: vars.$primary-500;
+  }
+}

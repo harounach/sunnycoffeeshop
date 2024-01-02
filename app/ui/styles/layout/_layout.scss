@@ -1,0 +1,48 @@
+@use "sass:map";
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// Display block
+.d-block {
+  display: block;
+}
+
+// Display inline
+.d-inline {
+  display: inline;
+}
+
+// Display inline-block
+.d-inline-block {
+  display: inline-block;
+}
+
+// Display none
+.d-none {
+  display: none;
+}
+
+// Generate breakpoint block and lineline display porperties
+@each $breakpoint in map.keys(vars.$breakpoints) {
+  @include mixins.breakpoint($breakpoint) {
+    // Display block
+    .#{$breakpoint}\:d-block {
+      display: block;
+    }
+
+    // Display inline
+    .#{$breakpoint}\:d-inline {
+      display: inline;
+    }
+
+    // Display inline-block
+    .#{$breakpoint}\:d-inline-block {
+      display: inline-block;
+    }
+
+    // Display none
+    .#{$breakpoint}\:d-none {
+      display: none;
+    }
+  }
+}

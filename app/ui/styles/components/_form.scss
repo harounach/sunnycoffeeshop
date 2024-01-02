@@ -1,0 +1,17 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// form
+.form {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-5;
+}
+
+// label
+.label {
+  @include mixins.titleBaseText();
+  color: vars.$white;
+  display: block;
+}

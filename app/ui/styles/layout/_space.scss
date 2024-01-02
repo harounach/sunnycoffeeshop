@@ -1,0 +1,221 @@
+@use "sass:map";
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// padding
+@each $space in map.keys(vars.$spaces) {
+  .p-#{$space} {
+    padding: map.get(vars.$spaces, $space);
+  }
+
+  .px-#{$space} {
+    padding-left: map.get(vars.$spaces, $space);
+    padding-right: map.get(vars.$spaces, $space);
+  }
+
+  .py-#{$space} {
+    padding-top: map.get(vars.$spaces, $space);
+    padding-bottom: map.get(vars.$spaces, $space);
+  }
+
+  .pt-#{$space} {
+    padding-top: map.get(vars.$spaces, $space);
+  }
+
+  .pr-#{$space} {
+    padding-right: map.get(vars.$spaces, $space);
+  }
+
+  .pb-#{$space} {
+    padding-bottom: map.get(vars.$spaces, $space);
+  }
+
+  .pl-#{$space} {
+    padding-left: map.get(vars.$spaces, $space);
+  }
+}
+
+// Generate breakpoint padding
+@each $breakpoint in map.keys(vars.$breakpoints) {
+  @include mixins.breakpoint($breakpoint) {
+    @each $space in map.keys(vars.$spaces) {
+      .#{$breakpoint}\:p-#{$space} {
+        padding: map.get(vars.$spaces, $space);
+      }
+
+      .#{$breakpoint}\:px-#{$space} {
+        padding-left: map.get(vars.$spaces, $space);
+        padding-right: map.get(vars.$spaces, $space);
+      }
+
+      .#{$breakpoint}\:py-#{$space} {
+        padding-top: map.get(vars.$spaces, $space);
+        padding-bottom: map.get(vars.$spaces, $space);
+      }
+
+      .#{$breakpoint}\:pt-#{$space} {
+        padding-top: map.get(vars.$spaces, $space);
+      }
+
+      .#{$breakpoint}\:pr-#{$space} {
+        padding-right: map.get(vars.$spaces, $space);
+      }
+
+      .#{$breakpoint}\:pb-#{$space} {
+        padding-bottom: map.get(vars.$spaces, $space);
+      }
+
+      .#{$breakpoint}\:pl-#{$space} {
+        padding-left: map.get(vars.$spaces, $space);
+      }
+    }
+  }
+}
+
+// margin
+@each $space in map.keys(vars.$spaces) {
+  .m-#{$space} {
+    margin: map.get(vars.$spaces, $space);
+  }
+
+  .mx-#{$space} {
+    margin-left: map.get(vars.$spaces, $space);
+    margin-right: map.get(vars.$spaces, $space);
+  }
+
+  .my-#{$space} {
+    margin-top: map.get(vars.$spaces, $space);
+    margin-bottom: map.get(vars.$spaces, $space);
+  }
+
+  .mt-#{$space} {
+    margin-top: map.get(vars.$spaces, $space);
+  }
+
+  .mr-#{$space} {
+    margin-right: map.get(vars.$spaces, $space);
+  }
+
+  .mb-#{$space} {
+    margin-bottom: map.get(vars.$spaces, $space);
+  }
+
+  .ml-#{$space} {
+    margin-left: map.get(vars.$spaces, $space);
+  }
+}
+
+.m-auto {
+  margin: auto;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mt-auto {
+  margin-top: auto;
+}
+.mr-auto {
+  margin-right: auto;
+}
+.mb-auto {
+  margin-bottom: auto;
+}
+.ml-auto {
+  margin-left: auto;
+}
+
+// Generate breakpoint margin
+@each $breakpoint in map.keys(vars.$breakpoints) {
+  @include mixins.breakpoint($breakpoint) {
+    @each $space in map.keys(vars.$spaces) {
+      .#{$breakpoint}\:m-#{$space} {
+        margin: map.get(vars.$spaces, $space);
+      }
+
+      .#{$breakpoint}\:mx-#{$space} {
+        margin-left: map.get(vars.$spaces, $space);
+        margin-right: map.get(vars.$spaces, $space);
+      }
+
+      .#{$breakpoint}\:my-#{$space} {
+        margin-top: map.get(vars.$spaces, $space);
+        margin-bottom: map.get(vars.$spaces, $space);
+      }
+
+      .#{$breakpoint}\:mt-#{$space} {
+        margin-top: map.get(vars.$spaces, $space);
+      }
+
+      .#{$breakpoint}\:mr-#{$space} {
+        margin-right: map.get(vars.$spaces, $space);
+      }
+
+      .#{$breakpoint}\:mb-#{$space} {
+        margin-bottom: map.get(vars.$spaces, $space);
+      }
+
+      .#{$breakpoint}\:ml-#{$space} {
+        margin-left: map.get(vars.$spaces, $space);
+      }
+    }
+
+    .#{$breakpoint}\:m-auto {
+      margin: auto;
+    }
+
+    .#{$breakpoint}\:mx-auto {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .#{$breakpoint}\:mt-auto {
+      margin-top: auto;
+    }
+    .#{$breakpoint}\:mr-auto {
+      margin-right: auto;
+    }
+    .#{$breakpoint}\:mb-auto {
+      margin-bottom: auto;
+    }
+    .#{$breakpoint}\:ml-auto {
+      margin-left: auto;
+    }
+  }
+}
+
+// gap
+@each $space in map.keys(vars.$spaces) {
+  .gap-#{$space} {
+    gap: map.get(vars.$spaces, $space);
+  }
+
+  .row-gap-#{$space} {
+    row-gap: map.get(vars.$spaces, $space);
+  }
+
+  .column-gap-#{$space} {
+    column-gap: map.get(vars.$spaces, $space);
+  }
+}
+
+// Generate breakpoint gaps
+@each $breakpoint in map.keys(vars.$breakpoints) {
+  @include mixins.breakpoint($breakpoint) {
+    @each $space in map.keys(vars.$spaces) {
+      .#{$breakpoint}\:gap-#{$space} {
+        gap: map.get(vars.$spaces, $space);
+      }
+
+      .#{$breakpoint}\:row-gap-#{$space} {
+        row-gap: map.get(vars.$spaces, $space);
+      }
+
+      .#{$breakpoint}\:column-gap-#{$space} {
+        column-gap: map.get(vars.$spaces, $space);
+      }
+    }
+  }
+}

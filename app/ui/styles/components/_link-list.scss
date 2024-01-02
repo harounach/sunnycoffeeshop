@@ -1,0 +1,14 @@
+// link-list
+.link-list {
+	list-style-type: none;
+	display: flex;
+	flex-direction: column;
+}
+
+.link-list__link {
+	text-decoration: none;
+
+	&:hover, &:focus {
+		text-decoration: underline;
+	}
+}

@@ -1,0 +1,118 @@
+@use "sass:map";
+@use "./variables" as *;
+
+// Apply light theme
+@mixin applyLightTheme {
+  @content;
+}
+
+// Apply dark theme
+@mixin applyDarkTheme {
+  @content;
+}
+
+// Display large
+@mixin displayLargeText {
+  font-family: $font-serif; // Philosopher
+  font-weight: $font-weight-7;
+  font-size: $font-size-8; // 56px
+}
+
+// Display base
+@mixin displayBaseText {
+  font-family: $font-serif; // Philosopher
+  font-weight: $font-weight-7;
+  font-size: $font-size-7; // 48px
+}
+
+// Title large
+@mixin titleLargeText {
+  font-family: $font-serif; // Philosopher
+  font-weight: $font-weight-7;
+  font-size: $font-size-5; // 32px
+}
+
+// Title medium
+@mixin titleMediumText {
+  font-family: $font-serif; // Philosopher
+  font-weight: $font-weight-7;
+  font-size: $font-size-4; // 24px
+}
+
+// Title base
+@mixin titleBaseText {
+  font-family: $font-serif; // Philosopher
+  font-weight: $font-weight-7;
+  font-size: $font-size-2; // 18px
+}
+
+// button
+@mixin buttonText {
+  font-family: $font-serif; // Philosopher
+  font-weight: $font-weight-4;
+  font-size: $font-size-2; // 18px
+}
+
+// Body large
+@mixin bodyLargeText {
+  font-family: $font-sans; // Poppins
+  font-weight: $font-weight-4;
+  font-size: $font-size-2; // 18px
+}
+
+// Body base
+@mixin bodyBaseText {
+  font-family: $font-sans; // Poppins
+  font-weight: $font-weight-4;
+  font-size: $font-size-1; // 16px
+}
+
+@mixin z-index($key, $ns: false) {
+  @if $ns {
+    $map: map.get(vars.$z-indexes, $ns);
+    z-index: map.get($map, $key);
+  } @else {
+    z-index: map.get(vars.$z-indexes, $key);
+  }
+}
+
+// Responsive media queries.
+// possible values: sm, md, lg, xl
+@mixin breakpoint($breakpoint) {
+  @if $breakpoint == "" {
+    @content;
+  } @else {
+    // Retrieves the value from the key
+    $value: map.get($breakpoints, $breakpoint);
+
+    // If the key exists in the map
+    @if $value != null {
+      // Prints a media query based on the value
+      @media (min-width: $value) {
+        @content;
+      }
+    }
+
+    // If the key doesn't exist in the map
+    @else {
+      @warn 'Unfortunately, no value could be retrieved from `#{$breakpoint}`. '
+        + 'Please make sure it is defined in `$breakpoints` map.';
+    }
+  }
+}
+
+// Clear fix for float elements
+@mixin clearfix() {
+  &::after {
+    display: block;
+    clear: both;
+    content: "";
+  }
+}
+
+// container
+@mixin container() {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}

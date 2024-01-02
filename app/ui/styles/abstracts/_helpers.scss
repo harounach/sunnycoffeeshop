@@ -1,0 +1,36 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+.debug {
+  &::before {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    content: "Small";
+    font-family: sans-serif;
+    letter-spacing: 0.05rem;
+    color: #fff;
+    font-weight: 700;
+    background: #000;
+    padding: 1rem 2rem;
+    z-index: 200;
+  }
+
+  @include mixins.breakpoint(md) {
+    &::before {
+      content: "medium";
+    }
+  }
+
+  @include mixins.breakpoint(lg) {
+    &::before {
+      content: "large";
+    }
+  }
+
+  @include mixins.breakpoint(xl) {
+    &::before {
+      content: "xlarge";
+    }
+  }
+}

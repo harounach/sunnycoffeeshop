@@ -1,0 +1,164 @@
+@use "sass:map";
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// display-large
+.display-large {
+  @include mixins.displayLargeText();
+  color: vars.$primary-500;
+}
+
+// display-base
+.display-base {
+  @include mixins.displayBaseText();
+  color: vars.$primary-500;
+}
+
+// title-large
+.title-large {
+  @include mixins.titleLargeText();
+  color: vars.$primary-500;
+}
+
+// title-medium
+.title-medium {
+  @include mixins.titleMediumText();
+  color: vars.$white;
+}
+
+// title-base
+.title-base {
+  @include mixins.titleBaseText();
+  color: vars.$white;
+}
+
+// button
+.button {
+  @include mixins.buttonText();
+  color: vars.$white;
+}
+
+// body-large
+.body-large {
+  @include mixins.bodyLargeText();
+  color: vars.$white;
+}
+
+// body-base
+.body-base {
+  @include mixins.bodyBaseText();
+  color: vars.$white;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-start {
+  text-align: start;
+}
+
+.text-end {
+  text-align: end;
+}
+
+.text-confined {
+  max-width: 768px;
+}
+
+.text-lg {
+  max-width: 768px;
+}
+
+.text-md {
+  max-width: 576px;
+}
+
+.text-sm {
+  max-width: 448px;
+}
+
+@each $breakpoint in map.keys(vars.$breakpoints) {
+  @include mixins.breakpoint($breakpoint) {
+    .#{$breakpoint}\:responsive {
+      max-width: 100%;
+      height: auto;
+    }
+
+    // display-large
+    .#{$breakpoint}\:display-large {
+      @include mixins.displayLargeText();
+      color: vars.$primary-500;
+    }
+
+    // display-base
+    .#{$breakpoint}\:display-base {
+      @include mixins.displayBaseText();
+      color: vars.$primary-500;
+    }
+
+    // title-large
+    .#{$breakpoint}\:title-large {
+      @include mixins.titleLargeText();
+      color: vars.$primary-500;
+    }
+
+    // title-medium
+    .#{$breakpoint}\:title-medium {
+      @include mixins.titleMediumText();
+      color: vars.$white;
+    }
+
+    // title-base
+    .#{$breakpoint}\:title-base {
+      @include mixins.titleBaseText();
+      color: vars.$white;
+    }
+
+    // button
+    .#{$breakpoint}\:button {
+      @include mixins.buttonText();
+      color: vars.$white;
+    }
+
+    // body-large
+    .#{$breakpoint}\:body-large {
+      @include mixins.bodyLargeText();
+      color: vars.$white;
+    }
+
+    // body-base
+    .#{$breakpoint}\:body-base {
+      @include mixins.bodyBaseText();
+      color: vars.$white;
+    }
+
+    .#{$breakpoint}\:text-center {
+      text-align: center;
+    }
+
+    .#{$breakpoint}\:text-start {
+      text-align: start;
+    }
+
+    .#{$breakpoint}\:text-end {
+      text-align: end;
+    }
+
+    .#{$breakpoint}\:text-confined {
+      max-width: 768px;
+    }
+
+    .#{$breakpoint}\:text-lg {
+      max-width: 768px;
+    }
+
+    .#{$breakpoint}\:text-md {
+      max-width: 576px;
+    }
+
+    .#{$breakpoint}\:text-sm {
+      max-width: 448px;
+    }
+  }
+}

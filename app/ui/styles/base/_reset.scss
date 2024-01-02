@@ -1,0 +1,7 @@
+@use "./typography" as type;
+
+button,
+input,
+textarea {
+  font-family: inherit;
+}

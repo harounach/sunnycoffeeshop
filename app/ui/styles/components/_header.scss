@@ -1,0 +1,167 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// header
+.header {
+  width: 100%;
+
+  &--open &__nav {
+    transform: translateY(0);
+  }
+
+  &--fixed &__primary {
+    position: fixed;
+    top: 0;
+    background-color: vars.$black;
+  }
+}
+
+.header__content {
+  display: flex;
+  flex-direction: column;
+}
+
+// header-secondary
+.header__secondary {
+  height: 2.5rem;
+  background-color: vars.$black;
+  display: none;
+
+  > .container {
+    height: 100%;
+  }
+
+  @include mixins.breakpoint(lg) {
+    display: block;
+  }
+}
+
+.header__secondary-content {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 6rem;
+}
+
+// header__location
+.header__location {
+  display: flex;
+  gap: 1rem;
+
+  a {
+    font-family: vars.$font-serif;
+    text-decoration: none;
+    font-size: vars.$font-size-0;
+    font-weight: vars.$font-weight-7;
+    color: vars.$white;
+    &:hover {
+      color: vars.$primary-50;
+      text-decoration: underline;
+    }
+  }
+}
+
+// header-primary
+.header__primary {
+  width: 100%;
+  padding: 0.5rem 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 120;
+
+  @include mixins.breakpoint(lg) {
+    top: 2.5rem;
+  }
+}
+
+// header-primary__content
+.header__primary-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logo {
+}
+
+// header__nav
+.header__nav {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: vars.$black;
+  padding: 4rem 2rem 2rem;
+  overflow-y: scroll;
+  transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1) 0s;
+  transform: translateY(-100%);
+
+  @include mixins.breakpoint(lg) {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow-y: hidden;
+    padding: 0;
+    background-color: transparent;
+    transform: translateY(0);
+  }
+}
+
+// header-menu-btn
+.header__menu-btn {
+  display: flex;
+  position: relative;
+  z-index: 100;
+
+  @include mixins.breakpoint(lg) {
+    display: none;
+  }
+}
+
+// nav
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-6;
+  > ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    @include mixins.breakpoint(lg) {
+      flex-direction: row;
+      gap: 1rem;
+    }
+  }
+}
+
+.nav__link {
+  text-decoration: none;
+  @include mixins.titleBaseText();
+  color: vars.$white;
+
+  &:hover {
+    color: vars.$primary-500;
+  }
+
+  &.btn:hover {
+    color: vars.$black;
+  }
+}
+
+// nav__contact
+.nav__contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: vars.$space-3;
+
+  @include mixins.breakpoint(lg) {
+    display: none;
+  }
+}

@@ -1,0 +1,125 @@
+@use "sass:map";
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// Flex container
+.flex {
+  display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+// Flex direction
+.flex-row {
+  flex-direction: row;
+}
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
+.flex-column {
+  flex-direction: column;
+}
+.flex-column-reverse {
+  flex-direction: column-reverse;
+}
+
+// Flex wrap
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+.flex-wrap-reverse {
+  flex-wrap: wrap-reverse;
+}
+
+// Flex
+.flex-1 {
+  flex: 1;
+}
+.flex-auto {
+  flex: auto;
+}
+.flex-grow-0 {
+  flex-grow: 0;
+}
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+// Order
+.flex-order-1 {
+  order: 1;
+}
+.flex-order-2 {
+  order: 2;
+}
+.flex-order-none {
+  order: inherit;
+}
+
+// Generate breakpoint flex properties
+@each $breakpoint in map.keys(vars.$breakpoints) {
+  @include mixins.breakpoint($breakpoint) {
+    .#{$breakpoint}\:flex {
+      display: flex;
+    }
+
+    .#{$breakpoint}\:inline-flex {
+      display: inline-flex;
+    }
+
+    // Flex direction
+    .#{$breakpoint}\:flex-row {
+      flex-direction: row;
+    }
+    .#{$breakpoint}\:flex-row-reverse {
+      flex-direction: row-reverse;
+    }
+    .#{$breakpoint}\:flex-column {
+      flex-direction: column;
+    }
+    .#{$breakpoint}\:flex-column-reverse {
+      flex-direction: column-reverse;
+    }
+
+    // Flex wrap
+    .#{$breakpoint}\:flex-wrap {
+      flex-wrap: wrap;
+    }
+    .#{$breakpoint}\:flex-nowrap {
+      flex-wrap: nowrap;
+    }
+    .#{$breakpoint}\:flex-wrap-reverse {
+      flex-wrap: wrap-reverse;
+    }
+
+    // Flex
+    .#{$breakpoint}\:flex-1 {
+      flex: 1;
+    }
+    .#{$breakpoint}\:flex-auto {
+      flex: auto;
+    }
+    .#{$breakpoint}\:flex-grow-0 {
+      flex-grow: 0;
+    }
+    .#{$breakpoint}\:flex-shrink-0 {
+      flex-shrink: 0;
+    }
+
+    // Order
+    .#{$breakpoint}\:flex-order-1 {
+      order: 1;
+    }
+    .#{$breakpoint}\:flex-order-2 {
+      order: 2;
+    }
+    .#{$breakpoint}\:flex-order-none {
+      order: inherit;
+    }
+  }
+}

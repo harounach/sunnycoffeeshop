@@ -1,0 +1,31 @@
+@use "../abstracts/variables" as *;
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: $font-sans;
+  font-size: 16px;
+}
+
+body {
+  background-color: $bg;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: $font-size-1;
+}
+
+button {
+  font-family: $font-serif;
+}

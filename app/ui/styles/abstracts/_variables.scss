@@ -1,0 +1,506 @@
+@use "sass:list";
+
+//----- < Base: Settings > ------------------------
+$prefix: lt-;
+$theme-mode: data; // data or media-query
+$grid-columns: 12;
+
+//----- < Colors > ------------------------
+
+// primary
+$primary-50: #fcf5e8;
+$primary-100: #faead1;
+$primary-200: #f4d5a4;
+$primary-300: #efc176;
+$primary-400: #eaac48;
+$primary-500: #df931a;
+$primary-600: #b77915;
+$primary-700: #895b10;
+$primary-800: #5b3c0b;
+$primary-900: #2e1e05;
+$primary-950: #170f03;
+
+// primary map
+$primary: (
+  "50": $primary-50,
+  "100": $primary-100,
+  "200": $primary-200,
+  "300": $primary-300,
+  "400": $primary-400,
+  "500": $primary-500,
+  "600": $primary-600,
+  "700": $primary-700,
+  "800": $primary-800,
+  "900": $primary-900,
+  "950": $primary-950,
+);
+
+// secondary
+$secondary-50: #ffe9e5;
+$secondary-100: #ffd3cc;
+$secondary-200: #ffa799;
+$secondary-300: #ff7a66;
+$secondary-400: #ff4e33;
+$secondary-500: #ff4428;
+$secondary-600: #cc1b00;
+$secondary-700: #991400;
+$secondary-800: #660e00;
+$secondary-900: #330700;
+$secondary-950: #1a0300;
+
+// secondary map
+$secondary: (
+  "50": $secondary-50,
+  "100": $secondary-100,
+  "200": $secondary-200,
+  "300": $secondary-300,
+  "400": $secondary-400,
+  "500": $secondary-500,
+  "600": $secondary-600,
+  "700": $secondary-700,
+  "800": $secondary-800,
+  "900": $secondary-900,
+  "950": $secondary-950,
+);
+
+// neutral
+$neutral-50: #f2f2f3;
+$neurtral-100: #e5e5e6;
+$neurtral-200: #cacace;
+$neurtral-300: #b0b0b5;
+$neurtral-400: #95959d;
+$neurtral-500: #71717a;
+$neurtral-600: #62626a;
+$neurtral-700: #4a4a4f;
+$neurtral-800: #313135;
+$neurtral-900: #19191a;
+$neurtral-950: #0c0c0d;
+$white: #ffffff;
+$black: #000000;
+$bg: #16120a;
+
+// neutral map
+$neutral: (
+  "50": $neutral-50,
+  "100": $neurtral-100,
+  "200": $neurtral-200,
+  "300": $neurtral-300,
+  "400": $neurtral-400,
+  "500": $neurtral-500,
+  "600": $neurtral-600,
+  "700": $neurtral-700,
+  "800": $neurtral-800,
+  "900": $neurtral-900,
+  "950": $neurtral-950,
+  "white": $white,
+  "black": $black,
+);
+
+// green
+$green-50: #e9fbf0;
+$green-100: #d3f8e1;
+$green-200: #a8f0c2;
+$green-300: #7ce9a4;
+$green-400: #51e186;
+$green-500: #22c55e;
+$green-600: #1eae53;
+$green-700: #16833e;
+$green-800: #0f5729;
+$green-900: #072c15;
+$green-950: #04160a;
+
+// green map
+$green: (
+  "50": $green-50,
+  "100": $green-100,
+  "200": $green-200,
+  "300": $green-300,
+  "400": $green-400,
+  "500": $green-500,
+  "600": $green-600,
+  "700": $green-700,
+  "800": $green-800,
+  "900": $green-900,
+  "950": $green-950,
+);
+
+// orange
+$orange-50: #fef5e7;
+$orange-100: #fdecce;
+$orange-200: #fbd99d;
+$orange-300: #f9c56c;
+$orange-400: #f7b23b;
+$orange-500: #f59f0b;
+$orange-600: #c47f08;
+$orange-700: #935f06;
+$orange-800: #624004;
+$orange-900: #312002;
+$orange-950: #181001;
+
+// orange map
+$orange: (
+  "50": $orange-50,
+  "100": $orange-100,
+  "200": $orange-200,
+  "300": $orange-300,
+  "400": $orange-400,
+  "500": $orange-500,
+  "600": $orange-600,
+  "700": $orange-700,
+  "800": $orange-800,
+  "900": $orange-900,
+  "950": $orange-950,
+);
+
+// red
+$red-50: #fee7eb;
+$red-100: #fccfd6;
+$red-200: #f99fae;
+$red-300: #f76e85;
+$red-400: #f43e5c;
+$red-500: #f43f5d;
+$red-600: #c10b29;
+$red-700: #91081f;
+$red-800: #600615;
+$red-900: #30030a;
+$red-950: #180105;
+
+// red map
+$red: (
+  "50": $red-50,
+  "100": $red-100,
+  "200": $red-200,
+  "300": $red-300,
+  "400": $red-400,
+  "500": $red-500,
+  "600": $red-600,
+  "700": $red-700,
+  "800": $red-800,
+  "900": $red-900,
+  "950": $red-950,
+);
+
+// blue
+$blue-50: #e7f0fe;
+$blue-100: #cee0fd;
+$blue-200: #9dc1fb;
+$blue-300: #6da2f8;
+$blue-400: #3c83f6;
+$blue-500: #3b83f6;
+$blue-600: #0950c3;
+$blue-700: #073c92;
+$blue-800: #042862;
+$blue-900: #021431;
+$blue-950: #010a18;
+
+// blue map
+$blue: (
+  "50": $blue-50,
+  "100": $blue-100,
+  "200": $blue-200,
+  "300": $blue-300,
+  "400": $blue-400,
+  "500": $blue-500,
+  "600": $blue-600,
+  "700": $blue-700,
+  "800": $blue-800,
+  "900": $blue-900,
+  "950": $blue-950,
+);
+
+// text
+$high-text-color: rgba(0, 0, 0, 87%);
+$medium-text-color: rgba(0, 0, 0, 70%);
+$muted-text-color: rgba(0, 0, 0, 60%);
+
+//----- < Spacing > ------------------------
+
+// Spacing
+$space-0: 0; // 0
+$space-1: 0.25rem; // 4px
+$space-2: 0.5rem; // 8px
+$space-3: 1rem; // 16px
+$space-4: 1.25rem; // 20px
+$space-5: 1.5rem; // 24px
+$space-6: 2rem; // 32px
+$space-7: 2.25rem; // 36px
+$space-8: 2.5rem; // 40px
+$space-9: 3rem; // 48px
+$space-10: 3.5rem; // 56px
+$space-11: 4.5rem; // 72px
+$space-12: 5.5rem; // 88px
+$space-13: 6rem; // 96px
+$space-14: 8rem; // 128px
+
+$spaces: (
+  // 0
+  "0": $space-0,
+  // 4px
+  "1": $space-1,
+  // 8px
+  "2": $space-2,
+  // 16px
+  "3": $space-3,
+  // 20px
+  "4": $space-4,
+  // 24px
+  "5": $space-5,
+  // 32px
+  "6": $space-6,
+  // 36px
+  "7": $space-7,
+  // 40px
+  "8": $space-8,
+  // 48px
+  "9": $space-9,
+  // 56px
+  "10": $space-10,
+  // 72px
+  "11": $space-11,
+  // 88px
+  "12": $space-12,
+  // 96px
+  "13": $space-13,
+  // 128px
+  "14": $space-14
+);
+
+$sizes: (
+  // width
+  "w":
+    (
+      25: 25%,
+      50: 50%,
+      75: 75%,
+      100: 100%,
+      auto: auto,
+    ),
+  // height
+  "h":
+    (
+      25: 25%,
+      50: 50%,
+      75: 75%,
+      100: 100%,
+      auto: auto,
+    ),
+  // max-width
+  "mw":
+    (
+      100: 100%,
+    ),
+  // max-height
+  "mh":
+    (
+      100: 100%,
+    )
+);
+
+// Border width
+$border-sm: 1px;
+$border: 2px;
+$border-lg: 4px;
+$border-xl: 6px;
+
+// Border radius
+$radius-xs: 0.125rem; //-----| 2px
+$radius-sm: 0.25rem; //------| 4px
+$radius: 0.375rem; //--------| 6px
+$radius-lg: 0.5rem; //-------| 8px
+$radius-xl: 1rem; //---------| 16px
+$radius-2xl: 2rem; //--------| 32px
+$radius-pill: 50rem; //------| 800px
+
+// Aspect ration
+$aspect-square: 1;
+$aspect-landscape: list.slash(4, 3);
+$aspect-portrait: list.slash(3, 4);
+$aspect-widescreen: list.slash(16, 9);
+$aspect-ultrawide: list.slash(18, 5);
+$aspect-golden: list.slash(1.618, 1);
+
+$aspect-ratios: (
+  "square": $aspect-square,
+  "landscape": $aspect-landscape,
+  "portrait": $aspect-portrait,
+  "widescreen": $aspect-widescreen,
+  "ultrawide": $aspect-ultrawide,
+  "golden": $aspect-golden,
+);
+
+// breakpoints
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+);
+
+//----- < Typography > ------------------------
+
+// font-family
+$font-sans: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,
+  Cantarell, Noto Sans, sans-serif;
+$font-serif: "Philosopher", ui-serif, serif;
+$font-mono: Dank Mono, Operator Mono, Inconsolata, Fira Mono, ui-monospace,
+  SF Mono, Monaco, Droid Sans Mono, Source Code Pro, monospace;
+
+// font-size
+$font-size-00: 0.75rem; // 12px
+$font-size-0: 0.875rem; // 14px
+$font-size-1: 1rem; // 16px
+$font-size-2: 1.125rem; // 18px
+$font-size-3: 1.25rem; // 20px
+$font-size-4: 1.5rem; // 24px
+$font-size-5: 2rem; // 32px
+$font-size-6: 2.5rem; // 40px
+$font-size-7: 3rem; // 48px
+$font-size-8: 3.5rem; // 56px
+$font-size-9: 4.5rem; // 72px
+$font-size-10: 5.5rem; // 88px
+
+// font-weight
+$font-weight-1: 100;
+$font-weight-2: 200;
+$font-weight-3: 300;
+$font-weight-4: 400;
+$font-weight-5: 500;
+$font-weight-6: 600;
+$font-weight-7: 700;
+$font-weight-8: 800;
+$font-weight-9: 900;
+
+// line-height
+$font-lineheight-00: 0.95;
+$font-lineheight-0: 1.1;
+$font-lineheight-1: 1.25;
+$font-lineheight-2: 1.375;
+$font-lineheight-3: 1.5;
+$font-lineheight-4: 1.75;
+$font-lineheight-5: 2;
+
+// letter-spacing
+$font-letterspacing-0: -0.05em;
+$font-letterspacing-1: 0.025em;
+$font-letterspacing-2: 0.05em;
+$font-letterspacing-3: 0.075em;
+$font-letterspacing-4: 0.15em;
+$font-letterspacing-5: 0.5em;
+$font-letterspacing-6: 0.75em;
+$font-letterspacing-7: 1em;
+
+// display
+$display: (
+  "family": "Philosopher",
+  // 88px
+  "size": $font-size-10,
+  "weight": $font-weight-7,
+);
+
+// title-large
+$title-large: (
+  "family": "Philosopher",
+  // 48px
+  "size": $font-size-7,
+  "weight": $font-weight-7,
+);
+
+// title-medium
+$title-medium: (
+  "family": "Philosopher",
+  // 24px
+  "size": $font-size-4,
+  "weight": $font-weight-7,
+);
+
+// title-base
+$title-base: (
+  "family": "Philosopher",
+  // 18px
+  "size": $font-size-2,
+  "weight": $font-weight-7,
+);
+
+// button
+$button: (
+  "family": "Philosopher",
+  // 18px
+  "size": $font-size-2,
+  "weight": $font-weight-4,
+);
+
+// body-large
+$body-large: (
+  "family": "Poppins",
+  // 18px
+  "size": $font-size-2,
+  "weight": $font-weight-4,
+);
+
+// body-base
+$body-base: (
+  "family": "Poppins",
+  // 16px
+  "size": $font-size-1,
+  "weight": $font-weight-4,
+);
+
+//----- < Shadows > ------------------------
+$shadow-color: 220 3% 15%;
+$shadow-strength: 1%;
+$shadow-1: 0 1px 2px -1px hsl(var($shadow-color) /
+      calc(var($shadow-strength) + 9%));
+$shadow-2: 0 3px 5px -2px hsl(var($shadow-color) /
+        calc(var($shadow-strength) + 3%)),
+  0 7px 14px -5px hsl(var($shadow-color) / calc(var($shadow-strength) + 5%));
+$shadow-3: 0 -1px 3px 0 hsl(var($shadow-color) /
+        calc(var($shadow-strength) + 2%)),
+  0 1px 2px -5px hsl(var($shadow-color) / calc(var($shadow-strength) + 2%)),
+  0 2px 5px -5px hsl(var($shadow-color) / calc(var($shadow-strength) + 4%)),
+  0 4px 12px -5px hsl(var($shadow-color) / calc(var($shadow-strength) + 5%)),
+  0 12px 15px -5px hsl(var($shadow-color) / calc(var($shadow-strength) + 7%));
+$shadow-4: 0 -2px 5px 0 hsl(var($shadow-color) /
+        calc(var($shadow-strength) + 2%)),
+  0 1px 1px -2px hsl(var($shadow-color) / calc(var($shadow-strength) + 3%)),
+  0 2px 2px -2px hsl(var($shadow-color) / calc(var($shadow-strength) + 3%)),
+  0 5px 5px -2px hsl(var($shadow-color) / calc(var($shadow-strength) + 4%)),
+  0 9px 9px -2px hsl(var($shadow-color) / calc(var($shadow-strength) + 5%)),
+  0 16px 16px -2px hsl(var($shadow-color) / calc(var($shadow-strength) + 6%));
+$shadow-5: 0 -1px 2px 0 hsl(var($shadow-color) /
+        calc(var($shadow-strength) + 2%)),
+  0 2px 1px -2px hsl(var($shadow-color) / calc(var($shadow-strength) + 3%)),
+  0 5px 5px -2px hsl(var($shadow-color) / calc(var($shadow-strength) + 3%)),
+  0 10px 10px -2px hsl(var($shadow-color) / calc(var($shadow-strength) + 4%)),
+  0 20px 20px -2px hsl(var($shadow-color) / calc(var($shadow-strength) + 5%)),
+  0 40px 40px -2px hsl(var($shadow-color) / calc(var($shadow-strength) + 7%));
+$shadow-6: 0 -1px 2px 0 hsl(var($shadow-color) /
+        calc(var($shadow-strength) + 2%)),
+  0 3px 2px -2px hsl(var($shadow-color) / calc(var($shadow-strength) + 3%)),
+  0 7px 5px -2px hsl(var($shadow-color) / calc(var($shadow-strength) + 3%)),
+  0 12px 10px -2px hsl(var($shadow-color) / calc(var($shadow-strength) + 4%)),
+  0 22px 18px -2px hsl(var($shadow-color) / calc(var($shadow-strength) + 5%)),
+  0 41px 33px -2px hsl(var($shadow-color) / calc(var($shadow-strength) + 6%)),
+  0 100px 80px -2px hsl(var($shadow-color) / calc(var($shadow-strength) + 7%));
+$inner-shadow-0: inset 0 0 0 1px
+  hsl(var($shadow-color) / calc(var($shadow-strength) + 9%));
+$inner-shadow-1: inset 0 1px 2px 0
+  hsl(var($shadow-color) / calc(var($shadow-strength) + 9%));
+$inner-shadow-2: inset 0 1px 4px 0
+  hsl(var($shadow-color) / calc(var($shadow-strength) + 9%));
+$inner-shadow-3: inset 0 2px 8px 0
+  hsl(var($shadow-color) / calc(var($shadow-strength) + 9%));
+$inner-shadow-4: inset 0 2px 14px 0
+  hsl(var($shadow-color) / calc(var($shadow-strength) + 9%));
+
+//----- < Positions > ------------------------
+$z-indexes: (
+  "none": 0,
+  "appbar": 12,
+  "carousel": 10,
+);
+
+$position-values: (
+  0: 0,
+  50: 50%,
+  100: 100%,
+);

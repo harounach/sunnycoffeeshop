@@ -1,0 +1,56 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// btn
+.btn {
+  display: inline-flex;
+  padding: vars.$space-2 vars.$space-3;
+  @include mixins.buttonText();
+  text-decoration: none;
+  color: vars.$white;
+  background-color: transparent;
+  border: vars.$border solid vars.$primary-500;
+  border-radius: vars.$radius-xs;
+  cursor: pointer;
+  // hover
+  &:hover {
+    color: vars.$black;
+    background-color: vars.$primary-500;
+  }
+}
+
+// menu-btn
+.menu-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
+  &--open &__bar:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
+  }
+
+  &--open &__bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  &--open &__bar:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
+  }
+}
+
+// menu-btn__bar
+.menu-btn__bar {
+  height: 4px;
+  width: 100%;
+  background-color: vars.$white;
+  border-radius: vars.$border-sm;
+  transition:
+    transform 0.3s,
+    opacity 0.3s;
+}

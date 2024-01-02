@@ -1,0 +1,35 @@
+@use "../abstracts/variables" as vars;
+
+// text-area
+.text-area {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-2;
+}
+
+// text-area__label
+.text-area__label.label {
+}
+
+// text-area__area
+.text-area__area {
+  width: 100%;
+  padding: 1rem 1rem 0;
+  background-color: transparent;
+  color: vars.$primary-100;
+  border: vars.$border-sm solid vars.$primary-100;
+  border-radius: vars.$radius-xs;
+  outline: none;
+
+  &::placeholder {
+    color: rgba(vars.$primary-50, 0.5);
+  }
+
+  &:hover {
+    border-color: vars.$primary-200;
+  }
+
+  &:focus {
+    border-color: vars.$primary-500;
+  }
+}

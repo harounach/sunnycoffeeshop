@@ -1,0 +1,82 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// home-page
+.home-page {
+}
+
+// home-page__hero
+.home-page__hero {
+  background-image: url("../images/image1.jpg");
+}
+
+// home-page__about
+.home-page__about {
+  @include mixins.breakpoint(xl) {
+    background-image: url("../images/Meat.svg"), url("../images/Banana.svg");
+    background-repeat: no-repeat;
+    background-size: 218px 200px;
+    background-position:
+      2% 18%,
+      96% 18%;
+    background-origin: border-box;
+  }
+}
+
+// home-page__menu
+.home-page__menu {
+  @include mixins.breakpoint(xl) {
+    background-image: url("../images/Bread.svg"), url("../images/Wind-Mini.svg"),
+      url("../images/Wind.svg"), url("../images/Hot-Dish.svg");
+    background-repeat: no-repeat;
+    background-size: 218px 200px;
+    background-position:
+      2% 6%,
+      96% 6%,
+      2% 96%,
+      96% 96%;
+    background-origin: border-box;
+  }
+}
+
+// home-page__testimonials
+.home-page__testimonials {
+  background-image: url("../images/image13.jpg");
+}
+
+// home-page__reservation
+.home-page__reservation {
+  @include mixins.breakpoint(xl) {
+    background-image: url("../images/Wave-Left.svg");
+    background-repeat: no-repeat;
+    background-size: 218px 200px;
+    background-position: 2% 6%;
+    background-origin: border-box;
+  }
+}
+
+// home-page__event
+.home-page__event {
+  @include mixins.breakpoint(xl) {
+    background-image: url("../images/Wave-Right.svg");
+    background-repeat: no-repeat;
+    background-size: 218px 200px;
+    background-position: 99% 6%;
+    background-origin: border-box;
+  }
+}
+
+// home-page__gallery
+.home-page__gallery {
+}
+
+// home-page__contact
+.home-page__contact {
+  background-image: url("../images/image13.jpg");
+}
+
+// home-page__partners
+.home-page__partners {
+  border-top: vars.$border-sm solid vars.$primary-100;
+  border-bottom: vars.$border-sm solid vars.$primary-100;
+}

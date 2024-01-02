@@ -1,0 +1,428 @@
+@use "sass:map";
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// justify-content
+.justify-content-start {
+  justify-content: start;
+}
+
+.justify-content-end {
+  justify-content: end;
+}
+
+.justify-content-flex-start {
+  justify-content: flex-start;
+}
+
+.justify-content-flex-end {
+  justify-content: flex-end;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-normal {
+  justify-content: normal;
+}
+
+.justify-content-stretch {
+  justify-content: stretch;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.justify-content-around {
+  justify-content: space-around;
+}
+
+.justify-content-evenly {
+  justify-content: space-evenly;
+}
+
+// justify-items
+.justify-items-start {
+  justify-items: start;
+}
+
+.justify-items-end {
+  justify-items: end;
+}
+
+.justify-items-center {
+  justify-items: center;
+}
+
+.justify-items-stretch {
+  justify-items: stretch;
+}
+
+.justify-items-normal {
+  justify-items: normal;
+}
+
+// align-items
+.align-items-start {
+  align-items: start;
+}
+
+.align-items-end {
+  align-items: end;
+}
+
+.align-items-flex-start {
+  align-items: flex-start;
+}
+
+.align-items-flex-end {
+  align-items: flex-end;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.align-items-baseline {
+  align-items: baseline;
+}
+
+.align-items-stretch {
+  align-items: stretch;
+}
+
+.align-items-normal {
+  align-items: normal;
+}
+
+// align-content
+.align-content-start {
+  align-content: start;
+}
+
+.align-content-end {
+  align-content: end;
+}
+
+.align-content-flex-start {
+  align-content: flex-start;
+}
+
+.align-content-flex-end {
+  align-content: flex-end;
+}
+
+.align-content-normal {
+  align-content: normal;
+}
+
+.align-content-baseline {
+  align-content: baseline;
+}
+
+.align-content-stretch {
+  align-content: stretch;
+}
+
+.align-content-between {
+  align-content: space-between;
+}
+
+.align-content-around {
+  align-content: space-around;
+}
+
+.align-content-evenly {
+  align-content: space-evenly;
+}
+
+// justify-self
+.justify-self-auto {
+  justify-self: auto;
+}
+
+.justify-self-normal {
+  justify-self: normal;
+}
+
+.justify-self-stretch {
+  justify-self: stretch;
+}
+
+.justify-self-center {
+  justify-self: center;
+}
+
+.justify-self-start {
+  justify-self: start;
+}
+
+.justify-self-end {
+  justify-self: end;
+}
+
+.justify-self-flex-start {
+  justify-self: flex-start;
+}
+
+.justify-self-flex-end {
+  justify-self: flex-end;
+}
+
+.justify-self-baseline {
+  justify-self: baseline;
+}
+
+// align-self
+.align-self-auto {
+  align-self: auto;
+}
+
+.align-self-normal {
+  align-self: normal;
+}
+
+.align-self-start {
+  align-self: start;
+}
+
+.align-self-end {
+  align-self: end;
+}
+
+.align-self-flex-start {
+  align-self: flex-start;
+}
+
+.align-self-flex-end {
+  align-self: flex-end;
+}
+
+.align-self-center {
+  align-self: center;
+}
+
+.align-self-baseline {
+  align-self: baseline;
+}
+
+.align-self-stretch {
+  align-self: stretch;
+}
+
+// Generate breakpoint alignment properties
+@each $breakpoint in map.keys(vars.$breakpoints) {
+  @include mixins.breakpoint($breakpoint) {
+    // justify-content
+    .#{$breakpoint}\:justify-content-start {
+      justify-content: start;
+    }
+
+    .#{$breakpoint}\:justify-content-end {
+      justify-content: end;
+    }
+
+    .#{$breakpoint}\:justify-content-flex-start {
+      justify-content: flex-start;
+    }
+
+    .#{$breakpoint}\:justify-content-flex-end {
+      justify-content: flex-end;
+    }
+
+    .#{$breakpoint}\:justify-content-center {
+      justify-content: center;
+    }
+
+    .#{$breakpoint}\:justify-content-normal {
+      justify-content: normal;
+    }
+
+    .#{$breakpoint}\:justify-content-stretch {
+      justify-content: stretch;
+    }
+
+    .#{$breakpoint}\:justify-content-between {
+      justify-content: space-between;
+    }
+
+    .#{$breakpoint}\:justify-content-around {
+      justify-content: space-around;
+    }
+
+    .#{$breakpoint}\:justify-content-evenly {
+      justify-content: space-evenly;
+    }
+
+    // justify-items
+    .#{$breakpoint}\:justify-items-start {
+      justify-items: start;
+    }
+
+    .#{$breakpoint}\:justify-items-end {
+      justify-items: end;
+    }
+
+    .#{$breakpoint}\:justify-items-center {
+      justify-items: center;
+    }
+
+    .#{$breakpoint}\:justify-items-stretch {
+      justify-items: stretch;
+    }
+
+    .#{$breakpoint}\:justify-items-normal {
+      justify-items: normal;
+    }
+
+    // align-items
+    .#{$breakpoint}\:align-items-start {
+      align-items: start;
+    }
+
+    .#{$breakpoint}\:align-items-end {
+      align-items: end;
+    }
+
+    .#{$breakpoint}\:align-items-flex-start {
+      align-items: flex-start;
+    }
+
+    .#{$breakpoint}\:align-items-flex-end {
+      align-items: flex-end;
+    }
+
+    .#{$breakpoint}\:align-items-center {
+      align-items: center;
+    }
+
+    .#{$breakpoint}\:align-items-baseline {
+      align-items: baseline;
+    }
+
+    .#{$breakpoint}\:align-items-stretch {
+      align-items: stretch;
+    }
+
+    .#{$breakpoint}\:align-items-normal {
+      align-items: normal;
+    }
+
+    // align-content
+    .#{$breakpoint}\:align-content-start {
+      align-content: start;
+    }
+
+    .#{$breakpoint}\:align-content-end {
+      align-content: end;
+    }
+
+    .#{$breakpoint}\:align-content-flex-start {
+      align-content: flex-start;
+    }
+
+    .#{$breakpoint}\:align-content-flex-end {
+      align-content: flex-end;
+    }
+
+    .#{$breakpoint}\:align-content-normal {
+      align-content: normal;
+    }
+
+    .#{$breakpoint}\:align-content-baseline {
+      align-content: baseline;
+    }
+
+    .#{$breakpoint}\:align-content-stretch {
+      align-content: stretch;
+    }
+
+    .#{$breakpoint}\:align-content-between {
+      align-content: space-between;
+    }
+
+    .#{$breakpoint}\:align-content-around {
+      align-content: space-around;
+    }
+
+    .#{$breakpoint}\:align-content-evenly {
+      align-content: space-evenly;
+    }
+
+    // justify-self
+    .#{$breakpoint}\:justify-self-auto {
+      justify-self: auto;
+    }
+
+    .#{$breakpoint}\:justify-self-normal {
+      justify-self: normal;
+    }
+
+    .#{$breakpoint}\:justify-self-stretch {
+      justify-self: stretch;
+    }
+
+    .#{$breakpoint}\:justify-self-center {
+      justify-self: center;
+    }
+
+    .#{$breakpoint}\:justify-self-start {
+      justify-self: start;
+    }
+
+    .#{$breakpoint}\:justify-self-end {
+      justify-s#{$breakpoint}\:elf: end;
+    }
+
+    .#{$breakpoint}\:justify-self-flex-start {
+      justify-self: flex-start;
+    }
+
+    .#{$breakpoint}\:justify-self-flex-end {
+      justify-self: flex-end;
+    }
+
+    .#{$breakpoint}\:justify-self-baseline {
+      justify-self: baseline;
+    }
+
+    // align-self
+    .#{$breakpoint}\:align-self-auto {
+      align-self: auto;
+    }
+
+    .#{$breakpoint}\:align-self-normal {
+      align-self: normal;
+    }
+
+    .#{$breakpoint}\:align-self-start {
+      align-self: start;
+    }
+
+    .#{$breakpoint}\:align-self-end {
+      align-self: end;
+    }
+
+    .#{$breakpoint}\:align-self-flex-start {
+      align-self: flex-start;
+    }
+
+    .#{$breakpoint}\:align-self-flex-end {
+      align-self: flex-end;
+    }
+
+    .#{$breakpoint}\:align-self-center {
+      align-self: center;
+    }
+
+    .#{$breakpoint}\:align-self-baseline {
+      align-self: baseline;
+    }
+
+    .#{$breakpoint}\:align-self-stretch {
+      align-self: stretch;
+    }
+  }
+}

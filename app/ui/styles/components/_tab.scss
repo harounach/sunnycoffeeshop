@@ -1,0 +1,50 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// tab
+.tab {
+}
+
+// tab__group
+.tab__group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: vars.$space-4;
+}
+
+// tab__btn
+.tab__btn {
+  display: inline-flex;
+  padding: vars.$space-2 vars.$space-3;
+  @include mixins.buttonText();
+  text-decoration: none;
+  color: vars.$white;
+  background-color: transparent;
+  border: vars.$border-sm solid transparent;
+  border-bottom-color: vars.$primary-50;
+  border-radius: vars.$radius-xs;
+  cursor: pointer;
+
+  // hover
+  &:hover {
+    color: vars.$black;
+    background-color: vars.$primary-500;
+    border-color: vars.$primary-500;
+  }
+
+  // tab__btn--active
+  &--active {
+    border-color: vars.$primary-500;
+  }
+}
+
+// tab__content
+.tab__content {
+  display: none;
+
+  // tab__content--active
+  &--active {
+    display: block;
+  }
+}

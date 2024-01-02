@@ -1,0 +1,24 @@
+@use "../abstracts/variables" as vars;
+
+// footer
+.footer {
+}
+
+// footer__logo
+
+// footer__location
+
+// footer__tel
+
+// footer__links
+.footer__links a {
+  color: vars.$white;
+}
+
+// footer__notice
+.footer__notice {
+  background-color: vars.$white;
+  p {
+    color: vars.$neurtral-500;
+  }
+}

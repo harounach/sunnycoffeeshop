@@ -1,0 +1,37 @@
+@use "sass:map";
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+@use "./theme-values" as *;
+
+// Default light theme
+:root,
+[data-theme="light"] {
+  @include applyLightTheme() {
+    @each $theme-color, $value in $light-theme-colors {
+      --#{$prefix}#{$theme-color}: #{$value};
+    }
+  }
+}
+
+// Dark theme
+@if $theme-mode == "media-query" {
+  @media (prefers-color-scheme: dark) {
+    // Styles for a dark theme.
+    :root,
+    [data-theme="dark"] {
+      @include applyDarkTheme() {
+        @each $theme-color, $value in $dark-theme-colors {
+          --#{$prefix}#{$theme-color}: #{$value};
+        }
+      }
+    }
+  }
+} @else {
+  [data-theme="dark"] {
+    @include applyDarkTheme() {
+      @each $theme-color, $value in $dark-theme-colors {
+        --#{$prefix}#{$theme-color}: #{$value};
+      }
+    }
+  }
+}

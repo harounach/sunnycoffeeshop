@@ -1,0 +1,32 @@
+// hero
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60vh;
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  // hero--home
+  &--home {
+    height: 100vh;
+  }
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.67);
+  }
+}
+
+// hero__inner
+.hero__inner {
+  position: relative;
+  z-index: 1;
+}
