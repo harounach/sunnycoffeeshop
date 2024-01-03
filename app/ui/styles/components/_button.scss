@@ -1,21 +1,54 @@
 @use "../abstracts/variables" as vars;
 @use "../abstracts/mixins" as mixins;
 
+// Our button will have the following properties
+// shape: solid | outline | text
+// color:  primary | secondary | danger
+
 // btn
 .btn {
   display: inline-flex;
   padding: vars.$space-2 vars.$space-3;
   @include mixins.buttonText();
   text-decoration: none;
-  color: vars.$white;
-  background-color: transparent;
+  color: vars.$black;
+  background-color: vars.$primary-500;
   border: vars.$border solid vars.$primary-500;
   border-radius: vars.$radius-xs;
   cursor: pointer;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s,
+    color 0.3s;
+
   // hover
   &:hover {
+    background-color: vars.$primary-400;
+    border-color: vars.$primary-400;
+  }
+
+  &--danger {
+    color: vars.$white;
+    background-color: vars.$red-500;
+    border-color: vars.$red-500;
+
+    // hover
+    &:hover {
+      background-color: vars.$red-300;
+      border-color: vars.$red-300;
+    }
+  }
+
+  &--neutral {
     color: vars.$black;
-    background-color: vars.$primary-500;
+    background-color: vars.$neutral-200;
+    border-color: vars.$neutral-200;
+
+    // hover
+    &:hover {
+      background-color: vars.$neutral-100;
+      border-color: vars.$neutral-100;
+    }
   }
 }
 

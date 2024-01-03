@@ -1,7 +1,7 @@
 @use "sass:list";
 
 //----- < Base: Settings > ------------------------
-$prefix: lt-;
+$prefix: scs-;
 $theme-mode: data; // data or media-query
 $grid-columns: 12;
 
@@ -65,16 +65,16 @@ $secondary: (
 
 // neutral
 $neutral-50: #f2f2f3;
-$neurtral-100: #e5e5e6;
-$neurtral-200: #cacace;
-$neurtral-300: #b0b0b5;
-$neurtral-400: #95959d;
-$neurtral-500: #71717a;
-$neurtral-600: #62626a;
-$neurtral-700: #4a4a4f;
-$neurtral-800: #313135;
-$neurtral-900: #19191a;
-$neurtral-950: #0c0c0d;
+$neutral-100: #e5e5e6;
+$neutral-200: #cacace;
+$neutral-300: #b0b0b5;
+$neutral-400: #95959d;
+$neutral-500: #71717a;
+$neutral-600: #62626a;
+$neutral-700: #4a4a4f;
+$neutral-800: #313135;
+$neutral-900: #19191a;
+$neutral-950: #0c0c0d;
 $white: #ffffff;
 $black: #000000;
 $bg: $white;
@@ -82,16 +82,16 @@ $bg: $white;
 // neutral map
 $neutral: (
   "50": $neutral-50,
-  "100": $neurtral-100,
-  "200": $neurtral-200,
-  "300": $neurtral-300,
-  "400": $neurtral-400,
-  "500": $neurtral-500,
-  "600": $neurtral-600,
-  "700": $neurtral-700,
-  "800": $neurtral-800,
-  "900": $neurtral-900,
-  "950": $neurtral-950,
+  "100": $neutral-100,
+  "200": $neutral-200,
+  "300": $neutral-300,
+  "400": $neutral-400,
+  "500": $neutral-500,
+  "600": $neutral-600,
+  "700": $neutral-700,
+  "800": $neutral-800,
+  "900": $neutral-900,
+  "950": $neutral-950,
   "white": $white,
   "black": $black,
 );
