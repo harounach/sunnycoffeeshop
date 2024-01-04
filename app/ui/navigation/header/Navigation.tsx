@@ -1,9 +1,16 @@
-import Button from "@/app/ui/actionables/buttons/Button"
-import CartButton from "@/app/ui/actionables/buttons/CartButton"
+import classNames from "classnames";
+import Button from "@/app/ui/actionables/buttons/Button";
+import CartButton from "@/app/ui/actionables/buttons/CartButton";
 
-export default function Navigation() {
+interface NavigationProps {
+  customClasses?: string;
+}
+
+export default function Navigation({ customClasses }: NavigationProps) {
+  const classes = classNames("nav", customClasses);
+
   return (
-    <nav className="nav">
+    <nav className={classes}>
       <ul>
         <li>
           <a className="nav__link" href="/">

@@ -6,7 +6,7 @@ interface ButtonProps {
   variant?: "danger" | "neutral";
   url?: string;
   type?: "button" | "submit" | "reset";
-  customeClasses?: string;
+  customClasses?: string;
 }
 
 export default function Button({
@@ -14,13 +14,13 @@ export default function Button({
   variant,
   url,
   type,
-  customeClasses,
+  customClasses,
 }: ButtonProps) {
   const classes = classNames(
     "btn",
     { "btn--danger": variant === "danger" },
     { "btn--neutral": variant === "neutral" },
-    customeClasses
+    customClasses,
   );
   // If there is a "url" prop we want to the button to be a link
   if (url) {

@@ -6,7 +6,7 @@ interface TextInputProps {
   id: string;
   placeholder: string;
   hideLabel?: boolean;
-  customeClasses?: string;
+  customClasses?: string;
 }
 
 export default function TextInput({
@@ -15,9 +15,9 @@ export default function TextInput({
   id,
   placeholder,
   hideLabel,
-  customeClasses,
+  customClasses,
 }: TextInputProps) {
-  const parentClasses = classNames("text-input", customeClasses);
+  const parentClasses = classNames("text-input", customClasses);
   const labelClasses = classNames("label text-input__label", {
     label__hide: hideLabel,
   });

@@ -2,14 +2,14 @@ import classNames from "classnames";
 
 interface MenuButtonProps {
   open?: boolean;
-  customeClasses?: string;
+  customClasses?: string;
 }
 
-export default function MenuButton({ open, customeClasses }: MenuButtonProps) {
+export default function MenuButton({ open, customClasses }: MenuButtonProps) {
   const classes = classNames(
     "menu-btn",
     { "menu-btn--open": open },
-    customeClasses,
+    customClasses,
   );
   return (
     <button className={classes} aria-label="Menu button">

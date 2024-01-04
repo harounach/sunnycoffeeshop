@@ -5,11 +5,11 @@ import MenuButton from "./MenuButton";
 import Searchbar from "@/app/ui/inputs/Searchbar";
 
 interface HeaderProps {
-  customeClasses?: string;
+  customClasses?: string;
 }
 
-export default function Header({ customeClasses }: HeaderProps) {
-  const classes = classNames("header", customeClasses);
+export default function Header({ customClasses }: HeaderProps) {
+  const classes = classNames("header", customClasses);
   return (
     <header className={classes}>
       <a href="#content" className="skip">

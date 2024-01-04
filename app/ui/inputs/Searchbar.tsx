@@ -1,8 +1,12 @@
 import TextInput from "./TextInput";
 
-export default function Searchbar() {
+interface SearchbarProps {
+  customClasses?: string;
+}
+
+export default function Searchbar({ customClasses }: SearchbarProps) {
   return (
-    <div>
+    <div className={customClasses}>
       <TextInput
         name="q"
         label="Search"

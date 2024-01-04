@@ -6,7 +6,7 @@ interface IconButtonProps {
   color?: "primary" | "danger";
   hasBG?: boolean;
   mini?: boolean;
-  customeClasses?: string;
+  customClasses?: string;
   children: React.ReactNode;
 }
 
@@ -15,7 +15,7 @@ export default function IconButton({
   color,
   hasBG,
   mini,
-  customeClasses,
+  customClasses,
   children,
 }: IconButtonProps) {
   const classes = classNames(
@@ -24,7 +24,7 @@ export default function IconButton({
     { "icon-btn--danger": color === "danger" },
     { "icon-btn--bg": hasBG },
     { "icon-btn--mini": mini },
-    customeClasses,
+    customClasses,
   );
 
   // If there is a "url" prop we want to the button to be a link

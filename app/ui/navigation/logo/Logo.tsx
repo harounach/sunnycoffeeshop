@@ -1,12 +1,12 @@
 import Image from "next/image";
 
 interface LogoProps {
-  customeClasses?: string;
+  customClasses?: string;
 }
 
-export default function Logo({ customeClasses }: LogoProps) {
+export default function Logo({ customClasses }: LogoProps) {
   return (
-    <a href="/" className={customeClasses}>
+    <a href="/" className={customClasses}>
       <Image
         src="/images/Logo.svg"
         width={235}

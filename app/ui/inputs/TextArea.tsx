@@ -6,7 +6,7 @@ interface TextAreaProps {
   id: string;
   placeholder: string;
   hideLabel?: boolean;
-  customeClasses?: string;
+  customClasses?: string;
 }
 
 export default function TextArea({
@@ -15,9 +15,9 @@ export default function TextArea({
   id,
   placeholder,
   hideLabel,
-  customeClasses,
+  customClasses,
 }: TextAreaProps) {
-  const parentClasses = classNames("text-area", customeClasses);
+  const parentClasses = classNames("text-area", customClasses);
   const labelClasses = classNames("label text-area__label", {
     label__hide: hideLabel,
   });
