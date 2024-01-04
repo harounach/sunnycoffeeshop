@@ -1,12 +1,11 @@
-import Logo from "@/app/ui/navigation/logo/Logo";
-import Navigation from "@/app/ui/navigation/header/Navigation";
+
+import Header from "@/app/ui/navigation/header/Header";
 
 export default function Page() {
   return (
     <div>
       <h1>Home</h1>
-      <Logo />
-      <Navigation />
+      <Header />
     </div>
   );
 }
