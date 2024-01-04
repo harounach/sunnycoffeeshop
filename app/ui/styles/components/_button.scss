@@ -87,3 +87,46 @@
     transform 0.3s,
     opacity 0.3s;
 }
+
+// icon-btn
+.icon-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.2rem;
+  font-size: vars.$font-size-4;
+  text-decoration: none;
+  color: vars.$black;
+  background-color: transparent;
+  border: vars.$border solid transparent;
+  border-radius: vars.$radius-pill;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s,
+    color 0.3s;
+
+  // icon-btn--primary
+  &--primary {
+    color: vars.$primary-500;
+  }
+
+  // icon-btn--danger
+  &--danger {
+    color: vars.$red-500;
+  }
+
+  // icon-btn--bg
+  &--bg {
+    background-color: vars.$neutral-50;
+  }
+
+  // icon-btn--mini
+  &--mini {
+    width: 2rem;
+    height: 2rem;
+    background-color: vars.$neutral-50;
+    border-radius: 0;
+  }
+}
