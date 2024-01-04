@@ -1,6 +1,7 @@
+import { AlarmFill, Facebook, CartFill } from "react-bootstrap-icons";
 import Button from "./ui/actionables/buttons/Button";
 import IconButton from "./ui/actionables/buttons/IconButton";
-import { AlarmFill, Facebook, CartFill } from "react-bootstrap-icons";
+import CartButton from "./ui/actionables/buttons/CartButton";
 
 export default function Page() {
   return (
@@ -27,6 +28,8 @@ export default function Page() {
       <IconButton mini>
         <Facebook title="Activity" />
       </IconButton>
+
+      <CartButton />
     </div>
   );
 }

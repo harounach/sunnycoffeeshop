@@ -130,3 +130,32 @@
     border-radius: 0;
   }
 }
+
+// cart-btn
+.cart-btn {
+  display: inline-flex;
+  position: relative;
+
+  // cart-btn__btn
+  &__btn {
+
+  }
+
+  // cart-btn__value
+  &__value {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 1.25rem;
+    height: 1.25rem;
+    color: vars.$white;
+    background: vars.$secondary-500;
+    font-size: vars.$font-size-00;
+    font-weight: vars.$font-weight-8;
+    border-radius: vars.$radius-pill;
+    padding: vars.$space-1;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
