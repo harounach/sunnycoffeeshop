@@ -4,81 +4,32 @@
 // header
 .header {
   width: 100%;
-
-  &--open &__nav {
-    transform: translateY(0);
-  }
-
-  &--fixed &__primary {
-    position: fixed;
-    top: 0;
-    background-color: vars.$black;
-  }
-}
-
-.header__content {
-  display: flex;
-  flex-direction: column;
-}
-
-// header-secondary
-.header__secondary {
-  height: 2.5rem;
-  background-color: vars.$black;
-  display: none;
+  height: 4.5rem; // 72px
+  margin-top: vars.$space-7; // 36px
+  background-color: vars.$white;
+  border-bottom: vars.$border-sm solid vars.$white;
 
   > .container {
     height: 100%;
   }
 
-  @include mixins.breakpoint(lg) {
-    display: block;
+  &--open &__nav {
+    transform: translateY(0);
+  }
+
+  &--fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-top: vars.$space-0;
+    z-index: 200;
+    border-bottom-color: vars.$neutral-100;
   }
 }
 
-.header__secondary-content {
+.header__content {
   height: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 6rem;
-}
-
-// header__location
-.header__location {
-  display: flex;
-  gap: 1rem;
-
-  a {
-    font-family: vars.$font-serif;
-    text-decoration: none;
-    font-size: vars.$font-size-0;
-    font-weight: vars.$font-weight-7;
-    color: vars.$white;
-    &:hover {
-      color: vars.$primary-50;
-      text-decoration: underline;
-    }
-  }
-}
-
-// header-primary
-.header__primary {
-  width: 100%;
-  padding: 0.5rem 0;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  z-index: 120;
-
-  @include mixins.breakpoint(lg) {
-    top: 2.5rem;
-  }
-}
-
-// header-primary__content
-.header__primary-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -94,7 +45,7 @@
   height: 100vh;
   top: 0;
   left: 0;
-  background-color: vars.$black;
+  background-color: vars.$white;
   padding: 4rem 2rem 2rem;
   overflow-y: scroll;
   transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1) 0s;
@@ -131,11 +82,11 @@
     list-style-type: none;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: vars.$space-5;
     align-items: center;
     @include mixins.breakpoint(lg) {
       flex-direction: row;
-      gap: 1rem;
+      gap: vars.$space-4;
     }
   }
 }
@@ -143,25 +94,9 @@
 .nav__link {
   text-decoration: none;
   @include mixins.titleBaseText();
-  color: vars.$white;
+  color: vars.$black;
 
   &:hover {
     color: vars.$primary-500;
-  }
-
-  &.btn:hover {
-    color: vars.$black;
-  }
-}
-
-// nav__contact
-.nav__contact {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: vars.$space-3;
-
-  @include mixins.breakpoint(lg) {
-    display: none;
   }
 }
