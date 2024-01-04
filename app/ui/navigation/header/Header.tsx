@@ -2,6 +2,7 @@ import classNames from "classnames";
 import Logo from "@/app/ui/navigation/logo/Logo";
 import Navigation from "./Navigation";
 import MenuButton from "./MenuButton";
+import Searchbar from "@/app/ui/inputs/Searchbar";
 
 interface HeaderProps {
   customeClasses?: string;
@@ -17,7 +18,9 @@ export default function Header({ customeClasses }: HeaderProps) {
       <div className="container">
         <div className="header__content">
           <Logo customClasses="header__logo" />
-          <div className="header__search">Search</div>
+          <div className="header__search">
+            <Searchbar />
+          </div>
           <div className="header__nav">
             <Navigation />
           </div>
