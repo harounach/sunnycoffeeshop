@@ -1,35 +1,17 @@
-import { AlarmFill, Facebook, CartFill } from "react-bootstrap-icons";
-import Button from "./ui/actionables/buttons/Button";
-import IconButton from "./ui/actionables/buttons/IconButton";
-import CartButton from "./ui/actionables/buttons/CartButton";
+import TextInput from "@/app/ui/inputs/TextInput";
 
 export default function Page() {
   return (
     <div>
       <h1>Home</h1>
-      <Button label="Button" />
-      <Button variant="danger" label="Button" />
-      <Button variant="neutral" label="Button" />
-      <IconButton>
-        <CartFill title="Activity" />
-      </IconButton>
-      <IconButton color="primary">
-        <Facebook title="Activity" />
-      </IconButton>
-      <IconButton color="danger">
-        <Facebook title="Activity" />
-      </IconButton>
-      <IconButton color="primary" hasBG>
-        <Facebook title="Activity" />
-      </IconButton>
-      <IconButton color="danger" hasBG>
-        <Facebook title="Activity" />
-      </IconButton>
-      <IconButton mini>
-        <Facebook title="Activity" />
-      </IconButton>
-
-      <CartButton />
+      <div style={{maxWidth: "300px"}}>
+        <TextInput
+          name="search"
+          label="Search"
+          id="search"
+          placeholder="Search..."
+        />
+      </div>
     </div>
   );
 }

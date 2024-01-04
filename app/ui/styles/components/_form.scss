@@ -12,6 +12,13 @@
 // label
 .label {
   @include mixins.titleBaseText();
-  color: vars.$white;
+  color: vars.$black;
   display: block;
+
+  // label__hide
+  &__hide {
+    position: absolute;
+    top: 1rem;
+    left: -9999px;
+  }
 }
