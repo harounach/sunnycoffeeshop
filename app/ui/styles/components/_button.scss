@@ -81,7 +81,7 @@
 .menu-btn__bar {
   height: 4px;
   width: 100%;
-  background-color: vars.$white;
+  background-color: vars.$black;
   border-radius: vars.$border-sm;
   transition:
     transform 0.3s,
@@ -138,7 +138,6 @@
 
   // cart-btn__btn
   &__btn {
-
   }
 
   // cart-btn__value
