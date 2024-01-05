@@ -45,30 +45,4 @@
       padding-bottom: vars.$space-11;
     }
   }
-
-  // section--full-bg
-  &--full-bg {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    position: relative;
-
-    &::before {
-      content: "";
-      display: block;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      left: 0;
-      top: 0;
-      background-color: rgba(0, 0, 0, 0.85);
-    }
-  }
-
-  // Note: add this when using section--full-bg
-  // section__inner
-  &__inner {
-    position: relative;
-    z-index: 1;
-  }
 }

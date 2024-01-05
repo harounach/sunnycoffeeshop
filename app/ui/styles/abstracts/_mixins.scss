@@ -13,57 +13,57 @@
 
 // Display large
 @mixin displayLargeText {
-  font-family: vars.$font-serif; // Philosopher
-  font-weight: vars.$font-weight-7;
+  font-family: var(--font-philosopher); // Philosopher
+  font-weight: 700;
   font-size: vars.$font-size-8; // 56px
 }
 
 // Display base
 @mixin displayBaseText {
   font-family: vars.$font-serif; // Philosopher
-  font-weight: vars.$font-weight-7;
+  font-weight: 700;
   font-size: vars.$font-size-7; // 48px
 }
 
 // Title large
 @mixin titleLargeText {
   font-family: vars.$font-serif; // Philosopher
-  font-weight: vars.$font-weight-7;
+  font-weight: 700;
   font-size: vars.$font-size-5; // 32px
 }
 
 // Title medium
 @mixin titleMediumText {
   font-family: vars.$font-serif; // Philosopher
-  font-weight: vars.$font-weight-7;
+  font-weight: 700;
   font-size: vars.$font-size-4; // 24px
 }
 
 // Title base
 @mixin titleBaseText {
   font-family: vars.$font-serif; // Philosopher
-  font-weight: vars.$font-weight-7;
+  font-weight: 700;
   font-size: vars.$font-size-2; // 18px
 }
 
 // button
 @mixin buttonText {
   font-family: vars.$font-serif; // Philosopher
-  font-weight: vars.$font-weight-4;
+  font-weight: 400;
   font-size: vars.$font-size-2; // 18px
 }
 
 // Body large
 @mixin bodyLargeText {
   font-family: vars.$font-sans; // Poppins
-  font-weight: vars.$font-weight-4;
+  font-weight: 400;
   font-size: vars.$font-size-2; // 18px
 }
 
 // Body base
 @mixin bodyBaseText {
   font-family: vars.$font-sans; // Poppins
-  font-weight: vars.$font-weight-4;
+  font-weight: 400;
   font-size: vars.$font-size-1; // 16px
 }
 
@@ -115,8 +115,4 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
-}
-
-// buttonVariant
-@mixin buttonVariant($shape, $color) {
 }

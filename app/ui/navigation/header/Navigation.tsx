@@ -1,3 +1,4 @@
+import Link from "next/link";
 import classNames from "classnames";
 import Button from "@/app/ui/actionables/buttons/Button";
 import CartButton from "@/app/ui/actionables/buttons/CartButton";
@@ -13,22 +14,20 @@ export default function Navigation({ customClasses }: NavigationProps) {
     <nav className={classes}>
       <ul>
         <li>
-          <a className="nav__link" href="/">
+          <Link className="nav__link" href="/">
             Home
-          </a>
+          </Link>
         </li>
         <li>
-          <a className="nav__link" href="/products">
+          <Link className="nav__link" href="/products">
             Shop
-          </a>
+          </Link>
         </li>
         <li>
-          <a className="nav__link" href="/cart">
-            <CartButton />
-          </a>
+          <CartButton url="/cart" />
         </li>
         <li>
-          <Button url="/login" label="Label" customClasses="nav__link" />
+          <Button url="/login" label="Label" />
         </li>
       </ul>
     </nav>

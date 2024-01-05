@@ -29,13 +29,13 @@
 
   &--danger {
     color: vars.$white;
-    background-color: vars.$red-500;
-    border-color: vars.$red-500;
+    background-color: vars.$danger-500;
+    border-color: vars.$danger-500;
 
     // hover
     &:hover {
-      background-color: vars.$red-300;
-      border-color: vars.$red-300;
+      background-color: vars.$danger-300;
+      border-color: vars.$danger-300;
     }
   }
 
@@ -114,7 +114,7 @@
 
   // icon-btn--danger
   &--danger {
-    color: vars.$red-500;
+    color: vars.$danger-500;
   }
 
   // icon-btn--bg
@@ -135,6 +135,7 @@
 .cart-btn {
   display: inline-flex;
   position: relative;
+  cursor: pointer;
 
   // cart-btn__btn
   &__btn {
@@ -150,7 +151,7 @@
     color: vars.$white;
     background: vars.$secondary-500;
     font-size: vars.$font-size-00;
-    font-weight: vars.$font-weight-8;
+    font-weight: 800;
     border-radius: vars.$radius-pill;
     padding: vars.$space-1;
     position: absolute;

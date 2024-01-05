@@ -1,4 +1,7 @@
+import classNames from "classnames";
+
 import "@/app/ui/styles/main.scss";
+import { poppins, philosopher } from "@/app/ui/fonts";
 
 export default function RootLayout({
   // Layouts must accept a children prop.
@@ -7,9 +10,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const classes = classNames(poppins.variable, philosopher.variable);
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={classes}>{children}</body>
     </html>
   );
 }
