@@ -12,7 +12,7 @@ export default function RootLayout({
 }) {
   const classes = classNames(poppins.variable, philosopher.variable);
   return (
-    <html lang="en">
+    <html lang="en" className="debug">
       <body className={classes}>{children}</body>
     </html>
   );

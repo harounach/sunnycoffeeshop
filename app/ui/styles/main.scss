@@ -6,7 +6,7 @@
 // 05-animations
 @use "./abstracts/variables";
 @use "./abstracts/mixins";
-// @use "./abstracts/helpers";
+@use "./abstracts/helpers";
 
 // <vendors>
 
@@ -31,6 +31,7 @@
 @use "./components/pagination";
 @use "./components/tab";
 @use "./components/button";
+@use "./components/coffee-card";
 
 // <layout>
 @use "./layout/container";
