@@ -8,6 +8,8 @@
 // btn
 .btn {
   display: inline-flex;
+  justify-content: center;
+  align-items: center;
   padding: vars.$space-2 vars.$space-3;
   @include mixins.buttonText();
   text-decoration: none;

@@ -8,6 +8,7 @@ import Footer from "@/app/ui/navigation/footer/Footer";
 import Hero from "@/app/ui/section/Hero";
 import CoffeeCard from "@/app/ui/cards/CoffeeCard";
 import BenefitCard from "@/app/ui/cards/BenefitCard";
+import Newsletter from "@/app/ui/inputs/Newsletter";
 import { products } from "@/app/lib/placeholder-data";
 const favoriteProducts = products.slice(0, 4);
 
@@ -53,6 +54,15 @@ export default function Page() {
                 icon={<BsAwardFill />}
               />
             </div>
+          </div>
+        </section>
+        <section className="home-page__newsletter section">
+          <div className="container">
+            <h2 className="subtitle title-medium">Newsletter</h2>
+            <p className="desc desc--dimmed body-base">
+              Sign up for our newsletter to receive coffee tips
+            </p>
+            <Newsletter />
           </div>
         </section>
       </main>

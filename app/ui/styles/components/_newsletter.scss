@@ -1,0 +1,30 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// newsletter
+.newsletter {
+  display: flex;
+  gap: vars.$space-3;
+  justify-content: center;
+  align-items: center;
+}
+
+// newsletter__input
+.newsletter__input.text-input .text-input__input {
+  height: 3rem; // 48px
+  border-color: vars.$neutral-200;
+
+  &:hover {
+    border-color: vars.$primary-200;
+  }
+
+  &:focus {
+    border-color: vars.$primary-500;
+  }
+}
+
+// newsletter__btn
+.newsletter__btn.btn {
+  height: 3rem; // 48px
+  flex-shrink: 0;
+}
