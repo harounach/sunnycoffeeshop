@@ -1,23 +1,124 @@
 @use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
 
 // footer
 .footer {
+  background-color: vars.$neutral-950;
+}
+
+// footer__section
+.footer__section {
+  padding-top: vars.$space-12;
+  padding-bottom: vars.$space-12;
+
+  @include mixins.breakpoint(md) {
+    padding-top: vars.$space-14;
+    padding-bottom: vars.$space-14;
+  }
+}
+
+// flex flex-column gap-10 | md:flex-row md:flex-wrap md:justify-content-between
+// footer__content
+.footer__content {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+
+  @include mixins.breakpoint(md) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
+
+// footer__business
+.footer__business {
+  display: flex;
+  flex-direction: column;
 }
 
 // footer__logo
+.footer__logo {
+  margin-bottom: vars.$space-5;
+}
 
 // footer__location
+.footer__location {
+  display: flex;
+  align-items: center;
+  gap: vars.$space-2;
+  margin-bottom: vars.$space-3;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+}
 
 // footer__tel
+.footer__tel {
+  display: flex;
+  align-items: center;
+  gap: vars.$space-2;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+}
+
+// footer__lists
+.footer__lists {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-10;
+
+  @include mixins.breakpoint(md) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: vars.$space-14;
+  }
+}
+
+// footer__header
+.footer__header {
+  color: vars.$primary-500;
+  margin-bottom: vars.$space-4;
+}
 
 // footer__links
-.footer__links a {
-  color: vars.$white;
+.footer__links {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-3;
 }
+
+// footer__link
+.footer__link {
+  text-decoration: none;
+  color: vars.$white;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+}
+
+// footer__social
 
 // footer__notice
 .footer__notice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: vars.$white;
+  padding: vars.$space-2;
+  a {
+    color: vars.$primary-500;
+  }
   p {
     color: vars.$neutral-500;
   }
