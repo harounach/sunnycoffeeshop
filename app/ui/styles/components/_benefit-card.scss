@@ -1,0 +1,68 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// benefit-card-grid
+.benefit-card-grid {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-6;
+
+  @include mixins.breakpoint(md) {
+    flex-direction: row;
+    gap: vars.$space-5;
+  }
+}
+
+// benefit-card
+.benefit-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: vars.$space-3;
+  background-color: vars.$white;
+
+  // benefit-card__img
+  &__img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 144px;
+    height: 144px;
+    color: vars.$black;
+    font-size: vars.$font-size-7;
+    border-radius: vars.$radius-pill;
+  }
+
+  &:nth-child(1) &__img {
+    background-color: vars.$primary-100;
+  }
+
+  &:nth-child(2) &__img {
+    background-color: vars.$secondary-100;
+  }
+
+  &:nth-child(3) &__img {
+    background-color: vars.$info-100;
+  }
+
+  // benefit-card__content
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: vars.$space-3;
+  }
+
+  // benefit-card__title
+  &__title {
+    color: vars.$neutral-900;
+    text-align: center;
+  }
+
+  // benefit-card__desc
+  &__desc {
+    color: vars.$neutral-600;
+    margin-bottom: vars.$space-3;
+    text-align: center;
+  }
+}

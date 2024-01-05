@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { GeoAltFill, TelephoneFill } from "react-bootstrap-icons";
+import { BsFillGeoAltFill, BsFillTelephoneFill } from "react-icons/bs";
 import Logo from "@/app/ui/navigation/logo/Logo";
 import Address from "@/app/ui/section/Address";
 import Phone from "@/app/ui/section/Phone";
@@ -18,11 +18,11 @@ export default function Footer() {
                 href="https://www.google.com/maps"
                 className="footer__location body-base"
               >
-                <GeoAltFill />
+                <BsFillGeoAltFill />
                 <Address />
               </a>
               <a href="#" className="footer__tel body-base">
-                <TelephoneFill />
+                <BsFillTelephoneFill />
                 <Phone />
               </a>
             </div>

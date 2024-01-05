@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { Facebook, Twitter, Instagram, Youtube } from "react-bootstrap-icons";
+import { BsFacebook, BsInstagram, BsTwitterX, BsYoutube } from "react-icons/bs";
 import SocialLink from "./SocialLink";
 
 interface SocialProps {
@@ -13,28 +13,28 @@ export default function Social({ customClasses }: SocialProps) {
       {/* Facebook */}
       <li>
         <SocialLink url="https://www.facebook.com/" title="Facebook">
-          <Facebook />
+          <BsFacebook />
         </SocialLink>
       </li>
 
       {/* Instagram */}
       <li>
         <SocialLink url="https://www.facebook.com/" title="Instagram">
-          <Instagram />
+          <BsInstagram />
         </SocialLink>
       </li>
 
       {/* Twitter */}
       <li>
         <SocialLink url="https://twitter.com/" title="Twitter">
-          <Twitter />
+          <BsTwitterX />
         </SocialLink>
       </li>
 
       {/* YouTube */}
       <li>
         <SocialLink url="https://www.youtube.com/" title="Youtube">
-          <Youtube />
+          <BsYoutube />
         </SocialLink>
       </li>
     </ul>

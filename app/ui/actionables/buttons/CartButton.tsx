@@ -1,4 +1,4 @@
-import { CartFill } from "react-bootstrap-icons";
+import { BsFillCartFill } from "react-icons/bs";
 import IconButton from "@/app/ui/actionables/buttons/IconButton";
 
 interface CartButtonProps {
@@ -10,7 +10,7 @@ export default function CartButton({ url, customClasses }: CartButtonProps) {
   return (
     <div className="cart-btn">
       <IconButton url={url} customClasses="cart-btn__btn">
-        <CartFill />
+        <BsFillCartFill />
       </IconButton>
       <span className="cart-btn__value">2</span>
     </div>
