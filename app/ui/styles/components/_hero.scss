@@ -1,0 +1,66 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// hero
+.hero {
+  padding-top: vars.$space-6;
+  padding-bottom: vars.$space-12;
+  background-color: vars.$neutral-50;
+
+  @include mixins.breakpoint(md) {
+    flex-direction: row;
+    padding-top: vars.$space-12;
+  }
+}
+
+// hero__content
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-5;
+
+  @include mixins.breakpoint(md) {
+    flex-direction: row;
+  }
+}
+
+// hero__text
+.hero__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: vars.$space-5;
+
+  @include mixins.breakpoint(md) {
+    align-items: flex-start;
+  }
+}
+
+// hero__title
+.hero__title {
+  color: vars.$neutral-900;
+  text-align: center;
+
+  @include mixins.breakpoint(md) {
+    text-align: left;
+  }
+}
+
+// hero__desc
+.hero__desc {
+  color: vars.$neutral-600;
+  text-align: center;
+
+  @include mixins.breakpoint(md) {
+    text-align: left;
+  }
+}
+
+// hero__img
+.hero__img {
+  width: 100%;
+  img {
+    width: 100%;
+    object-fit: cover;
+  }
+}

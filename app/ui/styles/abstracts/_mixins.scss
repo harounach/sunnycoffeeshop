@@ -15,14 +15,14 @@
 @mixin displayLargeText {
   font-family: var(--font-philosopher); // Philosopher
   font-weight: 700;
-  font-size: vars.$font-size-8; // 56px
+  font-size: vars.$font-size-7; // 48px
 }
 
 // Display base
 @mixin displayBaseText {
   font-family: vars.$font-serif; // Philosopher
   font-weight: 700;
-  font-size: vars.$font-size-7; // 48px
+  font-size: vars.$font-size-6; // 40px
 }
 
 // Title large
