@@ -1,21 +1,42 @@
 @use "../abstracts/variables" as vars;
 @use "../abstracts/mixins" as mixins;
 
-// pagination-btn
-.pagination-btn {
-  display: inline-flex;
-  padding: vars.$space-2 vars.$space-3;
-  @include mixins.buttonText();
-  text-decoration: none;
-  color: vars.$white;
-  background-color: transparent;
-  border: vars.$border-sm solid vars.$primary-500;
-  border-radius: vars.$radius-xs;
-  // hover
-  &:hover,
-  &--active,
-  &--jump {
-    color: vars.$black;
-    background-color: vars.$primary-500;
+// pager
+.pager {
+  display: flex;
+  gap: vars.$space-2;
+  flex-wrap: wrap;
+
+  // pager__btn
+  &__btn {
+    @include mixins.buttonText();
+    min-width: 40px;
+    min-height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: vars.$white;
+    color: vars.$neutral-950;
+    border-radius: vars.$radius-xs;
+    border: vars.$border solid vars.$primary-500;
+    text-decoration: none;
+    transition:
+      background-color 0.3s,
+      border-color 0.3s,
+      color 0.3s;
+    &:hover {
+      background-color: vars.$primary-500;
+    }
+
+    // pager__btn--jump & pager--current
+    &--jump,
+    &--current {
+      background-color: vars.$primary-500;
+
+      &:hover {
+        background-color: vars.$primary-400;
+        border-color: vars.$primary-400;
+      }
+    }
   }
 }

@@ -1,0 +1,19 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// products-page
+
+// products-page__coffees
+.products-page__coffees {
+  background-color: vars.$primary-100;
+}
+
+// products-page__options
+.products-page__options {
+  margin-bottom: vars.$space-5;
+}
+
+// products-page__coffee-grid
+.products-page__coffee-grid {
+  margin-bottom: vars.$space-5;
+}

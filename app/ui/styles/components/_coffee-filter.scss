@@ -1,0 +1,12 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// coffee-filter
+.coffee-filter {
+  display: flex;
+  gap: vars.$space-3;
+}
+
+// coffee-filter__sort
+
+// coffee-filter__filter
