@@ -1,0 +1,17 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// shipping-page
+.shipping-page {
+}
+
+// shipping-page__sect
+.shipping-page__sect {
+  background-color: vars.$primary-100;
+}
+
+// shipping-page__form
+.shipping-page__form {
+  display: flex;
+  justify-content: center;
+}

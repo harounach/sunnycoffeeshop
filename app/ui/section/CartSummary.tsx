@@ -29,7 +29,7 @@ export default function CartSummary({ customClasses }: CartSummaryProps) {
           <span className="summary__value body-large large">$46</span>
         </div>
         <Button
-          url="/shipping"
+          url="/account/shipping"
           label="Proceed to Checkout"
           customClasses="summary__btn"
         />

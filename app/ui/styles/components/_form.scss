@@ -3,10 +3,12 @@
 
 // form
 .form {
-  max-width: 600px;
+  max-width: 450px;
   display: flex;
   flex-direction: column;
   gap: vars.$space-5;
+  background-color: vars.$white;
+  padding: vars.$space-3 vars.$space-5;
 }
 
 // label
