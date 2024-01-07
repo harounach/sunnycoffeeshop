@@ -1,0 +1,60 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// summary
+.summary {
+  background-color: #fff;
+  padding: vars.$space-3;
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-5;
+  padding: vars.$space-3;
+  max-width: 350px;
+  flex-grow: 1;
+
+  @include mixins.breakpoint(md) {
+    padding: vars.$space-3 vars.$space-9;
+  }
+
+  // summary__header
+  &__header {
+    color: vars.$neutral-950;
+    text-align: center;
+  }
+
+  // summary__content
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: vars.$space-3;
+  }
+
+  // summary__row
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  // summary__key
+  &__key {
+    color: vars.$neutral-600;
+
+    &.large {
+      font-weight: 600;
+    }
+  }
+
+  // summary__value
+  &__value {
+    color: vars.$neutral-950;
+
+    &.large {
+      font-weight: 600;
+    }
+  }
+
+  // summary__btn
+  &__btn {
+  }
+}

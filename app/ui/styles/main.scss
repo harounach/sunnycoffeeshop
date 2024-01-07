@@ -34,10 +34,12 @@
 @use "./components/button";
 @use "./components/coffee-card";
 @use "./components/benefit-card";
+@use "./components/cart-card";
 @use "./components/coffee-filter";
 @use "./components/rating";
 @use "./components/coffee-content";
 @use "./components/review";
+@use "./components/summary";
 
 // <layout>
 @use "./layout/container";
@@ -48,6 +50,7 @@
 @use "./pages/home-page";
 @use "./pages/products-page";
 @use "./pages/product-page";
+@use "./pages/cart-page";
 
 // <themes>
 // @use "./themes/theme-values";

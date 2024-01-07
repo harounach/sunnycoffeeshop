@@ -1,0 +1,33 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// cart-page
+.cart-page {
+}
+
+// cart-page__cart
+.cart-page__cart {
+  background-color: vars.$primary-100;
+}
+
+// cart-page__content
+.cart-page__content {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-5;
+
+  @include mixins.breakpoint(md) {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+  }
+}
+
+// cart-page__items
+.cart-page__items {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-4;
+  max-width: 500px;
+  flex-grow: 1;
+}
