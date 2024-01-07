@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 interface LogoProps {
   customClasses?: string;
@@ -6,13 +7,13 @@ interface LogoProps {
 
 export default function Logo({ customClasses }: LogoProps) {
   return (
-    <a href="/" className={customClasses}>
+    <Link href="/" className={customClasses}>
       <Image
         src="/images/Logo.svg"
         width={235}
         height={40}
         alt="Sunny Coffee Shop"
       />
-    </a>
+    </Link>
   );
 }

@@ -35,6 +35,9 @@
 @use "./components/coffee-card";
 @use "./components/benefit-card";
 @use "./components/coffee-filter";
+@use "./components/rating";
+@use "./components/coffee-content";
+@use "./components/review";
 
 // <layout>
 @use "./layout/container";
@@ -44,6 +47,7 @@
 // <pages>
 @use "./pages/home-page";
 @use "./pages/products-page";
+@use "./pages/product-page";
 
 // <themes>
 // @use "./themes/theme-values";

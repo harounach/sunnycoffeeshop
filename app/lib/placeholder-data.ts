@@ -5,7 +5,7 @@ export const products = [
   {
     _id: "coffee-01",
     title: "Black Coffee",
-    desc: "Black Coffee",
+    desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
     price: 3.5,
     image: "/images/01-black-coffee.jpg",
   },
@@ -14,7 +14,7 @@ export const products = [
   {
     _id: "coffee-02",
     title: "Latte",
-    desc: "Latte",
+    desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
     price: 3.5,
     image: "/images/02-latte.jpg",
   },
@@ -23,7 +23,7 @@ export const products = [
   {
     _id: "coffee-03",
     title: "Cappuccino",
-    desc: "Cappuccino",
+    desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
     price: 3.5,
     image: "/images/03-cappuccino.jpg",
   },
@@ -32,7 +32,7 @@ export const products = [
   {
     _id: "coffee-04",
     title: "Americano",
-    desc: "Americano",
+    desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
     price: 3.5,
     image: "/images/04-americano.jpg",
   },
@@ -41,7 +41,7 @@ export const products = [
   {
     _id: "coffee-05",
     title: "Espresso",
-    desc: "Espresso",
+    desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
     price: 3.5,
     image: "/images/05-espresso.jpg",
   },
@@ -197,5 +197,35 @@ export const products = [
     desc: "Iced Mocha",
     price: 3.5,
     image: "/images/22-iced-mocha.jpg",
+  },
+];
+
+// reviews
+export const reviews = [
+  {
+    _id: "review_01",
+    user_name: "John Doe",
+    rating: 4,
+    date: "12 Dec 2024",
+    comment:
+      "Sugar plum toffee halvah chupa chups lollipop tootsie roll fruitcake cake. Oat cake soufflé donut jelly-o pudding jelly. Macaroon muffin chocolate bar macaroon pie cookie sugar plum.",
+  },
+
+  {
+    _id: "review_02",
+    user_name: "Peter Smith",
+    rating: 5,
+    date: "10 Nov 2024",
+    comment:
+      "Gingerbread biscuit sweet bonbon shortbread. Tootsie roll sugar plum lemon drops pudding cookie. Dessert powder pie candy croissant bear claw carrot cake liquorice carrot cake. ",
+  },
+
+  {
+    _id: "review_03",
+    user_name: "Barbara Jackson",
+    rating: 3.5,
+    date: "7 Aug 2024",
+    comment:
+      "Apple pie tootsie roll chocolate gingerbread brownie biscuit. Fruitcake sweet roll candy canes halvah tiramisu gummi bears croissant. Gummies shortbread pastry marzipan oat cake.",
   },
 ];

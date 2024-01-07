@@ -1,0 +1,12 @@
+@use "../abstracts/variables" as vars;
+
+// rating
+.rating {
+  display: flex;
+  gap: vars.$space-1;
+}
+
+// rating__star
+.rating__star {
+  color: vars.$warning-500;
+}

@@ -1,0 +1,99 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// write-review
+.write-review {
+  // write-review__header
+  &__header {
+    margin-bottom: vars.$space-4;
+  }
+
+  // write-review__content
+  &__content {
+    background-color: vars.$white;
+    padding: vars.$space-3;
+  }
+
+  // write-review__notice
+  &__notice {
+    display: flex;
+    padding: vars.$space-2 vars.$space-3;
+    background-color: vars.$danger-100;
+    color: vars.$neutral-900;
+  }
+
+  // write-review__login-btn
+  &__login-btn {
+    color: vars.$neutral-950;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 0 vars.$space-2;
+  }
+
+  // write-review__form
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: vars.$space-4;
+  }
+
+  // write-review__rating
+  &__rating.select select {
+    background-color: vars.$neutral-50;
+  }
+
+  // write-review__comment
+  &__comment {
+  }
+
+  // write-review__btn
+  &__btn {
+  }
+}
+// ------------------------------------------------
+// reviews
+.reviews {
+  max-width: 460px;
+
+  // reviews__header
+  &__header {
+    margin-bottom: vars.$space-4;
+  }
+
+  // reviews__list
+  &__list {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    gap: vars.$space-3;
+  }
+}
+
+// ----------------------------------------
+// review
+.review {
+  background-color: vars.$white;
+  padding: vars.$space-3;
+
+  // review__name
+  &__name {
+    margin-bottom: vars.$space-2;
+  }
+
+  // review__rating
+  &__rating {
+    margin-bottom: vars.$space-2;
+  }
+
+  // review__date
+  &__date {
+    margin-bottom: vars.$space-3;
+    color: vars.$neutral-400;
+  }
+
+  // review__comment
+  &__comment {
+    color: vars.$neutral-600;
+  }
+}

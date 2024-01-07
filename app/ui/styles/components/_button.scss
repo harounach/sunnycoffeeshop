@@ -92,11 +92,12 @@
 
 // icon-btn
 .icon-btn {
-  display: flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 2.5rem;
-  height: 2.2rem;
+  flex-shrink: 0;
   font-size: vars.$font-size-4;
   text-decoration: none;
   color: vars.$black;
@@ -121,7 +122,11 @@
 
   // icon-btn--bg
   &--bg {
-    background-color: vars.$neutral-50;
+    background-color: vars.$white;
+    &:hover {
+      border-color: vars.$neutral-50;
+      background-color: vars.$neutral-50;
+    }
   }
 
   // icon-btn--mini
