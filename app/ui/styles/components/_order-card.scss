@@ -1,0 +1,73 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// order-card
+.order-card {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-3;
+  padding: vars.$space-3;
+  background-color: vars.$white;
+  // order-card__header
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  // order-card__btn
+  &__btn {
+  }
+
+  // order-card__content
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: vars.$space-3;
+  }
+
+  // order-card__row
+  &__row {
+    display: flex;
+    align-items: baseline;
+    gap: vars.$space-3;
+  }
+
+  // order-card__key
+  &__key {
+    color: vars.$neutral-950;
+  }
+
+  // order-card__value
+  &__value {
+    color: vars.$neutral-900;
+  }
+}
+
+//---------------------------------
+// order-item-card
+.order-item-card {
+  display: flex;
+  align-items: center;
+  gap: vars.$space-6;
+
+  // order-item-card__img
+  &__img {
+    object-fit: cover;
+    aspect-ratio: vars.$aspect-square;
+  }
+
+  // order-item-card__content
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+  }
+
+  // order-item-card__title
+
+  // order-item-card__qty
+
+  // order-item-card__price
+}

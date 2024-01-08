@@ -40,6 +40,7 @@
 @use "./components/coffee-content";
 @use "./components/review";
 @use "./components/summary";
+@use "./components/order-card";
 
 // <layout>
 @use "./layout/container";
@@ -55,6 +56,7 @@
 @use "./pages/login-page";
 @use "./pages/register-page";
 @use "./pages/payment-page";
+@use "./pages/placeorder-page";
 
 // <themes>
 // @use "./themes/theme-values";
