@@ -10,7 +10,7 @@ export default function Page() {
         <section className="login-page__sect section section--page">
           <div className="container">
             <h1 className="title title-medium">Login</h1>
-            <p className="desc body-base">Login to you Account</p>
+            <p className="desc body-base">Login to your Account</p>
             <div className="login-page__form">
               <LoginForm />
             </div>
