@@ -66,7 +66,7 @@ export default function ShippingForm({ customClasses }: ShippingFormProps) {
         placeholder="Country"
       />
 
-      <Button url="/account/shipping" label="Proceed to Payment" />
+      <Button url="/checkout/payment" label="Proceed to Payment" />
     </form>
   );
 }

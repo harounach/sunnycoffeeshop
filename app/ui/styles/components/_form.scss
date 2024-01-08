@@ -4,6 +4,7 @@
 // form
 .form {
   max-width: 450px;
+  min-width: 380px;
   display: flex;
   flex-direction: column;
   gap: vars.$space-5;
@@ -34,5 +35,27 @@
     position: absolute;
     top: 1rem;
     left: -9999px;
+  }
+}
+
+//------------------------------------
+// radio-group
+.radio-group {
+  display: inline-flex;
+  flex-direction: column;
+  gap: vars.$space-3;
+  align-items: flex-start;
+}
+
+// radio
+.radio {
+  display: flex;
+  gap: vars.$space-3;
+  // radio__btn
+  &__btn {
+  }
+
+  // radio__label
+  &__label {
   }
 }
