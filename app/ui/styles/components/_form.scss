@@ -9,6 +9,18 @@
   gap: vars.$space-5;
   background-color: vars.$white;
   padding: vars.$space-3 vars.$space-5;
+
+  // form__message
+  &__message {
+    text-align: center;
+  }
+
+  // form__link
+  &__link {
+    color: vars.$primary-500;
+    font-weight: 600;
+    text-decoration: none;
+  }
 }
 
 // label

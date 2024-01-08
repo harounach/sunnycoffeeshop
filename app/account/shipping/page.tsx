@@ -14,9 +14,7 @@ export default function Page() {
               Specify your shipping info to receive your coffee
             </p>
             <div className="shipping-page__form">
-              <form className="form">
-                <ShippingForm />
-              </form>
+              <ShippingForm />
             </div>
           </div>
         </section>

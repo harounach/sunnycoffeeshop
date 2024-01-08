@@ -11,8 +11,9 @@ export default function Hero() {
               Sip into Sunshine: Your Perfect Brew Awaits at Sunny Coffee Shop
             </h1>
             <p className="hero__desc body-base">
-              At Sunny Coffee Shop, We&aposre Brewing More Than Just
-              Coffee—We&aposre Brewing Memories.
+              {
+                "At Sunny Coffee Shop, We're Brewing More Than Just Coffee—We're Brewing Memories."
+              }
             </p>
             <Button url="/products" label="Explore Our Menu" />
           </div>

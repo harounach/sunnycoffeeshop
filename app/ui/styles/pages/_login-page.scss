@@ -1,0 +1,17 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// login-page
+.login-page {
+}
+
+// login-page__sect
+.login-page__sect {
+  background-color: vars.$primary-100;
+}
+
+// login-page__form
+.login-page__form {
+  display: flex;
+  justify-content: center;
+}

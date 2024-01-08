@@ -3,6 +3,7 @@ import classNames from "classnames";
 interface TextInputProps {
   name: string;
   label: string;
+  type?: "text" | "password" | "email"
   id: string;
   placeholder: string;
   hideLabel?: boolean;
@@ -12,6 +13,7 @@ interface TextInputProps {
 export default function TextInput({
   name,
   label,
+  type,
   id,
   placeholder,
   hideLabel,
@@ -21,6 +23,7 @@ export default function TextInput({
   const labelClasses = classNames("label text-input__label", {
     label__hide: hideLabel,
   });
+  const inputType = type ? type : "text";
 
   return (
     <div className={parentClasses}>
@@ -30,7 +33,7 @@ export default function TextInput({
       <input
         className="text-input__input"
         placeholder={placeholder}
-        type="text"
+        type={inputType}
         name={name}
         id={id}
       />

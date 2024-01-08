@@ -28,7 +28,13 @@ export default function ShippingForm({ customClasses }: ShippingFormProps) {
       />
 
       {/* Email */}
-      <TextInput name="email" label="Email" id="email" placeholder="Email" />
+      <TextInput
+        name="email"
+        label="Email"
+        id="email"
+        placeholder="Email"
+        type="email"
+      />
 
       {/* Street */}
       <TextInput
