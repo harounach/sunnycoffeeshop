@@ -1,0 +1,16 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// account-orders-page
+.account-orders-page {
+  height: 100%;
+  background-color: vars.$primary-100;
+}
+
+// account-orders-page__table
+.account-orders-page__table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: vars.$space-8;
+}

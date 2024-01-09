@@ -40,3 +40,36 @@
     }
   }
 }
+
+// ---------------------------------
+
+// table-pager
+.table-pager {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: vars.$space-2;
+}
+
+// table-pager__label
+.table-pager__label {
+  margin-right: vars.$space-2;
+}
+
+// table-pager__select
+.table-pager__select {
+  margin-right: vars.$space-3;
+}
+
+// table-pager__nav
+.table-pager__nav {
+  margin-left: vars.$space-3;
+}
+
+// table-pager__first
+
+// table-pager__prev
+
+// table-pager__next
+
+// table-pager__last

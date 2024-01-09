@@ -18,10 +18,13 @@ export default function Select({
   children,
 }: SelectProps) {
   const classes = classNames("select", customClasses);
+  const labelClasses = classNames("select__label label", {
+    label__hide: hideLabel,
+  });
 
   return (
     <div className={classes}>
-      <label className="select__label label" htmlFor={id}>
+      <label className={labelClasses} htmlFor={id}>
         {label}
       </label>
       <select name={name} id={id} className="select__select body-base">

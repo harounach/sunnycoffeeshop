@@ -259,3 +259,105 @@ export const cartProducts = [
     image: "/images/03-cappuccino.jpg",
   },
 ];
+
+// order
+
+const shippingData = {
+  first_name: "John",
+  last_name: "Doe",
+  email: "johndoe@emai.com",
+  street: "Martin Luther King Boulevard",
+  city: "Houston",
+  state: "TX",
+  zip_code: "4200",
+  country: "United States",
+};
+
+const paymentData = {
+  paymentMethod: "PayPal",
+};
+
+const orderItems = [
+  // 01
+  {
+    _id: "coffee-01",
+    title: "Black Coffee",
+    price: 3.5,
+    image: "/images/01-black-coffee.jpg",
+    qty: 2,
+    product_id: "coffee-01",
+  },
+
+  // 02
+  {
+    _id: "coffee-02",
+    title: "Latte",
+    price: 3.5,
+    image: "/images/02-latte.jpg",
+    qty: 2,
+    product_id: "coffee-02",
+  },
+
+  // 03
+  {
+    _id: "coffee-03",
+    title: "Cappuccino",
+    price: 3.5,
+    image: "/images/03-cappuccino.jpg",
+    qty: 1,
+    product_id: "coffee-03",
+  },
+];
+
+export const ordersData = [
+  {
+    _id: "order_1",
+    user: "John Doe",
+    orderItems: orderItems,
+    shipping: shippingData,
+    payment: paymentData,
+    itemsPrice: 16,
+    taxPrice: 5,
+    shippingPrice: 0,
+    totalPrice: 21,
+    isPaid: false,
+    paidAt: "12 Dec 2022",
+    isDelivered: false,
+    deliveredAt: "12 Dec 2022",
+    createdAt: "12 Dec 2022",
+  },
+
+  {
+    _id: "order_2",
+    user: "Sarah Campbell",
+    orderItems: orderItems,
+    shipping: shippingData,
+    payment: paymentData,
+    itemsPrice: 20,
+    taxPrice: 5,
+    shippingPrice: 0,
+    totalPrice: 25,
+    isPaid: true,
+    paidAt: "7 Jan 2024",
+    isDelivered: false,
+    deliveredAt: "12 Jan 2024",
+    createdAt: "7 Jan 2024",
+  },
+
+  {
+    _id: "order_3",
+    user: "Richard Smith",
+    orderItems: orderItems,
+    shipping: shippingData,
+    payment: paymentData,
+    itemsPrice: 25,
+    taxPrice: 5,
+    shippingPrice: 0,
+    totalPrice: 30,
+    isPaid: true,
+    paidAt: "23 Aug 2024",
+    isDelivered: true,
+    deliveredAt: "24 Aug 2024",
+    createdAt: "23 Aug 2024",
+  },
+];

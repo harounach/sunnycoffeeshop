@@ -34,7 +34,11 @@ export default function PlaceOrderSummary({
           <span className="summary__key body-large large">Total</span>
           <span className="summary__value body-large large">$46</span>
         </div>
-        <Button label="Place Oder Now" customClasses="summary__btn" />
+        <Button
+          url="/account/orders"
+          label="Place Oder Now"
+          customClasses="summary__btn"
+        />
       </div>
     </div>
   );

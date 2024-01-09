@@ -1,0 +1,45 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// table-wrapper
+.table-wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: vars.$white;
+}
+
+// table
+.table {
+  width: 100%;
+  padding: vars.$space-3;
+  border-collapse: collapse;
+}
+
+// table__header
+.table__header {
+  th {
+    text-align: left;
+    padding: vars.$space-2;
+  }
+  border-bottom: vars.$border-sm solid vars.$neutral-50;
+}
+
+// table__body
+.table__body {
+  & .number {
+    text-align: right;
+  }
+
+  tr {
+    border-bottom: vars.$border-sm solid vars.$neutral-50;
+  }
+
+  td {
+    padding: vars.$space-2;
+  }
+}
+
+// table__pager
+.table__pager {
+  padding-top: vars.$space-3;
+}
