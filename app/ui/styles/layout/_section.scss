@@ -50,4 +50,26 @@
       padding-bottom: vars.$space-11;
     }
   }
+
+  // section--sidebar
+  &--sidebar {
+    padding-top: 0;
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: column;
+
+    @include mixins.breakpoint(md) {
+      flex-direction: row;
+    }
+  }
+
+  // section__sidebar
+  &__sidebar {
+
+  }
+
+  // section__content
+  &__content {
+    flex-grow: 1;
+  }
 }
