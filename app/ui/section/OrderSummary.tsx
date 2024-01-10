@@ -1,13 +1,11 @@
 import classNames from "classnames";
 import Button from "@/app/ui/actionables/buttons/Button";
 
-interface PlaceOrderSummaryProps {
+interface OrderSummaryProps {
   customClasses?: string;
 }
 
-export default function PlaceOrderSummary({
-  customClasses,
-}: PlaceOrderSummaryProps) {
+export default function OrderSummary({ customClasses }: OrderSummaryProps) {
   const classes = classNames("summary", customClasses);
 
   return (
@@ -36,7 +34,7 @@ export default function PlaceOrderSummary({
         </div>
         <Button
           url="/account/orders"
-          label="Place Order Now"
+          label="Pay Now"
           customClasses="summary__btn"
         />
       </div>

@@ -1,31 +1,21 @@
 import classNames from "classnames";
-import { BsPencilFill } from "react-icons/bs";
-import IconButton from "@/app/ui/actionables/buttons/IconButton";
 import { Payment } from "@/app/lib/definitions";
 
-interface PlaceOrderPaymentCardProps {
+interface OrderPaymentCardProps {
   payment: Payment;
   customClasses?: string;
 }
 
-export default function PlaceOrderPaymentCard({
+export default function OrderPaymentCard({
   payment,
   customClasses,
-}: PlaceOrderPaymentCardProps) {
+}: OrderPaymentCardProps) {
   const classes = classNames("order-card", customClasses);
 
   return (
     <div className={classes}>
       <div className="order-card__header">
         <h3 className="title-medium">Payment</h3>
-        <IconButton
-          url="/checkout/payment"
-          color="primary"
-          hasBG
-          customClasses="order-card__btn"
-        >
-          <BsPencilFill />
-        </IconButton>
       </div>
       <div className="order-card__content">
         <div className="order-card__row">

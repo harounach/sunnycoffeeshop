@@ -1,14 +1,14 @@
 import Image from "next/image";
 import classNames from "classnames";
-import type { Product } from "@/app/lib/definitions";
+import type { OrderItem } from "@/app/lib/definitions";
 
 interface OrderItemCardProps {
-  product: Product;
+  orderItem: OrderItem;
   customClasses?: string;
 }
 
 export default function OrderItemCard({
-  product,
+  orderItem,
   customClasses,
 }: OrderItemCardProps) {
   const classes = classNames("order-item-card", customClasses);
@@ -16,18 +16,20 @@ export default function OrderItemCard({
   return (
     <div className={classes}>
       <Image
-        src={product.image}
+        src={orderItem.image}
         width={100}
         height={100}
-        alt={product.title}
+        alt={orderItem.title}
         className="order-item-card__img"
       />
       <div className="order-item-card__content">
         <span className="order-item-card__title title-base">
-          {product.title}
+          {orderItem.title}
         </span>
-        <span className="order-item-card__qty body-base">(2)</span>
-        <span className="order-item-card__price title-base">{`$${product.price}`}</span>
+        <span className="order-item-card__qty body-base">
+          ({orderItem.qty})
+        </span>
+        <span className="order-item-card__price title-base">{`$${orderItem.price}`}</span>
       </div>
     </div>
   );

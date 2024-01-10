@@ -4,8 +4,10 @@ import PlaceOrderShippingCard from "@/app/ui/cards/PlaceOrderShippingCard";
 import PlaceOrderPaymentCard from "@/app/ui/cards/PlaceOrderPaymentCard";
 import PlaceOrderItemsCard from "@/app/ui/cards/PlaceOrderItemsCard";
 import PlaceOrderSummary from "@/app/ui/section/PlaceOrderSummary";
+import { ordersData } from "@/app/lib/placeholder-data";
 
 export default function Page() {
+  const order = ordersData[0];
   return (
     <div>
       <Header />
@@ -19,13 +21,13 @@ export default function Page() {
             <div className="placeorder-page__content">
               <div className="placeorder-page__info">
                 {/* Shipping */}
-                <PlaceOrderShippingCard />
+                <PlaceOrderShippingCard shipping={order.shipping} />
 
                 {/* Payment */}
-                <PlaceOrderPaymentCard />
+                <PlaceOrderPaymentCard payment={order.payment} />
 
                 {/* Items */}
-                <PlaceOrderItemsCard />
+                <PlaceOrderItemsCard orderItems={order.orderItems} />
               </div>
 
               {/* Summary */}
