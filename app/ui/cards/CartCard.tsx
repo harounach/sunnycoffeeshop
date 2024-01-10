@@ -26,22 +26,18 @@ export default function CartCard({ product, customClasses }: CartCardProps) {
           <h3 className="cart-card__title title-base">{product.title}</h3>
           <h3 className="cart-card__price title-base">{`$${product.price}`}</h3>
         </div>
-        <div className="cart-card__body">
-          <div className="cart-card__qty-control">
-            <IconButton mini customClasses="cart-card__down">
+        <div className="cart-card__footer">
+          <div className="cart-card__actions">
+            <IconButton hasBG customClasses="cart-card__down">
               <BsDash />
             </IconButton>
-            <span className="cart-card__qty body-base">1</span>
-            <IconButton mini customClasses="cart-card__up">
+            <span className="cart-card__qty body-base">(1)</span>
+            <IconButton hasBG customClasses="cart-card__up">
               <BsPlus />
             </IconButton>
           </div>
-          <div className="cart-card__controls">
-            <IconButton
-              hasBG
-              color="primary"
-              customClasses="cart-card__favorite"
-            >
+          <div className="cart-card__actions">
+            <IconButton hasBG customClasses="cart-card__favorite">
               <BsHeart />
             </IconButton>
             <IconButton hasBG color="danger" customClasses="cart-card__remove">

@@ -26,10 +26,10 @@ export default function OrderItemCard({
         <span className="order-item-card__title title-base">
           {orderItem.title}
         </span>
+        <span className="order-item-card__price title-base">{`$${orderItem.price}`}</span>
         <span className="order-item-card__qty body-base">
           ({orderItem.qty})
         </span>
-        <span className="order-item-card__price title-base">{`$${orderItem.price}`}</span>
       </div>
     </div>
   );

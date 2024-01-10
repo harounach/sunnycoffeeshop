@@ -21,19 +21,20 @@
   }
 }
 
-// account-order-page__cards
-.account-order-page__cards {
-  max-width: 450px;
+// account-order-page__info
+.account-order-page__info {
   display: flex;
   flex-direction: column;
   gap: vars.$space-5;
+
+  @include mixins.breakpoint(xl) {
+    max-width: 450px;
+  }
 }
 
 // account-order-page__summary
 .account-order-page__summary.summary {
-  min-width: 350px;
-
   @include mixins.breakpoint(xl) {
-    order: 1;
+    max-width: 350px;
   }
 }

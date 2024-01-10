@@ -15,12 +15,12 @@ export default function Page({ params }: { params: { id: string } }) {
           <p className="desc body-base">Review your order ({order!._id})</p>
 
           <div className="account-order-page__content">
-            <OrderSummary customClasses="account-order-page__summary" />
-            <div className="account-order-page__cards">
+            <div className="account-order-page__info">
               <OrderShippingCard shipping={order!.shipping} />
               <OrderPaymentCard payment={order!.payment} />
               <OrderItemsCard orderItems={order!.orderItems} />
             </div>
+            <OrderSummary customClasses="account-order-page__summary" />
           </div>
         </div>
       </section>

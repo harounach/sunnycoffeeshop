@@ -21,7 +21,7 @@ export default function Page() {
                   return <CartCard key={product._id} product={product} />;
                 })}
               </div>
-              <CartSummary />
+              <CartSummary customClasses="cart-page__summary" />
             </div>
           </div>
         </section>

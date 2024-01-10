@@ -31,3 +31,10 @@
   max-width: 500px;
   flex-grow: 1;
 }
+
+// cart-page__summary
+.cart-page__summary.summary {
+  @include mixins.breakpoint(xl) {
+    max-width: 350px;
+  }
+}

@@ -1,0 +1,49 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// content-card
+.content-card {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-3;
+  padding: vars.$space-3;
+  background-color: vars.$white;
+  // content-card__header
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  // content-card__title
+  &__title {
+  }
+
+  // content-card__btn
+  &__btn {
+  }
+
+  // content-card__content
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: vars.$space-3;
+  }
+
+  // content-card__row
+  &__row {
+    display: flex;
+    align-items: baseline;
+    gap: vars.$space-3;
+  }
+
+  // content-card__key
+  &__key {
+    color: vars.$neutral-950;
+  }
+
+  // content-card__value
+  &__value {
+    color: vars.$neutral-700;
+  }
+}

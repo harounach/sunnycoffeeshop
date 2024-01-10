@@ -29,9 +29,8 @@ export default function Page() {
                 {/* Items */}
                 <PlaceOrderItemsCard orderItems={order.orderItems} />
               </div>
-
               {/* Summary */}
-              <PlaceOrderSummary />
+              <PlaceOrderSummary customClasses="placeorder-page__summary" />
             </div>
           </div>
         </section>

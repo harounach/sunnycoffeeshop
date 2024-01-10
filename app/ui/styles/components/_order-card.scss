@@ -49,7 +49,7 @@
 .order-item-card {
   display: flex;
   align-items: center;
-  gap: vars.$space-6;
+  gap: vars.$space-5;
 
   // order-item-card__img
   &__img {
@@ -66,8 +66,18 @@
   }
 
   // order-item-card__title
+  &__title {
+    color: vars.$neutral-950;
+  }
 
   // order-item-card__qty
+  &__qty {
+  }
 
   // order-item-card__price
+  &__price {
+    color: vars.$primary-600;
+    margin-left: auto;
+    margin-right: vars.$space-5;
+  }
 }

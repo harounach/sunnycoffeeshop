@@ -11,14 +11,14 @@ export default function OrderItemsCard({
   orderItems,
   customClasses,
 }: OrderItemsCardProps) {
-  const classes = classNames("order-card", customClasses);
+  const classes = classNames("content-card", customClasses);
 
   return (
     <div className={classes}>
-      <div className="order-card__header">
-        <h3 className="title-medium">Items</h3>
+      <div className="content-card__header">
+        <h3 className="content-card__title title-medium">Items</h3>
       </div>
-      <div className="order-card__content">
+      <div className="content-card__content">
         {orderItems.map((orderItem) => {
           return <OrderItemCard key={orderItem._id} orderItem={orderItem} />;
         })}

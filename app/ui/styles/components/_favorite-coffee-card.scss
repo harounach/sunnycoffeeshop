@@ -1,0 +1,59 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// favorite-coffee-card
+.favorite-coffee-card {
+  display: flex;
+  flex-direction: row;
+  gap: vars.$space-3;
+  text-decoration: none;
+  background-color: vars.$white;
+
+  // favorite-coffee-card__img
+  &__img {
+    object-fit: cover;
+    aspect-ratio: vars.$aspect-landscape;
+  }
+
+  // favorite-coffee-card__content
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    gap: vars.$space-3;
+    flex-grow: 1;
+  }
+
+  // favorite-coffee-card__header
+  &__header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: vars.$space-5;
+  }
+
+  // favorite-coffee-card__footer
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: vars.$space-3;
+  }
+
+  // favorite-coffee-card__title
+  &__title {
+    color: vars.$black;
+  }
+
+  // favorite-coffee-card__price
+  &__price {
+    color: vars.$primary-600;
+  }
+
+  // favorite-coffee-card__favorite
+  &__favorite {
+  }
+
+  // favorite-coffee-card__remove
+  &__remove {
+  }
+}

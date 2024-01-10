@@ -9,7 +9,6 @@
   flex-direction: column;
   gap: vars.$space-5;
   padding: vars.$space-3;
-  max-width: 350px;
   flex-grow: 1;
 
   @include mixins.breakpoint(md) {
