@@ -1,0 +1,59 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// admin-coffee-card
+.admin-coffee-card {
+  display: flex;
+  flex-direction: row;
+  gap: vars.$space-3;
+  text-decoration: none;
+  background-color: vars.$white;
+
+  // admin-coffee-card__img
+  &__img {
+    object-fit: cover;
+    aspect-ratio: vars.$aspect-landscape;
+  }
+
+  // admin-coffee-card__content
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    gap: vars.$space-3;
+    flex-grow: 1;
+  }
+
+  // admin-coffee-card__header
+  &__header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: vars.$space-5;
+  }
+
+  // admin-coffee-card__footer
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: vars.$space-3;
+  }
+
+  // admin-coffee-card__title
+  &__title {
+    color: vars.$black;
+  }
+
+  // admin-coffee-card__price
+  &__price {
+    color: vars.$primary-600;
+  }
+
+  // admin-coffee-card__favorite
+  &__favorite {
+  }
+
+  // admin-coffee-card__remove
+  &__remove {
+  }
+}

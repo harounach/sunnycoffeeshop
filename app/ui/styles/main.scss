@@ -34,15 +34,16 @@
 @use "./components/button";
 @use "./components/content-card";
 @use "./components/coffee-card";
+@use "./components/admin-coffee-card";
 @use "./components/cart-card";
 @use "./components/favorite-coffee-card";
+@use "./components/order-card";
 @use "./components/benefit-card";
 @use "./components/coffee-filter";
 @use "./components/rating";
 @use "./components/coffee-content";
 @use "./components/review";
 @use "./components/summary";
-@use "./components/order-card";
 @use "./components/sidebar";
 @use "./components/table";
 
@@ -65,6 +66,8 @@
 @use "./pages/account-orders-page";
 @use "./pages/account-order-page";
 @use "./pages/account-favorite-page";
+@use "./pages/admin-dashboard-page";
+@use "./pages/admin-products-page";
 
 // <themes>
 // @use "./themes/theme-values";

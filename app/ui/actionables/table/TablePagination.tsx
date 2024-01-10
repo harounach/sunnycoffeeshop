@@ -19,19 +19,14 @@ export default function TablePagination({
 
   return (
     <div className={classes}>
-      <span className="table-pager__label body-base">Rows per page</span>
-
-      <Select
-        id="page"
-        name="page"
-        label="Items per page"
-        hideLabel
-        customClasses="table-pager__select"
-      >
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-      </Select>
+      <div className="table-pager__select">
+        <span className="table-pager__label body-base">Rows per page</span>
+        <Select id="page" name="page" label="Items per page" hideLabel>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+        </Select>
+      </div>
       <span className="table-pager__label body-base">1-10 of 100</span>
       <div className="table-pager__nav">
         <IconButton customClasses="table-pager__first" hasBG>

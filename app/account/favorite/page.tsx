@@ -1,5 +1,4 @@
 import FavoriteCoffeeListCard from "@/app/ui/cards/FavoriteCoffeeListCard";
-
 import { favoriteProducts } from "@/app/lib/placeholder-data";
 
 export default function Page() {
