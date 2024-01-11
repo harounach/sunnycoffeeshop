@@ -15,14 +15,14 @@ export default function OrderTable({
   return (
     <div className={classes}>
       <table className="table">
-        <thead className="table__header">
-          <tr className="title-base">
-            <th>ID</th>
-            <th>Date</th>
-            <th>Total</th>
-            <th className="hide">Paid</th>
-            <th className="hide">Delivered</th>
-            <th>Actions</th>
+        <thead>
+          <tr className="table__row title-base">
+            <th className="table__header">ID</th>
+            <th className="table__header">Date</th>
+            <th className="table__header">Total</th>
+            <th className="table__header table__header--hide">Paid</th>
+            <th className="table__header table__header--hide">Delivered</th>
+            <th className="table__header table__header--right">Actions</th>
           </tr>
         </thead>
         <tbody className="table__body body-base">{children}</tbody>

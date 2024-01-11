@@ -1,17 +1,17 @@
 import classNames from "classnames";
-import { BsEye } from "react-icons/bs";
+import { BsEye, BsTrash3Fill } from "react-icons/bs";
 import IconButton from "@/app/ui/actionables/buttons/IconButton";
 import type { Order } from "@/app/lib/definitions";
 
-interface OrderTableRowProps {
+interface AdminOrderTableRowProps {
   order: Order;
   customClasses?: string;
 }
 
-export default function OrderTableRow({
+export default function AdminOrderTableRow({
   order,
   customClasses,
-}: OrderTableRowProps) {
+}: AdminOrderTableRowProps) {
   const classes = classNames("table__row", customClasses);
 
   return (
@@ -23,7 +23,10 @@ export default function OrderTableRow({
       <td className="table__data table__data--hide">{order.deliveredAt}</td>
       <td className="table__data">
         <div className="table__actions">
-          <IconButton url={`/account/orders/${order._id}`} hasBG>
+          <IconButton hasBG>
+            <BsTrash3Fill />
+          </IconButton>
+          <IconButton url={`/admin/orders/${order._id}`} hasBG>
             <BsEye />
           </IconButton>
         </div>
