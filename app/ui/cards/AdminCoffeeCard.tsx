@@ -32,7 +32,11 @@ export default function AdminCoffeeCard({
           <span className="admin-coffee-card__price title-base">{`$${product.price}`}</span>
         </div>
         <div className="admin-coffee-card__footer">
-          <IconButton hasBG customClasses="admin-coffee-card__edit">
+          <IconButton
+            url={`/admin/products/${product._id}/edit`}
+            hasBG
+            customClasses="admin-coffee-card__edit"
+          >
             <BsPencilFill />
           </IconButton>
           <IconButton hasBG customClasses="admin-coffee-card__remove">

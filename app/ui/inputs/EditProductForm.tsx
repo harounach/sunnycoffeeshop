@@ -3,13 +3,13 @@ import TextInput from "./TextInput";
 import TextArea from "./TextArea";
 import Button from "@/app/ui/actionables/buttons/Button";
 
-interface CreateProductFormProps {
+interface EditProductFormProps {
   customClasses?: string;
 }
 
-export default function CreateProductForm({
+export default function EditProductForm({
   customClasses,
-}: CreateProductFormProps) {
+}: EditProductFormProps) {
   const classes = classNames("form", customClasses);
 
   return (
