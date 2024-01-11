@@ -20,7 +20,7 @@ export default function AdminCoffeeListCard({
       <div className="content-card__header">
         <h3 className="content-card__title title-medium">Items</h3>
         <Button
-          label="Add Product"
+          label="Create Product"
           url="/admin/products/create"
           customClasses="content-card__btn"
         />

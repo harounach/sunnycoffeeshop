@@ -32,7 +32,7 @@ export default function TextArea({
         name={name}
         id={id}
         cols={30}
-        rows={10}
+        rows={5}
         placeholder={placeholder}
       ></textarea>
     </div>

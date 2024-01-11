@@ -1,6 +1,6 @@
 import Image from "next/image";
 import classNames from "classnames";
-import { BsHeart, BsCartX, BsCartPlus } from "react-icons/bs";
+import { BsPencilFill, BsTrash3Fill } from "react-icons/bs";
 import IconButton from "@/app/ui/actionables/buttons/IconButton";
 import type { Product } from "@/app/lib/definitions";
 
@@ -32,11 +32,11 @@ export default function AdminCoffeeCard({
           <span className="admin-coffee-card__price title-base">{`$${product.price}`}</span>
         </div>
         <div className="admin-coffee-card__footer">
-          <IconButton hasBG customClasses="admin-coffee-card__favorite">
-            <BsHeart />
+          <IconButton hasBG customClasses="admin-coffee-card__edit">
+            <BsPencilFill />
           </IconButton>
           <IconButton hasBG customClasses="admin-coffee-card__remove">
-            <BsCartPlus />
+            <BsTrash3Fill />
           </IconButton>
         </div>
       </div>
