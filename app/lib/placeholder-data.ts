@@ -409,3 +409,47 @@ export const favoriteProducts = [
     image: "/images/05-espresso.jpg",
   },
 ];
+
+export const barChartData = [
+  {
+    label: "January",
+    totalSales: 20,
+  },
+
+  {
+    label: "February",
+    totalSales: 15,
+  },
+
+  {
+    label: "March",
+    totalSales: 25,
+  },
+];
+
+export const donutChartData = [
+  {
+    title: "Black Coffee",
+    totalSales: 20,
+  },
+
+  {
+    title: "Latte",
+    totalSales: 22,
+  },
+
+  {
+    title: "Americano",
+    totalSales: 19,
+  },
+
+  {
+    title: "Espresso",
+    totalSales: 31,
+  },
+
+  {
+    title: "Mocha",
+    totalSales: 23,
+  },
+];

@@ -54,3 +54,13 @@ export type Order = {
   deliveredAt: string;
   createdAt: string;
 };
+
+export type SummarySaleEntry = {
+  label: string;
+  totalSales: number;
+};
+
+export type TopProductEntry = {
+  title: string;
+  totalSales: number;
+};

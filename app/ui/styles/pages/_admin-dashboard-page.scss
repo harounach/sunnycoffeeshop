@@ -27,3 +27,27 @@
     justify-content: space-between;
   }
 }
+
+// admin-dashboard-page__charts
+.admin-dashboard-page__charts {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-3;
+
+  @include mixins.breakpoint(lg) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+// admin-dashboard-page__bar
+.admin-dashboard-page__bar {
+  background-color: vars.$white;
+  padding: vars.$space-3;
+}
+
+// admin-dashboard-page__donut
+.admin-dashboard-page__donut {
+  background-color: vars.$white;
+  padding: vars.$space-3;
+}

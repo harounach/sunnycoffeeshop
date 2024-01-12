@@ -4,6 +4,9 @@ import {
   BsCupHotFill,
 } from "react-icons/bs";
 import DashboardInfoCard from "@/app/ui/cards/DashboardInfoCard";
+import BarChart from "@/app/ui/charts/BarChart";
+import DonutChart from "@/app/ui/charts/DonutChart";
+import { barChartData, donutChartData } from "@/app/lib/placeholder-data";
 
 export default function Page() {
   return (
@@ -17,7 +20,7 @@ export default function Page() {
           <div className="admin-dashboard-page__content">
             <div className="admin-dashboard-page__summary">
               <DashboardInfoCard
-                label="Total sales"
+                label="Total Sales"
                 value="$99000"
                 color="blue"
               >
@@ -35,6 +38,14 @@ export default function Page() {
               >
                 <BsCupHotFill />
               </DashboardInfoCard>
+            </div>
+            <div className="admin-dashboard-page__charts">
+              <div className="admin-dashboard-page__bar">
+                <BarChart salesData={barChartData} />
+              </div>
+              <div className="admin-dashboard-page__donut">
+                <DonutChart popularCoffeeData={donutChartData} />
+              </div>
             </div>
           </div>
         </div>
