@@ -1,4 +1,20 @@
 import type { Product } from "./definitions";
+import bcrypt from "bcryptjs";
+
+export const users = [
+  {
+    name: process.env.ADMIN_NAME,
+    email: process.env.ADMIN_EMAIL,
+    passwordHash: bcrypt.hashSync(process.env.ADMIN_PASSWORD as string),
+    isAdmin: true,
+  },
+  {
+    name: "John Doe",
+    email: "user@hwiren.com",
+    passwordHash: bcrypt.hashSync("1234"),
+    isAdmin: false,
+  },
+];
 
 export const products = [
   // 01
