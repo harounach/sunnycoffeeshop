@@ -24,6 +24,7 @@ export const products = [
     desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
     price: 3.5,
     image: "/images/01-black-coffee.jpg",
+    slug: "black-coffee",
   },
 
   // 02
@@ -33,6 +34,7 @@ export const products = [
     desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
     price: 3.5,
     image: "/images/02-latte.jpg",
+    slug: "latte",
   },
 
   // 03
@@ -42,6 +44,7 @@ export const products = [
     desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
     price: 3.5,
     image: "/images/03-cappuccino.jpg",
+    slug: "cappuccino",
   },
 
   // 04
@@ -51,6 +54,7 @@ export const products = [
     desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
     price: 3.5,
     image: "/images/04-americano.jpg",
+    slug: "americano",
   },
 
   // 05
@@ -60,6 +64,7 @@ export const products = [
     desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
     price: 3.5,
     image: "/images/05-espresso.jpg",
+    slug: "espresso",
   },
 
   // 06
@@ -69,6 +74,7 @@ export const products = [
     desc: "Doppio",
     price: 3.5,
     image: "/images/06-doppio.jpg",
+    slug: "doppio",
   },
 
   // 07
@@ -78,6 +84,7 @@ export const products = [
     desc: "Cortado",
     price: 3.5,
     image: "/images/07-cortado.jpg",
+    slug: "cortado",
   },
 
   // 08
@@ -87,6 +94,7 @@ export const products = [
     desc: "Red Eye",
     price: 3.5,
     image: "/images/08-red-eye.jpg",
+    slug: "red-eye",
   },
 
   // 09
@@ -96,6 +104,7 @@ export const products = [
     desc: "Galao",
     price: 3.5,
     image: "/images/09-galao.jpg",
+    slug: "galao",
   },
 
   // 10
@@ -105,6 +114,7 @@ export const products = [
     desc: "Lungo",
     price: 3.5,
     image: "/images/10-lungo.jpg",
+    slug: "lungo",
   },
 
   // 11
@@ -114,6 +124,7 @@ export const products = [
     desc: "Macchiato",
     price: 3.5,
     image: "/images/11-macchiato.jpg",
+    slug: "macchiato",
   },
 
   // 12
@@ -123,6 +134,7 @@ export const products = [
     desc: "Mocha",
     price: 3.5,
     image: "/images/12-mocha.jpg",
+    slug: "mocha",
   },
 
   // 13
@@ -132,6 +144,7 @@ export const products = [
     desc: "Ristretto",
     price: 3.5,
     image: "/images/13-ristretto.jpg",
+    slug: "ristretto",
   },
 
   // 14
@@ -141,6 +154,7 @@ export const products = [
     desc: "Flat White",
     price: 3.5,
     image: "/images/14-flat-white.jpg",
+    slug: "flat-white",
   },
 
   // 15
@@ -150,6 +164,7 @@ export const products = [
     desc: "Affogato",
     price: 3.5,
     image: "/images/15-affogato.jpg",
+    slug: "affogato",
   },
 
   // 16
@@ -159,6 +174,7 @@ export const products = [
     desc: "Cafe Au Lait",
     price: 3.5,
     image: "/images/16-cafe-au-lait.jpg",
+    slug: "cafe-au-lait",
   },
 
   // 17
@@ -168,6 +184,7 @@ export const products = [
     desc: "Irish",
     price: 3.5,
     image: "/images/17-irish.jpg",
+    slug: "irish",
   },
 
   // 18
@@ -177,6 +194,7 @@ export const products = [
     desc: "Iced Espresso",
     price: 3.5,
     image: "/images/18-iced-espresso.jpg",
+    slug: "iced-espresso",
   },
 
   // 19
@@ -186,6 +204,7 @@ export const products = [
     desc: "Cold Brew",
     price: 3.5,
     image: "/images/19-cold-brew.jpg",
+    slug: "cold-brew",
   },
 
   // 20
@@ -195,6 +214,7 @@ export const products = [
     desc: "Iced Latte",
     price: 3.5,
     image: "/images/20-iced-latte.jpg",
+    slug: "iced-latte",
   },
 
   // 21
@@ -204,6 +224,7 @@ export const products = [
     desc: "Iced Americano",
     price: 3.5,
     image: "/images/21-iced-americano.jpg",
+    slug: "iced-americano",
   },
 
   // 22
@@ -213,6 +234,7 @@ export const products = [
     desc: "Iced Mocha",
     price: 3.5,
     image: "/images/22-iced-mocha.jpg",
+    slug: "iced-mocha",
   },
 ];
 

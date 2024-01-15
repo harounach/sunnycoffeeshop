@@ -4,6 +4,7 @@ export type Product = {
   desc: string;
   price: number;
   image: string;
+  slug: string;
 };
 
 export type Review = {
