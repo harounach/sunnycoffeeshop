@@ -4,9 +4,12 @@ import CoffeeCard from "@/app/ui/cards/CoffeeCard";
 import CoffeeFilter from "@/app/ui/inputs/CoffeeFilter";
 import Pagination from "@/app/ui/actionables/Pagination";
 import { products } from "@/app/lib/placeholder-data";
-const coffees = products.slice(0, 8);
+import { fetchProducts } from "@/app/lib/database/actions";
+// const coffees = products.slice(0, 8);
 
-export default function Page() {
+export default async function Page() {
+  const allProducts = await fetchProducts();
+
   return (
     <div>
       <Header />
@@ -17,7 +20,7 @@ export default function Page() {
             <p className="desc body-base">Shop your favorite taste of coffee</p>
             <CoffeeFilter customClasses="products-page__options" />
             <div className="products-page__coffee-grid coffee-card-grid">
-              {coffees.map((product) => {
+              {allProducts.map((product) => {
                 return <CoffeeCard key={product._id} product={product} />;
               })}
             </div>

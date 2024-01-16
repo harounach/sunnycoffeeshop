@@ -1,5 +1,5 @@
-import dbConnect from "@/app/lib/dbConnect";
-import { UserModel, ProductModel } from "@/app/lib/models";
+import dbConnect from "@/app/lib/database/dbConnect";
+import { UserModel, ProductModel } from "@/app/lib/database/models";
 import { users, products } from "@/app/lib/placeholder-data";
 
 const allProducts = products.map((product) => {
@@ -14,12 +14,12 @@ const allProducts = products.map((product) => {
 
 export async function GET(request: Request) {
   try {
-    await dbConnect();
-    await UserModel.deleteMany();
-    await UserModel.insertMany(users);
+    // await dbConnect();
+    // await UserModel.deleteMany();
+    // await UserModel.insertMany(users);
 
-    await ProductModel.deleteMany();
-    await ProductModel.insertMany(allProducts);
+    // await ProductModel.deleteMany();
+    // await ProductModel.insertMany(allProducts);
 
     return Response.json({
       message: "seeded successfully",

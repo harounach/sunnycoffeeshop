@@ -4,9 +4,12 @@ import CoffeeContent from "@/app/ui/section/CoffeeContent";
 import ReviewList from "@/app/ui/section/ReviewList";
 import WriteReview from "@/app/ui/inputs/WriteReview";
 import { products } from "@/app/lib/placeholder-data";
+import { fetchSingleProduct } from "@/app/lib/database/actions";
 
-export default function Page({ params }: { params: { id: string } }) {
-  const coffeeProduct = products.find((product) => product._id === params.id);
+export default async function Page({ params }: { params: { id: string } }) {
+  // const coffeeProduct = products.find((product) => product._id === params.id);
+  const coffeeProduct = await fetchSingleProduct(params.id);
+
   return (
     <div>
       <Header />

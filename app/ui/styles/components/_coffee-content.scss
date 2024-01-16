@@ -26,6 +26,7 @@
   display: flex;
   flex-direction: column;
   gap: vars.$space-5;
+  flex-grow: 1;
 }
 
 // coffee-content__header

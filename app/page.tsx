@@ -10,9 +10,12 @@ import CoffeeCard from "@/app/ui/cards/CoffeeCard";
 import BenefitCard from "@/app/ui/cards/BenefitCard";
 import Newsletter from "@/app/ui/inputs/Newsletter";
 import { products } from "@/app/lib/placeholder-data";
-const favoriteProducts = products.slice(0, 4);
+import { fetchFeaturedProducts } from "@/app/lib/database/actions";
+// const favoriteProducts = products.slice(0, 4);
 
-export default function Page() {
+export default async function Page() {
+  const featuredProducts = await fetchFeaturedProducts();
+
   return (
     <div>
       <Header />
@@ -23,7 +26,7 @@ export default function Page() {
             <h2 className="subtitle title-medium">Our Popular Coffee</h2>
             <p className="desc body-base">List of our best selling coffee</p>
             <div className="coffee-card-grid">
-              {favoriteProducts.map((product) => {
+              {featuredProducts.map((product) => {
                 return <CoffeeCard key={product._id} product={product} />;
               })}
             </div>
