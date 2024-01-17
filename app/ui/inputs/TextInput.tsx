@@ -8,6 +8,7 @@ interface TextInputProps {
   placeholder: string;
   hideLabel?: boolean;
   error?: string;
+  defaultValue?: string | number;
   customClasses?: string;
 }
 
@@ -19,6 +20,7 @@ export default function TextInput({
   placeholder,
   hideLabel,
   error,
+  defaultValue,
   customClasses,
 }: TextInputProps) {
   const parentClasses = classNames("text-input", customClasses);
@@ -42,6 +44,7 @@ export default function TextInput({
         type={inputType}
         name={name}
         id={id}
+        defaultValue={defaultValue ? defaultValue : ""}
       />
       <p className={errorMsgClasses}>{error}</p>
     </div>

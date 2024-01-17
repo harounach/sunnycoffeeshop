@@ -7,6 +7,7 @@ interface TextAreaProps {
   placeholder: string;
   hideLabel?: boolean;
   error?: string;
+  defaultValue?: string;
   customClasses?: string;
 }
 
@@ -17,6 +18,7 @@ export default function TextArea({
   placeholder,
   hideLabel,
   error,
+  defaultValue,
   customClasses,
 }: TextAreaProps) {
   const parentClasses = classNames("text-area", customClasses);
@@ -39,6 +41,7 @@ export default function TextArea({
         cols={30}
         rows={5}
         placeholder={placeholder}
+        defaultValue={defaultValue ? defaultValue : ""}
       ></textarea>
       <p className={errorMsgClasses}>{error}</p>
     </div>
