@@ -1,6 +1,6 @@
 import dbConnect from "@/app/lib/database/dbConnect";
 import { UserModel, ProductModel } from "@/app/lib/database/models";
-import { Product } from "../definitions";
+import { Product } from "@/app/lib/definitions";
 
 /*
  * Fetch all products

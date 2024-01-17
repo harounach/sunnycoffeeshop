@@ -3,9 +3,7 @@ import Footer from "@/app/ui/navigation/footer/Footer";
 import CoffeeCard from "@/app/ui/cards/CoffeeCard";
 import CoffeeFilter from "@/app/ui/inputs/CoffeeFilter";
 import Pagination from "@/app/ui/actionables/Pagination";
-import { products } from "@/app/lib/placeholder-data";
-import { fetchProducts } from "@/app/lib/database/actions";
-// const coffees = products.slice(0, 8);
+import { fetchProducts } from "@/app/lib/database/product/product.query";
 
 export default async function Page() {
   const allProducts = await fetchProducts();

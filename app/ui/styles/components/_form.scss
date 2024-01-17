@@ -20,6 +20,11 @@
     font-weight: 600;
     text-decoration: none;
   }
+
+  // form__error
+  &__error {
+    color: vars.$danger-500;
+  }
 }
 
 // label

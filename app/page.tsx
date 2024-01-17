@@ -10,8 +10,7 @@ import CoffeeCard from "@/app/ui/cards/CoffeeCard";
 import BenefitCard from "@/app/ui/cards/BenefitCard";
 import Newsletter from "@/app/ui/inputs/Newsletter";
 import { products } from "@/app/lib/placeholder-data";
-import { fetchFeaturedProducts } from "@/app/lib/database/actions";
-// const favoriteProducts = products.slice(0, 4);
+import { fetchFeaturedProducts } from "@/app/lib/database/product/product.query";
 
 export default async function Page() {
   const featuredProducts = await fetchFeaturedProducts();

@@ -40,3 +40,13 @@
     border-color: vars.$primary-500;
   }
 }
+
+// text-area__error
+.text-area__error {
+  color: vars.$danger-500;
+  display: none;
+
+  &.show {
+    display: block;
+  }
+}

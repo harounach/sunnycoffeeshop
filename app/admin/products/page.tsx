@@ -1,6 +1,5 @@
 import AdminCoffeeListCard from "@/app/ui/cards/AdminCoffeeListCard";
-import { fetchProducts } from "@/app/lib/database/actions";
-import { products } from "@/app/lib/placeholder-data";
+import { fetchProducts } from "@/app/lib/database/product/product.query";
 
 export default async function Page() {
   const allProducts = await fetchProducts();
