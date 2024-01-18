@@ -135,3 +135,16 @@ export async function updateProduct(
   revalidatePath("/admin/products");
   redirect("/admin/products");
 }
+
+export async function deleteProduct(id: string) {
+  try {
+    // Delete product in database
+    // Find the product with this id
+    const productToDelete = await ProductModel.findById(id).exec();
+    const deletedProduct = await productToDelete.deleteOne();
+    revalidatePath("/admin/products");
+    return { message: "Product deleted" };
+  } catch (error) {
+    return { message: "Database Error: Failed to Delete Product." };
+  }
+}

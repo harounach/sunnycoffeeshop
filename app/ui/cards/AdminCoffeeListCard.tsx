@@ -27,6 +27,7 @@ export default function AdminCoffeeListCard({
       </div>
       <div className="content-card__content">
         {products.map((product) => {
+          product._id = product._id.toString();
           return <AdminCoffeeCard key={product._id} product={product} />;
         })}
       </div>
