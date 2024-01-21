@@ -1,10 +1,12 @@
 import Header from "@/app/ui/navigation/header/Header";
 import Footer from "@/app/ui/navigation/footer/Footer";
-import CartCard from "@/app/ui/cards/CartCard";
-import CartSummary from "@/app/ui/section/CartSummary";
-import { cartProducts } from "@/app/lib/placeholder-data";
+import CartCard from "./CartCard";
+import CartSummary from "./CartSummary";
+import { useCartStore } from "../lib/store/cart";
 
 export default function Page() {
+  const items = useCartStore((state) => state.items);
+
   return (
     <div>
       <Header />
@@ -17,8 +19,13 @@ export default function Page() {
             </p>
             <div className="cart-page__content">
               <div className="cart-page__items">
-                {cartProducts.map((product) => {
-                  return <CartCard key={product._id} product={product} />;
+                {items.map((cartProduct) => {
+                  return (
+                    <CartCard
+                      key={cartProduct.product._id}
+                      item={cartProduct}
+                    />
+                  );
                 })}
               </div>
               <CartSummary customClasses="cart-page__summary" />

@@ -409,6 +409,7 @@ export const favoriteProducts = [
     desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
     price: 3.5,
     image: "/images/01-black-coffee.jpg",
+    slug: "black-coffee",
   },
 
   // 02
@@ -418,6 +419,7 @@ export const favoriteProducts = [
     desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
     price: 3.5,
     image: "/images/02-latte.jpg",
+    slug: "latte",
   },
 
   // 03
@@ -427,6 +429,7 @@ export const favoriteProducts = [
     desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
     price: 3.5,
     image: "/images/03-cappuccino.jpg",
+    slug: "cappuccino",
   },
 
   // 04
@@ -436,6 +439,7 @@ export const favoriteProducts = [
     desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
     price: 3.5,
     image: "/images/04-americano.jpg",
+    slug: "Americano",
   },
 
   // 05
@@ -445,6 +449,7 @@ export const favoriteProducts = [
     desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
     price: 3.5,
     image: "/images/05-espresso.jpg",
+    slug: "Espresso",
   },
 ];
 

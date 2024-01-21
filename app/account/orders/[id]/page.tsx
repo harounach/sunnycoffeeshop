@@ -1,7 +1,7 @@
-import OrderPaymentCard from "@/app/ui/cards/OrderPaymentCard";
-import OrderShippingCard from "@/app/ui/cards/OrderShippingCard";
-import OrderItemsCard from "@/app/ui/cards/OrderItemsCard";
-import OrderSummary from "@/app/ui/section/OrderSummary";
+import OrderPaymentCard from "./OrderPaymentCard";
+import OrderShippingCard from "./OrderShippingCard";
+import OrderItemsList from "./OrderItemsList";
+import OrderSummary from "./OrderSummary";
 import { ordersData } from "@/app/lib/placeholder-data";
 
 export default function Page({ params }: { params: { id: string } }) {
@@ -18,7 +18,7 @@ export default function Page({ params }: { params: { id: string } }) {
             <OrderSummary customClasses="account-order-page__summary" />
             <OrderShippingCard shipping={order!.shipping} />
             <OrderPaymentCard payment={order!.payment} />
-            <OrderItemsCard orderItems={order!.orderItems} />
+            <OrderItemsList orderItems={order!.orderItems} />
           </div>
         </div>
       </section>

@@ -1,7 +1,7 @@
-import AdminOrderPaymentCard from "@/app/ui/cards/AdminOrderPaymentCard";
-import AdminOrderShippingCard from "@/app/ui/cards/AdminOrderShippingCard";
-import AdminOrderItemsCard from "@/app/ui/cards/AdminOrderItemsCard";
-import AdminOrderSummary from "@/app/ui/section/AdminOrderSummary";
+import AdminOrderPaymentCard from "./AdminOrderPaymentCard";
+import AdminOrderShippingCard from "./AdminOrderShippingCard";
+import AdminOrderItemsList from "./AdminOrderItemsList";
+import AdminOrderSummary from "./AdminOrderSummary";
 import { ordersData } from "@/app/lib/placeholder-data";
 
 export default function Page({ params }: { params: { id: string } }) {
@@ -17,7 +17,7 @@ export default function Page({ params }: { params: { id: string } }) {
             <AdminOrderSummary />
             <AdminOrderShippingCard shipping={order!.shipping} />
             <AdminOrderPaymentCard payment={order!.payment} />
-            <AdminOrderItemsCard orderItems={order!.orderItems} />
+            <AdminOrderItemsList orderItems={order!.orderItems} />
           </div>
         </div>
       </section>

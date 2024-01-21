@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { BsPencilFill } from "react-icons/bs";
 import IconButton from "@/app/ui/actionables/buttons/IconButton";
-import OrderItemCard from "@/app/ui/cards/OrderItemCard";
+import OrderItemCard from "@/app/account/orders/[id]/OrderItemCard";
 import type { OrderItem } from "@/app/lib/definitions";
 
 interface PlaceOrderItemsCardProps {

@@ -1,6 +1,5 @@
-import Link from "next/link";
 import classNames from "classnames";
-import Radio from "./Radio";
+import Radio from "@/app/ui/inputs/Radio";
 import Button from "@/app/ui/actionables/buttons/Button";
 
 interface PaymentFormProps {

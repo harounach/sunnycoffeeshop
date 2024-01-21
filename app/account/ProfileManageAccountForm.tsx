@@ -1,13 +1,14 @@
-import Link from "next/link";
 import classNames from "classnames";
-import TextInput from "./TextInput";
+import TextInput from "@/app/ui/inputs/TextInput";
 import Button from "@/app/ui/actionables/buttons/Button";
 
-interface RegisterFormProps {
+interface ProfileManageAccountFormProps {
   customClasses?: string;
 }
 
-export default function RegisterForm({ customClasses }: RegisterFormProps) {
+export default function ProfileManageAccountForm({
+  customClasses,
+}: ProfileManageAccountFormProps) {
   const classes = classNames("form", customClasses);
 
   return (
@@ -31,10 +32,10 @@ export default function RegisterForm({ customClasses }: RegisterFormProps) {
 
       {/* Password */}
       <TextInput
-        name="password"
-        label="Password"
-        id="password"
-        placeholder="Password"
+        name="new_password"
+        label="New Password"
+        id="new_password"
+        placeholder="New Password"
         type="password"
       />
 
@@ -47,13 +48,7 @@ export default function RegisterForm({ customClasses }: RegisterFormProps) {
         type="password"
       />
 
-      <Button type="submit" label="Register" />
-      <p className="form__message body-base">
-        {"Already have an account?"}{" "}
-        <Link className="form__link" href="/login">
-          Login
-        </Link>
-      </p>
+      <Button type="submit" label="Update Profile" />
     </form>
   );
 }

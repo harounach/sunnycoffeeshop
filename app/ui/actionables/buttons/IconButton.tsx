@@ -6,6 +6,7 @@ interface IconButtonProps {
   color?: "primary" | "danger";
   hasBG?: boolean;
   mini?: boolean;
+  onClick?: () => void;
   customClasses?: string;
   children: React.ReactNode;
 }
@@ -15,6 +16,7 @@ export default function IconButton({
   color,
   hasBG,
   mini,
+  onClick,
   customClasses,
   children,
 }: IconButtonProps) {
@@ -37,5 +39,16 @@ export default function IconButton({
   }
 
   // otherwise we just return button element
-  return <button className={classes}>{children}</button>;
+  return (
+    <button
+      className={classes}
+      onClick={() => {
+        if (onClick) {
+          onClick();
+        }
+      }}
+    >
+      {children}
+    </button>
+  );
 }

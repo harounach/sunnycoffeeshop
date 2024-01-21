@@ -1,16 +1,16 @@
 import classNames from "classnames";
-import FavoriteCoffeeCard from "@/app/ui/cards/FavoriteCoffeeCard";
+import FavoriteCoffeeCard from "./FavoriteCoffeeCard";
 import type { Product } from "@/app/lib/definitions";
 
-interface FavoriteCoffeeListCardProps {
+interface FavoriteCoffeeListProps {
   favoriteProducts: Array<Product>;
   customClasses?: string;
 }
 
-export default function FavoriteCoffeeListCard({
+export default function FavoriteCoffeeList({
   favoriteProducts,
   customClasses,
-}: FavoriteCoffeeListCardProps) {
+}: FavoriteCoffeeListProps) {
   const classes = classNames("content-card", customClasses);
 
   return (

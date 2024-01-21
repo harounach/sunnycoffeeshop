@@ -1,9 +1,9 @@
 import Header from "@/app/ui/navigation/header/Header";
 import Footer from "@/app/ui/navigation/footer/Footer";
-import PlaceOrderShippingCard from "@/app/ui/cards/PlaceOrderShippingCard";
-import PlaceOrderPaymentCard from "@/app/ui/cards/PlaceOrderPaymentCard";
-import PlaceOrderItemsCard from "@/app/ui/cards/PlaceOrderItemsCard";
-import PlaceOrderSummary from "@/app/ui/section/PlaceOrderSummary";
+import PlaceOrderShippingCard from "./PlaceOrderShippingCard";
+import PlaceOrderPaymentCard from "./PlaceOrderPaymentCard";
+import PlaceOrderItemsCard from "./PlaceOrderItemsCard";
+import PlaceOrderSummary from "./PlaceOrderSummary";
 import { ordersData } from "@/app/lib/placeholder-data";
 
 export default function Page() {

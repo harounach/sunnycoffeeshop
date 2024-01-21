@@ -1,6 +1,6 @@
 import Header from "@/app/ui/navigation/header/Header";
 import Footer from "@/app/ui/navigation/footer/Footer";
-import ShippingForm from "@/app/ui/inputs/ShippingForm";
+import ShippingForm from "./ShippingForm";
 
 export default function Page() {
   return (

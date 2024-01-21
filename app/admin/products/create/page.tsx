@@ -1,4 +1,4 @@
-import CreateProductForm from "@/app/ui/inputs/CreateProductForm";
+import CreateProductForm from "./CreateProductForm";
 
 export default function Page() {
   return (

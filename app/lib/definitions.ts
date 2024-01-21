@@ -7,6 +7,11 @@ export type Product = {
   slug: string;
 };
 
+export type CartProduct = {
+  product: Product;
+  qty: number;
+};
+
 export type Review = {
   _id: string;
   user_name: string;
@@ -16,14 +21,10 @@ export type Review = {
 };
 
 export type Shipping = {
-  first_name: string;
-  last_name: string;
+  name: string;
   email: string;
-  street: string;
-  city: string;
-  state: string;
-  zip_code: string;
-  country: string;
+  phone: string;
+  address: string;
 };
 
 export type Payment = {
@@ -53,7 +54,6 @@ export type Order = {
   paidAt: string;
   isDelivered: boolean;
   deliveredAt: string;
-  createdAt: string;
 };
 
 export type SummarySaleEntry = {

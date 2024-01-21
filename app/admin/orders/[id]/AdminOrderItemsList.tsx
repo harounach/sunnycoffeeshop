@@ -1,16 +1,16 @@
 import classNames from "classnames";
-import OrderItemCard from "@/app/ui/cards/OrderItemCard";
+import AdminOrderItemCard from "./AdminOrderItemCard";
 import type { OrderItem } from "@/app/lib/definitions";
 
-interface AdminOrderItemsCardProps {
+interface AdminOrderItemsListProps {
   orderItems: Array<OrderItem>;
   customClasses?: string;
 }
 
-export default function AdminOrderItemsCard({
+export default function AdminOrderItemsList({
   orderItems,
   customClasses,
-}: AdminOrderItemsCardProps) {
+}: AdminOrderItemsListProps) {
   const classes = classNames("content-card", customClasses);
 
   return (
@@ -20,7 +20,9 @@ export default function AdminOrderItemsCard({
       </div>
       <div className="content-card__content">
         {orderItems.map((orderItem) => {
-          return <OrderItemCard key={orderItem._id} orderItem={orderItem} />;
+          return (
+            <AdminOrderItemCard key={orderItem._id} orderItem={orderItem} />
+          );
         })}
       </div>
     </div>

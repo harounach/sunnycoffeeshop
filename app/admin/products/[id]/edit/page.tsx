@@ -1,4 +1,4 @@
-import EditProductForm from "@/app/ui/inputs/EditProductForm";
+import EditProductForm from "./EditProductForm";
 import { fetchSingleProduct } from "@/app/lib/database/product/product.query";
 
 export default async function Page({ params }: { params: { id: string } }) {

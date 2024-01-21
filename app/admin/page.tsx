@@ -3,7 +3,7 @@ import {
   BsBasket2Fill,
   BsCupHotFill,
 } from "react-icons/bs";
-import DashboardInfoCard from "@/app/ui/cards/DashboardInfoCard";
+import DashboardInfoCard from "./DashboardInfoCard";
 import BarChart from "@/app/ui/charts/BarChart";
 import DonutChart from "@/app/ui/charts/DonutChart";
 import AdminLatestOrdersTable from "@/app/ui/actionables/table/AdminLatestOrdersTable";

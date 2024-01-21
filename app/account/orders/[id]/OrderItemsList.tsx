@@ -1,16 +1,16 @@
 import classNames from "classnames";
-import OrderItemCard from "@/app/ui/cards/OrderItemCard";
+import OrderItemCard from "./OrderItemCard";
 import type { OrderItem } from "@/app/lib/definitions";
 
-interface OrderItemsCardProps {
+interface OrderItemsListProps {
   orderItems: Array<OrderItem>;
   customClasses?: string;
 }
 
-export default function OrderItemsCard({
+export default function OrderItemsList({
   orderItems,
   customClasses,
-}: OrderItemsCardProps) {
+}: OrderItemsListProps) {
   const classes = classNames("content-card", customClasses);
 
   return (

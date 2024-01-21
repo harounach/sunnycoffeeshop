@@ -1,6 +1,6 @@
 import Header from "@/app/ui/navigation/header/Header";
 import Footer from "@/app/ui/navigation/footer/Footer";
-import RegisterForm from "@/app/ui/inputs/RegisterForm";
+import RegisterForm from "./RegisterForm";
 
 export default function Page() {
   return (
