@@ -1,7 +1,7 @@
 import Header from "@/app/ui/navigation/header/Header";
 import Footer from "@/app/ui/navigation/footer/Footer";
-import CoffeeCard from "@/app/ui/cards/CoffeeCard";
-import CoffeeFilter from "@/app/ui/inputs/CoffeeFilter";
+import CoffeeCard from "@/app/ui/section/shared/CoffeeCard";
+import CoffeeFilter from "@/app/ui/section/products/CoffeeFilter";
 import Pagination from "@/app/ui/actionables/Pagination";
 import { fetchProducts } from "@/app/lib/database/product/product.query";
 

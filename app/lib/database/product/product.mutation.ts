@@ -48,6 +48,9 @@ export type State = {
 const CreateProductSchema = FormSchema;
 const UpdateProductSchema = FormSchema;
 
+/**
+ * Create new product
+ */
 export async function createProduct(prevState: State, formData: FormData) {
   // Validate form fields using Zod
   const validatedFields = CreateProductSchema.safeParse({
@@ -90,6 +93,9 @@ export async function createProduct(prevState: State, formData: FormData) {
   redirect("/admin/products");
 }
 
+/**
+ * Update a product
+ */
 export async function updateProduct(
   id: string,
   prevState: State,
@@ -136,14 +142,36 @@ export async function updateProduct(
   redirect("/admin/products");
 }
 
+/**
+ * Delete a product
+ */
 export async function deleteProduct(id: string) {
   try {
     // Delete product in database
     // Find the product with this id
     const productToDelete = await ProductModel.findById(id).exec();
-    const deletedProduct = await productToDelete.deleteOne();
+    await productToDelete.deleteOne();
     revalidatePath("/admin/products");
     return { message: "Product deleted" };
+  } catch (error) {
+    return { message: "Database Error: Failed to Delete Product." };
+  }
+}
+
+/**
+ * Mark product as featured
+ */
+export async function markProductAsFeatured(id: string) {
+  try {
+    // Find and toggle isFeatured flag
+    const productToBeFeatured = await ProductModel.findById(id).exec();
+    productToBeFeatured.isFeatured = !productToBeFeatured.isFeatured;
+    await productToBeFeatured.save();
+
+    // Update cache
+    revalidatePath("/admin/products");
+
+    return { message: "Product is featured" };
   } catch (error) {
     return { message: "Database Error: Failed to Delete Product." };
   }

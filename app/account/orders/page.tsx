@@ -1,9 +1,9 @@
 import OrderTable from "@/app/ui/actionables/table/OrderTable";
 import OrderTableRow from "@/app/ui/actionables/table/OrderTableRow";
-import { ordersData } from "@/app/lib/placeholder-data";
+import { ordersData as orders } from "@/app/lib/placeholder-data";
 
 export default function Page() {
-  const orderRows = ordersData.map((order) => {
+  const orderRows = orders.map((order) => {
     return <OrderTableRow key={order._id} order={order} />;
   });
 

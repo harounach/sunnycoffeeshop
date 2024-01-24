@@ -1,18 +1,24 @@
-import TextInput from "./TextInput";
+import classNames from "classnames";
 
 interface SearchbarProps {
   customClasses?: string;
 }
 
 export default function Searchbar({ customClasses }: SearchbarProps) {
+  const classes = classNames("text-input", customClasses);
+
   return (
-    <TextInput
-      name="q"
-      label="Search"
-      id="search"
-      placeholder="Search..."
-      hideLabel
-      customClasses={customClasses}
-    />
+    <div className={classes}>
+      <label className="label labe--hide text-input__label" htmlFor="search">
+        Search
+      </label>
+      <input
+        className="text-input__input"
+        name="q"
+        id="search"
+        type="text"
+        placeholder="Search..."
+      />
+    </div>
   );
 }

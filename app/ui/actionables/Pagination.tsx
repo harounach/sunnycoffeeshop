@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import Link from "next/link";
 import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 
 interface PaginationProps {
@@ -10,24 +11,24 @@ export default function Pagination({ customClasses }: PaginationProps) {
 
   return (
     <div className={classes}>
-      <a href="#" className="pager__btn pager__btn--jump">
+      <Link href="#" className="pager__btn pager__btn--jump">
         <BsArrowLeftShort />
-      </a>
-      <a href="#" className="pager__btn pager__btn--current">
+      </Link>
+      <Link href="#" className="pager__btn pager__btn--current">
         1
-      </a>
-      <a href="#" className="pager__btn">
+      </Link>
+      <Link href="#" className="pager__btn">
         2
-      </a>
-      <a href="#" className="pager__btn">
+      </Link>
+      <Link href="#" className="pager__btn">
         3
-      </a>
-      <a href="#" className="pager__btn">
+      </Link>
+      <Link href="#" className="pager__btn">
         4
-      </a>
-      <a href="#" className="pager__btn pager__btn--jump">
+      </Link>
+      <Link href="#" className="pager__btn pager__btn--jump">
         <BsArrowRightShort />
-      </a>
+      </Link>
     </div>
   );
 }

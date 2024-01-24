@@ -1,14 +1,16 @@
-import type { Product } from "./definitions";
+import type { Order, OrderItem, Product, Review, User } from "./definitions";
 import bcrypt from "bcryptjs";
 
-export const users = [
+export const users: Array<User> = [
   {
-    name: process.env.ADMIN_NAME,
-    email: process.env.ADMIN_EMAIL,
+    _id: "user1",
+    name: process.env.ADMIN_NAME as string,
+    email: process.env.ADMIN_EMAIL as string,
     passwordHash: bcrypt.hashSync(process.env.ADMIN_PASSWORD as string),
     isAdmin: true,
   },
   {
+    _id: "user2",
     name: "John Doe",
     email: "user@hwiren.com",
     passwordHash: bcrypt.hashSync("1234"),
@@ -16,7 +18,7 @@ export const users = [
   },
 ];
 
-export const products = [
+export const products: Array<Product> = [
   // 01
   {
     _id: "coffee-01",
@@ -25,6 +27,9 @@ export const products = [
     price: 3.5,
     image: "/images/01-black-coffee.jpg",
     slug: "black-coffee",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 
   // 02
@@ -35,6 +40,9 @@ export const products = [
     price: 3.5,
     image: "/images/02-latte.jpg",
     slug: "latte",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 
   // 03
@@ -45,6 +53,9 @@ export const products = [
     price: 3.5,
     image: "/images/03-cappuccino.jpg",
     slug: "cappuccino",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 
   // 04
@@ -55,6 +66,9 @@ export const products = [
     price: 3.5,
     image: "/images/04-americano.jpg",
     slug: "americano",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 
   // 05
@@ -65,6 +79,9 @@ export const products = [
     price: 3.5,
     image: "/images/05-espresso.jpg",
     slug: "espresso",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 
   // 06
@@ -75,6 +92,9 @@ export const products = [
     price: 3.5,
     image: "/images/06-doppio.jpg",
     slug: "doppio",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 
   // 07
@@ -85,6 +105,9 @@ export const products = [
     price: 3.5,
     image: "/images/07-cortado.jpg",
     slug: "cortado",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 
   // 08
@@ -95,6 +118,9 @@ export const products = [
     price: 3.5,
     image: "/images/08-red-eye.jpg",
     slug: "red-eye",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 
   // 09
@@ -105,6 +131,9 @@ export const products = [
     price: 3.5,
     image: "/images/09-galao.jpg",
     slug: "galao",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 
   // 10
@@ -115,6 +144,9 @@ export const products = [
     price: 3.5,
     image: "/images/10-lungo.jpg",
     slug: "lungo",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 
   // 11
@@ -125,6 +157,9 @@ export const products = [
     price: 3.5,
     image: "/images/11-macchiato.jpg",
     slug: "macchiato",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 
   // 12
@@ -135,6 +170,9 @@ export const products = [
     price: 3.5,
     image: "/images/12-mocha.jpg",
     slug: "mocha",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 
   // 13
@@ -145,6 +183,9 @@ export const products = [
     price: 3.5,
     image: "/images/13-ristretto.jpg",
     slug: "ristretto",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 
   // 14
@@ -155,6 +196,9 @@ export const products = [
     price: 3.5,
     image: "/images/14-flat-white.jpg",
     slug: "flat-white",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 
   // 15
@@ -165,6 +209,9 @@ export const products = [
     price: 3.5,
     image: "/images/15-affogato.jpg",
     slug: "affogato",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 
   // 16
@@ -175,6 +222,9 @@ export const products = [
     price: 3.5,
     image: "/images/16-cafe-au-lait.jpg",
     slug: "cafe-au-lait",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 
   // 17
@@ -185,6 +235,9 @@ export const products = [
     price: 3.5,
     image: "/images/17-irish.jpg",
     slug: "irish",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 
   // 18
@@ -195,6 +248,9 @@ export const products = [
     price: 3.5,
     image: "/images/18-iced-espresso.jpg",
     slug: "iced-espresso",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 
   // 19
@@ -205,6 +261,9 @@ export const products = [
     price: 3.5,
     image: "/images/19-cold-brew.jpg",
     slug: "cold-brew",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 
   // 20
@@ -215,6 +274,9 @@ export const products = [
     price: 3.5,
     image: "/images/20-iced-latte.jpg",
     slug: "iced-latte",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 
   // 21
@@ -225,6 +287,9 @@ export const products = [
     price: 3.5,
     image: "/images/21-iced-americano.jpg",
     slug: "iced-americano",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 
   // 22
@@ -235,123 +300,99 @@ export const products = [
     price: 3.5,
     image: "/images/22-iced-mocha.jpg",
     slug: "iced-mocha",
+    rating: 4,
+    numReviews: 3,
+    isFeatured: false,
   },
 ];
 
 // reviews
-export const reviews = [
+export const reviews: Array<Review> = [
   {
     _id: "review_01",
-    user_name: "John Doe",
+    user: users[0],
     rating: 4,
-    date: "12 Dec 2024",
     comment:
       "Sugar plum toffee halvah chupa chups lollipop tootsie roll fruitcake cake. Oat cake soufflé donut jelly-o pudding jelly. Macaroon muffin chocolate bar macaroon pie cookie sugar plum.",
+    createdAt: "12 Dec 2024",
+    product: products[0],
   },
 
   {
     _id: "review_02",
-    user_name: "Peter Smith",
+    user: users[1],
     rating: 5,
-    date: "10 Nov 2024",
     comment:
       "Gingerbread biscuit sweet bonbon shortbread. Tootsie roll sugar plum lemon drops pudding cookie. Dessert powder pie candy croissant bear claw carrot cake liquorice carrot cake. ",
+    createdAt: "10 Nov 2024",
+    product: products[0],
   },
 
   {
     _id: "review_03",
-    user_name: "Barbara Jackson",
+    user: users[1],
     rating: 3.5,
-    date: "7 Aug 2024",
     comment:
       "Apple pie tootsie roll chocolate gingerbread brownie biscuit. Fruitcake sweet roll candy canes halvah tiramisu gummi bears croissant. Gummies shortbread pastry marzipan oat cake.",
+    createdAt: "7 Aug 2024",
+    product: products[1],
   },
 ];
 
-// cart
-export const cartProducts = [
-  // 01
-  {
-    _id: "coffee-01",
-    title: "Black Coffee",
-    desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
-    price: 3.5,
-    image: "/images/01-black-coffee.jpg",
-  },
-
-  // 02
-  {
-    _id: "coffee-02",
-    title: "Latte",
-    desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
-    price: 3.5,
-    image: "/images/02-latte.jpg",
-  },
-
-  // 03
-  {
-    _id: "coffee-03",
-    title: "Cappuccino",
-    desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
-    price: 3.5,
-    image: "/images/03-cappuccino.jpg",
-  },
-];
-
-// order
-
-const shippingData = {
-  first_name: "John",
-  last_name: "Doe",
+// Shipping
+export const shippingData = {
+  name: "John Doe",
   email: "johndoe@emai.com",
-  street: "Martin Luther King Boulevard",
-  city: "Houston",
-  state: "TX",
-  zip_code: "4200",
-  country: "United States",
+  phone: "(555) 555 5555",
+  address: "4200 Martin Luther King Boulevard Houston, TX, United States",
 };
 
-const paymentData = {
+// Payment
+export const paymentData = {
   paymentMethod: "PayPal",
 };
 
-const orderItems = [
-  // 01
+// Cart items
+export const cartItemsData: Array<OrderItem> = [
   {
-    _id: "coffee-01",
-    title: "Black Coffee",
-    price: 3.5,
-    image: "/images/01-black-coffee.jpg",
-    qty: 2,
-    product_id: "coffee-01",
-  },
-
-  // 02
-  {
-    _id: "coffee-02",
-    title: "Latte",
-    price: 3.5,
-    image: "/images/02-latte.jpg",
-    qty: 2,
-    product_id: "coffee-02",
-  },
-
-  // 03
-  {
-    _id: "coffee-03",
-    title: "Cappuccino",
-    price: 3.5,
-    image: "/images/03-cappuccino.jpg",
+    product: products[0],
     qty: 1,
-    product_id: "coffee-03",
+  },
+
+  {
+    product: products[1],
+    qty: 2,
+  },
+
+  {
+    product: products[2],
+    qty: 1,
   },
 ];
 
-export const ordersData = [
+// Order items
+const orderItems: Array<OrderItem> = [
+  {
+    product: products[0],
+    qty: 1,
+  },
+
+  {
+    product: products[1],
+    qty: 2,
+  },
+
+  {
+    product: products[2],
+    qty: 1,
+  },
+];
+
+export const ordersData: Array<Order> = [
   {
     _id: "order_1",
-    user: "John Doe",
-    orderItems: orderItems,
+    user: users[1],
+    items: orderItems,
     shipping: shippingData,
     payment: paymentData,
     itemsPrice: 16,
@@ -367,8 +408,8 @@ export const ordersData = [
 
   {
     _id: "order_2",
-    user: "Sarah Campbell",
-    orderItems: orderItems,
+    user: users[1],
+    items: orderItems,
     shipping: shippingData,
     payment: paymentData,
     itemsPrice: 20,
@@ -384,8 +425,8 @@ export const ordersData = [
 
   {
     _id: "order_3",
-    user: "Richard Smith",
-    orderItems: orderItems,
+    user: users[1],
+    items: orderItems,
     shipping: shippingData,
     payment: paymentData,
     itemsPrice: 25,
@@ -401,57 +442,7 @@ export const ordersData = [
 ];
 
 // Favorite products
-export const favoriteProducts = [
-  // 01
-  {
-    _id: "coffee-01",
-    title: "Black Coffee",
-    desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
-    price: 3.5,
-    image: "/images/01-black-coffee.jpg",
-    slug: "black-coffee",
-  },
-
-  // 02
-  {
-    _id: "coffee-02",
-    title: "Latte",
-    desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
-    price: 3.5,
-    image: "/images/02-latte.jpg",
-    slug: "latte",
-  },
-
-  // 03
-  {
-    _id: "coffee-03",
-    title: "Cappuccino",
-    desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
-    price: 3.5,
-    image: "/images/03-cappuccino.jpg",
-    slug: "cappuccino",
-  },
-
-  // 04
-  {
-    _id: "coffee-04",
-    title: "Americano",
-    desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
-    price: 3.5,
-    image: "/images/04-americano.jpg",
-    slug: "Americano",
-  },
-
-  // 05
-  {
-    _id: "coffee-05",
-    title: "Espresso",
-    desc: "Donut lemon drops apple pie fruitcake bear claw tiramisu gummies jelly beans jelly-o. Ice cream carrot cake cotton candy cheesecake sugar plum tootsie roll candy canes. Candy canes dessert toffee icing jelly-o.",
-    price: 3.5,
-    image: "/images/05-espresso.jpg",
-    slug: "Espresso",
-  },
-];
+export const favoriteProducts: Array<Product> = products.slice(0, 4);
 
 export const barChartData = [
   {

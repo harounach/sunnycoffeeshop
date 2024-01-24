@@ -1,9 +1,9 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { Product, Shipping, Payment, CartProduct } from "@/app/lib/definitions";
+import { Product, Shipping, Payment, OrderItem } from "@/app/lib/definitions";
 
 type State = {
-  items: CartProduct[];
+  items: Array<OrderItem>;
   payment: Payment;
   shipping: Shipping;
 };
@@ -38,31 +38,31 @@ export const useCartStore = create<State & Actions>()((set, get) => ({
   },
 
   addToCart: (product: Product) => {
-    const cartProduct: CartProduct = {
+    const orderItem: OrderItem = {
       product: product,
       qty: 1,
     };
-    set({ items: [...get().items, cartProduct] });
+    set({ items: [...get().items, orderItem] });
   },
 
   removeFromCart: (id: string) => {
     set({
-      items: get().items.filter((cartItem) => {
-        return cartItem.product._id !== id;
+      items: get().items.filter((orderItem) => {
+        return orderItem.product._id !== id;
       }),
     });
   },
 
   incrementQty: (id: string) => {
     set({
-      items: get().items.map((item) => {
-        if (item.product._id !== id) {
-          return item;
+      items: get().items.map((orderItem) => {
+        if (orderItem.product._id !== id) {
+          return orderItem;
         }
 
         return {
-          ...item,
-          qty: item.qty + 1,
+          ...orderItem,
+          qty: orderItem.qty + 1,
         };
       }),
     });
@@ -70,19 +70,19 @@ export const useCartStore = create<State & Actions>()((set, get) => ({
 
   decrementQty: (id: string) => {
     set({
-      items: get().items.map((item) => {
+      items: get().items.map((orderItem) => {
         // We don't allow qty to be below "1"
-        if (item.qty < 2) {
-          return item;
+        if (orderItem.qty < 2) {
+          return orderItem;
         }
 
-        if (item.product._id !== id) {
-          return item;
+        if (orderItem.product._id !== id) {
+          return orderItem;
         }
 
         return {
-          ...item,
-          qty: item.qty - 1,
+          ...orderItem,
+          qty: orderItem.qty - 1,
         };
       }),
     });

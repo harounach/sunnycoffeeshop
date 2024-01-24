@@ -1,3 +1,11 @@
+export type User = {
+  _id: string;
+  name: string;
+  email: string;
+  passwordHash?: string;
+  isAdmin: boolean;
+};
+
 export type Product = {
   _id: string;
   title: string;
@@ -5,19 +13,18 @@ export type Product = {
   price: number;
   image: string;
   slug: string;
-};
-
-export type CartProduct = {
-  product: Product;
-  qty: number;
+  rating: number;
+  numReviews: number;
+  isFeatured: boolean;
 };
 
 export type Review = {
   _id: string;
-  user_name: string;
+  user: User;
   rating: number;
-  date: string;
   comment: string;
+  product: Product;
+  createdAt: string;
 };
 
 export type Shipping = {
@@ -32,18 +39,14 @@ export type Payment = {
 };
 
 export type OrderItem = {
-  _id: string;
-  title: string;
-  image: string;
-  price: number;
+  product: Product;
   qty: number;
-  product_id: string;
 };
 
 export type Order = {
   _id: string;
-  user: string;
-  orderItems: Array<OrderItem>;
+  user: User;
+  items: Array<OrderItem>;
   shipping: Shipping;
   payment: Payment;
   itemsPrice: number;
@@ -54,6 +57,7 @@ export type Order = {
   paidAt: string;
   isDelivered: boolean;
   deliveredAt: string;
+  createdAt: string;
 };
 
 export type SummarySaleEntry = {
@@ -64,4 +68,12 @@ export type SummarySaleEntry = {
 export type TopProductEntry = {
   title: string;
   totalSales: number;
+};
+
+export type Summary = {
+  count: number;
+  subtotal: number;
+  shipping: number;
+  tax: number;
+  total: number;
 };

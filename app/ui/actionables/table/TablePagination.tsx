@@ -7,6 +7,7 @@ import {
 } from "react-icons/bs";
 import IconButton from "@/app/ui/actionables/buttons/IconButton";
 import Select from "@/app/ui/inputs/Select";
+import Link from "next/link";
 
 interface TablePaginationProps {
   customClasses?: string;
@@ -21,26 +22,31 @@ export default function TablePagination({
     <div className={classes}>
       <div className="table-pager__select">
         <span className="table-pager__label body-base">Rows per page</span>
-        <Select id="page" name="page" label="Items per page" hideLabel>
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="15">15</option>
-        </Select>
+        <div className="select">
+          <label className="select__label label label--hide" htmlFor="page">
+            Items per page
+          </label>
+          <select name="page" id="page" className="select__select body-base">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+          </select>
+        </div>
       </div>
       <span className="table-pager__label body-base">1-10 of 100</span>
       <div className="table-pager__nav">
-        <IconButton customClasses="table-pager__first" hasBG>
+        <Link className="icon-btn icon-btn--bg table-pager__first" href="#">
           <BsChevronBarLeft />
-        </IconButton>
-        <IconButton customClasses="table-pager__prev" hasBG>
+        </Link>
+        <Link className="icon-btn icon-btn--bg table-pager__prev" href="#">
           <BsChevronLeft />
-        </IconButton>
-        <IconButton customClasses="table-pager__next" hasBG>
+        </Link>
+        <Link className="icon-btn icon-btn--bg table-pager__next" href="#">
           <BsChevronRight />
-        </IconButton>
-        <IconButton customClasses="table-pager__last" hasBG>
+        </Link>
+        <Link className="icon-btn icon-btn--bg table-pager__last" href="#">
           <BsChevronBarRight />
-        </IconButton>
+        </Link>
       </div>
     </div>
   );

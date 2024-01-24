@@ -24,7 +24,7 @@ export default function Navigation({ customClasses }: NavigationProps) {
           </Link>
         </li>
         <li>
-          <CartButton url="/cart" />
+          <CartButton />
         </li>
         <li>
           <Button url="/login" label="Login" />

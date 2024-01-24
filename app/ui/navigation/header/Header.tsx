@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import Logo from "@/app/ui/navigation/logo/Logo";
+import Logo from "@/app/ui/brand/Logo";
 import Navigation from "./Navigation";
 import MenuButton from "./MenuButton";
 import Searchbar from "@/app/ui/inputs/Searchbar";

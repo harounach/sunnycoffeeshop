@@ -1,6 +1,6 @@
 import Header from "@/app/ui/navigation/header/Header";
 import Footer from "@/app/ui/navigation/footer/Footer";
-import PaymentForm from "./PaymentForm";
+import PaymentForm from "@/app/ui/section/checkout/payment/PaymentForm";
 
 export default function Page() {
   return (

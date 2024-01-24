@@ -1,6 +1,6 @@
 import Header from "@/app/ui/navigation/header/Header";
 import Footer from "@/app/ui/navigation/footer/Footer";
-import LoginForm from "./LoginForm";
+import LoginForm from "@/app/ui/section/auth/LoginForm";
 
 export default function Page() {
   return (

@@ -1,5 +1,5 @@
-import ProfileManageAccountForm from "./ProfileManageAccountForm";
-import ProfileDeleteAccountForm from "./ProfileDeleteAccountForm";
+import ProfileManageAccountForm from "@/app/ui/section/account/profile/ProfileManageAccountForm";
+import ProfileDeleteAccountForm from "@/app/ui/section/account/profile/ProfileDeleteAccountForm";
 
 export default function Page() {
   return (

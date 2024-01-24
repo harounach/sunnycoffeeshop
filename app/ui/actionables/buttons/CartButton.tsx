@@ -1,18 +1,21 @@
+"use client";
+import Link from "next/link";
 import { BsFillCartFill } from "react-icons/bs";
-import IconButton from "@/app/ui/actionables/buttons/IconButton";
+import { useCartStore } from "@/app/lib/store/cart";
 
 interface CartButtonProps {
-  url: string;
   customClasses?: string;
 }
 
-export default function CartButton({ url, customClasses }: CartButtonProps) {
+export default function CartButton({ customClasses }: CartButtonProps) {
+  const { items } = useCartStore();
+
   return (
     <div className="cart-btn">
-      <IconButton url={url} customClasses="cart-btn__btn">
+      <Link className="icon-btn cart-btn__btn" href="/cart">
         <BsFillCartFill />
-      </IconButton>
-      <span className="cart-btn__value">2</span>
+      </Link>
+      <span className="cart-btn__value">{items.length}</span>
     </div>
   );
 }

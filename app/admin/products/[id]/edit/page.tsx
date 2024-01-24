@@ -1,15 +1,11 @@
-import EditProductForm from "./EditProductForm";
+import EditProductForm from "../../../../ui/section/admin/products/EditProductForm";
 import { fetchSingleProduct } from "@/app/lib/database/product/product.query";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const product = await fetchSingleProduct(params.id);
   const singleProduct = {
+    ...product,
     _id: product._id.toString(),
-    title: product.title,
-    desc: product.desc,
-    price: product.price,
-    image: product.image,
-    slug: product.slug,
   };
 
   return (

@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { BsFillGeoAltFill, BsFillTelephoneFill } from "react-icons/bs";
-import Logo from "@/app/ui/navigation/logo/Logo";
-import Address from "@/app/ui/section/Address";
-import Phone from "@/app/ui/section/Phone";
+import Logo from "@/app/ui/brand/Logo";
+import Address from "@/app/ui/brand/Address";
+import Phone from "@/app/ui/brand/Phone";
 import Social from "./Social";
 
 export default function Footer() {

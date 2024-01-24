@@ -1,8 +1,8 @@
 import Header from "@/app/ui/navigation/header/Header";
 import Footer from "@/app/ui/navigation/footer/Footer";
-import CoffeeContent from "@/app/ui/section/CoffeeContent";
-import ReviewList from "@/app/ui/section/ReviewList";
-import WriteReview from "@/app/ui/inputs/WriteReview";
+import CoffeeContent from "@/app/ui/section/products/CoffeeContent";
+import ReviewList from "@/app/ui/section/products/ReviewList";
+import WriteReview from "@/app/ui/section/products/WriteReview";
 import { fetchSingleProduct } from "@/app/lib/database/product/product.query";
 
 export default async function Page({ params }: { params: { id: string } }) {
@@ -23,8 +23,11 @@ export default async function Page({ params }: { params: { id: string } }) {
         <section className="product-page__review section">
           <div className="container">
             <div className="product-page__review-grid">
-              <WriteReview />
-              <ReviewList />
+              <WriteReview
+                userId="some-id"
+                productId={coffeeProduct._id.toString()}
+              />
+              <ReviewList productId={coffeeProduct._id.toString()} />
             </div>
           </div>
         </section>

@@ -1,4 +1,4 @@
-import FavoriteCoffeeList from "./FavoriteCoffeeList";
+import FavoriteCoffeeList from "@/app/ui/section/account/favorite/FavoriteCoffeeList";
 import { favoriteProducts } from "@/app/lib/placeholder-data";
 
 export default function Page() {
