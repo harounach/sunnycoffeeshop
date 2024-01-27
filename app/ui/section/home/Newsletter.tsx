@@ -1,4 +1,4 @@
-import TextInput from "./TextInput";
+import TextInput from "../../inputs/TextInput";
 import Button from "@/app/ui/actionables/buttons/Button";
 
 export default function Newsletter() {

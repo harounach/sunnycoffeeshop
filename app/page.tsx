@@ -8,7 +8,7 @@ import Footer from "@/app/ui/navigation/footer/Footer";
 import Hero from "@/app/ui/section/home/Hero";
 import CoffeeCard from "@/app/ui/section/shared/CoffeeCard";
 import BenefitCard from "@/app/ui/section/home/BenefitCard";
-import Newsletter from "@/app/ui/inputs/Newsletter";
+import Newsletter from "@/app/ui/section/home/Newsletter";
 import { products } from "@/app/lib/placeholder-data";
 import { fetchFeaturedProducts } from "@/app/lib/database/product/product.query";
 

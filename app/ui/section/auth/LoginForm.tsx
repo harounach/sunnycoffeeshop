@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import classNames from "classnames";
-import TextInput from "../../inputs/TextInput";
 import Button from "@/app/ui/actionables/buttons/Button";
+import { useFormState, useFormStatus } from "react-dom";
+import { authenticate } from "@/app/lib/actions/auth";
 
 interface LoginFormProps {
   customClasses?: string;
@@ -9,9 +12,10 @@ interface LoginFormProps {
 
 export default function LoginForm({ customClasses }: LoginFormProps) {
   const classes = classNames("form", customClasses);
+  const [errorMessage, dispatch] = useFormState(authenticate, undefined);
 
   return (
-    <form className={classes}>
+    <form className={classes} action={dispatch}>
       {/* Email */}
       <div className="text-input">
         <label className="label text-input__label" htmlFor="email">
@@ -24,7 +28,6 @@ export default function LoginForm({ customClasses }: LoginFormProps) {
           name="email"
           id="email"
         />
-        <p className="text-input__error body-base"></p>
       </div>
 
       {/* Password */}
@@ -39,16 +42,27 @@ export default function LoginForm({ customClasses }: LoginFormProps) {
           name="password"
           id="password"
         />
-        <p className="text-input__error body-base"></p>
       </div>
 
-      <Button type="submit" label="Login" />
+      <LoginButton />
       <p className="form__message body-base">
         {"Don't have an account?"}{" "}
         <Link className="form__link" href="/register">
           Register
         </Link>
       </p>
+
+      {errorMessage && (
+        <>
+          <p className="form__error">{errorMessage}</p>
+        </>
+      )}
     </form>
   );
+}
+
+function LoginButton() {
+  const { pending } = useFormStatus();
+
+  return <Button type="submit" label="Login" disabled={pending} />;
 }

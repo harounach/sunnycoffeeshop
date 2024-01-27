@@ -22,7 +22,9 @@ export async function fetchProducts() {
 export async function fetchFeaturedProducts() {
   try {
     await dbConnect();
-    const featuredProducts = await ProductModel.find({}).limit(4).lean();
+    const featuredProducts = await ProductModel.find({ isFeatured: true })
+      .limit(4)
+      .lean();
     return featuredProducts as Product[];
   } catch (err) {
     console.error("Database Error:", err);

@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import Button from "@/app/ui/actionables/buttons/Button";
-import { Summary } from "../../../../lib/definitions";
+import { Summary } from "@/app/lib/definitions";
 
 interface CartSummaryProps {
   summary: Summary;

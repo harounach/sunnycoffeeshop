@@ -3,9 +3,9 @@ import {
   BsBasket2Fill,
   BsCupHotFill,
 } from "react-icons/bs";
-import DashboardInfoCard from "../ui/section/admin/dashboard/DashboardInfoCard";
-import BarChart from "@/app/ui/section/admin/dashboard/BarChart";
-import DonutChart from "@/app/ui/section/admin/dashboard/DonutChart";
+import DashboardInfoCard from "@/app/ui/section/admin/dashboard/DashboardInfoCard";
+import BarChart from "@/app/ui/charts/BarChart";
+import DonutChart from "@/app/ui/charts/DonutChart";
 import AdminLatestOrdersTable from "@/app/ui/actionables/table/AdminLatestOrdersTable";
 import AdminOrderTableRow from "@/app/ui/actionables/table/AdminOrderTableRow";
 import {

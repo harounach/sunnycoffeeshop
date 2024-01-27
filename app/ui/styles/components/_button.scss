@@ -52,6 +52,18 @@
       border-color: vars.$neutral-100;
     }
   }
+
+  &--disabled {
+    color: vars.$black;
+    background-color: vars.$neutral-200;
+    border-color: vars.$neutral-200;
+
+    // hover
+    &:hover {
+      background-color: vars.$neutral-100;
+      border-color: vars.$neutral-100;
+    }
+  }
 }
 
 // btn-group
@@ -73,6 +85,17 @@
   border: none;
   cursor: pointer;
 
+  // menu-btn__bar
+  &__bar {
+    height: 4px;
+    width: 100%;
+    background-color: vars.$black;
+    border-radius: vars.$border-sm;
+    transition:
+      transform 0.3s,
+      opacity 0.3s;
+  }
+
   &--open &__bar:nth-child(1) {
     transform: translateY(10px) rotate(45deg);
   }
@@ -84,17 +107,6 @@
   &--open &__bar:nth-child(3) {
     transform: translateY(-10px) rotate(-45deg);
   }
-}
-
-// menu-btn__bar
-.menu-btn__bar {
-  height: 4px;
-  width: 100%;
-  background-color: vars.$black;
-  border-radius: vars.$border-sm;
-  transition:
-    transform 0.3s,
-    opacity 0.3s;
 }
 
 // icon-btn

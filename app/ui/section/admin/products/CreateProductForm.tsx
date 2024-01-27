@@ -3,7 +3,7 @@
 import { useFormState } from "react-dom";
 import Link from "next/link";
 import classNames from "classnames";
-import { createProduct } from "@/app/lib/database/product/product.mutation";
+import { createProductAction } from "@/app/lib/actions/product";
 
 interface CreateProductFormProps {
   customClasses?: string;
@@ -15,7 +15,7 @@ export default function CreateProductForm({
   const classes = classNames("form", customClasses);
 
   const initialState = { message: "", errors: {} };
-  const [state, dispatch] = useFormState(createProduct, initialState);
+  const [state, dispatch] = useFormState(createProductAction, initialState);
 
   return (
     <form className={classes} action={dispatch}>
@@ -31,9 +31,11 @@ export default function CreateProductForm({
           name="title"
           id="title"
         />
-        <p className="text-input__error body-base">
-          {state?.errors?.title?.join(", ")}
-        </p>
+        {state?.errors?.title && (
+          <p className="text-input__error body-base">
+            {state?.errors?.title?.join(", ")}
+          </p>
+        )}
       </div>
 
       {/* Description */}
@@ -49,9 +51,11 @@ export default function CreateProductForm({
           rows={5}
           placeholder="Description"
         ></textarea>
-        <p className="text-area__error body-base">
-          {state?.errors?.desc?.join(", ")}
-        </p>
+        {state?.errors?.desc && (
+          <p className="text-area__error body-base">
+            {state?.errors?.desc?.join(", ")}
+          </p>
+        )}
       </div>
 
       {/* Price */}
@@ -66,9 +70,11 @@ export default function CreateProductForm({
           name="price"
           id="price"
         />
-        <p className="text-input__error body-base">
-          {state.errors?.price?.join(", ")}
-        </p>
+        {state.errors?.price && (
+          <p className="text-input__error body-base">
+            {state.errors?.price?.join(", ")}
+          </p>
+        )}
       </div>
 
       {/* Image */}
@@ -83,9 +89,11 @@ export default function CreateProductForm({
           name="image"
           id="image"
         />
-        <p className="text-input__error body-base">
-          {state.errors?.image?.join(", ")}
-        </p>
+        {state.errors?.image && (
+          <p className="text-input__error body-base">
+            {state.errors?.image?.join(", ")}
+          </p>
+        )}
       </div>
 
       {/* Slug */}
@@ -100,9 +108,11 @@ export default function CreateProductForm({
           name="slug"
           id="slug"
         />
-        <p className="text-input__error body-base">
-          {state.errors?.slug?.join(", ")}
-        </p>
+        {state.errors?.slug && (
+          <p className="text-input__error body-base">
+            {state.errors?.slug?.join(", ")}
+          </p>
+        )}
       </div>
 
       <div className="btn-group">
@@ -113,8 +123,9 @@ export default function CreateProductForm({
           Publish
         </button>
       </div>
-
-      <p className="form__error body-base">{state.message}</p>
+      {state.message && (
+        <p className="form__error body-base">{state.message}</p>
+      )}
     </form>
   );
 }

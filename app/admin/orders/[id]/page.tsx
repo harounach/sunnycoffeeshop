@@ -1,7 +1,7 @@
-import AdminOrderPaymentCard from "@/app/ui/section/admin/orders/AdminOrderPaymentCard";
-import AdminOrderShippingCard from "@/app/ui/section/admin/orders/AdminOrderShippingCard";
-import AdminOrderItemsList from "@/app/ui/section/admin/orders/AdminOrderItemsList";
 import AdminOrderSummary from "@/app/ui/section/admin/orders/AdminOrderSummary";
+import AdminOrderShippingCard from "@/app/ui/section/admin/orders/AdminOrderShippingCard";
+import AdminOrderPaymentCard from "@/app/ui/section/admin/orders/AdminOrderPaymentCard";
+import AdminOrderItemsList from "@/app/ui/section/admin/orders/AdminOrderItemsList";
 import { ordersData } from "@/app/lib/placeholder-data";
 import { getSummary } from "@/app/lib/utils/summary";
 

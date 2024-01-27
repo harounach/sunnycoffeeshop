@@ -9,7 +9,7 @@ export default function Searchbar({ customClasses }: SearchbarProps) {
 
   return (
     <div className={classes}>
-      <label className="label labe--hide text-input__label" htmlFor="search">
+      <label className="label label--hide text-input__label" htmlFor="search">
         Search
       </label>
       <input

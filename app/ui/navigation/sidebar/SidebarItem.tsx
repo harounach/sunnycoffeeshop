@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import classNames from "classnames";
 
 interface SidebarItemProps {
@@ -14,7 +17,13 @@ export default function SidebarItem({
   customeClasses,
   children,
 }: SidebarItemProps) {
-  const classes = classNames("sidebar__link title-base", customeClasses);
+  const pathname = usePathname();
+
+  const classes = classNames(
+    "sidebar__link title-base",
+    { "sidebar__link--active": url === pathname },
+    customeClasses,
+  );
 
   return (
     <Link className={classes} href={url}>

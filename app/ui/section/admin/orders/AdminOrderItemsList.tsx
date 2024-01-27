@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import AdminOrderItemCard from "./AdminOrderItemCard";
-import type { OrderItem } from "@/app/lib/definitions";
+import { OrderItem } from "@/app/lib/definitions";
 
 interface AdminOrderItemsListProps {
   orderItems: Array<OrderItem>;

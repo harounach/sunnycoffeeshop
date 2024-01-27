@@ -1,9 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import classNames from "classnames";
-import { BsDash, BsPlus, BsHeart, BsCartX } from "react-icons/bs";
+import { BsCartX, BsDash, BsHeart, BsPlus } from "react-icons/bs";
+
 import IconButton from "@/app/ui/actionables/buttons/IconButton";
-import type { OrderItem, Product } from "@/app/lib/definitions";
-import { useCartStore } from "../../../../lib/store/cart";
+import { OrderItem } from "@/app/lib/definitions";
+import { useCartStore } from "@/app/lib/store/cart";
 
 interface CartCardProps {
   item: OrderItem;
@@ -40,7 +43,7 @@ export default function CartCard({ item, customClasses }: CartCardProps) {
             >
               <BsDash />
             </IconButton>
-            <span className="cart-card__qty body-base">(`${item.qty}`)</span>
+            <span className="cart-card__qty body-base">({item.qty})</span>
             <IconButton
               hasBG
               customClasses="cart-card__up"

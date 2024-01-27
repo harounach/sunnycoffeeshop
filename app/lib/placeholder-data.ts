@@ -7,14 +7,14 @@ export const users: Array<User> = [
     name: process.env.ADMIN_NAME as string,
     email: process.env.ADMIN_EMAIL as string,
     passwordHash: bcrypt.hashSync(process.env.ADMIN_PASSWORD as string),
-    isAdmin: true,
+    role: "admin",
   },
   {
     _id: "user2",
     name: "John Doe",
     email: "user@hwiren.com",
     passwordHash: bcrypt.hashSync("1234"),
-    isAdmin: false,
+    role: "user",
   },
 ];
 
@@ -29,7 +29,7 @@ export const products: Array<Product> = [
     slug: "black-coffee",
     rating: 4,
     numReviews: 3,
-    isFeatured: false,
+    isFeatured: true,
   },
 
   // 02
@@ -42,7 +42,7 @@ export const products: Array<Product> = [
     slug: "latte",
     rating: 4,
     numReviews: 3,
-    isFeatured: false,
+    isFeatured: true,
   },
 
   // 03
@@ -55,7 +55,7 @@ export const products: Array<Product> = [
     slug: "cappuccino",
     rating: 4,
     numReviews: 3,
-    isFeatured: false,
+    isFeatured: true,
   },
 
   // 04
@@ -68,7 +68,7 @@ export const products: Array<Product> = [
     slug: "americano",
     rating: 4,
     numReviews: 3,
-    isFeatured: false,
+    isFeatured: true,
   },
 
   // 05
@@ -81,7 +81,7 @@ export const products: Array<Product> = [
     slug: "espresso",
     rating: 4,
     numReviews: 3,
-    isFeatured: false,
+    isFeatured: true,
   },
 
   // 06

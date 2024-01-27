@@ -2,17 +2,17 @@ import classNames from "classnames";
 import { BsPencilFill } from "react-icons/bs";
 import IconButton from "@/app/ui/actionables/buttons/IconButton";
 import PlaceOrderItem from "./PlaceOrderItem";
-import type { OrderItem } from "@/app/lib/definitions";
+import { OrderItem } from "@/app/lib/definitions";
 
-interface PlaceOrderItemsCardProps {
+interface PlaceOrderCartItemsListProps {
   cartItems: Array<OrderItem>;
   customClasses?: string;
 }
 
-export default function PlaceOrderItemsCard({
+export default function PlaceOrderCartItemsList({
   cartItems,
   customClasses,
-}: PlaceOrderItemsCardProps) {
+}: PlaceOrderCartItemsListProps) {
   const classes = classNames("content-card", customClasses);
 
   return (

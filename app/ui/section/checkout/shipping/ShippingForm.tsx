@@ -1,3 +1,5 @@
+"use client";
+
 import { FormEvent, useState } from "react";
 import { redirect } from "next/navigation";
 import classNames from "classnames";

@@ -1,18 +1,18 @@
 import classNames from "classnames";
 import AdminCoffeeCard from "./AdminCoffeeCard";
-import Button from "@/app/ui/actionables/buttons/Button";
 import TablePagination from "@/app/ui/actionables/table/TablePagination";
-import type { Product } from "@/app/lib/definitions";
+import Button from "@/app/ui/actionables/buttons/Button";
+import { Product } from "@/app/lib/definitions";
 
-interface AdminCoffeeListCardProps {
+interface AdminCoffeeListProps {
   products: Array<Product>;
   customClasses?: string;
 }
 
-export default function AdminCoffeeListCard({
+export default function AdminCoffeeList({
   products,
   customClasses,
-}: AdminCoffeeListCardProps) {
+}: AdminCoffeeListProps) {
   const classes = classNames("content-card", customClasses);
 
   return (

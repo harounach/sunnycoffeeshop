@@ -2,7 +2,7 @@ import Image from "next/image";
 import classNames from "classnames";
 import { BsPencilFill, BsTrash3Fill } from "react-icons/bs";
 import IconButton from "@/app/ui/actionables/buttons/IconButton";
-import type { Product } from "@/app/lib/definitions";
+import { Product } from "@/app/lib/definitions";
 import { deleteProduct } from "@/app/lib/database/product/product.mutation";
 
 interface AdminCoffeeCardProps {

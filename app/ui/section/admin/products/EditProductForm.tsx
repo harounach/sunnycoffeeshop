@@ -1,13 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useFormState } from "react-dom";
 import classNames from "classnames";
-import TextInput from "../../../inputs/TextInput";
-import TextArea from "../../../inputs/TextArea";
-import Button from "@/app/ui/actionables/buttons/Button";
 import { Product } from "@/app/lib/definitions";
-import { updateProduct } from "@/app/lib/database/product/product.mutation";
-import Link from "next/link";
+import { updateProductAction } from "@/app/lib/actions/product";
 
 interface EditProductFormProps {
   product: Product;
@@ -21,7 +18,7 @@ export default function EditProductForm({
   const classes = classNames("form", customClasses);
 
   const initialState = { message: "", errors: {} };
-  const updateProductWithId = updateProduct.bind(null, product._id);
+  const updateProductWithId = updateProductAction.bind(null, product._id);
   const [state, dispatch] = useFormState(updateProductWithId, initialState);
 
   return (
@@ -39,9 +36,11 @@ export default function EditProductForm({
           id="title"
           defaultValue={product.title}
         />
-        <p className="text-input__error body-base">
-          {state?.errors?.title?.join(", ")}
-        </p>
+        {state?.errors?.title && (
+          <p className="text-input__error body-base">
+            {state?.errors?.title?.join(", ")}
+          </p>
+        )}
       </div>
 
       {/* Description */}
@@ -58,9 +57,11 @@ export default function EditProductForm({
           placeholder="Description"
           defaultValue={product.desc}
         ></textarea>
-        <p className="text-area__error body-base">
-          {state?.errors?.desc?.join(", ")}
-        </p>
+        {state?.errors?.desc && (
+          <p className="text-area__error body-base">
+            {state?.errors?.desc?.join(", ")}
+          </p>
+        )}
       </div>
 
       {/* Price */}
@@ -76,9 +77,11 @@ export default function EditProductForm({
           id="price"
           defaultValue={product.price}
         />
-        <p className="text-input__error body-base">
-          {state.errors?.price?.join(", ")}
-        </p>
+        {state.errors?.price && (
+          <p className="text-input__error body-base">
+            {state.errors?.price?.join(", ")}
+          </p>
+        )}
       </div>
 
       {/* Image */}
@@ -94,9 +97,11 @@ export default function EditProductForm({
           id="image"
           defaultValue={product.image}
         />
-        <p className="text-input__error body-base">
-          {state.errors?.image?.join(", ")}
-        </p>
+        {state.errors?.image && (
+          <p className="text-input__error body-base">
+            {state.errors?.image?.join(", ")}
+          </p>
+        )}
       </div>
 
       {/* Slug */}
@@ -112,9 +117,11 @@ export default function EditProductForm({
           id="slug"
           defaultValue={product.slug}
         />
-        <p className="text-input__error body-base">
-          {state.errors?.slug?.join(", ")}
-        </p>
+        {state.errors?.slug && (
+          <p className="text-input__error body-base">
+            {state.errors?.slug?.join(", ")}
+          </p>
+        )}
       </div>
 
       <div className="btn-group">
@@ -125,6 +132,9 @@ export default function EditProductForm({
           Publish
         </button>
       </div>
+      {state.message && (
+        <p className="form__error body-base">{state.message}</p>
+      )}
     </form>
   );
 }

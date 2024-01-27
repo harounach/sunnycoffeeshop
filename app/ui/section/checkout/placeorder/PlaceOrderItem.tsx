@@ -1,6 +1,6 @@
 import Image from "next/image";
 import classNames from "classnames";
-import type { OrderItem } from "@/app/lib/definitions";
+import { OrderItem } from "@/app/lib/definitions";
 
 interface PlaceOrderItemProps {
   cartItem: OrderItem;

@@ -9,14 +9,26 @@ const allProducts = products.map((product) => {
     price: product.price,
     image: product.image,
     slug: product.slug,
+    rating: product.rating,
+    numReviews: product.numReviews,
+    isFeatured: product.isFeatured,
   };
 });
+
+const allUsers = users.map(user => {
+  return {
+    name: user.name,
+    email: user.email,
+    passwordHash: user.passwordHash,
+    role: user.role,
+  }
+})
 
 export async function GET(request: Request) {
   try {
     // await dbConnect();
     // await UserModel.deleteMany();
-    // await UserModel.insertMany(users);
+    // await UserModel.insertMany(allUsers);
 
     // await ProductModel.deleteMany();
     // await ProductModel.insertMany(allProducts);

@@ -6,6 +6,7 @@ interface ButtonProps {
   variant?: "danger" | "neutral";
   url?: string;
   type?: "button" | "submit" | "reset";
+  disabled?: boolean;
   customClasses?: string;
 }
 
@@ -14,6 +15,7 @@ export default function Button({
   variant,
   url,
   type,
+  disabled,
   customClasses,
 }: ButtonProps) {
   const classes = classNames(
@@ -25,7 +27,7 @@ export default function Button({
   // If there is a "url" prop we want to the button to be a link
   if (url) {
     return (
-      <Link href={url} className={classes}>
+      <Link href={url} className={classes} aria-disabled={disabled ?? false}>
         {label}
       </Link>
     );
@@ -34,7 +36,11 @@ export default function Button({
   // otherwise we just return button element
   const buttonType = type ? type : "button";
   return (
-    <button className={classes} type={buttonType}>
+    <button
+      className={classes}
+      type={buttonType}
+      aria-disabled={disabled ?? false}
+    >
       {label}
     </button>
   );

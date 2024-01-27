@@ -3,7 +3,7 @@ export type User = {
   name: string;
   email: string;
   passwordHash?: string;
-  isAdmin: boolean;
+  role: string;
 };
 
 export type Product = {

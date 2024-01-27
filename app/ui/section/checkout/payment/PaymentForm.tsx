@@ -1,3 +1,5 @@
+"use client";
+
 import classNames from "classnames";
 import Button from "@/app/ui/actionables/buttons/Button";
 
@@ -53,7 +55,7 @@ export default function PaymentForm({ customClasses }: PaymentFormProps) {
           </label>
         </div>
       </div>
-      <Button url="/checkout/placeorder" label="Continue to Place Order" />
+      <button className="btn">Continue to Place Order</button>
     </form>
   );
 }

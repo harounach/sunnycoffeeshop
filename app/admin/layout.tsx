@@ -9,6 +9,7 @@ import Header from "@/app/ui/navigation/header/Header";
 import Footer from "@/app/ui/navigation/footer/Footer";
 import AdminSidebar from "@/app/ui/navigation/sidebar/AdminSidebar";
 import SidebarItem from "@/app/ui/navigation/sidebar/SidebarItem";
+import SidebarLogoutItem from "../ui/navigation/sidebar/SidebarLogoutItem";
 
 export default function AdminLayout({
   children,
@@ -22,11 +23,7 @@ export default function AdminLayout({
       <section className="section section--sidebar">
         <AdminSidebar customeClasses="section__sidebar">
           {/* Dashboard */}
-          <SidebarItem
-            label="Dashboard"
-            url="/admin"
-            customeClasses="sidebar__link--active"
-          >
+          <SidebarItem label="Dashboard" url="/admin">
             <BsGrid1X2Fill />
           </SidebarItem>
 
@@ -46,9 +43,9 @@ export default function AdminLayout({
           </SidebarItem>
 
           {/* Logout */}
-          <SidebarItem label="Logout" url="#">
+          <SidebarLogoutItem label="Logout">
             <BsBoxArrowRight />
-          </SidebarItem>
+          </SidebarLogoutItem>
         </AdminSidebar>
         <main className="section__content" id="content">
           {children}
