@@ -1,12 +1,13 @@
-import { fetchProductReviews } from "@/app/lib/database/review/review.query";
 import Review from "./Review";
+// import { fetchProductReviews } from "@/app/lib/database/review/review.query";
+import { reviews } from "@/app/lib/placeholder-data";
 
 interface ReviewListProps {
   productId: string;
 }
 
 export default async function ReviewList({ productId }: ReviewListProps) {
-  const reviews = await fetchProductReviews(productId);
+  // const reviews = await fetchProductReviews(productId);
 
   return (
     <div className="reviews">

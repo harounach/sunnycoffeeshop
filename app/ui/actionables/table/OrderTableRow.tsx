@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { BsEye } from "react-icons/bs";
-import IconButton from "@/app/ui/actionables/buttons/IconButton";
+import IconLinkButton from "@/app/ui/actionables/buttons/IconLinkButton";
 import type { Order } from "@/app/lib/definitions";
 
 interface OrderTableRowProps {
@@ -23,9 +23,9 @@ export default function OrderTableRow({
       <td className="table__data table__data--hide">{order.deliveredAt}</td>
       <td className="table__data">
         <div className="table__actions">
-          <IconButton url={`/account/orders/${order._id}`} hasBG>
+          <IconLinkButton url={`/account/orders/${order._id}`} hasBG>
             <BsEye />
-          </IconButton>
+          </IconLinkButton>
         </div>
       </td>
     </tr>

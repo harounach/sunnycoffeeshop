@@ -49,6 +49,22 @@
     &--active .sidebar__icon {
       color: vars.$primary-500;
     }
+
+    &:hover {
+      color: vars.$primary-500;
+    }
+  }
+
+  // sidebar__logout
+  &__logout {
+    display: flex;
+
+    button.sidebar__link {
+      border: none;
+      width: 100%;
+      cursor: pointer;
+      background-color: transparent;
+    }
   }
 
   // sidebar__icon

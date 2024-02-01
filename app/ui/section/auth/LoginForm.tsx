@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { useFormState, useFormStatus } from "react-dom";
 import classNames from "classnames";
 import Button from "@/app/ui/actionables/buttons/Button";
-import { useFormState, useFormStatus } from "react-dom";
-import { authenticate } from "@/app/lib/actions/auth";
+import TextInput from "@/app/ui/inputs/TextInput";
+import { authenticate } from "@/app/lib/actions/auth.action";
 
 interface LoginFormProps {
   customClasses?: string;
@@ -12,37 +13,28 @@ interface LoginFormProps {
 
 export default function LoginForm({ customClasses }: LoginFormProps) {
   const classes = classNames("form", customClasses);
-  const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+  const initialState = { message: "", errors: {} };
+  const [state, dispatch] = useFormState(authenticate, initialState);
 
   return (
     <form className={classes} action={dispatch}>
       {/* Email */}
-      <div className="text-input">
-        <label className="label text-input__label" htmlFor="email">
-          Email
-        </label>
-        <input
-          className="text-input__input"
-          placeholder="Email"
-          type="email"
-          name="email"
-          id="email"
-        />
-      </div>
+      <TextInput
+        name="email"
+        id="email"
+        type="email"
+        label="Email"
+        placeholder="Email"
+      />
 
       {/* Password */}
-      <div className="text-input">
-        <label className="label text-input__label" htmlFor="password">
-          Password
-        </label>
-        <input
-          className="text-input__input"
-          placeholder="Password"
-          type="password"
-          name="password"
-          id="password"
-        />
-      </div>
+      <TextInput
+        name="password"
+        id="password"
+        type="password"
+        label="Password"
+        placeholder="Password"
+      />
 
       <LoginButton />
       <p className="form__message body-base">
@@ -52,10 +44,8 @@ export default function LoginForm({ customClasses }: LoginFormProps) {
         </Link>
       </p>
 
-      {errorMessage && (
-        <>
-          <p className="form__error">{errorMessage}</p>
-        </>
+      {state?.message && (
+        <p className="form__error body-base">{state.message}</p>
       )}
     </form>
   );

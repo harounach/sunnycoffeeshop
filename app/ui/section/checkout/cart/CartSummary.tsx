@@ -1,17 +1,21 @@
+"use client";
+
 import classNames from "classnames";
-import Button from "@/app/ui/actionables/buttons/Button";
-import { Summary } from "@/app/lib/definitions";
+import { useCartStore } from "@/app/lib/store/cart";
+import { getSummary } from "@/app/lib/utils/summary";
+import { cartItemsData as items } from "@/app/lib/placeholder-data";
+import LinkButton from "@/app/ui/actionables/buttons/LinkButton";
 
 interface CartSummaryProps {
-  summary: Summary;
   customClasses?: string;
 }
 
-export default function CartSummary({
-  summary,
-  customClasses,
-}: CartSummaryProps) {
+export default function CartSummary({ customClasses }: CartSummaryProps) {
   const classes = classNames("summary", customClasses);
+
+  // TODO: remember to use real data
+  // const items = useCartStore((state) => state.items);
+  const summary = getSummary(items);
 
   return (
     <div className={classes}>
@@ -39,7 +43,7 @@ export default function CartSummary({
             ${summary.total}
           </span>
         </div>
-        <Button
+        <LinkButton
           url="/checkout/shipping"
           label="Proceed to Checkout"
           customClasses="summary__btn"

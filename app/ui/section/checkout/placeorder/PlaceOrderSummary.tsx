@@ -1,16 +1,20 @@
 import classNames from "classnames";
-import { Summary } from "@/app/lib/definitions";
+import Button from "@/app/ui/actionables/buttons/Button";
+import { getSummary } from "@/app/lib/utils/summary";
+import { cartItemsData as items } from "@/app/lib/placeholder-data";
 
 interface PlaceOrderSummaryProps {
-  summary: Summary;
   customClasses?: string;
 }
 
 export default function PlaceOrderSummary({
-  summary,
   customClasses,
 }: PlaceOrderSummaryProps) {
   const classes = classNames("summary", customClasses);
+
+  // TODO: remember to use real data
+  // const items = useCartStore((state) => state.items);
+  const summary = getSummary(items);
 
   const handleSubmit = async () => {
     // Create order
@@ -45,7 +49,11 @@ export default function PlaceOrderSummary({
 
         {/* TODO: Create order */}
         <form onSubmit={handleSubmit}>
-          <button className="btn summary__btn">Place Order Now</button>
+          <Button
+            type="submit"
+            label="Place Order Now"
+            customClasses="summary__btn"
+          />
         </form>
       </div>
     </div>

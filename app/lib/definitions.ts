@@ -4,6 +4,7 @@ export type User = {
   email: string;
   passwordHash?: string;
   role: string;
+  createdAt: string;
 };
 
 export type Product = {

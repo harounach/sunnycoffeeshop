@@ -3,7 +3,7 @@ import classNames from "classnames";
 interface TextInputProps {
   name: string;
   label: string;
-  type?: "text" | "password" | "email" | "number";
+  type?: "text" | "password" | "email" | "number" | "tel";
   id: string;
   placeholder: string;
   hideLabel?: boolean;
@@ -25,7 +25,7 @@ export default function TextInput({
 }: TextInputProps) {
   const parentClasses = classNames("text-input", customClasses);
   const labelClasses = classNames("label text-input__label", {
-    label__hide: hideLabel,
+    "label--hide": hideLabel,
   });
   const errorMsgClasses = classNames("text-input__error body-base", {
     show: typeof error === "string" && error !== "",
@@ -46,7 +46,7 @@ export default function TextInput({
         id={id}
         defaultValue={defaultValue ? defaultValue : ""}
       />
-      <p className={errorMsgClasses}>{error}</p>
+      {error && <p className={errorMsgClasses}>{error}</p>}
     </div>
   );
 }

@@ -1,35 +1,37 @@
 import classNames from "classnames";
 import { BsPencilFill } from "react-icons/bs";
-import IconButton from "@/app/ui/actionables/buttons/IconButton";
+import IconLinkButton from "@/app/ui/actionables/buttons/IconLinkButton";
 import PlaceOrderItem from "./PlaceOrderItem";
-import { OrderItem } from "@/app/lib/definitions";
+import { cartItemsData as items } from "@/app/lib/placeholder-data";
+import { useCartStore } from "@/app/lib/store/cart";
 
 interface PlaceOrderCartItemsListProps {
-  cartItems: Array<OrderItem>;
   customClasses?: string;
 }
 
 export default function PlaceOrderCartItemsList({
-  cartItems,
   customClasses,
 }: PlaceOrderCartItemsListProps) {
   const classes = classNames("content-card", customClasses);
+
+  // TODO: remember to use real data
+  // const items = useCartStore(state => state.items);
 
   return (
     <div className={classes}>
       <div className="content-card__header">
         <h3 className="content-card__title title-medium">Items</h3>
-        <IconButton
+        <IconLinkButton
           url="/cart"
           color="primary"
           hasBG
           customClasses="content-card__btn"
         >
           <BsPencilFill />
-        </IconButton>
+        </IconLinkButton>
       </div>
       <div className="content-card__content">
-        {cartItems.map((item) => {
+        {items.map((item) => {
           return <PlaceOrderItem key={item.product._id} cartItem={item} />;
         })}
       </div>

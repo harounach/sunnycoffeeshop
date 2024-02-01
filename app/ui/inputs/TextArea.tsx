@@ -23,7 +23,7 @@ export default function TextArea({
 }: TextAreaProps) {
   const parentClasses = classNames("text-area", customClasses);
   const labelClasses = classNames("label text-area__label", {
-    label__hide: hideLabel,
+    "label--hide": hideLabel,
   });
   const errorMsgClasses = classNames("text-area__error body-base", {
     show: typeof error === "string" && error !== "",
@@ -43,7 +43,7 @@ export default function TextArea({
         placeholder={placeholder}
         defaultValue={defaultValue ? defaultValue : ""}
       ></textarea>
-      <p className={errorMsgClasses}>{error}</p>
+      {error && <p className={errorMsgClasses}>{error}</p>}
     </div>
   );
 }

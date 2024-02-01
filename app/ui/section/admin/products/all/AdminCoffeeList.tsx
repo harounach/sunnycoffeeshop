@@ -1,25 +1,18 @@
-import classNames from "classnames";
+import LinkButton from "@/app/ui/actionables/buttons/LinkButton";
 import AdminCoffeeCard from "./AdminCoffeeCard";
 import TablePagination from "@/app/ui/actionables/table/TablePagination";
-import Button from "@/app/ui/actionables/buttons/Button";
 import { Product } from "@/app/lib/definitions";
-
-interface AdminCoffeeListProps {
-  products: Array<Product>;
-  customClasses?: string;
-}
 
 export default function AdminCoffeeList({
   products,
-  customClasses,
-}: AdminCoffeeListProps) {
-  const classes = classNames("content-card", customClasses);
-
+}: {
+  products: Array<Product>;
+}) {
   return (
-    <div className={classes}>
+    <div className="content-card">
       <div className="content-card__header">
         <h3 className="content-card__title title-medium">Items</h3>
-        <Button
+        <LinkButton
           label="Create Product"
           url="/admin/products/create"
           customClasses="content-card__btn"

@@ -1,9 +1,11 @@
 "use client";
 
+import { useFormState, useFormStatus } from "react-dom";
 import Link from "next/link";
 import classNames from "classnames";
-import { useFormState, useFormStatus } from "react-dom";
-import { register } from "@/app/lib/actions/auth";
+import Button from "@/app/ui/actionables/buttons/Button";
+import TextInput from "@/app/ui/inputs/TextInput";
+import { register } from "@/app/lib/actions/auth.action";
 
 interface RegisterFormProps {
   customClasses?: string;
@@ -18,80 +20,44 @@ export default function RegisterForm({ customClasses }: RegisterFormProps) {
   return (
     <form className={classes} action={dispatch}>
       {/* Name */}
-      <div className="text-input">
-        <label className="label text-input__label" htmlFor="name">
-          Name
-        </label>
-        <input
-          className="text-input__input"
-          placeholder="Name"
-          type="text"
-          name="name"
-          id="name"
-        />
-        {state.errors?.name && (
-          <p className="text-input__error body-base">
-            {state.errors?.name?.join(", ")}
-          </p>
-        )}
-      </div>
+      <TextInput
+        name="name"
+        id="name"
+        type="text"
+        label="Name"
+        placeholder="Name"
+        error={state.errors?.name?.join(", ")}
+      />
 
       {/* Email */}
-      <div className="text-input">
-        <label className="label text-input__label" htmlFor="email">
-          Email
-        </label>
-        <input
-          className="text-input__input"
-          placeholder="Email"
-          type="email"
-          name="email"
-          id="email"
-        />
-        {state.errors?.email && (
-          <p className="text-input__error body-base">
-            {state.errors?.email?.join(", ")}
-          </p>
-        )}
-      </div>
+      <TextInput
+        name="email"
+        id="email"
+        type="email"
+        label="Email"
+        placeholder="Email"
+        error={state.errors?.email?.join(", ")}
+      />
 
       {/* Password */}
-      <div className="text-input">
-        <label className="label text-input__label" htmlFor="password">
-          Password
-        </label>
-        <input
-          className="text-input__input"
-          placeholder="Password"
-          type="password"
-          name="password"
-          id="password"
-        />
-        {state.errors?.password && (
-          <p className="text-input__error body-base">
-            {state.errors?.password?.join(", ")}
-          </p>
-        )}
-      </div>
+      <TextInput
+        name="password"
+        id="password"
+        type="password"
+        label="Password"
+        placeholder="Password"
+        error={state.errors?.password?.join(", ")}
+      />
 
       {/* Confirm Password */}
-      <div className="text-input">
-        <label className="label text-input__label" htmlFor="confirm_password">
-          Confirm Password
-        </label>
-        <input
-          className="text-input__input"
-          placeholder="Confirm Password"
-          type="password"
-          name="confirm_password"
-          id="confirm_password"
-        />
-        {state.errors?.confirmPassword && (
-          <p className="text-input__error body-base">
-            {state.errors?.confirmPassword?.join(", ")}
-          </p>
-        )}
-      </div>
+      <TextInput
+        name="confirm_password"
+        id="confirm_password"
+        type="password"
+        label="Confirm Password"
+        placeholder="Confirm Password"
+        error={state.errors?.confirmPassword?.join(", ")}
+      />
 
       <RegisterButton />
       <p className="form__message body-base">
@@ -110,9 +76,5 @@ export default function RegisterForm({ customClasses }: RegisterFormProps) {
 
 function RegisterButton() {
   const { pending } = useFormStatus();
-  return (
-    <button className="btn" type="submit" aria-disabled={pending}>
-      Register
-    </button>
-  );
+  return <Button type="submit" label="Register" disabled={pending} />;
 }

@@ -3,11 +3,14 @@ import Footer from "@/app/ui/navigation/footer/Footer";
 import CoffeeContent from "@/app/ui/section/products/CoffeeContent";
 import ReviewList from "@/app/ui/section/products/ReviewList";
 import WriteReview from "@/app/ui/section/products/WriteReview";
-import { fetchSingleProduct } from "@/app/lib/database/product/product.query";
+// import { fetchSingleProduct } from "@/app/lib/database/product/product.query";
+import { products } from "@/app/lib/placeholder-data";
 
 export default async function Page({ params }: { params: { id: string } }) {
-  // const coffeeProduct = products.find((product) => product._id === params.id);
-  const coffeeProduct = await fetchSingleProduct(params.id);
+  const coffeeProduct = products.find((product) => product._id === params.id);
+
+  // TODO: remember to use real data
+  // const coffeeProduct = await fetchSingleProduct(params.id);
 
   return (
     <div>
@@ -17,7 +20,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           <div className="container">
             <h1 className="title title-large">{coffeeProduct?.title}</h1>
             <p className="desc body-base">Customize your coffee</p>
-            <CoffeeContent product={coffeeProduct!} customClasses="" />
+            <CoffeeContent product={coffeeProduct!} />
           </div>
         </section>
         <section className="product-page__review section">
@@ -25,9 +28,9 @@ export default async function Page({ params }: { params: { id: string } }) {
             <div className="product-page__review-grid">
               <WriteReview
                 userId="some-id"
-                productId={coffeeProduct._id.toString()}
+                productId={coffeeProduct!._id.toString()}
               />
-              <ReviewList productId={coffeeProduct._id.toString()} />
+              <ReviewList productId={coffeeProduct!._id.toString()} />
             </div>
           </div>
         </section>

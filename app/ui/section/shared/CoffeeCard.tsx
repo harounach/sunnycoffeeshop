@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Product } from "@/app/lib/definitions";
+import classNames from "classnames";
 
 interface CoffeeCardProps {
   product: Product;
@@ -11,9 +12,11 @@ export default function CoffeeCard({
   product,
   customClasses,
 }: CoffeeCardProps) {
+  const classes = classNames("coffee-card", customClasses);
+
   return (
     <Link
-      className="coffee-card"
+      className={classes}
       title={product.title}
       href={`/products/${product._id}`}
     >

@@ -1,4 +1,3 @@
-import { logout } from "@/app/lib/actions/auth";
 import { signOut } from "@/auth";
 
 import classNames from "classnames";

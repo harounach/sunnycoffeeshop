@@ -74,26 +74,30 @@ export async function register(prevState: State, formData: FormData) {
   redirect("/login");
 }
 
-export async function authenticate(
-  prevState: string | undefined,
-  formData: FormData,
-) {
+export async function authenticate(prevState: State, formData: FormData) {
   try {
     await signIn("credentials", formData);
   } catch (err) {
     if (err instanceof AuthError) {
       switch (err.type) {
         case "CredentialsSignin":
-          return "Invalid credentials.";
+          return {
+            message: "Invalid credentials.",
+          };
         default:
-          return "Something went wrong.";
+          return {
+            message: "Something went wrong.",
+          };
       }
     }
 
     throw err;
   }
+
+  return { message: "Logged in successfuly", }
+
 }
 
 export async function logout(formData: FormData) {
-    await signOut();
+  await signOut();
 }

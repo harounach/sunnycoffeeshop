@@ -1,0 +1,51 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+
+// user-card
+.user-card {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-3;
+  padding: vars.$space-3 0;
+  border-bottom: vars.$border-sm solid vars.$neutral-50;
+
+  // user-card__header
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  // user-card__name
+  &__name {
+    color: vars.$primary-600;
+  }
+
+  // user-card__email
+  &__email {
+    color: vars.$neutral-900;
+  }
+
+  // user-card__footer
+  &__footer {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  // user-card__label
+  &__label {
+    color: vars.$neutral-600;
+    margin-right: vars.$space-3;
+  }
+
+  // user-card__date
+  &__date {
+    color: vars.$neutral-900;
+  }
+
+  // user-card__btn
+  &__btn {
+    margin-left: auto;
+  }
+}

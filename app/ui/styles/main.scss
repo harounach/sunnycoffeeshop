@@ -47,6 +47,7 @@
 @use "./components/summary";
 @use "./components/sidebar";
 @use "./components/table";
+@use "./components/user-card";
 
 // <layout>
 @use "./layout/container";
@@ -73,6 +74,9 @@
 @use "./pages/admin-edit-product-page";
 @use "./pages/admin-orders-page";
 @use "./pages/admin-order-page";
+@use "./pages/admin-users-page";
+@use "./pages/admin-user-detail-page";
+@use "./pages/admin-product-detail-page";
 
 // <themes>
 // @use "./themes/theme-values";

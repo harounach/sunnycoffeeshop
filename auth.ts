@@ -49,6 +49,14 @@ export const {
 
         console.log("Invalid credentials");
         return null;
+
+        // return {
+        //   _id: "id--vfdjvnjdfnvjdnfvjndfjvnjfdgcvgv",
+        //   name: "Haron",
+        //   email: "haron@hwiren",
+        //   role: "admin",
+        //   createdAt: "20 Dec 2022",
+        // };
       },
     }),
   ],

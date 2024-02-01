@@ -1,31 +1,33 @@
 import classNames from "classnames";
 import { BsPencilFill } from "react-icons/bs";
-import IconButton from "@/app/ui/actionables/buttons/IconButton";
-import { Shipping } from "@/app/lib/definitions";
+import IconLinkButton from "@/app/ui/actionables/buttons/IconLinkButton";
+import { shippingData as shipping } from "@/app/lib/placeholder-data";
+import { useCartStore } from "@/app/lib/store/cart";
 
 interface PlaceOrderShippingCardProps {
-  shipping: Shipping;
   customClasses?: string;
 }
 
 export default function PlaceOrderShippingCard({
-  shipping,
   customClasses,
 }: PlaceOrderShippingCardProps) {
   const classes = classNames("content-card", customClasses);
+
+  // TODO: remember to use real data
+  // const shipping = useCartStore(state => state.shipping);
 
   return (
     <div className={classes}>
       <div className="content-card__header">
         <h3 className="content-card__title title-medium">Shipping</h3>
-        <IconButton
+        <IconLinkButton
           url="/checkout/shipping"
           color="primary"
           hasBG
           customClasses="content-card__btn"
         >
           <BsPencilFill />
-        </IconButton>
+        </IconLinkButton>
       </div>
       <div className="content-card__content">
         <div className="content-card__row">

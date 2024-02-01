@@ -1,10 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import classNames from "classnames";
 
 interface IconButtonProps {
-  url?: string;
+  title?: string;
   color?: "primary" | "danger";
   hasBG?: boolean;
   mini?: boolean;
@@ -14,7 +13,7 @@ interface IconButtonProps {
 }
 
 export default function IconButton({
-  url,
+  title,
   color,
   hasBG,
   mini,
@@ -31,16 +30,8 @@ export default function IconButton({
     customClasses,
   );
 
-  // If there is a "url" prop we want to the button to be a link
-  if (url) {
-    return (
-      <Link className={classes} href={url}>
-        {children}
-      </Link>
-    );
-  }
+  const titleText = title ? title : "";
 
-  // otherwise we just return button element
   return (
     <button
       className={classes}
@@ -49,6 +40,7 @@ export default function IconButton({
           onClick();
         }
       }}
+      title={titleText}
     >
       {children}
     </button>

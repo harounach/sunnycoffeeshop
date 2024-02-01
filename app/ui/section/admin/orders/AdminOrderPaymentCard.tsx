@@ -1,19 +1,16 @@
-import classNames from "classnames";
-import { Payment } from "@/app/lib/definitions";
+import { Order } from "@/app/lib/definitions";
 
 interface AdminOrderPaymentCardProps {
-  payment: Payment;
-  customClasses?: string;
+  order: Order;
 }
 
 export default function AdminOrderPaymentCard({
-  payment,
-  customClasses,
+  order,
 }: AdminOrderPaymentCardProps) {
-  const classes = classNames("content-card", customClasses);
+  const payment = order.payment;
 
   return (
-    <div className={classes}>
+    <div className="content-card">
       <div className="content-card__header">
         <h3 className="content-card__title title-medium">Payment</h3>
       </div>

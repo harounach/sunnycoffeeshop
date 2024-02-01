@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Button from "@/app/ui/actionables/buttons/Button";
+import LinkButton from "@/app/ui/actionables/buttons/LinkButton";
 
 export default function Hero() {
   return (
@@ -15,7 +15,7 @@ export default function Hero() {
                 "At Sunny Coffee Shop, We're Brewing More Than Just Coffee—We're Brewing Memories."
               }
             </p>
-            <Button url="/products" label="Explore Our Menu" />
+            <LinkButton url="/products" label="Explore Our Menu" />
           </div>
           <div className="hero__img">
             <Image

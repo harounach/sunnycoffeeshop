@@ -25,6 +25,13 @@
   &__error {
     color: vars.$danger-500;
   }
+
+  // form__group
+  &__group {
+    display: flex;
+    justify-content: flex-end;
+    gap: vars.$space-3;
+  }
 }
 
 // label

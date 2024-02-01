@@ -1,19 +1,16 @@
-import classNames from "classnames";
-import { Shipping } from "@/app/lib/definitions";
+import { Order } from "@/app/lib/definitions";
 
 interface AdminOrderShippingCardProps {
-  shipping: Shipping;
-  customClasses?: string;
+  order: Order;
 }
 
 export default function AdminOrderShippingCard({
-  shipping,
-  customClasses,
+  order,
 }: AdminOrderShippingCardProps) {
-  const classes = classNames("content-card", customClasses);
+  const shipping = order.shipping;
 
   return (
-    <div className={classes}>
+    <div className="content-card">
       <div className="content-card__header">
         <h3 className="content-card__title title-medium">Shipping</h3>
       </div>

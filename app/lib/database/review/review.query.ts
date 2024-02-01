@@ -1,13 +1,15 @@
-import dbConnect from "../dbConnect";
-import { ReviewModel } from "../models";
-import { Review } from "../../definitions";
+import dbConnect from "@/app/lib/database/dbConnect";
+import { ReviewModel } from "@/app/lib/database/models";
+import { Review } from "@/app/lib/definitions";
 
 export async function fetchProductReviews(productId: string) {
   try {
     await dbConnect();
     const reviews = await ReviewModel.find({ product: productId })
       .populate("user", "name")
-      .lean();
+      .lean()
+      .exec();
+
     return reviews as Review[];
   } catch (err) {
     console.error("Database Error:", err);

@@ -1,5 +1,7 @@
 import { UserModel } from "@/app/lib/database/models";
 import { generateHashedPassword } from "@/app/lib/utils/auth";
+import { HydratedDocument } from "mongoose";
+import { User } from "@/app/lib/definitions";
 
 export async function createUser(
   name: string,
@@ -22,4 +24,14 @@ export async function createUser(
   }
 }
 
-export async function deleteUser() {}
+export async function deleteUser(userId: string) {
+  try {
+    const userToDelete =
+      await UserModel.findById<HydratedDocument<User>>(userId).exec();
+    if (userToDelete) {
+      await userToDelete.deleteOne();
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}

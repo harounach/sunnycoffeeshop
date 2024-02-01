@@ -1,22 +1,12 @@
 import Image from "next/image";
-import classNames from "classnames";
-import { BsHeart, BsHeartFill, BsCartPlus, BsCartDash } from "react-icons/bs";
-import IconButton from "@/app/ui/actionables/buttons/IconButton";
 import Rating from "@/app/ui/misc/Rating";
+import CoffeeActions from "./CoffeeActions";
+
 import type { Product } from "@/app/lib/definitions";
 
-interface CoffeeContentProps {
-  product: Product;
-  customClasses?: string;
-}
-
-export default function CoffeeContent({
-  product,
-  customClasses,
-}: CoffeeContentProps) {
-  const classes = classNames("coffee-content", customClasses);
+export default function CoffeeContent({ product }: { product: Product }) {
   return (
-    <div className={classes}>
+    <div className="coffee-content">
       <Image
         src={product.image}
         width={420}
@@ -33,16 +23,9 @@ export default function CoffeeContent({
             {`$${product.price}`}
           </h2>
         </div>
-        <Rating value={4.5} customClasses="coffee-content__rating" />
+        <Rating value={product.rating} customClasses="coffee-content__rating" />
         <p className="coffee-content__desc body-base">{product.desc}</p>
-        <div className="coffee-content__actions">
-          <IconButton color="primary" hasBG customClasses="coffee-content__btn">
-            <BsHeart />
-          </IconButton>
-          <IconButton color="primary" hasBG customClasses="coffee-content__btn">
-            <BsCartPlus />
-          </IconButton>
-        </div>
+        <CoffeeActions product={product} />
       </div>
     </div>
   );

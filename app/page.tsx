@@ -12,8 +12,11 @@ import Newsletter from "@/app/ui/section/home/Newsletter";
 import { products } from "@/app/lib/placeholder-data";
 import { fetchFeaturedProducts } from "@/app/lib/database/product/product.query";
 
+const featuredProducts = products.filter((p) => p.isFeatured).slice(0, 4);
+
 export default async function Page() {
-  const featuredProducts = await fetchFeaturedProducts();
+  // TODO: remember to use real data
+  // const featuredProducts = await fetchFeaturedProducts();
 
   return (
     <div>

@@ -1,20 +1,13 @@
-import classNames from "classnames";
-import Button from "@/app/ui/actionables/buttons/Button";
-import { Summary } from "@/app/lib/definitions";
+import PayButton from "./PayButton";
+import DeliverButton from "./DeliverButton";
+import { getSummary } from "@/app/lib/utils/summary";
+import { Order } from "@/app/lib/definitions";
 
-interface AdminOrderSummaryProps {
-  summary: Summary;
-  customClasses?: string;
-}
-
-export default function AdminOrderSummary({
-  summary,
-  customClasses,
-}: AdminOrderSummaryProps) {
-  const classes = classNames("summary", customClasses);
+export default function AdminOrderSummary({ order }: { order: Order }) {
+  const summary = getSummary(order.items);
 
   return (
-    <div className={classes}>
+    <div className="summary">
       <h2 className="summary__header title-medium">Summary</h2>
       <div className="summary__content">
         <div className="summary__row">
@@ -39,11 +32,8 @@ export default function AdminOrderSummary({
             ${summary.total}
           </span>
         </div>
-        <Button
-          url="/admin/orders"
-          label="Pay Now"
-          customClasses="summary__btn"
-        />
+        <PayButton orderId={order._id} />
+        <DeliverButton orderId={order._id} />
       </div>
     </div>
   );

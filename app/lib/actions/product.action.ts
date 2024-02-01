@@ -2,12 +2,11 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-
 import { z } from "zod";
-import { ProductModel } from "@/app/lib/database/models";
 import {
   createProduct,
   deleteProduct,
+  markProductAsFeatured,
   updateProduct,
 } from "@/app/lib/database/product/product.mutation";
 
@@ -39,7 +38,7 @@ const FormSchema = z.object({
     .min(3, { message: "Slug must be 3 or more characters long" }),
 });
 
-export type State = {
+export type CreateProductState = {
   errors?: {
     title?: string[];
     desc?: string[];
@@ -50,6 +49,10 @@ export type State = {
   message?: string | null;
 };
 
+export type ProductState = {
+  message?: string | null;
+};
+
 const CreateProductSchema = FormSchema;
 const UpdateProductSchema = FormSchema;
 
@@ -57,7 +60,7 @@ const UpdateProductSchema = FormSchema;
  * Create new product
  */
 export async function createProductAction(
-  prevState: State,
+  prevState: CreateProductState,
   formData: FormData,
 ) {
   // Validate form fields using Zod
@@ -98,7 +101,7 @@ export async function createProductAction(
  */
 export async function updateProductAction(
   id: string,
-  prevState: State,
+  prevState: ProductState,
   formData: FormData,
 ) {
   // Validate form fields using Zod
@@ -137,32 +140,39 @@ export async function updateProductAction(
 /**
  * Delete a product
  */
-export async function deleteProductAction(id: string) {
+export async function deleteProductAction(
+  id: string,
+  prevState: ProductState,
+  formData: FormData,
+) {
   try {
     // Delete product in database
     await deleteProduct(id);
-    revalidatePath("/admin/products");
-    return { message: "Product deleted" };
   } catch (error) {
     return { message: "Database Error: Failed to Delete Product." };
   }
+
+  // Revalidate the cache for the admin products page and redirect the user.
+  revalidatePath("/admin/products");
+  redirect("/admin/products");
 }
 
 /**
  * Mark product as featured
  */
-export async function markProductAsFeatured(id: string) {
+export async function markProductAsFeaturedAction(
+  id: string,
+  prevState: ProductState,
+  formData: FormData,
+) {
   try {
-    // Find and toggle isFeatured flag
-    const productToBeFeatured = await ProductModel.findById(id).exec();
-    productToBeFeatured.isFeatured = !productToBeFeatured.isFeatured;
-    await productToBeFeatured.save();
-
-    // Update cache
-    revalidatePath("/admin/products");
-
-    return { message: "Product is featured" };
+    await markProductAsFeatured(id);
   } catch (error) {
-    return { message: "Database Error: Failed to Delete Product." };
+    return { message: "Database Error: Failed to Mark Product as Featured." };
   }
+
+  // Update cache
+  revalidatePath("/admin/products");
+
+  return { message: "Product is featured" };
 }

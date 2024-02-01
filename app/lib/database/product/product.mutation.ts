@@ -1,4 +1,6 @@
 import { ProductModel } from "@/app/lib/database/models";
+import { HydratedDocument } from "mongoose";
+import { Product } from "@/app/lib/definitions";
 
 export async function createProduct(
   title: string,
@@ -33,15 +35,18 @@ export async function updateProduct(
 ) {
   try {
     // Find product in the database
-    const productToUpdate = await ProductModel.findById(id).exec();
+    const productToUpdate =
+      await ProductModel.findById<HydratedDocument<Product>>(id).exec();
 
     // Now update the product
-    productToUpdate.title = title;
-    productToUpdate.desc = desc;
-    productToUpdate.price = price;
-    productToUpdate.image = image;
-    productToUpdate.slug = slug;
-    await productToUpdate.save();
+    if (productToUpdate) {
+      productToUpdate.title = title;
+      productToUpdate.desc = desc;
+      productToUpdate.price = price;
+      productToUpdate.image = image;
+      productToUpdate.slug = slug;
+      await productToUpdate.save();
+    }
   } catch (err) {
     console.error(err);
   }
@@ -50,9 +55,26 @@ export async function updateProduct(
 export async function deleteProduct(id: string) {
   try {
     // Find the product with this id
-    const productToDelete = await ProductModel.findById(id).exec();
-    await productToDelete.deleteOne();
+    const productToDelete =
+      await ProductModel.findById<HydratedDocument<Product>>(id).exec();
+    if (productToDelete) {
+      await productToDelete.deleteOne();
+    }
   } catch (err) {
     console.error(err);
+  }
+}
+
+export async function markProductAsFeatured(id: string) {
+  try {
+    // Find and toggle isFeatured flag
+    const productToBeFeatured =
+      await ProductModel.findById<HydratedDocument<Product>>(id).exec();
+    if (productToBeFeatured) {
+      productToBeFeatured.isFeatured = !productToBeFeatured.isFeatured;
+      await productToBeFeatured.save();
+    }
+  } catch (error) {
+    return { message: "Database Error: Failed to Delete Product." };
   }
 }

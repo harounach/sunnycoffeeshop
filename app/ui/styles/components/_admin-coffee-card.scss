@@ -8,6 +8,7 @@
   gap: vars.$space-3;
   text-decoration: none;
   background-color: vars.$white;
+  padding: vars.$space-3 0;
 
   // admin-coffee-card__img
   &__img {
@@ -18,6 +19,7 @@
   // admin-coffee-card__content
   &__content {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     gap: vars.$space-3;
     flex-grow: 1;
@@ -26,17 +28,15 @@
   // admin-coffee-card__header
   &__header {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     gap: vars.$space-5;
   }
 
   // admin-coffee-card__footer
   &__footer {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: vars.$space-3;
+    justify-content: flex-end;
+    gap: vars.$space-2;
   }
 
   // admin-coffee-card__title

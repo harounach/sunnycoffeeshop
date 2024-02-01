@@ -1,5 +1,7 @@
 import { revalidatePath } from "next/cache";
-import { ProductModel, ReviewModel } from "../models";
+import { HydratedDocument } from "mongoose";
+import { ProductModel, ReviewModel } from "@/app/lib/database/models";
+import { Product, Review } from "@/app/lib/definitions";
 
 export async function createReview(
   userId: string,
@@ -19,12 +21,13 @@ export async function createReview(
     }
 
     // Otherwise, create and save the review
-    const newReview = new ReviewModel({
+    const newReview: HydratedDocument<Review> = new ReviewModel({
       user: userId,
       rating,
       comment,
       product: productId,
     });
+
     await newReview.save();
 
     // Update product rating and numReviews;
@@ -49,17 +52,30 @@ export async function deleteReview(id: string) {
     const reviewToDelete = await ReviewModel.findById(id).exec();
 
     // Find the reviewed  and update rating and numReviews
-    const productReviewed = await ProductModel.findById(reviewToDelete.product);
-    const prevRating = productReviewed.rating;
-    const prevNumReview = productReviewed.numReview;
+    const productReviewed = await ProductModel.findById<
+      HydratedDocument<Product>
+    >(reviewToDelete.product).exec();
 
-    productReviewed.rating =
-      (prevRating - reviewToDelete.rating) / (prevNumReview - 1);
-    productReviewed.numReview = prevNumReview - 1;
+    if (productReviewed) {
+      const prevRating = productReviewed.rating;
+      const prevNumReview = productReviewed.numReviews;
 
-    // Commit opertations
-    await reviewToDelete.deleteOne();
-    await productReviewed.save();
+      productReviewed.rating =
+        (prevRating - reviewToDelete.rating) / (prevNumReview - 1);
+      productReviewed.numReviews = prevNumReview - 1;
+
+      // Commit opertations
+      await reviewToDelete.deleteOne();
+      await productReviewed.save();
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function deleteProductReviews(productId: string) {
+  try {
+    await ReviewModel.deleteMany({ product: productId });
   } catch (err) {
     console.error(err);
   }

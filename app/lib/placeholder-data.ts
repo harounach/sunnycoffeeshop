@@ -8,6 +8,7 @@ export const users: Array<User> = [
     email: process.env.ADMIN_EMAIL as string,
     passwordHash: bcrypt.hashSync(process.env.ADMIN_PASSWORD as string),
     role: "admin",
+    createdAt: "12 Dec 2022"
   },
   {
     _id: "user2",
@@ -15,6 +16,7 @@ export const users: Array<User> = [
     email: "user@hwiren.com",
     passwordHash: bcrypt.hashSync("1234"),
     role: "user",
+    createdAt: "17 May 2023",
   },
 ];
 

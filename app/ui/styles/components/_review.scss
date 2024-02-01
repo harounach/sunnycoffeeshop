@@ -61,6 +61,12 @@
     margin-bottom: vars.$space-4;
   }
 
+  // reviews__actions
+  &__actions {
+    display: flex;
+    margin-bottom: vars.$space-4;
+  }
+
   // reviews__list
   &__list {
     display: flex;
@@ -84,6 +90,8 @@
   // review__rating
   &__rating {
     margin-bottom: vars.$space-2;
+    display: flex;
+    gap: vars.$space-2;
   }
 
   // review__date
@@ -95,5 +103,12 @@
   // review__comment
   &__comment {
     color: vars.$neutral-600;
+  }
+
+  // review__actions
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: vars.$space-3;
   }
 }

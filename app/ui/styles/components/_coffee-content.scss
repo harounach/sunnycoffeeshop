@@ -65,3 +65,66 @@
 // coffee-content__btn
 .coffee-content__btn {
 }
+
+// -------------------------------------------------
+
+// coffee-detail
+
+.coffee-detail {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-3;
+  margin-bottom: vars.$space-5;
+  background-color: vars.$white;
+  padding: vars.$space-3;
+
+  // coffee-detail__img
+  &__img {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  // coffee-detail__header
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  // coffee-detail__title
+  &__title {
+    color: vars.$neutral-950;
+  }
+
+  // coffee-detail__price
+  &__price {
+    color: vars.$primary-600;
+  }
+
+  // coffee-detail__rating
+  &__rating {
+    display: flex;
+    align-items: center;
+    gap: vars.$space-2;
+  }
+
+  // coffee-detail__count
+  &__count {
+    color: vars.$neutral-500;
+  }
+
+  // coffee-detail__desc
+  &__desc {
+  }
+
+  // coffee-detail__actions
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: vars.$space-3;
+  }
+
+  // coffee-detail__btn
+  &__btn {
+  }
+}

@@ -4,19 +4,8 @@ import PlaceOrderShippingCard from "@/app/ui/section/checkout/placeorder/PlaceOr
 import PlaceOrderPaymentCard from "@/app/ui/section/checkout/placeorder/PlaceOrderPaymentCard";
 import PlaceOrderCartItemsList from "@/app/ui/section/checkout/placeorder/PlaceOrderCartItemsList";
 import PlaceOrderSummary from "@/app/ui/section/checkout/placeorder/PlaceOrderSummary";
-import {
-  cartItemsData as items,
-  shippingData as shipping,
-  paymentData as payment,
-} from "@/app/lib/placeholder-data";
-import { useCartStore } from "@/app/lib/store/cart";
-import { getSummary } from "@/app/lib/utils/summary";
 
 export default function Page() {
-  // const { shipping, payment, items } = useCartStore();
-
-  const summary = getSummary(items);
-
   return (
     <div>
       <Header />
@@ -30,19 +19,16 @@ export default function Page() {
             <div className="placeorder-page__content">
               <div className="placeorder-page__info">
                 {/* Shipping */}
-                <PlaceOrderShippingCard shipping={shipping} />
+                <PlaceOrderShippingCard />
 
                 {/* Payment */}
-                <PlaceOrderPaymentCard payment={payment} />
+                <PlaceOrderPaymentCard />
 
                 {/* Items */}
-                <PlaceOrderCartItemsList cartItems={items} />
+                <PlaceOrderCartItemsList />
               </div>
               {/* Summary */}
-              <PlaceOrderSummary
-                summary={summary}
-                customClasses="placeorder-page__summary"
-              />
+              <PlaceOrderSummary customClasses="placeorder-page__summary" />
             </div>
           </div>
         </section>

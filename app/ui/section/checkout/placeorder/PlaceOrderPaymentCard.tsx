@@ -1,31 +1,33 @@
 import classNames from "classnames";
 import { BsPencilFill } from "react-icons/bs";
-import IconButton from "@/app/ui/actionables/buttons/IconButton";
-import { Payment } from "@/app/lib/definitions";
+import IconLinkButton from "@/app/ui/actionables/buttons/IconLinkButton";
+import { paymentData as payment } from "@/app/lib/placeholder-data";
+import { useCartStore } from "@/app/lib/store/cart";
 
 interface PlaceOrderPaymentCardProps {
-  payment: Payment;
   customClasses?: string;
 }
 
 export default function PlaceOrderPaymentCard({
-  payment,
   customClasses,
 }: PlaceOrderPaymentCardProps) {
   const classes = classNames("content-card", customClasses);
+
+  // TODO: remember to use real data
+  // const payment = useCartStore(state => state.payment);
 
   return (
     <div className={classes}>
       <div className="content-card__header">
         <h3 className="content-card__title title-medium">Payment</h3>
-        <IconButton
+        <IconLinkButton
           url="/checkout/payment"
           color="primary"
           hasBG
           customClasses="content-card__btn"
         >
           <BsPencilFill />
-        </IconButton>
+        </IconLinkButton>
       </div>
       <div className="content-card__content">
         <div className="content-card__row">

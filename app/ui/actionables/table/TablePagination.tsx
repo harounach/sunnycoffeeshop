@@ -8,6 +8,7 @@ import {
 import IconButton from "@/app/ui/actionables/buttons/IconButton";
 import Select from "@/app/ui/inputs/Select";
 import Link from "next/link";
+import IconLinkButton from "../buttons/IconLinkButton";
 
 interface TablePaginationProps {
   customClasses?: string;
@@ -35,18 +36,18 @@ export default function TablePagination({
       </div>
       <span className="table-pager__label body-base">1-10 of 100</span>
       <div className="table-pager__nav">
-        <Link className="icon-btn icon-btn--bg table-pager__first" href="#">
+        <IconLinkButton customClasses="table-pager__first" url="#">
           <BsChevronBarLeft />
-        </Link>
-        <Link className="icon-btn icon-btn--bg table-pager__prev" href="#">
+        </IconLinkButton>
+        <IconLinkButton customClasses="table-pager__prev" url="#">
           <BsChevronLeft />
-        </Link>
-        <Link className="icon-btn icon-btn--bg table-pager__next" href="#">
+        </IconLinkButton>
+        <IconLinkButton customClasses="table-pager__next" url="#">
           <BsChevronRight />
-        </Link>
-        <Link className="icon-btn icon-btn--bg table-pager__last" href="#">
+        </IconLinkButton>
+        <IconLinkButton customClasses="table-pager__last" url="#">
           <BsChevronBarRight />
-        </Link>
+        </IconLinkButton>
       </div>
     </div>
   );
