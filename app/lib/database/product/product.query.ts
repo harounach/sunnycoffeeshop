@@ -1,5 +1,5 @@
 import dbConnect from "@/app/lib/database/dbConnect";
-import { UserModel, ProductModel } from "@/app/lib/database/models";
+import { ProductModel } from "@/app/lib/database/models";
 import { Product } from "@/app/lib/definitions";
 
 /*
@@ -44,5 +44,65 @@ export async function fetchSingleProduct(id: string) {
   } catch (err) {
     console.error("Database Error:", err);
     throw new Error(`Failed to fetch product with id: ${id}`);
+  }
+}
+
+// Number of items per page
+const LIMIT = 8;
+
+/*
+ * Fetch filtered products
+ */
+export async function fetchFilteredProducts(
+  query: string,
+  currentPage: number,
+) {
+  try {
+    await dbConnect();
+    const searchFilter = query
+      ? {
+          title: {
+            $regex: query,
+            $options: "i",
+          },
+        }
+      : {};
+
+    const products = await ProductModel.find(searchFilter)
+      .sort({ createdAt: 1 })
+      .limit(LIMIT * 1)
+      .skip((currentPage - 1) * LIMIT)
+      .lean()
+      .exec();
+
+    return products as Product[];
+  } catch (err) {
+    console.error("Database Error:", err);
+    throw new Error("Failed to fetch filtered products.");
+  }
+}
+
+/**
+ * Fetch product pages
+ * */
+export async function fetchProductsPages(query: string) {
+  try {
+    await dbConnect();
+    const searchFilter = query
+      ? {
+          title: {
+            $regex: query,
+            $options: "i",
+          },
+        }
+      : {};
+
+    const count = await ProductModel.countDocuments(searchFilter);
+    const totalPages = Math.ceil(count / LIMIT);
+
+    return totalPages as number;
+  } catch (err) {
+    console.error("Database Error:", err);
+    throw new Error("Failed to fetch total number of products pages.");
   }
 }

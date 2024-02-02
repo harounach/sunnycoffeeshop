@@ -18,9 +18,6 @@ export default function Header({ customClasses }: HeaderProps) {
       <div className="container">
         <div className="header__content">
           <Logo customClasses="header__logo" />
-          <div className="header__search">
-            <Searchbar />
-          </div>
           <div className="header__nav">
             <Navigation />
           </div>

@@ -6,18 +6,11 @@ import {
 import Header from "@/app/ui/navigation/header/Header";
 import Footer from "@/app/ui/navigation/footer/Footer";
 import Hero from "@/app/ui/section/home/Hero";
-import CoffeeCard from "@/app/ui/section/shared/CoffeeCard";
 import BenefitCard from "@/app/ui/section/home/BenefitCard";
+import FeaturedCoffeeList from "@/app/ui/section/shared/FeaturedCoffeeList";
 import Newsletter from "@/app/ui/section/home/Newsletter";
-import { products } from "@/app/lib/placeholder-data";
-import { fetchFeaturedProducts } from "@/app/lib/database/product/product.query";
-
-const featuredProducts = products.filter((p) => p.isFeatured).slice(0, 4);
 
 export default async function Page() {
-  // TODO: remember to use real data
-  // const featuredProducts = await fetchFeaturedProducts();
-
   return (
     <div>
       <Header />
@@ -27,11 +20,7 @@ export default async function Page() {
           <div className="container">
             <h2 className="subtitle title-medium">Our Popular Coffee</h2>
             <p className="desc body-base">List of our best selling coffee</p>
-            <div className="coffee-card-grid">
-              {featuredProducts.map((product) => {
-                return <CoffeeCard key={product._id} product={product} />;
-              })}
-            </div>
+            <FeaturedCoffeeList />
           </div>
         </section>
         <section className="home-page__benefits section">

@@ -23,7 +23,12 @@ export default function CoffeeContent({ product }: { product: Product }) {
             {`$${product.price}`}
           </h2>
         </div>
-        <Rating value={product.rating} customClasses="coffee-content__rating" />
+        <div className="coffee-content__rating">
+          <Rating value={product.rating} />
+          <span className="coffee-content__count body-base">
+            ({product.numReviews})
+          </span>
+        </div>
         <p className="coffee-content__desc body-base">{product.desc}</p>
         <CoffeeActions product={product} />
       </div>

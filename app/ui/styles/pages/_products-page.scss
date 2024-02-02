@@ -8,6 +8,24 @@
   background-color: vars.$primary-100;
 }
 
+// products-page__search
+.products-page__search {
+  max-width: 400px;
+  margin: 0 auto vars.$space-5;
+  & .text-input__input {
+    background-color: vars.$white;
+    border-color: vars.$neutral-200;
+
+    &:hover {
+      border-color: vars.$primary-200;
+    }
+
+    &:focus {
+      border-color: vars.$primary-500;
+    }
+  }
+}
+
 // products-page__options
 .products-page__options {
   margin-bottom: vars.$space-5;

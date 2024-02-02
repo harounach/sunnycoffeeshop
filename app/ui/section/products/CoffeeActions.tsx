@@ -8,13 +8,13 @@ import type { Product } from "@/app/lib/definitions";
 
 export default function CoffeeActions({ product }: { product: Product }) {
   const { items } = useCartStore();
-  const productInCart = isInCart(product, items);
+  const isProductInCart = isInCart(product._id.toString(), items);
 
   return (
     <div className="coffee-content__actions">
       <FavoriteButton />
 
-      {productInCart ? (
+      {isProductInCart ? (
         <RemoveFromCartButton id={product._id} />
       ) : (
         <AddToCartButton product={product} />

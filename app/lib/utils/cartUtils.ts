@@ -1,7 +1,7 @@
-import type { Product, OrderItem } from "@/app/lib/definitions";
+import type { OrderItem } from "@/app/lib/definitions";
 
-export function isInCart(product: Product, items: Array<OrderItem>) {
-  const productInCart = items.find((item) => item.product._id === product._id);
+export function isInCart(productId: string, items: Array<OrderItem>) {
+  const productInCart = items.find((item) => item.product._id === productId);
 
   if (productInCart) return true;
 
