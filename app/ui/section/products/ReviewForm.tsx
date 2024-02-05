@@ -3,22 +3,25 @@
 import { useFormState } from "react-dom";
 import TextArea from "@/app/ui/inputs/TextArea";
 import Button from "@/app/ui/actionables/buttons/Button";
-// import { createReviewAction } from "@/app/lib/actions/review.action";
+import { createReviewAction } from "@/app/lib/actions/review.action";
+
+interface ReviewFormProps {
+  name: string;
+  email: string;
+  productId: string;
+}
 
 export default function ReviewForm({
+  name,
+  email,
   productId,
-  userId,
-}: {
-  productId: string;
-  userId: string;
-}) {
-  // const initialState = { message: "", errors: {} };
-  // const createReview = createReviewAction.bind(null, productId, userId);
-  // const [state, dispatch] = useFormState(createReview, initialState);
+}: ReviewFormProps) {
+  const initialState = { message: "", errors: {} };
+  const createReview = createReviewAction.bind(null, name, email, productId);
+  const [state, dispatch] = useFormState(createReview, initialState);
 
-  // action={dispatch}
   return (
-    <form className="write-review__form">
+    <form className="write-review__form" action={dispatch}>
       <div className="select write-review__rating">
         <label className="select__label label" htmlFor="rating">
           Rating
@@ -36,12 +39,12 @@ export default function ReviewForm({
         id="comment"
         label="Comment"
         placeholder="Comment"
-        //error={state?.errors?.comment?.join(", ")}
+        error={state?.errors?.comment?.join(", ")}
       />
       <Button label="Submit" type="submit" customClasses="write-review__btn" />
-      {/* {state.message && (
+      {state.message && (
         <p className="form__error body-base">{state.message}</p>
-      )} */}
+      )}
     </form>
   );
 }

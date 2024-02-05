@@ -1,11 +1,13 @@
-import OrderTable from "@/app/ui/actionables/table/OrderTable";
-import AdminOrderTableRow from "@/app/ui/actionables/table/AdminOrderTableRow";
-import { ordersData } from "@/app/lib/placeholder-data";
+import AdminOrderTable from "@/app/ui/section/admin/orders/AdminOrderTable";
 
-export default function Page() {
-  const orderRows = ordersData.map((order) => {
-    return <AdminOrderTableRow key={order._id} order={order} />;
-  });
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: {
+    page?: string;
+  };
+}) {
+  const currentPage = Number(searchParams?.page) || 1;
 
   return (
     <section className="admin-orders-page">
@@ -14,7 +16,7 @@ export default function Page() {
           <h1 className="title title-large">Orders</h1>
           <p className="desc body-base">View and manage your orders</p>
           <div className="admin-orders-page__content">
-            <OrderTable>{orderRows}</OrderTable>
+            <AdminOrderTable currentPage={currentPage} />
           </div>
         </div>
       </section>

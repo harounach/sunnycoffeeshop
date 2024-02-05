@@ -23,6 +23,21 @@
   &__btn {
   }
 
+  // content-card__search
+  &__search {
+    & .text-input__input {
+      border-color: vars.$neutral-200;
+
+      &:hover {
+        border-color: vars.$primary-200;
+      }
+
+      &:focus {
+        border-color: vars.$primary-500;
+      }
+    }
+  }
+
   // content-card__content
   &__content {
     display: flex;

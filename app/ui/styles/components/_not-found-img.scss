@@ -1,0 +1,9 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// not-foud-img
+.not-found-img {
+  display: block;
+  margin: -(vars.$space-12) auto 0 auto;
+  max-width: 100%;
+}

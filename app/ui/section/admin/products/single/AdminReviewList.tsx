@@ -1,12 +1,15 @@
-import { reviews } from "@/app/lib/placeholder-data";
+// import { reviews } from "@/app/lib/placeholder-data";
 import DeleteReviewsButton from "./DeleteReviewsButton";
 import AdminReview from "./AdminReview";
+import { fetchProductReviews } from "@/app/lib/database/review/review.query";
 
 export default async function AdminReviewList({
   productId,
 }: {
   productId: string;
 }) {
+  const reviews = await fetchProductReviews(productId);
+
   return (
     <div className="reviews">
       <h2 className="reviews__header title-medium">Reviews</h2>

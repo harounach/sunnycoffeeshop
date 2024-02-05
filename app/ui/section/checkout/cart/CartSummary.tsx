@@ -3,7 +3,7 @@
 import classNames from "classnames";
 import { useCartStore } from "@/app/lib/store/cart";
 import { getSummary } from "@/app/lib/utils/summary";
-import { cartItemsData as items } from "@/app/lib/placeholder-data";
+// import { cartItemsData as items } from "@/app/lib/placeholder-data";
 import LinkButton from "@/app/ui/actionables/buttons/LinkButton";
 
 interface CartSummaryProps {
@@ -13,8 +13,7 @@ interface CartSummaryProps {
 export default function CartSummary({ customClasses }: CartSummaryProps) {
   const classes = classNames("summary", customClasses);
 
-  // TODO: remember to use real data
-  // const items = useCartStore((state) => state.items);
+  const items = useCartStore((state) => state.items);
   const summary = getSummary(items);
 
   return (

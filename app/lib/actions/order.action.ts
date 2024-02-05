@@ -8,6 +8,7 @@ import {
 } from "@/app/lib/database/order/order.mutation";
 import { OrderItem, Payment, Shipping } from "@/app/lib/definitions";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export type State = {
   message?: string | null;
@@ -29,6 +30,8 @@ export async function createOrderAction(
       message: "Database Error: Failed to Create Order.",
     };
   }
+
+  redirect("/account/orders");
 }
 
 export async function deleteOrderAction(

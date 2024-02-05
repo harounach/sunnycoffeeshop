@@ -5,14 +5,17 @@ import ReviewList from "@/app/ui/section/products/ReviewList";
 import WriteReview from "@/app/ui/section/products/WriteReview";
 import { fetchSingleProduct } from "@/app/lib/database/product/product.query";
 import { auth } from "@/auth";
-// import { products } from "@/app/lib/placeholder-data";
+import { notFound } from "next/navigation";
 
 export default async function Page({ params }: { params: { id: string } }) {
-  // const coffeeProduct = products.find((product) => product._id === params.id);
-
   const coffeeProduct = await fetchSingleProduct(params.id);
   const session = await auth();
-  const userId = session?.user ? session?.user._id : "";
+  const name = session?.user?.name ? session?.user?.name : "";
+  const email = session?.user?.email ? session?.user?.email : "";
+
+  if (!coffeeProduct) {
+    notFound();
+  }
 
   return (
     <div>
@@ -29,10 +32,11 @@ export default async function Page({ params }: { params: { id: string } }) {
           <div className="container">
             <div className="product-page__review-grid">
               <WriteReview
-                userId={userId}
-                productId={coffeeProduct!._id.toString()}
+                name={name}
+                email={email}
+                productId={coffeeProduct._id.toString()}
               />
-              <ReviewList productId={coffeeProduct!._id.toString()} />
+              <ReviewList productId={coffeeProduct._id.toString()} />
             </div>
           </div>
         </section>

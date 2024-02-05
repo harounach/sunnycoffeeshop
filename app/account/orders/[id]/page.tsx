@@ -2,28 +2,33 @@ import AccountOrderSummary from "@/app/ui/section/account/orders/AccountOrderSum
 import AccountOrderShippingCard from "@/app/ui/section/account/orders/AccountOrderShippingCard";
 import AccountOrderPaymentCard from "@/app/ui/section/account/orders/AccountOrderPaymentCard";
 import AccountOrderItemsList from "@/app/ui/section/account/orders/AccountOrderItemsList";
-import { ordersData } from "@/app/lib/placeholder-data";
+import { fetchSingleOrder } from "@/app/lib/database/order/order.query";
+import { notFound } from "next/navigation";
 
-export default function Page({ params }: { params: { id: string } }) {
-  const order = ordersData.find((order) => order._id === params.id);
+export default async function Page({ params }: { params: { id: string } }) {
+  const order = await fetchSingleOrder(params.id);
 
-  // TODO: remember to use real data
+  if (!order) {
+    notFound();
+  }
 
   return (
     <section className="account-order-page">
       <section className="section section--page">
         <div className="container">
           <h1 className="title title-large">Order</h1>
-          <p className="desc body-base">Review order ({order!._id})</p>
+          <p className="desc body-base">
+            Review order ({order._id.toString()})
+          </p>
 
           <div className="account-order-page__content">
             <AccountOrderSummary
-              order={order!}
+              order={order}
               customClasses="account-order-page__summary"
             />
-            <AccountOrderShippingCard order={order!} />
-            <AccountOrderPaymentCard order={order!} />
-            <AccountOrderItemsList orderItems={order!.items} />
+            <AccountOrderShippingCard order={order} />
+            <AccountOrderPaymentCard order={order} />
+            <AccountOrderItemsList orderItems={order.items} />
           </div>
         </div>
       </section>

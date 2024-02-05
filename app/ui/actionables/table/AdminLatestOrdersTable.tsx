@@ -1,15 +1,21 @@
 import classNames from "classnames";
+import AdminOrderTableRow from "@/app/ui/section/admin/orders/AdminOrderTableRow";
+import { fetchLatestOrders } from "@/app/lib/database/order/order.query";
 
 interface AdminLatestOrdersTableProps {
   customClasses?: string;
-  children: React.ReactNode;
 }
 
-export default function AdminLatestOrdersTable({
+export default async function AdminLatestOrdersTable({
   customClasses,
-  children,
 }: AdminLatestOrdersTableProps) {
   const classes = classNames("table-wrapper", customClasses);
+
+  const orders = await fetchLatestOrders();
+
+  const orderRows = orders.map((order) => {
+    return <AdminOrderTableRow key={order._id.toString()} order={order} />;
+  });
 
   return (
     <div className={classes}>
@@ -24,7 +30,7 @@ export default function AdminLatestOrdersTable({
             <th className="table__header table__header--right">Actions</th>
           </tr>
         </thead>
-        <tbody className="table__body body-base">{children}</tbody>
+        <tbody className="table__body body-base">{orderRows}</tbody>
       </table>
     </div>
   );

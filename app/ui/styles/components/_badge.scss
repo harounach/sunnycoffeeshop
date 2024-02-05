@@ -1,0 +1,20 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// badge
+.badge {
+  padding: vars.$space-1 vars.$space-2;
+  border-radius: vars.$radius-pill;
+  font-size: 14px;
+  // badge--green
+  &--green {
+    color: vars.$success-700;
+    background-color: vars.$success-50;
+  }
+
+  // badge--red
+  &--red {
+    color: vars.$danger-600;
+    background-color: vars.$danger-50;
+  }
+}

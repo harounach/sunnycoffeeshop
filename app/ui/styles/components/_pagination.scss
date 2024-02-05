@@ -56,17 +56,6 @@
   margin-right: vars.$space-2;
 }
 
-// table-pager__select
-.table-pager__select {
-  margin-right: vars.$space-3;
-  display: none;
-
-  @include mixins.breakpoint(md) {
-    display: flex;
-    align-items: center;
-  }
-}
-
 // table-pager__nav
 .table-pager__nav {
   margin-left: vars.$space-3;

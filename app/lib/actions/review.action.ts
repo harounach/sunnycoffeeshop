@@ -30,8 +30,9 @@ export type State = {
 };
 
 export async function createReviewAction(
+  name: string,
+  email: string,
   productId: string,
-  userId: string,
   prevState: State,
   formData: FormData,
 ) {
@@ -53,7 +54,7 @@ export async function createReviewAction(
 
   try {
     // Create review in database
-    await createReview(userId, productId, rating, comment);
+    await createReview(name, email, productId, Number(rating), comment);
   } catch (err) {
     return {
       message: "Database Error: Failed to Create Review.",
@@ -63,18 +64,18 @@ export async function createReviewAction(
   revalidatePath(`/products/${productId}`);
 
   return {
-    message: "Review Created",
+    message: "",
   };
 }
 
 export async function deleteReviewAction(
-  id: string,
+  reviewId: string,
   prevState: State,
   formData: FormData,
 ) {
   try {
     // Delete review from database
-    await deleteReview(id);
+    await deleteReview(reviewId);
   } catch (err) {
     return {
       message: "Database Error: Failed to Delete Review.",

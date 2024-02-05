@@ -18,7 +18,7 @@ export default function CoffeeCard({
     <Link
       className={classes}
       title={product.title}
-      href={`/products/${product._id}`}
+      href={`/products/${product._id.toString()}`}
     >
       <Image
         src={product.image}

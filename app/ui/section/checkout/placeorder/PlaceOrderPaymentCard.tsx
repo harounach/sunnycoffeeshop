@@ -1,7 +1,9 @@
+"use client";
+
 import classNames from "classnames";
 import { BsPencilFill } from "react-icons/bs";
 import IconLinkButton from "@/app/ui/actionables/buttons/IconLinkButton";
-import { paymentData as payment } from "@/app/lib/placeholder-data";
+// import { paymentData as payment } from "@/app/lib/placeholder-data";
 import { useCartStore } from "@/app/lib/store/cart";
 
 interface PlaceOrderPaymentCardProps {
@@ -13,8 +15,7 @@ export default function PlaceOrderPaymentCard({
 }: PlaceOrderPaymentCardProps) {
   const classes = classNames("content-card", customClasses);
 
-  // TODO: remember to use real data
-  // const payment = useCartStore(state => state.payment);
+  const payment = useCartStore((state) => state.payment);
 
   return (
     <div className={classes}>

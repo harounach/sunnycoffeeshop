@@ -5,10 +5,17 @@ import { Review } from "@/app/lib/definitions";
 export async function fetchProductReviews(productId: string) {
   try {
     await dbConnect();
-    const reviews = await ReviewModel.find({ product: productId })
-      .populate("user", "name")
+    const rawReviews = (await ReviewModel.find({ product: productId })
       .lean()
-      .exec();
+      .exec()) as Review[];
+
+    const reviews = rawReviews.map((review) => {
+      return {
+        ...review,
+        _id: review._id.toString(),
+        createdAt: review.createdAt.toString(),
+      };
+    });
 
     return reviews as Review[];
   } catch (err) {
@@ -17,13 +24,13 @@ export async function fetchProductReviews(productId: string) {
   }
 }
 
-export async function fetchAllReviews() {
-  try {
-    await dbConnect();
-    const reviews = await ReviewModel.find().populate("user", "name").lean();
-    return reviews as Review[];
-  } catch (err) {
-    console.error("Database Error:", err);
-    throw new Error("Failed to fetch reviews.");
-  }
-}
+// export async function fetchAllReviews() {
+//   try {
+//     await dbConnect();
+//     const reviews = await ReviewModel.find().lean().exec();
+//     return reviews as Review[];
+//   } catch (err) {
+//     console.error("Database Error:", err);
+//     throw new Error("Failed to fetch reviews.");
+//   }
+// }

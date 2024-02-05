@@ -1,3 +1,4 @@
+import Badge from "@/app/ui/misc/Badge";
 import { Order } from "@/app/lib/definitions";
 
 interface AdminOrderShippingCardProps {
@@ -8,6 +9,12 @@ export default function AdminOrderShippingCard({
   order,
 }: AdminOrderShippingCardProps) {
   const shipping = order.shipping;
+
+  const deliveryBadge = order.isDelivered ? (
+    <Badge label="Delivered" color="green" />
+  ) : (
+    <Badge label="Not Delivered" color="red" />
+  );
 
   return (
     <div className="content-card">
@@ -36,6 +43,12 @@ export default function AdminOrderShippingCard({
           <span className="content-card__value body-base">
             {/* 4200 Martin Luther King Boulevard Houston, TX, United States */}
             {shipping.address}
+          </span>
+        </div>
+        <div className="content-card__row">
+          <span className="content-card__key title-base">Status:</span>
+          <span className="content-card__value body-base">
+            {deliveryBadge}
           </span>
         </div>
       </div>

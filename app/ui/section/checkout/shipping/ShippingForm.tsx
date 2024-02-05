@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { redirect } from "next/navigation";
+import { useRouter } from 'next/navigation'
 import classNames from "classnames";
 import { z } from "zod";
 import Button from "@/app/ui/actionables/buttons/Button";
@@ -46,6 +46,7 @@ type ErrorState = {
 export default function ShippingForm({ customClasses }: ShippingFormProps) {
   const classes = classNames("form", customClasses);
   const [error, setError] = useState<ErrorState>();
+  const router = useRouter();
 
   const { saveShipping, shipping } = useCartStore();
 
@@ -68,7 +69,7 @@ export default function ShippingForm({ customClasses }: ShippingFormProps) {
     }
 
     saveShipping(validatedFields.data);
-    redirect("/checkout/payment");
+    router.push("/checkout/payment");
   };
 
   return (

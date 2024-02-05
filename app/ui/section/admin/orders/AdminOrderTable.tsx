@@ -1,16 +1,24 @@
 import classNames from "classnames";
 import TablePagination from "@/app/ui/actionables/table/TablePagination";
+import AdminOrderTableRow from "@/app/ui/section/admin/orders/AdminOrderTableRow";
+import { fetchPagedOrders } from "@/app/lib/database/order/order.query";
 
-interface OrderTableProps {
+interface AdminOrderTableProps {
+  currentPage: number;
   customClasses?: string;
-  children: React.ReactNode;
 }
 
-export default function OrderTable({
+export default async function AdminOrderTable({
+  currentPage,
   customClasses,
-  children,
-}: OrderTableProps) {
+}: AdminOrderTableProps) {
   const classes = classNames("table-wrapper", customClasses);
+
+  const { orders, totalPages } = await fetchPagedOrders(currentPage);
+
+  const orderRows = orders.map((order) => {
+    return <AdminOrderTableRow key={order._id} order={order} />;
+  });
 
   return (
     <div className={classes}>
@@ -25,9 +33,9 @@ export default function OrderTable({
             <th className="table__header table__header--right">Actions</th>
           </tr>
         </thead>
-        <tbody className="table__body body-base">{children}</tbody>
+        <tbody className="table__body body-base">{orderRows}</tbody>
       </table>
-      <TablePagination customClasses="table__pager" />
+      <TablePagination totalPages={totalPages} customClasses="table__pager" />
     </div>
   );
 }

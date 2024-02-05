@@ -21,7 +21,8 @@ export type Product = {
 
 export type Review = {
   _id: string;
-  user: User;
+  name: string;
+  email: string;
   rating: number;
   comment: string;
   product: Product;

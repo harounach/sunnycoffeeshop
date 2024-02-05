@@ -36,6 +36,11 @@ const productSchema = new Schema(
   },
 );
 
+productSchema.pre("deleteOne", { document: true }, async function (next) {
+  await ReviewModel.deleteMany({ product: this._id });
+  next();
+});
+
 /**
  * Shipping schema
  */
@@ -101,7 +106,8 @@ const orderSchema = new Schema(
 
 const reviewSchema = new Schema(
   {
-    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    name: { type: String, required: true },
+    email: { type: String, required: true },
     rating: { type: Number, default: 1 },
     comment: { type: String, required: true },
     product: {
@@ -116,7 +122,7 @@ const reviewSchema = new Schema(
   },
 );
 
-export const UserModel = models.User || model("User", userSchema);
-export const ProductModel = models.Product || model("Product", productSchema);
-export const OrderModel = models.Order || model("Order", orderSchema);
-export const ReviewModel = models.Review || model("Review", reviewSchema);
+export const UserModel = models?.User || model("User", userSchema);
+export const ProductModel = models?.Product || model("Product", productSchema);
+export const OrderModel = models?.Order || model("Order", orderSchema);
+export const ReviewModel = models?.Review || model("Review", reviewSchema);

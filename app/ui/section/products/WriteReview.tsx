@@ -1,16 +1,21 @@
-import Link from "next/link";
 import ReviewForm from "./ReviewForm";
+import LoginAlert from "./LoginAlert";
 
 interface WriteReviewProps {
+  name: string;
+  email: string;
   productId: string;
-  userId: string;
 }
 
-export default function WriteReview({ productId, userId }: WriteReviewProps) {
-  const content = userId ? (
-    <ReviewForm productId={productId} userId={userId} />
+export default function WriteReview({
+  name,
+  email,
+  productId,
+}: WriteReviewProps) {
+  const content = email ? (
+    <ReviewForm name={name} email={email} productId={productId} />
   ) : (
-    <LoginAlert />
+    <LoginAlert productId={productId} />
   );
 
   return (
@@ -18,17 +23,5 @@ export default function WriteReview({ productId, userId }: WriteReviewProps) {
       <h2 className="write-review__header title-medium">Write a Review</h2>
       <div className="write-review__content">{content}</div>
     </div>
-  );
-}
-
-function LoginAlert() {
-  return (
-    <h3 className="write-review__notice body-base">
-      Please{" "}
-      <Link className="write-review__login-btn" href="/login">
-        Login
-      </Link>{" "}
-      to write a review
-    </h3>
   );
 }

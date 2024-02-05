@@ -1,5 +1,6 @@
 import DeleteUserButton from "./DeleteUserButton";
 import { User } from "@/app/lib/definitions";
+import { formatFriendyDate } from "@/app/lib/utils/dateUtils";
 
 interface UserCardProps {
   user: User;
@@ -15,9 +16,13 @@ export default function UserCard({ user }: UserCardProps) {
 
       <div className="user-card__footer">
         <span className="user-card__label body-base">Join at: </span>
-        <span className="user-card__date body-base">{user.createdAt}</span>
+        <span className="user-card__date body-base">
+          {formatFriendyDate(user.createdAt.toString())}
+        </span>
 
-        {user.role !== "admin" && <DeleteUserButton id={user._id} />}
+        {user.role !== "admin" && (
+          <DeleteUserButton userId={user._id.toString()} />
+        )}
       </div>
     </div>
   );

@@ -7,18 +7,9 @@ import DashboardInfoCard from "@/app/ui/section/admin/dashboard/DashboardInfoCar
 import BarChart from "@/app/ui/charts/BarChart";
 import DonutChart from "@/app/ui/charts/DonutChart";
 import AdminLatestOrdersTable from "@/app/ui/actionables/table/AdminLatestOrdersTable";
-import AdminOrderTableRow from "@/app/ui/actionables/table/AdminOrderTableRow";
-import {
-  barChartData,
-  donutChartData,
-  ordersData,
-} from "@/app/lib/placeholder-data";
+import { barChartData, donutChartData } from "@/app/lib/placeholder-data";
 
-export default function Page() {
-  const orderRows = ordersData.map((order) => {
-    return <AdminOrderTableRow key={order._id} order={order} />;
-  });
-
+export default async function Page() {
   return (
     <section className="admin-dashboard-page">
       <section className="section section--page">
@@ -59,7 +50,7 @@ export default function Page() {
               </div>
             </div>
             <h2 className="subtile title-medium">Lastet orders</h2>
-            <AdminLatestOrdersTable>{orderRows}</AdminLatestOrdersTable>
+            <AdminLatestOrdersTable />
           </div>
         </div>
       </section>

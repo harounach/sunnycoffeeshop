@@ -4,8 +4,12 @@ import PlaceOrderShippingCard from "@/app/ui/section/checkout/placeorder/PlaceOr
 import PlaceOrderPaymentCard from "@/app/ui/section/checkout/placeorder/PlaceOrderPaymentCard";
 import PlaceOrderCartItemsList from "@/app/ui/section/checkout/placeorder/PlaceOrderCartItemsList";
 import PlaceOrderSummary from "@/app/ui/section/checkout/placeorder/PlaceOrderSummary";
+import { auth } from "@/auth";
 
-export default function Page() {
+export default async function Page() {
+  const session = await auth();
+  const userId = session?.user ? session?.user._id : "";
+
   return (
     <div>
       <Header />
@@ -28,7 +32,10 @@ export default function Page() {
                 <PlaceOrderCartItemsList />
               </div>
               {/* Summary */}
-              <PlaceOrderSummary customClasses="placeorder-page__summary" />
+              <PlaceOrderSummary
+                userId={userId}
+                customClasses="placeorder-page__summary"
+              />
             </div>
           </div>
         </section>

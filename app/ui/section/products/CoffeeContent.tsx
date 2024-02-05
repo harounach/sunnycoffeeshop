@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Rating from "@/app/ui/misc/Rating";
 import CoffeeActions from "./CoffeeActions";
-
 import type { Product } from "@/app/lib/definitions";
 
 export default function CoffeeContent({ product }: { product: Product }) {
@@ -23,12 +22,15 @@ export default function CoffeeContent({ product }: { product: Product }) {
             {`$${product.price}`}
           </h2>
         </div>
-        <div className="coffee-content__rating">
-          <Rating value={product.rating} />
-          <span className="coffee-content__count body-base">
-            ({product.numReviews})
-          </span>
-        </div>
+        {product.numReviews > 0 && (
+          <div className="coffee-content__rating">
+            <Rating value={product.rating} />
+            <span className="coffee-content__count body-base">
+              ({product.numReviews})
+            </span>
+          </div>
+        )}
+
         <p className="coffee-content__desc body-base">{product.desc}</p>
         <CoffeeActions product={product} />
       </div>

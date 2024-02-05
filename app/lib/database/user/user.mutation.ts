@@ -35,3 +35,18 @@ export async function deleteUser(userId: string) {
     console.error(err);
   }
 }
+
+export async function changePassword(userId: string, newPassword: string) {
+  try {
+    const userToChangePassword =
+      await UserModel.findById<HydratedDocument<User>>(userId);
+    if (userToChangePassword) {
+      // Hash password
+      const passwordHash = await generateHashedPassword(newPassword);
+      userToChangePassword.passwordHash = passwordHash;
+      await userToChangePassword.save();
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}

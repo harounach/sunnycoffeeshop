@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import classNames from "classnames";
 import { z } from "zod";
 import Button from "@/app/ui/actionables/buttons/Button";
@@ -26,6 +26,7 @@ export default function PaymentForm({ customClasses }: PaymentFormProps) {
   const classes = classNames("form", customClasses);
 
   const [error, setError] = useState<ErrorState>();
+  const router = useRouter();
 
   const { savePayment } = useCartStore();
 
@@ -47,7 +48,7 @@ export default function PaymentForm({ customClasses }: PaymentFormProps) {
 
     // Save payment now
     savePayment(validatedFields.data);
-    redirect("/checkout/placeorder");
+    router.push("/checkout/placeorder");
   };
 
   return (

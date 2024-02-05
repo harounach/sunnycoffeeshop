@@ -18,7 +18,7 @@ export default async function FeaturedCoffeeList({
   return (
     <div className={classes}>
       {featuredProducts.map((product) => {
-        return <CoffeeCard key={product._id} product={product} />;
+        return <CoffeeCard key={product._id.toString()} product={product} />;
       })}
     </div>
   );

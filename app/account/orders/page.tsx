@@ -1,11 +1,16 @@
-import OrderTable from "@/app/ui/actionables/table/OrderTable";
-import OrderTableRow from "@/app/ui/actionables/table/OrderTableRow";
-import { ordersData as orders } from "@/app/lib/placeholder-data";
+import AccountOrderTable from "@/app/ui/actionables/table/AccountOrderTable";
+import { auth } from "@/auth";
 
-export default function Page() {
-  const orderRows = orders.map((order) => {
-    return <OrderTableRow key={order._id} order={order} />;
-  });
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: {
+    page?: string;
+  };
+}) {
+  const currentPage = Number(searchParams?.page) || 1;
+  const session = await auth();
+  const userId = session?.user ? session?.user._id : "";
 
   return (
     <section className="account-orders-page">
@@ -14,7 +19,7 @@ export default function Page() {
           <h1 className="title title-large">Order History</h1>
           <p className="desc body-base">View your order history</p>
           <div className="account-orders-page__table">
-            <OrderTable>{orderRows}</OrderTable>
+            <AccountOrderTable currentPage={currentPage} userId={userId} />
           </div>
         </div>
       </section>

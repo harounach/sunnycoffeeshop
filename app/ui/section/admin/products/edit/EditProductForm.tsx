@@ -2,12 +2,12 @@
 
 import { useFormState } from "react-dom";
 import classNames from "classnames";
-import { Product } from "@/app/lib/definitions";
-import { updateProductAction } from "@/app/lib/actions/product.action";
 import Button from "@/app/ui/actionables/buttons/Button";
 import LinkButton from "@/app/ui/actionables/buttons/LinkButton";
 import TextInput from "@/app/ui/inputs/TextInput";
 import TextArea from "@/app/ui/inputs/TextArea";
+import { updateProductAction } from "@/app/lib/actions/product.action";
+import { Product } from "@/app/lib/definitions";
 
 interface EditProductFormProps {
   product: Product;

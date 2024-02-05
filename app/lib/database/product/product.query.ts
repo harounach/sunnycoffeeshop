@@ -38,12 +38,20 @@ export async function fetchFeaturedProducts() {
 export async function fetchSingleProduct(id: string) {
   try {
     await dbConnect();
-    const singleProduct = await ProductModel.findById(id).lean();
+    const singleProduct = (await ProductModel.findById(id).lean()) as Product;
 
-    return singleProduct as Product;
+    if (!singleProduct) {
+      return null;
+    }
+
+    const product = {
+      ...singleProduct,
+      _id: singleProduct._id.toString(),
+    };
+
+    return product as Product;
   } catch (err) {
     console.error("Database Error:", err);
-    throw new Error(`Failed to fetch product with id: ${id}`);
   }
 }
 

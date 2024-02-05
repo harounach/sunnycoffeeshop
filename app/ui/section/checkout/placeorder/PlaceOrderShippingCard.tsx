@@ -1,7 +1,9 @@
+"use client";
+
 import classNames from "classnames";
 import { BsPencilFill } from "react-icons/bs";
 import IconLinkButton from "@/app/ui/actionables/buttons/IconLinkButton";
-import { shippingData as shipping } from "@/app/lib/placeholder-data";
+// import { shippingData as shipping } from "@/app/lib/placeholder-data";
 import { useCartStore } from "@/app/lib/store/cart";
 
 interface PlaceOrderShippingCardProps {
@@ -13,8 +15,7 @@ export default function PlaceOrderShippingCard({
 }: PlaceOrderShippingCardProps) {
   const classes = classNames("content-card", customClasses);
 
-  // TODO: remember to use real data
-  // const shipping = useCartStore(state => state.shipping);
+  const shipping = useCartStore((state) => state.shipping);
 
   return (
     <div className={classes}>

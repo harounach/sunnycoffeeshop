@@ -15,7 +15,10 @@ export default function CartButton({ customClasses }: CartButtonProps) {
       <Link className="icon-btn cart-btn__btn" href="/cart">
         <BsFillCartFill />
       </Link>
-      <span className="cart-btn__value">{items.length}</span>
+
+      {items.length > 0 && (
+        <span className="cart-btn__value">{items.length}</span>
+      )}
     </div>
   );
 }

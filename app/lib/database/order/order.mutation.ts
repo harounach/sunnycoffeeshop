@@ -1,5 +1,5 @@
 import { OrderModel } from "@/app/lib/database/models";
-import { OrderItem, Payment, Shipping } from "../../definitions";
+import { OrderItem, Payment, Shipping } from "@/app/lib/definitions";
 
 export async function createOrder(
   user: string,

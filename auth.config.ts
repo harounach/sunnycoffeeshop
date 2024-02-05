@@ -34,9 +34,11 @@ export const authConfig = {
       // Check is user aleady logged in
       if ((isOnLoginPage && isLoggedIn) || (isOnRegisterPage && isLoggedIn)) {
         if (request.nextUrl.searchParams.has("callbackUrl")) {
-          return Response.redirect(
+          const redirectURL = new URL(
             request.nextUrl.searchParams.get("callbackUrl") as string,
+            request.nextUrl,
           );
+          return Response.redirect(redirectURL);
         }
         return Response.redirect(new URL("/", request.nextUrl));
       }

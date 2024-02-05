@@ -1,8 +1,10 @@
+"use client";
+
 import classNames from "classnames";
 import { BsPencilFill } from "react-icons/bs";
 import IconLinkButton from "@/app/ui/actionables/buttons/IconLinkButton";
 import PlaceOrderItem from "./PlaceOrderItem";
-import { cartItemsData as items } from "@/app/lib/placeholder-data";
+// import { cartItemsData as items } from "@/app/lib/placeholder-data";
 import { useCartStore } from "@/app/lib/store/cart";
 
 interface PlaceOrderCartItemsListProps {
@@ -14,8 +16,7 @@ export default function PlaceOrderCartItemsList({
 }: PlaceOrderCartItemsListProps) {
   const classes = classNames("content-card", customClasses);
 
-  // TODO: remember to use real data
-  // const items = useCartStore(state => state.items);
+  const items = useCartStore((state) => state.items);
 
   return (
     <div className={classes}>

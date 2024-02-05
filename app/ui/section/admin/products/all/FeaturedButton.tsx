@@ -1,9 +1,9 @@
 "use client";
 
-import IconButton from "@/app/ui/actionables/buttons/IconButton";
+import { useFormState } from "react-dom";
 import { BsStarFill, BsStar } from "react-icons/bs";
-// import { markProductAsFeaturedAction } from "@/app/lib/actions/product.action";
-// import { useFormState } from "react-dom";
+import IconButton from "@/app/ui/actionables/buttons/IconButton";
+import { markProductAsFeaturedAction } from "@/app/lib/actions/product.action";
 
 interface FeaturedButtonProps {
   productId: string;
@@ -16,17 +16,15 @@ export default function FeaturedButton({
 }: FeaturedButtonProps) {
   const icon = isFeatured ? <BsStarFill /> : <BsStar />;
 
-  // const initialState = { message: "" };
-  // const markProductAsFeatured = markProductAsFeaturedAction.bind(
-  //   null,
-  //   productId,
-  // );
-  // const [state, dispatch] = useFormState(markProductAsFeatured, initialState);
-
-  // action={dispatch}
+  const initialState = { message: "" };
+  const markProductAsFeatured = markProductAsFeaturedAction.bind(
+    null,
+    productId,
+  );
+  const [state, dispatch] = useFormState(markProductAsFeatured, initialState);
 
   return (
-    <form>
+    <form action={dispatch}>
       <IconButton
         hasBG
         customClasses="admin-coffee-card__featured"

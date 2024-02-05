@@ -48,6 +48,8 @@
 @use "./components/sidebar";
 @use "./components/table";
 @use "./components/user-card";
+@use "./components/badge";
+@use "./components/not-found-img";
 
 // <layout>
 @use "./layout/container";

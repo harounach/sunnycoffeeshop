@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import Badge from "@/app/ui/misc/Badge";
 import { Order } from "@/app/lib/definitions";
 
 interface AccountOrderShippingCardProps {
@@ -13,6 +14,12 @@ export default function AccountOrderShippingCard({
   const classes = classNames("content-card", customClasses);
 
   const shipping = order.shipping;
+
+  const deliveryBadge = order.isDelivered ? (
+    <Badge label="Delivered" color="green" />
+  ) : (
+    <Badge label="Not Delivered" color="red" />
+  );
 
   return (
     <div className={classes}>
@@ -31,7 +38,7 @@ export default function AccountOrderShippingCard({
           </span>
         </div>
         <div className="content-card__row">
-          <span className="content-card__key title-base">Phone</span>
+          <span className="content-card__key title-base">Phone:</span>
           <span className="content-card__value body-base">
             {shipping.phone}
           </span>
@@ -41,6 +48,12 @@ export default function AccountOrderShippingCard({
           <span className="content-card__value body-base">
             {/* 4200 Martin Luther King Boulevard Houston, TX, United States */}
             {shipping.address}
+          </span>
+        </div>
+        <div className="content-card__row">
+          <span className="content-card__key title-base">Status:</span>
+          <span className="content-card__value body-base">
+            {deliveryBadge}
           </span>
         </div>
       </div>

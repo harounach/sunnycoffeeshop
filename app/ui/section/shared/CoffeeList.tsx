@@ -20,7 +20,7 @@ export default async function CoffeeList({
   return (
     <div className={classes}>
       {products.map((product) => {
-        return <CoffeeCard key={product._id} product={product} />;
+        return <CoffeeCard key={product._id.toString()} product={product} />;
       })}
     </div>
   );
