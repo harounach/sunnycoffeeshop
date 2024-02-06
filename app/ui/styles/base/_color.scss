@@ -1,0 +1,9 @@
+@use "../abstracts/variables" as vars;
+// bg-primary-100
+.bg-primary-100 {
+  background-color: vars.$primary-100;
+}
+
+.bg-neutral-50 {
+  background-color: vars.$neutral-50;
+}

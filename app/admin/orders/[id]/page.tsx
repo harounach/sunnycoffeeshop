@@ -13,19 +13,23 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
 
   return (
-    <section className="admin-order-page">
-      <section className="section section--page">
+    <>
+      <section className="section section--page bg-primary-100">
         <div className="container">
           <h1 className="title title-large">Order</h1>
           <p className="desc body-base">Review order ({order._id})</p>
-          <div className="admin-order-page__content">
-            <AdminOrderSummary order={order} />
-            <AdminOrderShippingCard order={order} />
-            <AdminOrderPaymentCard order={order} />
-            <AdminOrderItemsList orderItems={order.items} />
+          <div className="admin-page__order-stack">
+            <div className="admin-page__order-summary">
+              <AdminOrderSummary order={order} />
+            </div>
+            <div className="admin-page__order-cards">
+              <AdminOrderShippingCard order={order} />
+              <AdminOrderPaymentCard order={order} />
+              <AdminOrderItemsList orderItems={order.items} />
+            </div>
           </div>
         </div>
       </section>
-    </section>
+    </>
   );
 }

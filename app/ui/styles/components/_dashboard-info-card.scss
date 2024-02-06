@@ -7,6 +7,7 @@
   gap: vars.$space-3;
   padding: vars.$space-3;
   background-color: vars.$white;
+  flex-shrink: 0;
   // max-width: 242px;
   // dashboard-info-card__icon
   &__icon {

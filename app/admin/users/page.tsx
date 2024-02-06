@@ -12,16 +12,16 @@ export default function Page({
   const currentPage = Number(searchParams?.page) || 1;
 
   return (
-    <section className="admin-users-page">
-      <section className="section section--page">
+    <>
+      <section className="section section--page bg-primary-100">
         <div className="container">
           <h1 className="title title-large">Users</h1>
           <p className="desc body-base">View and manage users</p>
-          <div className="admin-users-page__content">
+          <div className="admin-page__user-list">
             <UsersList query={query} currentPage={currentPage} />
           </div>
         </div>
       </section>
-    </section>
+    </>
   );
 }

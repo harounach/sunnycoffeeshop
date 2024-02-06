@@ -11,6 +11,7 @@
   padding: vars.$space-3;
   flex-grow: 1;
 
+
   @include mixins.breakpoint(md) {
     padding: vars.$space-3 vars.$space-9;
   }

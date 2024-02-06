@@ -3,13 +3,16 @@
 
 // sidebar
 .sidebar {
-  background-color: vars.$neutral-50;
-  min-width: 352px;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   gap: vars.$space-6;
   padding: vars.$space-6 vars.$space-3;
+  background-color: vars.$primary-950;
+
+  @include mixins.breakpoint(md) {
+    display: flex;
+  }
 
   // sidebar__header
   &__header {
@@ -17,14 +20,7 @@
     flex-direction: column;
     align-items: center;
     gap: vars.$space-3;
-  }
-
-  // sidebar__title
-  &__title {
-  }
-
-  // sidebar__desc
-  &__desc {
+    color: vars.$primary-500;
   }
 
   // sidebar__list
@@ -33,7 +29,6 @@
     display: flex;
     flex-direction: column;
     gap: vars.$space-4;
-    padding: vars.$space-3;
   }
 
   // sidebar__link
@@ -42,7 +37,7 @@
     gap: vars.$space-3;
     align-items: center;
     text-decoration: none;
-    color: vars.$neutral-800;
+    color: vars.$primary-50;
 
     // sidebar__link--active
     &--active,
@@ -70,7 +65,7 @@
   // sidebar__icon
   &__icon {
     display: flex;
-    color: vars.$neutral-400;
+    color: vars.$primary-50;
     font-size: vars.$font-size-4;
   }
 }

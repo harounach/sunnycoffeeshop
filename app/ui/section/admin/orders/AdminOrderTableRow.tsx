@@ -30,8 +30,6 @@ export default function AdminOrderTableRow({
     <Badge label="Not Delivered" color="red" />
   );
 
-  console.log(order._id)
-
   return (
     <tr className={classes}>
       <td className="table__data">{truncateText(order._id)}</td>

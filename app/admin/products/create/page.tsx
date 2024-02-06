@@ -2,16 +2,14 @@ import CreateProductForm from "@/app/ui/section/admin/products/create/CreateProd
 
 export default function Page() {
   return (
-    <section className="admin-create-product-page">
-      <section className="section section--page">
+    <>
+      <section className="section section--page bg-primary-100">
         <div className="container">
           <h1 className="title title-large">Add Product</h1>
           <p className="desc body-base">Create new product</p>
-          <div className="admin-create-product-page__content">
-            <CreateProductForm />
-          </div>
+          <CreateProductForm customClasses="admin-page__form" />
         </div>
       </section>
-    </section>
+    </>
   );
 }

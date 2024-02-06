@@ -109,6 +109,14 @@
   }
 }
 
+// Responsive media queries.
+// possible values: variable
+@mixin breakpoint-x($breakpoint) {
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}
+
 // Clear fix for float elements
 @mixin clearfix() {
   &::after {

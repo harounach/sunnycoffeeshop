@@ -8,6 +8,8 @@
   gap: vars.$space-3;
   padding: vars.$space-3;
   background-color: vars.$white;
+  flex-grow: 1;
+
   // content-card__header
   &__header {
     display: flex;

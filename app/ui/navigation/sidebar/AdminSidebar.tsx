@@ -1,23 +1,51 @@
 import classNames from "classnames";
+import SidebarItem from "./SidebarItem";
+import {
+  BsBasket2Fill,
+  BsBoxArrowRight,
+  BsCupHotFill,
+  BsGrid1X2Fill,
+  BsPeopleFill,
+} from "react-icons/bs";
+import SidebarLogoutItem from "./SidebarLogoutItem";
 
 interface AdminSidebarProps {
   customeClasses?: string;
-  children: React.ReactNode;
 }
 
-export default function AdminSidebar({
-  customeClasses,
-  children,
-}: AdminSidebarProps) {
+export default function AdminSidebar({ customeClasses }: AdminSidebarProps) {
   const classes = classNames("sidebar", customeClasses);
 
   return (
     <aside className={classes}>
-      <div className="sidebar__header">
-        <h2 className="sidebar__title title-medium">John Doe</h2>
-        <p className="sidebar__desc body-base">Manage your coffee shop</p>
-      </div>
-      <ul className="sidebar__list">{children}</ul>
+      <h2 className="sidebar__header title-medium">Admin</h2>
+
+      <ul className="sidebar__list">
+        {/* Dashboard */}
+        <SidebarItem label="Dashboard" url="/admin">
+          <BsGrid1X2Fill />
+        </SidebarItem>
+
+        {/* Products */}
+        <SidebarItem label="Products" url="/admin/products">
+          <BsCupHotFill />
+        </SidebarItem>
+
+        {/* Orders */}
+        <SidebarItem label="Orders" url="/admin/orders">
+          <BsBasket2Fill />
+        </SidebarItem>
+
+        {/* Users */}
+        <SidebarItem label="Users" url="/admin/users">
+          <BsPeopleFill />
+        </SidebarItem>
+
+        {/* Logout */}
+        <SidebarLogoutItem label="Logout">
+          <BsBoxArrowRight />
+        </SidebarLogoutItem>
+      </ul>
     </aside>
   );
 }
