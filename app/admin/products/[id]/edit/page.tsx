@@ -2,7 +2,11 @@ import EditProductForm from "@/app/ui/section/admin/products/edit/EditProductFor
 import { fetchSingleProduct } from "@/app/lib/database/product/product.query";
 import { notFound } from "next/navigation";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function EditProductPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const product = await fetchSingleProduct(params.id);
 
   if (!product) {

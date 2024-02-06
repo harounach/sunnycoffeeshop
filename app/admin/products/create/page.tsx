@@ -1,6 +1,6 @@
 import CreateProductForm from "@/app/ui/section/admin/products/create/CreateProductForm";
 
-export default function Page() {
+export default function CreateProductPage() {
   return (
     <>
       <section className="section section--page bg-primary-100">

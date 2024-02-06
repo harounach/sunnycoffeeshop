@@ -3,7 +3,11 @@ import AdminReviewList from "@/app/ui/section/admin/products/single/AdminReviewL
 import { fetchSingleProduct } from "@/app/lib/database/product/product.query";
 import { notFound } from "next/navigation";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function ProductDetailPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const coffeeProduct = await fetchSingleProduct(params.id);
 
   if (!coffeeProduct) {

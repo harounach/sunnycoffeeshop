@@ -1,6 +1,6 @@
 import UsersList from "@/app/ui/section/admin/users/UsersList";
 
-export default function Page({
+export default function UsersPage({
   searchParams,
 }: {
   searchParams?: {

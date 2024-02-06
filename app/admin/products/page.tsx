@@ -1,6 +1,6 @@
 import AdminCoffeeList from "@/app/ui/section/admin/products/all/AdminCoffeeList";
 
-export default async function Page({
+export default async function ProductsPage({
   searchParams,
 }: {
   searchParams?: {

@@ -1,20 +1,37 @@
 import classNames from "classnames";
+import {
+  BsBasket2Fill,
+  BsBoxArrowRight,
+  BsHeartFill,
+  BsPersonCircle,
+} from "react-icons/bs";
+import SidebarItem from "./SidebarItem";
+import SidebarLogoutItem from "./SidebarLogoutItem";
 
 interface SidebarProps {
   customeClasses?: string;
-  children: React.ReactNode;
 }
 
-export default function Sidebar({ customeClasses, children }: SidebarProps) {
+export default function Sidebar({ customeClasses }: SidebarProps) {
   const classes = classNames("sidebar", customeClasses);
 
   return (
     <aside className={classes}>
-      <div className="sidebar__header">
-        <h2 className="sidebar__title title-medium">John Doe</h2>
-        <p className="sidebar__desc body-base">Joined on 12 Dec 2022</p>
-      </div>
-      <ul className="sidebar__list">{children}</ul>
+      <h2 className="sidebar__header title-medium">Account</h2>
+      <ul className="sidebar__list">
+        <SidebarItem label="Profile" url="/account">
+          <BsPersonCircle />
+        </SidebarItem>
+        <SidebarItem label="Order history" url="/account/orders">
+          <BsBasket2Fill />
+        </SidebarItem>
+        <SidebarItem label="Favorites" url="/account/favorite">
+          <BsHeartFill />
+        </SidebarItem>
+        <SidebarLogoutItem label="Logout">
+          <BsBoxArrowRight />
+        </SidebarLogoutItem>
+      </ul>
     </aside>
   );
 }

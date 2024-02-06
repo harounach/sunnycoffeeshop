@@ -1,4 +1,4 @@
-export default function Page() {
+export default function SingleUserPage() {
   return (
     <>
       <section className="section section--page bg-primary-100">
