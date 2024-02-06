@@ -5,7 +5,11 @@ import AccountOrderItemsList from "@/app/ui/section/account/orders/AccountOrderI
 import { fetchSingleOrder } from "@/app/lib/database/order/order.query";
 import { notFound } from "next/navigation";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function AccountOrderDetailPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const order = await fetchSingleOrder(params.id);
 
   if (!order) {
@@ -13,25 +17,27 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
 
   return (
-    <section className="account-order-page">
-      <section className="section section--page">
+    <>
+      <section className="section section--page bg-primary-100">
         <div className="container">
           <h1 className="title title-large">Order</h1>
           <p className="desc body-base">
             Review order ({order._id.toString()})
           </p>
 
-          <div className="account-order-page__content">
+          <div className="account-page__order-stack">
             <AccountOrderSummary
               order={order}
-              customClasses="account-order-page__summary"
+              customClasses="account-page__order-summary"
             />
-            <AccountOrderShippingCard order={order} />
-            <AccountOrderPaymentCard order={order} />
-            <AccountOrderItemsList orderItems={order.items} />
+            <div className="account-page__order-cards">
+              <AccountOrderShippingCard order={order} />
+              <AccountOrderPaymentCard order={order} />
+              <AccountOrderItemsList orderItems={order.items} />
+            </div>
           </div>
         </div>
       </section>
-    </section>
+    </>
   );
 }

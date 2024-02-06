@@ -1,6 +1,6 @@
 import AdminOrderTable from "@/app/ui/section/admin/orders/AdminOrderTable";
 
-export default async function Page({
+export default async function OrdersPage({
   searchParams,
 }: {
   searchParams?: {

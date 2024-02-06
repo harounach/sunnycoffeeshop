@@ -5,7 +5,11 @@ import AdminOrderItemsList from "@/app/ui/section/admin/orders/AdminOrderItemsLi
 import { fetchSingleOrder } from "@/app/lib/database/order/order.query";
 import { notFound } from "next/navigation";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function OrderDetailPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const order = await fetchSingleOrder(params.id);
 
   if (!order) {

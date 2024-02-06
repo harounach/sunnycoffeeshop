@@ -9,7 +9,7 @@ import DonutChart from "@/app/ui/charts/DonutChart";
 import AdminLatestOrdersTable from "@/app/ui/actionables/table/AdminLatestOrdersTable";
 import { barChartData, donutChartData } from "@/app/lib/placeholder-data";
 
-export default async function Page() {
+export default async function DashboardPage() {
   return (
     <>
       <section className="section section--page bg-primary-100">
