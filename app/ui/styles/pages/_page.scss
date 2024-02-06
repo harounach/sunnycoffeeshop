@@ -1,0 +1,98 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+.page {
+}
+
+.page__form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.page__cards-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-5;
+
+  @include mixins.breakpoint(md) {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+  }
+}
+
+.page__summary.summary {
+  @include mixins.breakpoint(xl) {
+    max-width: 350px;
+  }
+}
+
+
+//********************* Home (/) ******************************
+
+//********************* Products (/products) ******************************
+
+// page__search-products
+.page__search-products {
+  max-width: 400px;
+  margin: 0 auto vars.$space-5;
+  & .text-input__input {
+    background-color: vars.$white;
+    border-color: vars.$neutral-200;
+
+    &:hover {
+      border-color: vars.$primary-200;
+    }
+
+    &:focus {
+      border-color: vars.$primary-500;
+    }
+  }
+}
+
+// page__coffee-list
+.page__coffee-list {
+  margin-bottom: vars.$space-5;
+}
+
+//********************* Product Detail (/products/[id]) ******************************
+
+// page__review-grid
+.page__review-grid {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-12;
+
+  @include mixins.breakpoint(md) {
+    flex-direction: row;
+  }
+}
+
+//********************* Cart (/cart) ******************************
+
+// page__cart-items
+.page__cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-4;
+  max-width: 500px;
+  flex-grow: 1;
+}
+
+//********************* Shipping (/checkout/shipping) ******************************
+
+//********************* Payment (/checkout/payment) ******************************
+
+//********************* Place Order (/checkout/placeorder) ******************************
+
+// page__placeorder-info
+.page__placeorder-info {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-3;
+  max-width: 500px;
+}
+
+//********************* Login (/login) ******************************
+
+//********************* Register (/register) ******************************

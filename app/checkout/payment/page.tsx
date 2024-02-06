@@ -1,25 +1,17 @@
-import Header from "@/app/ui/navigation/header/Header";
-import Footer from "@/app/ui/navigation/footer/Footer";
 import PaymentForm from "@/app/ui/section/checkout/payment/PaymentForm";
 
-export default function Page() {
+export default function PaymentPage() {
   return (
-    <div>
-      <Header />
-      <main className="payment-page" id="content">
-        <section className="payment-page__sect section section--page">
-          <div className="container">
-            <h1 className="title title-medium">Payment</h1>
-            <p className="desc body-base">
-              Choose your preferred payment method
-            </p>
-            <div className="payment-page__form">
-              <PaymentForm />
-            </div>
+    <main className="page" id="content">
+      <section className="section section--page bg-primary-100">
+        <div className="container">
+          <h1 className="title title-medium">Payment</h1>
+          <p className="desc body-base">Choose your preferred payment method</p>
+          <div className="page__form">
+            <PaymentForm />
           </div>
-        </section>
-      </main>
-      <Footer />
-    </div>
+        </div>
+      </section>
+    </main>
   );
 }

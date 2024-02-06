@@ -1,23 +1,17 @@
 import NotFoundImage from "@/app/ui/misc/NotFoundImage";
-import Footer from "@/app/ui/navigation/footer/Footer";
-import Header from "@/app/ui/navigation/header/Header";
 
 export default function NotFound() {
   return (
-    <div>
-      <Header />
-      <main className="product-page" id="content">
-        <section className="product-page__coffee section section--page">
-          <div className="container">
-            <h1 className="title title-large">Coffee Not Found</h1>
-            <p className="desc body-base">No such coffee in our menu</p>
-            <div>
-              <NotFoundImage />
-            </div>
+    <main className="page" id="content">
+      <section className="section section--page bg-primary-100">
+        <div className="container">
+          <h1 className="title title-large">Coffee Not Found</h1>
+          <p className="desc body-base">No such coffee in our menu</p>
+          <div>
+            <NotFoundImage />
           </div>
-        </section>
-      </main>
-      <Footer />
-    </div>
+        </div>
+      </section>
+    </main>
   );
 }

@@ -49,7 +49,7 @@ export async function fetchPagedOrders(currentPage: number) {
   try {
     await dbConnect();
     const rawOrders = (await OrderModel.find()
-      .sort({ createdAt: 1 })
+      .sort({ createdAt: -1 })
       .limit(LIMIT * 1)
       .skip((currentPage - 1) * LIMIT)
       .lean()
@@ -84,7 +84,7 @@ export async function fetchPagedUserOrders(
   try {
     await dbConnect();
     const rawOrders = (await OrderModel.find({ user: userId })
-      .sort({ createdAt: 1 })
+      .sort({ createdAt: -1 })
       .limit(LIMIT * 1)
       .skip((currentPage - 1) * LIMIT)
       .lean()
@@ -116,7 +116,7 @@ export async function fetchLatestOrders() {
   try {
     await dbConnect();
     const rawOrders = await OrderModel.find()
-      .sort({ createdAt: 1 })
+      .sort({ createdAt: -1 })
       .limit(8)
       .lean()
       .exec() as Array<Order>;
