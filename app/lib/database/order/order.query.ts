@@ -115,11 +115,18 @@ export async function fetchPagedUserOrders(
 export async function fetchLatestOrders() {
   try {
     await dbConnect();
-    const orders = await OrderModel.find()
+    const rawOrders = await OrderModel.find()
       .sort({ createdAt: 1 })
       .limit(8)
       .lean()
-      .exec();
+      .exec() as Array<Order>;
+
+    const orders = rawOrders.map((order) => {
+      return {
+        ...order,
+        _id: order._id.toString(),
+      };
+    });
 
     return orders as Order[];
   } catch (err) {

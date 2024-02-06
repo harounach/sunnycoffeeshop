@@ -10,16 +10,14 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
 
   return (
-    <section className="admin-edit-product-page">
-      <section className="section section--page">
+    <>
+      <section className="section section--page bg-primary-100">
         <div className="container">
           <h1 className="title title-large">Edit {`"${product.title}"`}</h1>
           <p className="desc body-base">Edit your coffee</p>
-          <div className="admin-edit-product-page__content">
-            <EditProductForm product={product} />
-          </div>
+          <EditProductForm product={product} customClasses="admin-page__form" />
         </div>
       </section>
-    </section>
+    </>
   );
 }

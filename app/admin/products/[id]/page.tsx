@@ -11,17 +11,15 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
 
   return (
-    <section className="admin-product-detail-page">
-      <section className="section section--page">
+    <>
+      <section className="section section--page bg-primary-100">
         <div className="container">
           <h1 className="title title-large">{coffeeProduct.title}</h1>
           <p className="desc body-base">View coffee details</p>
-          <div className="admin-product-detail-page__content">
-            <AdminCoffeeDetail product={coffeeProduct} />
-            <AdminReviewList productId={coffeeProduct._id.toString()} />
-          </div>
+          <AdminCoffeeDetail product={coffeeProduct} />
+          <AdminReviewList productId={coffeeProduct._id.toString()} />
         </div>
       </section>
-    </section>
+    </>
   );
 }

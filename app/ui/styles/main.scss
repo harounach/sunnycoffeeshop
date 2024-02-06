@@ -17,6 +17,7 @@
 @use "./base/base";
 @use "./base/reset";
 @use "./base/typography";
+@use "./base/color";
 @use "./base/accessibility";
 
 // <components>
@@ -55,6 +56,7 @@
 @use "./layout/container";
 @use "./layout/image";
 @use "./layout/section";
+@use "./layout/stack";
 
 // <pages>
 @use "./pages/home-page";
@@ -70,15 +72,7 @@
 @use "./pages/account-orders-page";
 @use "./pages/account-order-page";
 @use "./pages/account-favorite-page";
-@use "./pages/admin-dashboard-page";
-@use "./pages/admin-products-page";
-@use "./pages/admin-create-product-page";
-@use "./pages/admin-edit-product-page";
-@use "./pages/admin-orders-page";
-@use "./pages/admin-order-page";
-@use "./pages/admin-users-page";
-@use "./pages/admin-user-detail-page";
-@use "./pages/admin-product-detail-page";
+@use "./pages/admin-page";
 
 // <themes>
 // @use "./themes/theme-values";

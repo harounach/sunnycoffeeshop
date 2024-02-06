@@ -11,49 +11,47 @@ import { barChartData, donutChartData } from "@/app/lib/placeholder-data";
 
 export default async function Page() {
   return (
-    <section className="admin-dashboard-page">
-      <section className="section section--page">
+    <>
+      <section className="section section--page bg-primary-100">
         <div className="container">
           <h1 className="title title-large">Dashboard</h1>
           <p className="desc body-base">
             View a summary of orders and analytics
           </p>
-          <div className="admin-dashboard-page__content">
-            <div className="admin-dashboard-page__summary">
-              <DashboardInfoCard
-                label="Total Sales"
-                value="$99000"
-                color="blue"
-              >
-                <BsCurrencyExchange />
-              </DashboardInfoCard>
+          <div className="admin-page__dashboard-info">
+            <DashboardInfoCard label="Total Sales" value="$99000" color="blue">
+              <BsCurrencyExchange />
+            </DashboardInfoCard>
 
-              <DashboardInfoCard label="Total Orders" value="340" color="green">
-                <BsBasket2Fill />
-              </DashboardInfoCard>
+            <DashboardInfoCard label="Total Orders" value="340" color="green">
+              <BsBasket2Fill />
+            </DashboardInfoCard>
 
-              <DashboardInfoCard
-                label="Total Products"
-                value="42"
-                color="orange"
-              >
-                <BsCupHotFill />
-              </DashboardInfoCard>
-            </div>
-            <h2 className="subtile title-medium">Analytics</h2>
-            <div className="admin-dashboard-page__charts">
-              <div className="admin-dashboard-page__bar">
-                <BarChart salesData={barChartData} />
-              </div>
-              <div className="admin-dashboard-page__donut">
-                <DonutChart popularCoffeeData={donutChartData} />
-              </div>
-            </div>
-            <h2 className="subtile title-medium">Lastet orders</h2>
-            <AdminLatestOrdersTable />
+            <DashboardInfoCard label="Total Products" value="42" color="orange">
+              <BsCupHotFill />
+            </DashboardInfoCard>
           </div>
         </div>
       </section>
-    </section>
+      <section className="section bg-neutral-50">
+        <div className="container">
+          <h2 className="subtile title-medium">Analytics</h2>
+          <div className="admin-page__charts">
+            <div className="admin-page__bar">
+              <BarChart salesData={barChartData} />
+            </div>
+            <div className="admin-page__donut">
+              <DonutChart popularCoffeeData={donutChartData} />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="section bg-primary-100">
+        <div className="container">
+          <h2 className="subtile title-medium">Lastet orders</h2>
+          <AdminLatestOrdersTable />
+        </div>
+      </section>
+    </>
   );
 }
