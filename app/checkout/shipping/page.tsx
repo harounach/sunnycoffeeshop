@@ -1,25 +1,19 @@
-import Header from "@/app/ui/navigation/header/Header";
-import Footer from "@/app/ui/navigation/footer/Footer";
 import ShippingForm from "@/app/ui/section/checkout/shipping/ShippingForm";
 
-export default function Page() {
+export default function ShippingPage() {
   return (
-    <div>
-      <Header />
-      <main className="shipping-page" id="content">
-        <section className="shipping-page__sect section section--page">
-          <div className="container">
-            <h1 className="title title-medium">Shipping</h1>
-            <p className="desc body-base">
-              Specify your shipping info to receive your coffee
-            </p>
-            <div className="shipping-page__form">
-              <ShippingForm />
-            </div>
+    <main className="page" id="content">
+      <section className="section section--page bg-primary-100">
+        <div className="container">
+          <h1 className="title title-medium">Shipping</h1>
+          <p className="desc body-base">
+            Specify your shipping info to receive your coffee
+          </p>
+          <div className="page__form">
+            <ShippingForm />
           </div>
-        </section>
-      </main>
-      <Footer />
-    </div>
+        </div>
+      </section>
+    </main>
   );
 }

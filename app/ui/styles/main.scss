@@ -59,15 +59,7 @@
 @use "./layout/stack";
 
 // <pages>
-@use "./pages/home-page";
-@use "./pages/products-page";
-@use "./pages/product-page";
-@use "./pages/cart-page";
-@use "./pages/shipping-page";
-@use "./pages/login-page";
-@use "./pages/register-page";
-@use "./pages/payment-page";
-@use "./pages/placeorder-page";
+@use "./pages/page";
 @use "./pages/account-page";
 @use "./pages/admin-page";
 

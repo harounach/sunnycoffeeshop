@@ -1,25 +1,19 @@
-import Header from "@/app/ui/navigation/header/Header";
-import Footer from "@/app/ui/navigation/footer/Footer";
 import RegisterForm from "@/app/ui/section/auth/RegisterForm";
 
-export default function Page() {
+export default function RegisterPage() {
   return (
-    <div>
-      <Header />
-      <main className="register-page" id="content">
-        <section className="register-page__sect section section--page">
-          <div className="container">
-            <h1 className="title title-medium">Register</h1>
-            <p className="desc body-base">
-              Create your account to customize your shopping experience
-            </p>
-            <div className="register-page__form">
-              <RegisterForm />
-            </div>
+    <main className="page" id="content">
+      <section className="section section--page bg-primary-100">
+        <div className="container">
+          <h1 className="title title-medium">Register</h1>
+          <p className="desc body-base">
+            Create your account to customize your shopping experience
+          </p>
+          <div className="page__form">
+            <RegisterForm />
           </div>
-        </section>
-      </main>
-      <Footer />
-    </div>
+        </div>
+      </section>
+    </main>
   );
 }

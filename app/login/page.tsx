@@ -1,23 +1,17 @@
-import Header from "@/app/ui/navigation/header/Header";
-import Footer from "@/app/ui/navigation/footer/Footer";
 import LoginForm from "@/app/ui/section/auth/LoginForm";
 
-export default function Page() {
+export default function LoginPage() {
   return (
-    <div>
-      <Header />
-      <main className="login-page" id="content">
-        <section className="login-page__sect section section--page">
-          <div className="container">
-            <h1 className="title title-medium">Login</h1>
-            <p className="desc body-base">Login to your Account</p>
-            <div className="login-page__form">
-              <LoginForm />
-            </div>
+    <main className="page" id="content">
+      <section className="section section--page bg-primary-100">
+        <div className="container">
+          <h1 className="title title-medium">Login</h1>
+          <p className="desc body-base">Login to your Account</p>
+          <div className="page__form">
+            <LoginForm />
           </div>
-        </section>
-      </main>
-      <Footer />
-    </div>
+        </div>
+      </section>
+    </main>
   );
 }
