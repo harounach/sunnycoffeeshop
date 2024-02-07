@@ -30,7 +30,7 @@ export type State = {
   message?: string | null;
 };
 
-export async function register(prevState: State, formData: FormData) {
+export async function registerAction(prevState: State, formData: FormData) {
   // Validate form fields using Zod
   const validatedFields = RegisterSchema.safeParse({
     name: formData.get("name"),
