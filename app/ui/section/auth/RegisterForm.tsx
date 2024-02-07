@@ -5,7 +5,7 @@ import Link from "next/link";
 import classNames from "classnames";
 import Button from "@/app/ui/actionables/buttons/Button";
 import TextInput from "@/app/ui/inputs/TextInput";
-import { register } from "@/app/lib/actions/auth.action";
+import { registerAction } from "@/app/lib/actions/auth.action";
 
 interface RegisterFormProps {
   customClasses?: string;
@@ -15,7 +15,7 @@ export default function RegisterForm({ customClasses }: RegisterFormProps) {
   const classes = classNames("form", customClasses);
 
   const initialState = { message: "", errors: {} };
-  const [state, dispatch] = useFormState(register, initialState);
+  const [state, dispatch] = useFormState(registerAction, initialState);
 
   return (
     <form className={classes} action={dispatch}>
