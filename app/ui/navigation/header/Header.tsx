@@ -1,15 +1,18 @@
 import classNames from "classnames";
 import Logo from "@/app/ui/brand/Logo";
 import Navigation from "./Navigation";
-import MenuButton from "./MenuButton";
-import Searchbar from "@/app/ui/inputs/Searchbar";
+import { auth } from "@/auth";
 
 interface HeaderProps {
   customClasses?: string;
 }
 
-export default function Header({ customClasses }: HeaderProps) {
+export default async function Header({ customClasses }: HeaderProps) {
   const classes = classNames("header", customClasses);
+  const session = await auth();
+  const isLoggedIn = !!session?.user;
+  const isAdmin = session?.user?.role === "admin";
+
   return (
     <header className={classes}>
       <a href="#content" className="skip">
@@ -18,12 +21,7 @@ export default function Header({ customClasses }: HeaderProps) {
       <div className="container">
         <div className="header__content">
           <Logo customClasses="header__logo" />
-          <div className="header__nav">
-            <Navigation />
-          </div>
-          <div className="header__menu-btn">
-            <MenuButton />
-          </div>
+          <Navigation isLoggedIn={isLoggedIn} isAdmin={isAdmin} />
         </div>
       </div>
     </header>
